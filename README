@@ -1,0 +1,15 @@
+== Info ==
+Copy of GameQ for Git. Done to allow submoduling of GameQ into other projects as I am sure you want. I make no claim to this product I am just hosting it on GitHub.
+
+I will try to keep this repo updated as new games come out.  Feel free to leave messages with needed updates as well.
+
+See example.php for how to.
+
+For more information see http://gameq.sourceforge.net/ or http://sourceforge.net/projects/gameq/
+
+== Changelog ==
+2010-09-28
+- Added commits for BFBC2 and othe games not included in the current release version (1.12)
+- Added original files for release version 1.12
+
+For full release change log see CHANGLOG
