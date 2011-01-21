@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * $Id: gamespy.php,v 1.3 2007/10/13 08:55:39 tombuskens Exp $  
+ * $Id: gamespy.php,v 1.3 2007/10/13 08:55:39 tombuskens Exp $
  */
 
 
@@ -30,11 +30,12 @@ require_once GAMEQ_BASE . 'Protocol.php';
  */
 class GameQ_Protocol_gamespy extends GameQ_Protocol
 {
+
     public function status()
     {
         // Header
         $this->header();
-        
+
         while ($this->p->getLength()) {
 
             // Check for final keyword
@@ -54,7 +55,7 @@ class GameQ_Protocol_gamespy extends GameQ_Protocol
         }
 
     }
-    
+
     public function players()
     {
         $this->status();
@@ -66,6 +67,11 @@ class GameQ_Protocol_gamespy extends GameQ_Protocol
     }
 
     public function info()
+    {
+        $this->status();
+    }
+
+	public function rules()
     {
         $this->status();
     }
@@ -85,13 +91,13 @@ class GameQ_Protocol_gamespy extends GameQ_Protocol
 
             $newpackets[$matches[2]] = $matches[1];
         }
-        
+
         // Sort the array
         ksort($newpackets);
         // Remove the keys
         $newpackets = array_values($newpackets);
-        
-        return implode('', $newpackets);    
+
+        return implode('', $newpackets);
     }
 
     private function header()

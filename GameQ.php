@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * $Id: GameQ.php,v 1.13 2009/03/05 13:17:38 tombuskens Exp $  
+ * $Id: GameQ.php,v 1.13 2009/03/05 13:17:38 tombuskens Exp $
  */
 
 
@@ -26,7 +26,7 @@ require_once GAMEQ_BASE . 'Config.php';
 require_once GAMEQ_BASE . 'Communicate.php';
 require_once GAMEQ_BASE . 'Exceptions.php';
 require_once GAMEQ_BASE . 'Result.php';
-    
+
 /**
  * Retrieve gameplay data from gameservers.
  *
@@ -219,7 +219,7 @@ class GameQ
             // Get as much packets as we have sockets available
             $packets = array_slice($packs, $i, $sock_count);
             if (empty($packets)) break;
-            
+
             // Send all challenge packets
             $packets = $this->comm->query($packets, $timeout, 'challenge', $sock_start);
 
@@ -328,7 +328,7 @@ class GameQ
     {
         $result = array();
 
-        // Get packets for each server 
+        // Get packets for each server
         foreach ($servers as $id => $server) {
 
             $packets = $this->cfg->getPackets($server['pack']);
@@ -408,7 +408,7 @@ class GameQ
     private function processChallengeResponse($prot, $data, $response)
     {
         $result = '';
-        
+
         // Load the protocol
         $prot = $this->getProtocol($prot);
 
@@ -477,7 +477,7 @@ class GameQ
     private function processResponse($protname, $packetname, $data)
     {
         $debug = $this->getOption('debug');
-        
+
         // Nothing to process
         if (!isset($data) or count($data) === 0) return array();
 
@@ -499,7 +499,7 @@ class GameQ
             trigger_error('GameQ::processResponse: unable to call ' . $protname . '::' . $packetname . '.',
                     E_USER_ERROR);
         }
-        
+
         // Parse the packet
         $prot->setData(new GameQ_Buffer($data), new GameQ_Result());
 
@@ -569,7 +569,7 @@ class GameQ
         foreach ($results as $sid => &$result) {
 
             $sv = $servers[$sid];
-            
+
             $result['gq_online']  = !empty($result);
             $result['gq_address'] = $sv['addr'];
             $result['gq_port']    = $sv['port'];

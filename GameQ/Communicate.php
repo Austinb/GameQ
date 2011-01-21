@@ -15,16 +15,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * $Id: Communicate.php,v 1.12 2009/10/20 20:34:22 evilpie Exp $  
+ * $Id: Communicate.php,v 1.12 2009/10/20 20:34:22 evilpie Exp $
  */
 
-    
+
 /**
  * Handles all communication with the gameservers
  *
  * @author    Aidan Lister <aidan@php.net>
  * @author    Tom Buskens <t.buskens@deviation.nl>
- * @version   $Revision: 1.12 $ 
+ * @version   $Revision: 1.12 $
  */
 class GameQ_Communicate
 {
@@ -43,10 +43,10 @@ class GameQ_Communicate
     {
         // Create a socket for each packet
         foreach ($packets as $pid => &$packet) {
-			
+
             // We only send packets for the current type
             if (!isset($packet[$type])) continue;
-			
+
             // Open a socket on the server
             $socket = $this->open($packet['addr'], $packet['port'], $pid, $sock, $timeout, $packet['transport']);
             if ($socket === false) continue;
@@ -76,7 +76,7 @@ class GameQ_Communicate
 
         return $packets;
     }
-    
+
     /**
      * Open an UDP socket.
      *
@@ -94,7 +94,7 @@ class GameQ_Communicate
         // Check if we already opened a socket for this packet
         // This should only be so if it is a challenge-response type packet
         if (isset($this->sockets[$pid])) return $this->sockets[$pid];
-        
+
         // Resolve address
         $address = $this->getIp($address);
         if ($address === false) {
@@ -105,14 +105,14 @@ class GameQ_Communicate
         $errstr = null;
 
         // Set socket context
-       
+
         $context = stream_context_create();
 		if ($sock != 0)
 		{
 			$opts['socket']['bindto'] = '0:' . $sock;
 			stream_context_set_option ($context, $opts);
 		}
-		
+
         // Open udp socket to client
         $addr    = sprintf("%s://%s:%d", $transport, $address, $port);
         // Timeout is only applied for tcp connections
@@ -123,7 +123,7 @@ class GameQ_Communicate
             $this->sockets[$pid] = $socket;
             stream_set_blocking($socket, false);
         }
-        
+
         return $socket;
     }
 
@@ -175,7 +175,7 @@ class GameQ_Communicate
 
             $r = $this->sockets;
         }
-        
+
         return $result;
     }
 
@@ -199,7 +199,7 @@ class GameQ_Communicate
     public function getIp($address)
     {
         // If it isn't a valid IP assume it is a hostname
-        $preg = '#^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}' . 
+        $preg = '#^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}' .
                 '(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$#';
         if (!preg_match($preg, $address)) {
             $result = gethostbyname($address);
@@ -211,7 +211,7 @@ class GameQ_Communicate
         } else {
             $result = $address;
         }
-        
+
         return $result;
     }
 }
