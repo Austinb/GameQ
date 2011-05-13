@@ -14,17 +14,13 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * $Id: Result.php,v 1.4 2007/07/29 18:58:20 tombuskens Exp $  
  */
-
 
 /**
  * Provide an interface for easy storage of a parsed server response
  *
  * @author    Aidan Lister   <aidan@php.net>
  * @author    Tom Buskens    <t.buskens@deviation.nl>
- * @version   $Revision: 1.4 $
  */
 class GameQ_Result
 {
@@ -46,7 +42,6 @@ class GameQ_Result
         $this->result[$name] = $value;
     }
 
-
     /**
      * Adds player variable to output
      *
@@ -67,7 +62,7 @@ class GameQ_Result
     public function addTeam($name, $value)
     {
         $this->addSub('teams', $name, $value);
-    }    
+    }
 
     /**
      * Add a variable to a category
@@ -82,7 +77,7 @@ class GameQ_Result
         if (!isset($this->result[$sub]) or !is_array($this->result[$sub])) {
             $this->result[$sub] = array();
         }
-        
+
         // Find the first entry that doesn't have this variable
         $found = false;
         for ($i = 0; $i != count($this->result[$sub]); $i++) {
@@ -110,7 +105,7 @@ class GameQ_Result
     }
 
     /**
-     * Return a single variable 
+     * Return a single variable
      *
      * @param   string  $var    The variable name
      * @return  mixed   The variable value
@@ -120,4 +115,3 @@ class GameQ_Result
         return isset($this->result[$var]) ? $this->result[$var] : null;
     }
 }
-?>

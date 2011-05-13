@@ -14,29 +14,15 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * $Id: Exceptions.php,v 1.4 2008/06/26 12:43:25 tombuskens Exp $  
  */
- 
- 
-/*
- * @author    Tom Buskens    <t.buskens@deviation.nl>
- * @version   $Revision: 1.4 $
- */ 
-class GameQ_ParsingException extends Exception
+
+/**
+ * Half Life 2: Deathmatch Protocol Class
+ *
+ * @author Austin Bischoff <austin@codebeard.com>
+ */
+class GameQ_Protocols_Hl2dm extends GameQ_Protocols_Source
 {
-    private $packet;
-    protected $format = 'Could not parse packet for server "%s"';
-
-    function __construct($packet = null)
-    {
-        $this->packet = $packet;
-        parent::__construct('');
-    }
-
-    public function getPacket()
-    {
-        return $packet;
-    }
+	protected $name = "hl2dm";
+	protected $name_long = "Half Life 2: Deathmatch";
 }
-?>

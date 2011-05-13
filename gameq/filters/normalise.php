@@ -14,63 +14,50 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
- * $Id: normalise.php,v 1.10 2009/12/21 23:18:40 evilpie Exp $  
  */
-
-require_once GAMEQ_BASE . 'Filter.php';
 
 /**
  * This filter makes sure a fixed set of variables is always available
  *
- * @author     Tom Buskens <t.buskens@deviation.nl>
- * @version    $Revision: 1.10 $
+ * @author Austin Bischoff <austin@codebeard.com>
  */
-class GameQ_Filter_normalise extends GameQ_Filter
+class GameQ_Filters_Normalise extends GameQ_Filters
 {
-    private $translate;
-    private $allowed;
-    
-    /**
-     * Set variables
-     *
-     */
-    public function __construct()
-    { 
-        $this->vars = array(
-            // target       => source
-            'dedicated'     => array('listenserver', 'dedic', 'bf2dedicated', 'netserverdedicated', 'bf2142dedicated'),
-            'gametype'      => array('ggametype', 'sigametype', 'matchtype'),
-            'hostname'      => array('svhostname', 'servername', 'siname', 'name'),
-            'mapname'       => array('map', 'simap'),
-            'maxplayers'    => array('svmaxclients', 'simaxplayers', 'maxclients'),
-            'mod'           => array('game', 'gamedir', 'gamevariant'),
-            'numplayers'    => array('clients', 'sinumplayers'),
-            'password'      => array('protected', 'siusepass', 'sineedpass', 'pswrd', 'gneedpass', 'auth'),
-            'players'       => array('player')
-        );
+	protected $vars = array(
+    	// target       => source
+		'dedicated'     => array('listenserver', 'dedic', 'bf2dedicated', 'netserverdedicated', 'bf2142dedicated'),
+        'gametype'      => array('ggametype', 'sigametype', 'matchtype'),
+        'hostname'      => array('svhostname', 'servername', 'siname', 'name'),
+        'mapname'       => array('map', 'simap'),
+        'maxplayers'    => array('svmaxclients', 'simaxplayers', 'maxclients'),
+        'mod'           => array('game', 'gamedir', 'gamevariant'),
+        'numplayers'    => array('clients', 'sinumplayers'),
+        'password'      => array('protected', 'siusepass', 'sineedpass', 'pswrd', 'gneedpass', 'auth'),
+        'players'       => array('player')
+	);
 
-        $this->player = array(
-            'name'          => array('nick', 'player'),
-            'score'         => array('score', 'kills', 'frags', 'skill'),
-            'ping'          => array(),
-        );
-    }
+	protected $player = array(
+		'name'          => array('nick', 'player'),
+        'score'         => array('score', 'kills', 'frags', 'skill'),
+        'ping'          => array(),
+	);
 
     /**
      * Normalize the server data
-     *
-     * @param     array    $original    Array containing server response
-     * @param     array    $server      Array containing server data
-     * @return    array    The original array, with normalised variables
+     * @see GameQ_Filters_Core::filter()
      */
-    public function filter($original, $server)
+    public function filter($data, GameQ_Protocols_Core $protocol_instance)
     {
-        $result = array();
-        if (empty($original)) return $result;
+    	$result = array();
+
+    	// No dsta passed so something bad happened
+    	if(empty($data))
+    	{
+    		return $result;
+    	}
 
         // Normalise results
-        $result = $this->normalise($original, $this->vars);
+        $result = $this->normalise($data, $this->vars);
 
         // Normalise players
         if (is_array($result['gq_players'])) {
@@ -81,7 +68,7 @@ class GameQ_Filter_normalise extends GameQ_Filter
             foreach ($result['players'] as $key => $player) {
                 $result['players'][$key] = array_merge($player, $this->normalise($player, $this->player));
             }
-			
+
 			$result['gq_numplayers'] = count($result['players']);
         }
         else
@@ -91,16 +78,16 @@ class GameQ_Filter_normalise extends GameQ_Filter
 
         unset($result['gq_players']);
 
-		
+
         // Merge and sort array
-        $result = (array_merge($original, $result));
+        $result = (array_merge($data, $result));
+
         ksort($result);
 
         return $result;
-
     }
-        
-        
+
+
     /**
      * Normalise an array
      *
@@ -148,4 +135,3 @@ class GameQ_Filter_normalise extends GameQ_Filter
         return $data;
     }
 }
-?>

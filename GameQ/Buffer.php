@@ -15,9 +15,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * $Id: Buffer.php,v 1.4 2009/08/13 20:46:40 evilpie Exp $
+ *
  */
-
 
 /**
  * Provide an interface for easy manipulation of a server response
@@ -65,7 +64,6 @@ class GameQ_Buffer
         $this->length = strlen($data);
     }
 
-
     /**
      * Return all the data
      *
@@ -75,7 +73,6 @@ class GameQ_Buffer
     {
         return $this->data;
     }
-
 
     /**
      * Return data currently in the buffer
@@ -87,7 +84,6 @@ class GameQ_Buffer
         return substr($this->data, $this->index);
     }
 
-
     /**
      * Returns the number of bytes in the buffer
      *
@@ -98,7 +94,6 @@ class GameQ_Buffer
         return max($this->length - $this->index, 0);
     }
 
-
     /**
      * Read from the buffer
      *
@@ -108,7 +103,7 @@ class GameQ_Buffer
     public function read($length = 1)
     {
         if (($length + $this->index) > $this->length) {
-            throw new GameQ_ParsingException($this);
+            throw new GameQException('length OOB');
         }
 
         $string = substr($this->data, $this->index, $length);
@@ -116,7 +111,6 @@ class GameQ_Buffer
 
         return $string;
     }
-
 
     /**
      * Read the last character from the buffer
@@ -136,7 +130,6 @@ class GameQ_Buffer
         return $string;
     }
 
-
     /**
      * Look at the buffer, but don't remove
      *
@@ -149,7 +142,6 @@ class GameQ_Buffer
 
         return $string;
     }
-
 
     /**
      * Skip forward in the buffer
@@ -174,7 +166,6 @@ class GameQ_Buffer
         $this->index = min($index, $this->length - 1);
     }
 
-
     /**
      * Get the current pointer position
      *
@@ -184,7 +175,6 @@ class GameQ_Buffer
     {
         return $this->index;
     }
-
 
     /**
      * Read from buffer until delimiter is reached
@@ -211,7 +201,6 @@ class GameQ_Buffer
         return $string;
     }
 
-
     /**
      * Reads a pascal string from the buffer
      *
@@ -234,7 +223,6 @@ class GameQ_Buffer
             return substr($this->read($len), 0, $offset);
         }
     }
-
 
     /**
      * Read from buffer until any of the delimiters is reached
@@ -267,7 +255,6 @@ class GameQ_Buffer
         return $string;
     }
 
-
     /**
      * Read an int32 from the buffer
      *
@@ -278,7 +265,6 @@ class GameQ_Buffer
         $int = unpack('Lint', $this->read(4));
         return $int['int'];
     }
-
 
     /**
      * Read an int16 from the buffer
@@ -291,7 +277,6 @@ class GameQ_Buffer
         return $int['int'];
     }
 
-
     /**
      * Read an int8 from the buffer
      *
@@ -301,7 +286,6 @@ class GameQ_Buffer
     {
         return ord($this->read(1));
     }
-
 
     /**
      * Read an float32 from the buffer
@@ -313,7 +297,6 @@ class GameQ_Buffer
         $float = unpack('ffloat', $this->read(4));
         return $float['float'];
     }
-
 
     /**
      * Conversion to float
@@ -333,7 +316,6 @@ class GameQ_Buffer
         $float = unpack('ffloat', $string);
         return $float['float'];
     }
-
 
     /**
      * Conversion to integer
@@ -378,6 +360,4 @@ class GameQ_Buffer
 
         return $int;
     }
-
 }
-?>
