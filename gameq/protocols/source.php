@@ -46,6 +46,8 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
 	 */
 	protected $port = 27015; // Default port, used if not set when instanced
 
+	protected $protocol = 'source';
+
 	/**
 	 * String name of this protocol class
 	 *

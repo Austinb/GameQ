@@ -69,6 +69,13 @@ abstract class GameQ_Protocols_Core
 	protected $transport = self::TRANSPORT_UDP;
 
 	/**
+	 * The protocol type used when querying the server
+	 *
+	 * @var string
+	 */
+	protected $protocol = 'unknown';
+
+	/**
 	 * Holds the valid packet types this protocol has available.
 	 *
 	 * @var array
@@ -322,8 +329,9 @@ abstract class GameQ_Protocols_Core
 		$results['gq_online'] = (count($results) > 0);
         $results['gq_address'] = $this->ip;
         $results['gq_port'] = $this->port;
-        $results['gq_prot'] = (string) $this;
-        $results['gq_type'] = '';
+        $results['gq_protocol'] = $this->protocol;
+        $results['gq_type'] = (string) $this;
+        $results['gq_transport'] = $this->transport;
 
 		return $results;
 	}

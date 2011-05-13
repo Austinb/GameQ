@@ -5,12 +5,12 @@ require '../GameQ.php';
 
 $gq = GameQ::factory();
 
-$gq->setOption('timeout', 8)
+$gq->setOption('timeout', 4)
 ->setFilter('normalise')
 ->addServer(array(
 	'id' => 'myserver',
-	'type' => 'tfc',
-	'host' => '68.232.163.97:27015',
+	'type' => 'cs16',
+	'host' => '91.218.231.33:27015',
 ))
 /*->addServer(array(
 	'id' => 'myserver2',
