@@ -1,32 +1,5 @@
 <?php
-error_reporting(E_ALL);
-
-require '../GameQ.php';
-
-$gq = GameQ::factory();
-
-$gq->setOption('timeout', 4)
-->setFilter('normalise')
-->addServer(array(
-	'id' => 'myserver',
-	'type' => 'cs16',
-	'host' => '91.218.231.33:27015',
-))
-/*->addServer(array(
-	'id' => 'myserver2',
-	'type' => 'gmod',
-	'host' => '109.169.29.211:27015',
-))*/
-;
-
-
-$results = $gq->requestData();
-
-echo '<pre>';
-
-print_r($results);
-
-exit;
+die('Currently broken!');
 // Define your servers,
 // see list.php for all supported games and identifiers.
 $servers = array(
