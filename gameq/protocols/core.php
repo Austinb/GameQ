@@ -327,11 +327,11 @@ abstract class GameQ_Protocols_Core
 
 		// Now add some default stuff
 		$results['gq_online'] = (count($results) > 0);
-        $results['gq_address'] = $this->ip;
-        $results['gq_port'] = $this->port;
-        $results['gq_protocol'] = $this->protocol;
-        $results['gq_type'] = (string) $this;
-        $results['gq_transport'] = $this->transport;
+		$results['gq_address'] = $this->ip;
+		$results['gq_port'] = $this->port;
+		$results['gq_protocol'] = $this->protocol;
+		$results['gq_type'] = (string) $this;
+		$results['gq_transport'] = $this->transport;
 
 		return $results;
 	}
@@ -413,37 +413,8 @@ abstract class GameQ_Protocols_Core
     		$this->packets[$packet_type] = sprintf($packet, $challenge_string);
     	}
 
-    	return true;
+		return true;
 	}
-
-	/**
-     * Recursively merge two arrays.
-     *
-     * @param    array    $arr1    An array
-     * @param    array    $arr2    Another array
-     */
-    protected function merge($arr1, $arr2)
-    {
-        if (!is_array($arr2)) return $arr1;
-
-        foreach ($arr2 as $key => $val2) {
-
-            // No overlap, simply add
-            if (!isset($arr1[$key])) {
-               $arr1[$key] = $val2;
-               continue;
-            }
-
-            $val1 = $arr1[$key];
-
-            // Overlap, merge
-            if (is_array($val1)) {
-                $arr1[$key] = $this->merge($val1, $val2);
-            }
-        }
-
-        return $arr1;
-    }
 
 	/**
 	 * Parse the challenge buffer and get the proper challenge string out

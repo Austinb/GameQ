@@ -68,7 +68,7 @@ class GameQ
 			if ($path = self::find_file($file))
 			{
 				// Load the class file
-				require_once($path);
+				require $path;
 
 				// Class has been found
 				return TRUE;
@@ -128,16 +128,6 @@ class GameQ
 	 * @var array
 	 */
 	protected $servers = array();
-
-	/**
-	 * The beginning query port to attach to.  This is incremented for each new socket created
-	 *
-	 * Becareful setting this as you must have access to bind to the port or you will run into problems. Best
-	 * bet is to keep this number high.
-	 *
-	 * @var int
-	 */
-	protected $query_port = 11000;
 
 	/**
 	 * Holds the list of active sockets.  This array is automaically cleaned as needed
@@ -521,21 +511,11 @@ class GameQ
         // Grab the options for this instance
         $options = $instance->options();
 
-		// Create the context for the stream
-		$context = stream_context_create(array(
-			'socket' => array(
-				'bindto' => '0:'.$this->query_port,
-			),
-		));
-
-		// Increment the query port we are binding to so we dont use it again this trip.
-		$this->query_port++;
-
 		// Create the remote address
 		$remote_addr = sprintf("%s://%s:%d", $instance->transport(), $instance->ip(), $instance->port());
 
 		// Create the socket
-		if(($socket = stream_socket_client($remote_addr, $errno, $errstr, 3, STREAM_CLIENT_CONNECT, $context)) !== FALSE)
+		if(($socket = stream_socket_client($remote_addr, $errno, $errstr, 3, STREAM_CLIENT_CONNECT)) !== FALSE)
 		{
 			// Create the read timeout on the stream
 			stream_set_timeout($socket, $options['timeout']);
