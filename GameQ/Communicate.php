@@ -55,7 +55,7 @@ class GameQ_Communicate
             $this->write($socket, $packet[$type]);
 
             // Increment the socket (if we're not using the default ones)
-            $sock = ($sock == 0) ? 0 : ++$sock;
+            //$sock = ($sock == 0) ? 0 : ++$sock;
         }
 
         // Listen to the sockets
@@ -106,17 +106,17 @@ class GameQ_Communicate
 
         // Set socket context
 
-        $context = stream_context_create();
+        /*$context = stream_context_create();
 		if ($sock != 0)
 		{
 			$opts['socket']['bindto'] = '0:' . $sock;
 			stream_context_set_option ($context, $opts);
-		}
+		}*/
 
         // Open udp socket to client
         $addr    = sprintf("%s://%s:%d", $transport, $address, $port);
         // Timeout is only applied for tcp connections
-        $socket  = stream_socket_client($addr, $errno, $errstr, ($timeout/1000), STREAM_CLIENT_CONNECT, $context);
+        $socket  = stream_socket_client($addr, $errno, $errstr, ($timeout/1000), STREAM_CLIENT_CONNECT);
 
         // Set non-blocking, add socket to list
         if ($socket !== false) {

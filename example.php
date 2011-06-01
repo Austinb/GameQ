@@ -8,10 +8,10 @@ require_once 'GameQ.php';
 // Define your servers,
 // see list.php for all supported games and identifiers.
 $servers = array(
-    'server 1' => array('quake3', '194.109.69.61'),
-    'server 2' => array('cssource', '194.109.69.51', 27015),
-    'server 3' => array('bf2142', '194.109.69.21'),
-	'server 4' => array('ts3', 'voice.planetteamspeak.com')
+    //'server 1' => array('quake3', '194.109.69.61'),
+    'server 2' => array('cssource', '64.94.100.81', 27015),
+    //'server 3' => array('bf2142', '194.109.69.21'),
+	//'server 4' => array('ts3', 'voice.planetteamspeak.com')
 );
 
 
@@ -19,7 +19,7 @@ $servers = array(
 $gq = new GameQ();
 $gq->addServers($servers);
 
-    
+
 // You can optionally specify some settings
 $gq->setOption('timeout', 200);
 
@@ -51,7 +51,7 @@ function print_results($results) {
 function print_table($data) {
 
     $gqs = array('gq_online', 'gq_address', 'gq_port', 'gq_prot', 'gq_type');
-    
+
 
     if (!$data['gq_online']) {
         printf("<p>The server did not respond within the specified time.</p>\n");
@@ -75,7 +75,7 @@ function print_table($data) {
     }
 
     print("</tbody></table>\n");
-    
+
 }
 
 
@@ -138,7 +138,7 @@ function print_table($data) {
     <h1>GameQ - Example script</h1>
     <div class="note">
     Players are never displayed in this example. <br/>
-    <span class="key-always">Bold, red</span> variables are always set by gameq. 
+    <span class="key-always">Bold, red</span> variables are always set by gameq.
     Additionally, the normal <span class="key-normalise">red</span> variables are always set when the normalise filter is enabled.<br/>
     gq_online will always contain a boolean indicating if the server responded to the request.<br/>
     <br/>
