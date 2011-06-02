@@ -16,6 +16,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/*
+ * Init some stuff
+ */
+// Figure out where we are so we can set the proper references
+define('GAMEQ_BASE', realpath(dirname(__FILE__)).DIRECTORY_SEPARATOR);
+
+// Define the autoload so we can require files easy
+spl_autoload_register(array('GameQ', 'auto_load'));
+
 /**
  * Base GameQ Class
  *
@@ -142,18 +151,6 @@ class GameQ
 	 * @var array
 	 */
 	protected $filters = array();
-
-	/**
-	 * Create a new instance of this class
-	 */
-	public function __construct()
-	{
-		// Figure out where we are so we can set the proper references
-		define('GAMEQ_BASE', realpath(dirname(__FILE__)).DIRECTORY_SEPARATOR);
-
-		// Define the autoload so we can require files easy
-		spl_autoload_register(array('GameQ', 'auto_load'));
-	}
 
 	/**
      * Set an option.
@@ -332,11 +329,19 @@ class GameQ
 			$queries[$server_id] = $instance;
 		}
 
-		// Now lets send off all the challenges
-		$this->challengeSend($challenges);
+		// See if we have any challenges to send off
+		if(count($challenges) > 0)
+		{
+			// Now lets send off all the challenges
+			$this->challengeSend($challenges);
+		}
 
 		// Now let's process the challenges
-		$this->challengesProcess($challenges);
+		// Loop thru all the instances
+		foreach($challenges AS $server_id => $instance)
+		{
+			$instance->challengeVerifyAndParse();
+		}
 
 		// Send out all the packets to get data for
 		$this->getServerInfo($queries);
@@ -412,23 +417,7 @@ class GameQ
 		}
 
 		// Now close all the socket(s) and clean up any data
-		$this->sockets_close();
-
-		return TRUE;
-	}
-
-	/**
-	 * Process the challenges that were sent earlier
-	 *
-	 * @param array $instances
-	 */
-	protected function challengesProcess(Array $instances=NULL)
-	{
-		// Loop thru all the instances
-		foreach($instances AS $server_id => $instance)
-		{
-			$instance->challengeVerifyAndParse();
-		}
+		//$this->sockets_close();
 
 		return TRUE;
 	}

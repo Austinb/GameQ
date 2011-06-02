@@ -40,12 +40,28 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
 	);
 
 	/**
+	 * Methods to be run when processing the response(s)
+	 *
+	 * @var array
+	 */
+	protected $process_methods = array(
+		"process_details",
+		"process_players",
+		"process_rules",
+	);
+
+	/**
 	 * Default port for this server type
 	 *
 	 * @var int
 	 */
 	protected $port = 27015; // Default port, used if not set when instanced
 
+	/**
+	 * The query protocol used to make the call
+	 *
+	 * @var string
+	 */
 	protected $protocol = 'source';
 
 	/**
@@ -101,11 +117,16 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
     /**
      * Handles processing the details data into a usable format
      *
-     * @param array $packets
      * @throws GameQException
      */
-	protected function process_details($packets)
+	protected function process_details()
     {
+    	// Set the result to a new result instance
+		$result = new GameQ_Result();
+
+		// Grab the result packets
+    	$packets = $this->packets_response[self::PACKET_DETAILS];
+
     	// Let's preprocess the rules
     	$data = $this->preProcess_details($packets);
 
@@ -125,29 +146,31 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
         // 0x49 for source, 0x6D for goldsource (obsolete)
         $type = '0x' . bin2hex($buf->read(1));
 
-        if ($type == 0x6D) $this->result->add('address', $buf->readString());
-        else               $this->result->add('protocol', $buf->readInt8());
+        if ($type == 0x6D) $result->add('address', $buf->readString());
+        else               $result->add('protocol', $buf->readInt8());
 
-        $this->result->add('hostname', $buf->readString());
-        $this->result->add('map', $buf->readString());
-        $this->result->add('game_dir', $buf->readString());
-        $this->result->add('game_descr', $buf->readString());
+        $result->add('hostname', $buf->readString());
+        $result->add('map', $buf->readString());
+        $result->add('game_dir', $buf->readString());
+        $result->add('game_descr', $buf->readString());
 
-        if ($type != 0x6D) $this->result->add('steamappid', $buf->readInt16());
+        if ($type != 0x6D) $result->add('steamappid', $buf->readInt16());
 
-        $this->result->add('num_players', $buf->readInt8());
-        $this->result->add('max_players', $buf->readInt8());
+        $result->add('num_players', $buf->readInt8());
+        $result->add('max_players', $buf->readInt8());
 
-        if ($type == 0x6D) $this->result->add('protocol', $buf->readInt8());
-        else               $this->result->add('num_bots', $buf->readInt8());
+        if ($type == 0x6D) $result->add('protocol', $buf->readInt8());
+        else               $result->add('num_bots', $buf->readInt8());
 
-        $this->result->add('dedicated', $buf->read());
-        $this->result->add('os', $buf->read());
-        $this->result->add('password', $buf->readInt8());
-        $this->result->add('secure', $buf->readInt8());
-        $this->result->add('version', $buf->readInt8());
+        $result->add('dedicated', $buf->read());
+        $result->add('os', $buf->read());
+        $result->add('password', $buf->readInt8());
+        $result->add('secure', $buf->readInt8());
+        $result->add('version', $buf->readInt8());
 
-        return TRUE;
+        unset($buf);
+
+        return $result->fetch();
     }
 
     /**
@@ -164,11 +187,16 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
     /**
      * Handles processing the player data into a useable format
      *
-     * @param array $packets
      * @throws GameQException
      */
-	protected function process_players($packets)
+	protected function process_players()
     {
+    	// Set the result to a new result instance
+		$result = new GameQ_Result();
+
+		// Grab the result packets
+    	$packets = $this->packets_response[self::PACKET_PLAYERS];
+
     	// Let's preprocess the rules
     	$data = $this->preProcess_players($packets);
 
@@ -188,7 +216,7 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
     	$num_players = $buf->readInt8();
 
     	 // Player count
-        $this->result->add('num_players', $num_players);
+        $result->add('num_players', $num_players);
 
         // No players so no need to look any further
     	if($num_players == 0)
@@ -199,13 +227,15 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
         // Players list
         while ($buf->getLength())
         {
-            $this->result->addPlayer('id', $buf->readInt8());
-            $this->result->addPlayer('name', $buf->readString());
-            $this->result->addPlayer('score', $buf->readInt32());
-            $this->result->addPlayer('time', $buf->readFloat32());
+            $result->addPlayer('id', $buf->readInt8());
+            $result->addPlayer('name', $buf->readString());
+            $result->addPlayer('score', $buf->readInt32());
+            $result->addPlayer('time', $buf->readFloat32());
         }
 
-        return TRUE;
+        unset($buf);
+
+        return $result->fetch();
     }
 
     /**
@@ -252,10 +282,16 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
     /**
      * Handles processing the rules data into a usable format
      *
-     * @param array $packets
+     * @throws GameQException
      */
-	protected function process_rules($packets)
+	protected function process_rules()
     {
+    	// Set the result to a new result instance
+		$result = new GameQ_Result();
+
+		// Grab the result packets
+    	$packets = $this->packets_response[self::PACKET_RULES];
+
     	// Let's preprocess the rules
     	$data = $this->preProcess_rules($packets);
 
@@ -281,14 +317,16 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
         }*/
 
         // Add the count of the number of rules this server has
-        $this->result->add('num_rules', $count);
+        $result->add('num_rules', $count);
 
         // Rules
         while ($buf->getLength())
         {
-            $this->result->add($buf->readString(), $buf->readString());
+            $result->add($buf->readString(), $buf->readString());
         }
 
-        return TRUE;
+        unset($buf);
+
+        return $result->fetch();
     }
 }

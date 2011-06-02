@@ -28,6 +28,7 @@ abstract class GameQ_Protocols_Core
 	/*
 	 * Constants for packet keys
 	 */
+	const PACKET_ALL = 'all'; // Some protocols allow all data to be sent back in one call.
 	const PACKET_BASIC = 'basic';
 	const PACKET_CHALLENGE = 'challenge';
 	const PACKET_CHANNELS = 'channels'; // Voice servers
@@ -82,10 +83,26 @@ abstract class GameQ_Protocols_Core
 	 */
 	protected $packets = array();
 
+	/**
+	 * Holds the list of methods to run when parsing the packet response(s) data. These
+	 * methods should provide all the return information.
+	 *
+	 * @var array()
+	 */
+	protected $process_methods = array();
+
+	/**
+	 * The packet responses received
+	 *
+	 * @var srray
+	 */
 	protected $packets_response = array();
 
-	protected $data = array();
-
+	/**
+	 * Holds the instance of the result class
+	 *
+	 * @var GameQ_Result
+	 */
 	protected $result = NULL;
 
 	/**
@@ -102,6 +119,11 @@ abstract class GameQ_Protocols_Core
 	 */
 	protected $challenge_response = NULL;
 
+	/**
+	 * Holds the challenge buffer.
+	 *
+	 * @var GameQ_Buffer
+	 */
 	protected $challenge_buffer = NULL;
 
 	/**
@@ -292,50 +314,6 @@ abstract class GameQ_Protocols_Core
 		return $this->parseChallengeAndApply();
 	}
 
-	public function processResponse()
-	{
-		// Init the array
-		$results = array();
-
-		// First lets preprocess all the results
-		foreach($this->packets_response AS $packet_type => $packets)
-		{
-			// Set the result to a new result instance
-			$this->result = new GameQ_Result();
-
-			$process_method = 'process_' . $packet_type;
-
-			// Now lets try to process the actual data for this packet type
-			if(!method_exists($this, $process_method))
-			{
-				throw new GameQException('Unable to load method '.__CLASS__.'::'.$process_method);
-				continue; // Move along, nothing to see here
-			}
-
-			// Call the associated function for this packet type, pre-processing
-			// should be handled by this method too
-			call_user_func_array(array($this, $process_method), array(
-				$packets,
-			));
-
-			// Merge in the results
-			$results = array_merge($results, $this->result->fetch());
-		}
-
-		// Reset the result pointer
-		$this->result = NULL;
-
-		// Now add some default stuff
-		$results['gq_online'] = (count($results) > 0);
-		$results['gq_address'] = $this->ip;
-		$results['gq_port'] = $this->port;
-		$results['gq_protocol'] = $this->protocol;
-		$results['gq_type'] = (string) $this;
-		$results['gq_transport'] = $this->transport;
-
-		return $results;
-	}
-
 	public function packetResponse($packet_type, $reponse = Array())
 	{
 		// Act as setter
@@ -399,6 +377,44 @@ abstract class GameQ_Protocols_Core
 	}
 
 	/* Begin working methods */
+
+	/**
+	 * Process the response and return the raw data as an array.
+	 *
+	 * @throws GameQException
+	 */
+	public function processResponse()
+	{
+		// Init the array
+		$results = array();
+
+		// Let's loop all the requred methods to get all the data we want/need.
+		foreach ($this->process_methods AS $method)
+		{
+			// Lets make sure the data method defined exists.
+			if(!method_exists($this, $method))
+			{
+				throw new GameQException('Unable to load method '.__CLASS__.'::'.$method);
+				continue; // Move along, nothing to see here
+			}
+
+			// Call the proper process method(s).  All methods should return an array of data.
+			// Preprocessing should be handled by these methods internally as well.
+			// Merge in the results when done.
+			$results = array_merge($results, call_user_func_array(array($this, $method), array()));
+		}
+
+		// Now add some default stuff
+		$results['gq_online'] = (count($results) > 0);
+		$results['gq_address'] = $this->ip;
+		$results['gq_port'] = $this->port;
+		$results['gq_protocol'] = $this->protocol;
+		$results['gq_type'] = (string) $this;
+		$results['gq_transport'] = $this->transport;
+
+		// Return the raw results
+		return $results;
+	}
 
 	/**
 	 * Apply the challenge string to all the packets that need it.
