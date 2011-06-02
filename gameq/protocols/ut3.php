@@ -17,7 +17,7 @@
  */
 
 /**
- * Brink Protocol Class
+ * Unreal Tournament 3 Protocol Class
  *
  * @author Austin Bischoff <austin@codebeard.com>
  */

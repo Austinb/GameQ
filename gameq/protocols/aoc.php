@@ -17,12 +17,12 @@
  */
 
 /**
- * Fortress Forever Protocol Class
+ * Age of Chivalry Protocol Class
  *
  * @author Austin Bischoff <austin@codebeard.com>
  */
-class GameQ_Protocols_Ff extends GameQ_Protocols_Source
+class GameQ_Protocols_Aoc extends GameQ_Protocols_Source
 {
-	protected $name = "ff";
-	protected $name_long = "Fortress Forever";
+	protected $name = "aoc";
+	protected $name_long = "Age of Chivalry";
 }

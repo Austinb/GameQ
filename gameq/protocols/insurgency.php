@@ -17,14 +17,12 @@
  */
 
 /**
- * Battlefield Vietnam Protocol Class
+ * Insurgency Mod Protocol Class
  *
  * @author Austin Bischoff <austin@codebeard.com>
  */
-class GameQ_Protocols_Bfv extends GameQ_Protocols_Gamespy2
+class GameQ_Protocols_Insurgency extends GameQ_Protocols_Source
 {
-	protected $name = "bfv";
-	protected $name_long = "Battlefield Vietnam";
-
-	protected $port = 23000;
+	protected $name = "insurgency";
+	protected $name_long = "Insurgency";
 }

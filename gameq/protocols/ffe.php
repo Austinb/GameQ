@@ -17,14 +17,12 @@
  */
 
 /**
- * Battlefield Vietnam Protocol Class
+ * Fortress Forever Protocol Class
  *
  * @author Austin Bischoff <austin@codebeard.com>
  */
-class GameQ_Protocols_Bfv extends GameQ_Protocols_Gamespy2
+class GameQ_Protocols_Ffe extends GameQ_Protocols_Source
 {
-	protected $name = "bfv";
-	protected $name_long = "Battlefield Vietnam";
-
-	protected $port = 23000;
+	protected $name = "ffe";
+	protected $name_long = "Fortress Forever";
 }

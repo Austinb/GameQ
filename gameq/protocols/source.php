@@ -124,11 +124,8 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
     	// Set the result to a new result instance
 		$result = new GameQ_Result();
 
-		// Grab the result packets
-    	$packets = $this->packets_response[self::PACKET_DETAILS];
-
     	// Let's preprocess the rules
-    	$data = $this->preProcess_details($packets);
+    	$data = $this->preProcess_details($this->packets_response[self::PACKET_DETAILS]);
 
     	$buf = new GameQ_Buffer($data);
 
@@ -136,7 +133,7 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
     	if($buf->lookAhead(4) != "\xFF\xFF\xFF\xFF")
     	{
     		throw new GameQException("Data for ".__METHOD__." does not have the proper header. Header: ".$buf->lookAhead(4));
-    		return false;
+    		return array();
     	}
 
     	// Skip the header
@@ -194,11 +191,8 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
     	// Set the result to a new result instance
 		$result = new GameQ_Result();
 
-		// Grab the result packets
-    	$packets = $this->packets_response[self::PACKET_PLAYERS];
-
     	// Let's preprocess the rules
-    	$data = $this->preProcess_players($packets);
+    	$data = $this->preProcess_players($this->packets_response[self::PACKET_PLAYERS]);
 
     	$buf = new GameQ_Buffer($data);
 
@@ -206,7 +200,7 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
     	if($buf->lookAhead(5) != "\xFF\xFF\xFF\xFF\x44")
     	{
     		throw new GameQException("Data for ".__METHOD__." does not have the proper header. Header: ".$buf->lookAhead(5));
-    		return false;
+    		return array();
     	}
 
     	// Skip the header
@@ -221,7 +215,7 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
         // No players so no need to look any further
     	if($num_players == 0)
     	{
-    		return TRUE;
+    		return $result->fetch();
     	}
 
         // Players list
@@ -289,11 +283,8 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
     	// Set the result to a new result instance
 		$result = new GameQ_Result();
 
-		// Grab the result packets
-    	$packets = $this->packets_response[self::PACKET_RULES];
-
     	// Let's preprocess the rules
-    	$data = $this->preProcess_rules($packets);
+    	$data = $this->preProcess_rules($this->packets_response[self::PACKET_RULES]);
 
     	$buf = new GameQ_Buffer($data);
 
@@ -301,7 +292,7 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
     	if($buf->lookAhead(5) != "\xFF\xFF\xFF\xFF\x45")
     	{
     		throw new GameQException("Data for ".__METHOD__." does not have the proper header. Header: ".$buf->lookAhead(5));
-    		return false;
+    		return array();
     	}
 
     	// Skip the header plus E
