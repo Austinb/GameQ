@@ -243,6 +243,13 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
     	// Only one packet so we should be ok, unverfied
     	if(count($packets) == 1)
     	{
+    		// See if the packet is compressed, if so decompress
+    		if($this->isCompressed($packets[0]) === TRUE)
+    		{
+    			// Decompress and return the packet
+				return $this->decompress($packets[0]);
+    		}
+
     		// Return the first array entry as the string
     		return $packets[0];
     	}
@@ -319,5 +326,68 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
         unset($buf);
 
         return $result->fetch();
+    }
+
+    /**
+     * Check to see if this packet is compressed
+     *
+     * @param unknown_type $packet
+     */
+    protected function isCompressed($packet)
+    {
+    	// Default is not compressed
+    	$iscompressed = FALSE;
+
+    	// Create a new buffer to see if this is compressed.
+    	$buf = new GameQ_Buffer($packet);
+
+    	// Skip the header
+    	$buf->skip(4);
+
+    	// Check to see if the packet is compressed
+    	if($buf->readInt32() & 0x80000000)
+    	{
+    		$iscompressed = TRUE;
+    	}
+
+    	unset($buf, $packet);
+
+    	return $iscompressed;
+    }
+
+    /**
+     * Decompress the packet
+     *
+     * @param string $packet
+     * @throws GameQException
+     */
+    protected function decompress($packet)
+    {
+    	// Create a new buffer to see if this is compressed.
+    	$buf = new GameQ_Buffer($packet);
+
+    	// Skip the header
+    	$buf->skip(4);
+
+    	// Grab some info
+    	$request_id = $buf->readInt32();
+		$num_packets = $buf->readInt8();
+		$cur_packet  = $buf->readInt8();
+		$packet_length = $buf->readInt32();
+        $packet_checksum = $buf->readInt32();
+
+    	// Now lets try to decompress the packet
+    	$result = bzdecompress($buf->getBuffer());
+
+    	// Check to make sure this checks out
+    	if(strlen($result) != $packet_length)
+    	{
+			throw new GameQException("Checksum for compressed packet failed!");
+			return '';
+    	}
+
+    	unset($request_id, $num_packets, $cur_packet, $packet_checksum, $packet_length, $packet);
+
+    	return $result;
     }
 }

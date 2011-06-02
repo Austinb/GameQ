@@ -31,6 +31,10 @@ spl_autoload_register(array('GameQ', 'auto_load'));
  * This class should be the only one that is included when you use GameQ to query
  * any games servers.  All necessary sub-classes are loaded as needed.
  *
+ * Requirements:
+ *  - PHP 5.3
+ *  	* Bzip2 - http://www.php.net/manual/en/book.bzip2.php
+ *
  * @author Austin Bischoff <austin@codebeard.com>
  */
 class GameQ
@@ -52,6 +56,9 @@ class GameQ
 
 	const PATH_FILTERS = 'filters';
 
+	/**
+	 * Create a new instance of this class
+	 */
 	public static function factory()
 	{
 		// Create a new instance
@@ -151,6 +158,18 @@ class GameQ
 	 * @var array
 	 */
 	protected $filters = array();
+
+	/**
+	 * Make new class
+	 */
+	public function __construct()
+	{
+		if(!function_exists('bzdecompress'))
+		{
+			throw new GameQException('Bzip2 is not installed.  See http://www.php.net/manual/en/book.bzip2.php for more info.', 0);
+			return FALSE;
+		}
+	}
 
 	/**
      * Set an option.
