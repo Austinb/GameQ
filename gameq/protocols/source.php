@@ -331,7 +331,7 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
     /**
      * Check to see if this packet is compressed
      *
-     * @param unknown_type $packet
+     * @param string $packet
      */
     protected function isCompressed($packet)
     {
