@@ -94,7 +94,7 @@ abstract class GameQ_Protocols_Core
 	/**
 	 * The packet responses received
 	 *
-	 * @var srray
+	 * @var array
 	 */
 	protected $packets_response = array();
 

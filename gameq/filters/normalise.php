@@ -33,13 +33,18 @@ class GameQ_Filters_Normalise extends GameQ_Filters
         'mod'           => array('game', 'gamedir', 'gamevariant'),
         'numplayers'    => array('clients', 'sinumplayers'),
         'password'      => array('protected', 'siusepass', 'sineedpass', 'pswrd', 'gneedpass', 'auth'),
-        'players'       => array('player')
+        'players'       => array('players'),
+		'teams'       	=> array('team'),
 	);
 
 	protected $player = array(
-		'name'          => array('nick', 'player'),
+		'name'          => array('nick', 'player', 'playername'),
         'score'         => array('score', 'kills', 'frags', 'skill'),
-        'ping'          => array(),
+        'ping'          => array('ping'),
+	);
+
+	protected $team = array(
+		'name'          => array('name', 'teamname'),
 	);
 
     /**
@@ -76,7 +81,24 @@ class GameQ_Filters_Normalise extends GameQ_Filters
 			$result['players'] = array();
 		}
 
-        unset($result['gq_players']);
+    	// Normalise teams
+        if (is_array($result['gq_teams'])) {
+
+            // Don't rename the teams array
+            $result['teams'] = $result['gq_teams'];
+
+            foreach ($result['teams'] as $key => $team) {
+                $result['teams'][$key] = array_merge($team, $this->normalise($team, $this->team));
+            }
+
+			$result['gq_numteams'] = count($result['teams']);
+        }
+        else
+		{
+			$result['teams'] = array();
+		}
+
+        unset($result['gq_players'], $result['gq_teams']);
 
 
         // Merge and sort array
