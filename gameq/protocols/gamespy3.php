@@ -27,6 +27,12 @@
  */
 abstract class GameQ_Protocols_Gamespy3 extends GameQ_Protocols
 {
+	/*
+	 * Constants
+	 */
+	const PLAYERS = 1;
+	const TEAMS = 2;
+
 	/**
 	 * Array of packets we want to look up.
 	 * Each key should correspond to a defined method in this or a parent class
@@ -88,12 +94,14 @@ abstract class GameQ_Protocols_Gamespy3 extends GameQ_Protocols
 	 */
  	public function parseChallengeAndApply()
     {
+    	//var_dump($this->challenge_buffer->getBuffer()); exit;
+
     	// Skip the header
     	$this->challenge_buffer->skip(5);
 
 
     	// Apply the challenge and return
-    	return $this->challengeApply(pack("H*", sprintf("%08X", (int)$this->challenge_buffer->readString())));
+    	return $this->challengeApply(pack("H*", sprintf("%08X", (int) $this->challenge_buffer->readString())));
     }
 
     /*
@@ -117,5 +125,64 @@ abstract class GameQ_Protocols_Gamespy3 extends GameQ_Protocols
 	{
 		// Incomplete, unable to test
 		return array();
+	}
+
+	/**
+	 * Parse the sub sections of the returned data, usually teams/players info
+	 *
+	 * @param int $type
+	 * @param GameQ_Buffer $buf
+	 * @param GameQ_Result $result
+	 */
+	protected function parseSub($type, GameQ_Buffer &$buf, GameQ_Result &$result)
+	{
+		// Get the proper string type
+		switch($type)
+		{
+			case self::PLAYERS:
+				$type_string = 'players';
+				break;
+
+			case self::TEAMS:
+				$type_string = 'teams';
+				break;
+		}
+
+		// Loop until we run out of data
+		while ($buf->getLength())
+		{
+            // Get the header
+            $header = $buf->readString();
+
+            // No header so break
+            if ($header == "")
+            {
+            	break;
+            }
+
+            // Rip off any trailing stuff
+            $header = rtrim($header, '_');
+
+            // Skip next position because it should be empty
+            $buf->skip();
+
+            // Get the values
+            while ($buf->getLength())
+            {
+            	// Grab the value
+                $val = $buf->readString();
+
+                // No value so break
+                if ($val === '')
+                {
+					break;
+                }
+
+                // Add the proper value
+                $result->addSub($type_string, $header, trim($val));
+            }
+        }
+
+        return TRUE;
 	}
 }

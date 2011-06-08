@@ -44,7 +44,8 @@ class GameQ_Filters_Normalise extends GameQ_Filters
 	);
 
 	protected $team = array(
-		'name'          => array('name', 'teamname'),
+		'name'          => array('name', 'teamname', 'team_t'),
+		'score'         => array('score', 'score_t'),
 	);
 
     /**
