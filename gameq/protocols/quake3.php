@@ -20,12 +20,12 @@
  * Quake 3 Protocol Class
  *
  * This class is used as the basis for all game servers
- * that use the GameSpy protocol for querying
+ * that use the Quake 3 protocol for querying
  * server status.
  *
  * @author Austin Bischoff <austin@codebeard.com>
  */
-abstract class GameQ_Protocols_Quake3 extends GameQ_Protocols
+class GameQ_Protocols_Quake3 extends GameQ_Protocols
 {
 	/**
 	 * Array of packets we want to look up.
