@@ -352,14 +352,14 @@ class GameQ
 		if(count($challenges) > 0)
 		{
 			// Now lets send off all the challenges
-			$this->challengeSend($challenges);
-		}
+			$this->challenge($challenges);
 
-		// Now let's process the challenges
-		// Loop thru all the instances
-		foreach($challenges AS $server_id => $instance)
-		{
-			$instance->challengeVerifyAndParse();
+			// Now let's process the challenges
+			// Loop thru all the instances
+			foreach($challenges AS $server_id => $instance)
+			{
+				$instance->challengeVerifyAndParse();
+			}
 		}
 
 		// Send out all the packets to get data for
@@ -400,7 +400,7 @@ class GameQ
 	 *
 	 * @param array $instances
 	 */
-	protected function challengeSend(Array $instances=NULL)
+	protected function challenge(Array $instances=NULL)
 	{
 		// Loop thru all the instances we need to send out challenges for
 		foreach($instances AS $server_id => $instance)
@@ -563,7 +563,7 @@ class GameQ
 		$except = NULL;
 		$starttime = microtime(true);
 
-		while (($t = $this->options['timeout'] * 1000000 - (microtime(true) - $starttime) * 10000) > 0 )
+		while (($t = $this->options['timeout'] * 1000000 - (microtime(true) - $starttime) * 10000) > 0)
 		{
 			// Now lets listen
 			$streams = stream_select($read, $write, $except, 0, $t);
@@ -582,6 +582,7 @@ class GameQ
 					continue; // No response yet so lets continue.
 				}
 
+				// Add the response we got back
                 $responses[(int) $socket][] = $response;
 			}
 
@@ -589,6 +590,7 @@ class GameQ
 			// time to the original array of sockets
 			$read = $sockets;
 
+			// Sleep for a short bit so we dont 99% the cpu
 			usleep(50000);
 		}
 

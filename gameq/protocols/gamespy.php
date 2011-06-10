@@ -35,10 +35,10 @@ abstract class GameQ_Protocols_Gamespy extends GameQ_Protocols
 	 */
 	protected $packets = array(
 		self::PACKET_STATUS => "\x5C\x73\x74\x61\x74\x75\x73\x5C",
-		/*self::PACKET_PLAYERS => "\x5C\x70\x6C\x61\x79\x65\x72\x73\x5C",
-		self::PACKET_DETAILS => "\x5C\x69\x6E\x66\x6F\x5C",
-		self::PACKET_BASIC => "\x5C\x62\x61\x73\x69\x63\x5C",
-		self::PACKET_RULES => "\x5C\x72\x75\x6C\x65\x73\x5C",*/
+		//self::PACKET_PLAYERS => "\x5C\x70\x6C\x61\x79\x65\x72\x73\x5C",
+		//self::PACKET_DETAILS => "\x5C\x69\x6E\x66\x6F\x5C",
+		//self::PACKET_BASIC => "\x5C\x62\x61\x73\x69\x63\x5C",
+		//self::PACKET_RULES => "\x5C\x72\x75\x6C\x65\x73\x5C",
 	);
 
 	/**
