@@ -157,13 +157,6 @@ abstract class GameQ_Protocols_Gamespy extends GameQ_Protocols
     	// Lets pre process and make sure these things are in the proper order by id
     	$data = $this->preProcess_status($this->packets_response[self::PACKET_STATUS]);
 
-		// Make sure the data is formatted properly
-    	if(substr($data, -6) != "final\\")
-    	{
-    		throw new GameQException("Data for ".__METHOD__." does not have the proper ending. Ending: ".substr($data, -6));
-    		return false;
-    	}
-
     	// Create a new buffer
     	$buf = new GameQ_Buffer($data);
 
