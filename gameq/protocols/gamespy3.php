@@ -221,13 +221,43 @@ abstract class GameQ_Protocols_Gamespy3 extends GameQ_Protocols
     	// Now lets go on and do the rest of the info
     	while($buf->getLength() && $type = $buf->readInt8())
     	{
-    		// Now get the sub information
-    		$this->parseSub($type, $buf, $result);
+    		// Do specific type
+    		if(in_array($type, array(self::PLAYERS, self::TEAMS)))
+    		{
+	    		// Now get the sub information
+	    		$this->parseSub($type, $buf, $result);
+    		}
+    		else // Do both
+    		{
+    			$this->parseSub(self::PLAYERS, $buf, $result);
+    			$this->parseSub(self::TEAMS, $buf, $result);
+    		}
     	}
 
     	// Return the result
 		return $result->fetch();
 	}
+
+	protected function delete_result(&$result, $array)
+    {
+        foreach($array as $key)
+        {
+        	unset($result[$key]);
+        }
+
+        return TRUE;
+    }
+
+    protected function move_result(&$result, $old, $new)
+    {
+        if (isset($result[$old]))
+        {
+            $result[$new] = $result[$old];
+            unset($result[$old]);
+        }
+
+        return TRUE;
+    }
 
 	/**
 	 * Parse the sub sections of the returned data, usually teams/players info

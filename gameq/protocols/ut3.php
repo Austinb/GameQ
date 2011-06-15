@@ -28,121 +28,40 @@ class GameQ_Protocols_Ut3 extends GameQ_Protocols_Gamespy3
 
 	protected $port = 6500;
 
+	/**
+	 * Process all the data at once
+	 * @see GameQ_Protocols_Gamespy3::process_all()
+	 */
 	protected function process_all()
 	{
-		// Set the result to a new result instance
-		$result = new GameQ_Result();
+		// Run the parent but we need to change some data
+		$result = parent::process_all();
 
-    	// Parse the response
-    	$data = $this->preProcess_all($this->packets_response[self::PACKET_ALL]);
+		// Move some stuff around
+        $this->move_result($result, 'hostname', 'OwningPlayerName');
+        $this->move_result($result, 'p1073741825', 'mapname');
+        $this->move_result($result, 'p1073741826', 'gametype');
+        $this->move_result($result, 'p1073741827', 'servername');
+        $this->move_result($result, 'p1073741828', 'custom_mutators');
+        $this->move_result($result, 'gamemode',    'open');
+        $this->move_result($result, 's32779',      'gamemode');
+        $this->move_result($result, 's0',          'bot_skill');
+        $this->move_result($result, 's6',          'pure_server');
+        $this->move_result($result, 's7',          'password');
+        $this->move_result($result, 's8',          'vs_bots');
+        $this->move_result($result, 's10',         'force_respawn');
+        $this->move_result($result, 'p268435704',  'frag_limit');
+        $this->move_result($result, 'p268435705',  'time_limit');
+        $this->move_result($result, 'p268435703',  'numbots');
+        $this->move_result($result, 'p268435717',  'stock_mutators');
 
-    	var_dump($data);
+        // Put custom mutators into an array
+        $result['custom_mutators'] = explode("\x1c", $result['custom_mutators']);
 
-
-    	//$data = explode("\x00", $data);
-
-    	//var_dump($data); exit;
-
-    	// Create a new buffer
-    	$buf = new GameQ_Buffer($data);
-
-		// We go until we hit an empty key
-    	while($buf->getLength())
-    	{
-    		$key = $buf->readString();
-
-            if (strlen($key) == 0)
-            {
-            	break;
-            }
-
-            $result->add($key, $buf->readString());
-    	}
-
-    	// Now lets go on and do the rest of the info
-    	while($buf->getLength() && $type = $buf->readInt8())
-    	{
-    		// Now get the sub information
-    		$this->parseSub($type, $buf, $result);
-    	}
-    	exit;
+        // Delete some unknown stuff
+        $this->delete_result($result, array('s1','s9','s11','s12','s13','s14'));
 
     	// Return the result
-		return $result->fetch();
-	}
-
-	/**
-	 * Parse the sub sections of the returned data, usually teams/players info
-	 *
-	 * @param int $type
-	 * @param GameQ_Buffer $buf
-	 * @param GameQ_Result $result
-	 */
-	protected function parseSub($type, GameQ_Buffer &$buf, GameQ_Result &$result)
-	{
-		var_dump($buf->getBuffer()); exit;
-
-		// Get the proper string type
-		switch($type)
-		{
-			case self::PLAYERS:
-				$type_string = 'players';
-				break;
-
-			case self::TEAMS:
-				$type_string = 'teams';
-				break;
-		}
-
-		// Loop until we run out of data
-		while ($buf->getLength())
-		{
-            // Get the header
-            $header = $buf->readString();
-
-
-
-            // No header so break
-            if ($header == "")
-            {
-            	break;
-            }
-
-            // Rip off any trailing stuff
-            $header = rtrim($header, '_');
-
-            echo $header."<br />";
-
-            // Skip next position because it should be empty
-            $buf->skip();
-
-            // Get the values
-            while ($buf->getLength())
-            {
-            	// Grab the value
-                $val = $buf->readString();
-
-                echo $val."<br />";
-
-                // No value so break
-                if ($val === '')
-                {
-                	// This is first run so we need to figure out the length
-                	if($header == "player")
-                	{
-
-                	}
-
-                	//$buf->skip(3);
-                	var_dump($buf->getBuffer()); exit;
-					break;
-                }
-
-                // Add the proper value
-                $result->addSub($type_string, $header, trim($val));
-            }
-        }
-
-        return TRUE;
+		return $result;
 	}
 }
