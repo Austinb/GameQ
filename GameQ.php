@@ -341,7 +341,7 @@ class GameQ
 				'challenges' => array(),
 				'info' => array(),
 			),
-			'liner' => array(),
+			'linear' => array(),
 		);
 
 		// Loop thru all of the servers added and ceatgorize them
