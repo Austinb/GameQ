@@ -200,8 +200,6 @@ abstract class GameQ_Protocols_Gamespy3 extends GameQ_Protocols
     	// Parse the response
     	$data = $this->preProcess_all($this->packets_response[self::PACKET_ALL]);
 
-    	var_dump($data);
-
     	// Create a new buffer
     	$buf = new GameQ_Buffer($data);
 
