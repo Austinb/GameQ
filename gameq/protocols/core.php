@@ -45,7 +45,35 @@ abstract class GameQ_Protocols_Core
 	const TRANSPORT_UDP = 'udp';
 	const TRANSPORT_TCP = 'tcp';
 
+	/*
+	 * Challenge Modes
+	 */
+	/**
+	 * Can send off the challenge once and reuse it in multiple calls
+	 *
+	 * @var string
+	 */
+	const CHALLENGE_MODE_ONCE = 'once';
+
+	/**
+	 * Has to be sent for each query packet, slow (looking at you GameSpy3...  endglare)
+	 *
+	 * @var string
+	 */
+	const CHALLENGE_MODE_EACH = 'each';
+
+	/**
+	 * Short name of the protocol
+	 *
+	 * @var string
+	 */
 	protected $name = 'unnamed';
+
+	/**
+	 * The longer, fancier name for the protocol
+	 *
+	 * @var string
+	 */
 	protected $name_long = 'unnamed';
 
 	/**
@@ -78,12 +106,11 @@ abstract class GameQ_Protocols_Core
 	protected $protocol = 'unknown';
 
 	/**
-	 * The class can send out multiple requests (packets) at once on multiple sockets.
-	 * Setting this to FALSE causes ALL packets to be sent out in sequence using the same socket connection.
+	 * Default mode is we can send one challenge for all query packets
 	 *
-	 * @var bool
+	 * @var string
 	 */
-	protected $multiple_sockets = TRUE;
+	protected $challenge_mode = self::CHALLENGE_MODE_ONCE;
 
 	/**
 	 * Holds the valid packet types this protocol has available.
@@ -187,6 +214,14 @@ abstract class GameQ_Protocols_Core
 	public function __toString()
 	{
 		return $this->name;
+	}
+
+	/**
+	 * Return the challenge mode for this protocol
+	 */
+	public function challenge_mode()
+	{
+		return $this->challenge_mode;
 	}
 
 	/**
@@ -324,7 +359,7 @@ abstract class GameQ_Protocols_Core
 		{
 			// Set error and skip
 			$this->challenge_result = 'Challenge Response Empty';
-			return false;
+			return FALSE;
 		}
 
 		// Challenge is good to go
@@ -437,378 +472,6 @@ abstract class GameQ_Protocols_Core
 
 		// Return the raw results
 		return $results;
-	}
-
-	public function process()
-	{
-		// Init the array
-		$results = array();
-
-		// See if we have a challenge that needs to be sent off
-		if($this->hasChallenge())
-		{
-			// Do the challenge then continue, if we can
-			$challenge_result = $this->doChallenge();
-		}
-		else
-		{
-			// No challenge so we say it was huge success
-			$challenge_result = TRUE;
-		}
-
-		// Now let's send out the real data we want.
-		if($challenge_result == TRUE)
-		{
-			$results = $this->doData();
-		}
-
-		// Now close all of the sockets since we no longer need them
-		$this->sockets_close();
-
-		// Now add some default stuff
-		$results['gq_online'] = (count($results) > 0);
-		$results['gq_address'] = $this->ip;
-		$results['gq_port'] = $this->port;
-		$results['gq_protocol'] = $this->protocol;
-		$results['gq_type'] = (string) $this;
-		$results['gq_transport'] = $this->transport;
-
-		// Return the result
-		return $results;
-	}
-
-	/**
-	 * Send off the challenge and parse the response
-	 * Returns bool of the status of the challenge
-	 * TRUE = success
-	 * FALSE = challenge failed
-	 */
-	protected function doChallenge()
-	{
-		// Get a socket to use
-		$socket = $this->socket_get();
-
-		// Get the integer representation of the socket
-		$socket_id = (int) $socket;
-
-		echo $socket_id;
-
-		// Now write the challenge packet to the socket.
-		fwrite($socket, $this->packets[self::PACKET_CHALLENGE]);
-
-		// Add the socket information so we can retreive it easily
-		$this->sockets[$socket_id] = array(
-			'packet_type' => self::PACKET_CHALLENGE,
-			'socket' => $socket,
-		);
-
-		// Set this socket as in use
-		$this->socket_status($socket_id, TRUE);
-
-		// Now we need to listen for challenge response(s)
-		$responses = $this->sockets_listen();
-
-		// Lets look at our response(s)
-		foreach($responses AS $socket_id => $response)
-		{
-			// Set the challenge response
-			$this->challenge_response = $response;
-
-			// Set this socket as free
-			$this->socket_status($socket_id, FALSE);
-		}
-
-		// Now lets verify and parse the challenge response and return the result
-		return $this->challengeVerifyAndParse();
-	}
-
-	protected function doData()
-	{
-		// Init the results array
-		$results = array();
-
-		// Get all the non-challenge packets we need to send
-		$packets = $this->getPacket('!challenge');
-
-		// We have no packets to send
-		if(count($packets) == 0)
-		{
-			return array();
-		}
-
-		// Figure out how to send out the packets
-		// Cant send out multiple requests, usually due to challenge restrictions
-		if($this->multiple_sockets !== TRUE)
-		{
-			// Get a socket to use
-			$socket = $this->socket_get();
-
-			// Get the integer representation of the socket
-			$socket_id = (int) $socket;
-
-			echo $socket_id;
-
-			// Now lets send off the packets
-			foreach($packets AS $packet_type => $packet)
-			{
-				echo $packet_type .":". bin2hex($packet)."<br />";
-
-				// Now write the packet to the socket.
-				fwrite($socket, $packet);
-
-				// Add the socket information so we can retreive it easily
-				$this->sockets[(int) $socket] = array(
-					'packet_type' => $packet_type,
-					'socket' => $socket,
-				);
-
-				// Set this socket as in use
-				$this->socket_status($socket_id, TRUE);
-
-				// Now we need to listen for packet(s) response(s)
-				$responses = $this->sockets_listen();
-
-				var_dump($responses); exit;
-
-				// Lets look at our response(s)
-				foreach($responses AS $response)
-				{
-					// Back out the packet type
-					$packet_type = $this->sockets[$socket_id]['packet_type'];
-
-					// Now set the packet response
-					$this->packets_response[$packet_type] = $response;
-				}
-
-				// Set this socket as free
-				$this->socket_status($socket_id, FALSE);
-
-				// Let's sleep shortly
-				usleep(50000);
-			}
-		}
-		else // Send out all of the packets in bulk and listen for the response(s)
-		{
-			// Now lets send off the packets
-			foreach($packets AS $packet_type => $packet)
-			{
-				// Get a socket to use
-				$socket = $this->socket_get();
-
-				// Get the integer representation of the socket
-				$socket_id = (int) $socket;
-
-				// Now write the packet to the socket.
-				fwrite($socket, $packet);
-
-				// Add the socket information so we can retreive it easily
-				$this->sockets[(int) $socket] = array(
-					'packet_type' => $packet_type,
-					'socket' => $socket,
-				);
-
-				// Set this socket as in use
-				$this->socket_status($socket_id, TRUE);
-
-				// Let's sleep shortly so we are not hammering out calls raipd fire style
-				usleep(50000);
-			}
-
-			// Now we need to listen for packet(s) response(s)
-			$responses = $this->sockets_listen();
-
-			// Lets look at our response(s)
-			foreach($responses AS $socket_id => $response)
-			{
-				// Back out the packet type
-				$packet_type = $this->sockets[$socket_id]['packet_type'];
-
-				// Now set the packet response
-				$this->packets_response[$packet_type] = $response;
-
-				// Set this socket as free
-				$this->socket_status($socket_id, FALSE);
-			}
-		}
-
-		// Let the processing begin!
-
-		// Let's loop all the requred methods to get all the data we want/need.
-		foreach ($this->process_methods AS $method)
-		{
-			// Lets make sure the data method defined exists.
-			if(!method_exists($this, $method))
-			{
-				throw new GameQException('Unable to load method '.__CLASS__.'::'.$method);
-				continue; // Move along, nothing to see here
-			}
-
-			// Call the proper process method(s).  All methods should return an array of data.
-			// Preprocessing should be handled by these methods internally as well.
-			// Merge in the results when done.
-			$results = array_merge($results, call_user_func_array(array($this, $method), array()));
-		}
-
-		return $results;
-	}
-
-	/**
-	 * Set the socket status and update the necessary secondary properties
-	 *
-	 * @param int $socket_id
-	 * @param bool $inuse
-	 */
-	protected function socket_status($socket_id, $inuse=TRUE)
-	{
-		// Set the status of the inuse property
-		$this->sockets[$socket_id]['inuse'] = $inuse;
-
-		// Remove from the free list
-		if($inuse == TRUE && in_array($socket_id, $this->sockets_free))
-		{
-			// Unset
-			unset($this->sockets_free[$socket_id]);
-		}
-		// Add to the free list
-		elseif($inuse == FALSE && !in_array($socket_id, $this->sockets_free))
-		{
-			// Add socket
-			$this->sockets_free[] = $socket_id;
-		}
-
-		return TRUE;
-	}
-
-	/**
-	 * Get a socket to use to send data to the server
-	 */
-	protected function socket_get()
-	{
-		// Check to see if there are any free sockets
-		if(count($this->sockets_free) > 0)
-		{
-			// Grab the socket id so we can return the already existing socket
-			$socket_id = array_shift($this->sockets_free);
-
-			// Make sure this socket exists
-			if(array_key_exists($socket_id, $this->sockets) && !empty($this->sockets[$socket_id]))
-			{
-				return $this->sockets[$socket_id]['socket'];
-			}
-		}
-
-		// We have no free sockets so lets create a new one
-		return $this->socket_open();
-	}
-
-
-	/**
-	 * Open a new socket based on the instance information
-	 *
-	 * @throws GameQException
-	 */
-	protected function socket_open()
-	{
-		// Define some local vars really fast
-		$errno = null;
-        $errstr = null;
-
-        // Grab the options for this instance
-        $options = $this->options;
-
-        // Get the context
-        $context = stream_context_create();
-        $opts['socket']['bindto'] = '0:0';
-		stream_context_set_option ($context, $opts);
-
-		// Create the remote address
-		$remote_addr = sprintf("%s://%s:%d", $this->transport, $this->ip, $this->port);
-
-		// Create the socket
-		if(($socket = stream_socket_client($remote_addr, $errno, $errstr, 3, STREAM_CLIENT_CONNECT, $context)) !== FALSE)
-		{
-			// Create the read timeout on the stream
-			stream_set_timeout($socket, $options['timeout']);
-
-			// Set as non-blocking
-			stream_set_blocking($socket, FALSE);
-		}
-		else // Throw an error
-		{
-			throw new GameQException(__METHOD__ . ' Error: ' .$errstr, $errno);
-			return false;
-		}
-
-		// return the socket
-		return $socket;
-	}
-
-	/**
-	 * Listen to all the created sockets and return the responses
-	 */
-	protected function sockets_listen()
-	{
-		$responses = array();
-
-		$sockets = array();
-
-		// Loop and pull out all the actual sockets
-		foreach($this->sockets AS $socket_id => $socket_data)
-		{
-			// Append the actual socket we are listening to
-			$sockets[$socket_id] = $socket_data['socket'];
-		}
-
-		$results = array();
-		$read = $sockets;
-		$write = NULL;
-		$except = NULL;
-		$starttime = microtime(true);
-
-		while (($t = $this->options['timeout'] * 1000000 - (microtime(true) - $starttime) * 10000) > 0)
-		{
-			// Now lets listen
-			$streams = stream_select($read, $write, $except, 0, $t);
-
-			// We had error or no streams left
-			if($streams === FALSE || $streams <= 0)
-			{
-				break;
-			}
-
-			foreach($read AS $socket)
-			{
-				// See if we have a response
-				if(($response = stream_socket_recvfrom($socket, 4096)) === FALSE)
-				{
-					continue; // No response yet so lets continue.
-				}
-
-				// Add the response we got back
-                $responses[(int) $socket][] = $response;
-			}
-
-			// Because stream_select modifies read we need to reset it each
-			// time to the original array of sockets
-			$read = $sockets;
-
-			// Sleep for a short bit so we dont 99% the cpu
-			usleep(50000);
-		}
-
-		return $responses;
-	}
-
-	/**
-	 * Close all the open sockets
-	 */
-	protected function sockets_close()
-	{
-		foreach($this->sockets AS $socket_id => $data)
-		{
-			fclose($data['socket']);
-			unset($this->sockets[$socket_id]);
-		}
 	}
 
 	/**
