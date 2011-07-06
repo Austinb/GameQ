@@ -475,6 +475,17 @@ abstract class GameQ_Protocols_Core
 	}
 
 	/**
+	* This method is called before the actual query packets are sent to the server.  This allows
+	* the class to modify any changes before being sent.
+	*
+	* @return boolean
+	*/
+	public function beforeSend()
+	{
+		return TRUE;
+	}
+
+	/**
 	 * Apply the challenge string to all the packets that need it.
 	 *
 	 * @param string $challenge_string
@@ -493,5 +504,8 @@ abstract class GameQ_Protocols_Core
 	/**
 	 * Parse the challenge buffer and get the proper challenge string out
 	 */
-	abstract protected function parseChallengeAndApply();
+	protected function parseChallengeAndApply()
+	{
+		return TRUE;
+	}
 }

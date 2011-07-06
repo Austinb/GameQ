@@ -366,7 +366,7 @@ class GameQ
 			}
 		}
 
-		// First lets to the faster, multi queries
+		// First lets do the faster, multi queries
 		if(count($queries['multi']['info']) > 0)
 		{
 			$this->requestMulti($queries['multi']);
@@ -551,6 +551,9 @@ class GameQ
 	{
 		foreach($instances AS $server_id => $instance)
 		{
+			// Invoke the beforeSend method
+			$instance->beforeSend();
+
 			// Get all the non-challenge packets we need to send
 			$packets = $instance->getPacket('!challenge');
 

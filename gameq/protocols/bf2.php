@@ -54,21 +54,6 @@ class GameQ_Protocols_Bf2 extends GameQ_Protocols_Gamespy3
 		"process_all",
 	);
 
-	/*
-	 * Abstract Methods (required)
-	 */
-
-	/**
-	 * Parse the challenge response and apply it to all the packet types
-	 * that require it.
-	 *
-	 * @see GameQ_Protocols_Core::parseChallengeAndApply()
-	 */
- 	public function parseChallengeAndApply()
-    {
-    	return TRUE;
-    }
-
     /*
      * Internal methods
      */

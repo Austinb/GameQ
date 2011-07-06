@@ -76,21 +76,6 @@ abstract class GameQ_Protocols_ASE extends GameQ_Protocols
 	protected $name_long = "All-Seeing Eye";
 
 	/*
-	 * Abstract Methods (required)
-	 */
-
-	/**
-	 * Parse the challenge response and apply it to all the packet types
-	 * that require it.
-	 *
-	 * @see GameQ_Protocols_Core::parseChallengeAndApply()
-	 */
- 	public function parseChallengeAndApply()
-    {
-    	return TRUE;
-    }
-
-    /*
      * Internal methods
      */
 

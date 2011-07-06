@@ -78,17 +78,13 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
 	 */
 	protected $name_long = "Source Server";
 
-	/*
-	 * Abstract Methods (required)
-	 */
-
 	/**
 	 * Parse the challenge response and apply it to all the packet types
 	 * that require it.
 	 *
 	 * @see GameQ_Protocols_Core::parseChallengeAndApply()
 	 */
- 	public function parseChallengeAndApply()
+ 	protected function parseChallengeAndApply()
     {
     	// Skip the header
     	$this->challenge_buffer->skip(5);

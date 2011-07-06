@@ -88,17 +88,13 @@ abstract class GameQ_Protocols_Gamespy3 extends GameQ_Protocols
 	 */
 	protected $name_long = "Gamespy3";
 
-	/*
-	 * Abstract Methods (required)
-	 */
-
 	/**
 	 * Parse the challenge response and apply it to all the packet types
 	 * that require it.
 	 *
 	 * @see GameQ_Protocols_Core::parseChallengeAndApply()
 	 */
- 	public function parseChallengeAndApply()
+ 	protected function parseChallengeAndApply()
     {
     	// Pull out the challenge
     	$challenge = substr(preg_replace( "/[^0-9\-]/si", "", $this->challenge_buffer->getBuffer()), 1);

@@ -78,21 +78,6 @@ abstract class GameQ_Protocols_Gamespy extends GameQ_Protocols
 	 */
 	protected $name_long = "Gamespy";
 
-	/*
-	 * Abstract Methods (required)
-	 */
-
-	/**
-	 * Parse the challenge response and apply it to all the packet types
-	 * that require it.
-	 *
-	 * @see GameQ_Protocols_Core::parseChallengeAndApply()
-	 */
- 	public function parseChallengeAndApply()
-    {
-    	return TRUE;
-    }
-
     /*
      * Internal methods
      */
