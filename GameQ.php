@@ -352,8 +352,7 @@ class GameQ
 		foreach($this->servers AS $server_id => $instance)
 		{
 			// Check to see what kind of server this is and if we have a specific challenge type
-			if($instance->hasChallenge()
-				&& $instance->challenge_mode() == $instance::CHALLENGE_MODE_EACH)
+			if($instance->packet_mode() == $instance::PACKET_MODE_LINEAR)
 			{
 				$queries['linear'][$server_id] = $instance;
 			}
@@ -454,14 +453,18 @@ class GameQ
 			// Socket id
 			$socket_id = (int) $socket;
 
-			// Now send off the challenge packet
-			fwrite($socket, $instance->getPacket('challenge'));
+			// See if we have challenges to send off
+			if($instance->hasChallenge())
+			{
+				// Now send off the challenge packet
+				fwrite($socket, $instance->getPacket('challenge'));
 
-			// Read in the challenge response
-			$instance->challengeResponse(array(fread($socket, 4096)));
+				// Read in the challenge response
+				$instance->challengeResponse(array(fread($socket, 4096)));
 
-			// Now we need to parse and apply the challenge response to all the packets that require it
-			$instance->challengeVerifyAndParse();
+				// Now we need to parse and apply the challenge response to all the packets that require it
+				$instance->challengeVerifyAndParse();
+			}
 
 			// Grab the packets we need to send, minus the challenge packet
 			$packets = $instance->getPacket('!challenge');
@@ -469,27 +472,35 @@ class GameQ
 			// Now loop the packets, begin the slowness
 			foreach($packets AS $packet_type => $packet)
 			{
-				// Reset the sockets array on each loop because we can only listen to one at a time.
-				$this->sockets = array();
+				// Add the socket information so we can retreive it easily
+				$this->sockets = array(
+					$socket_id => array(
+						'server_id' => $server_id,
+						'packet_type' => $packet_type,
+						'socket' => $socket,
+					)
+				);
 
 				// Write the packet
 				fwrite($socket, $packet);
 
-				// Add the socket information so we can retreive it easily
-				$this->sockets[$socket_id] = array(
-					'server_id' => $server_id,
-					'packet_type' => $packet_type,
-					'socket' => $socket,
-				);
-
-				// Get the responses from the query
-				$responses = $this->sockets_listen();
-
-				// Lets look at our responses
-				foreach($responses AS $socket_id => $response)
+				// If this is TCP we have to handle differently
+				if($instance->transport() == $instance::TRANSPORT_TCP)
 				{
-					// Save the response from this packet
-					$instance->packetResponse($packet_type, $response);
+					// Save the response from this packet now
+					$instance->packetResponse($packet_type, stream_get_contents($socket));
+				}
+				else // UDP
+				{
+					// Get the responses from the query
+					$responses = $this->sockets_listen();
+
+					// Lets look at our responses
+					foreach($responses AS $socket_id => $response)
+					{
+						// Save the response from this packet
+						$instance->packetResponse($packet_type, $response);
+					}
 				}
 			}
 		}
@@ -631,10 +642,17 @@ class GameQ
 		// Create the remote address
 		$remote_addr = sprintf("%s://%s:%d", $instance->transport(), $instance->ip(), $instance->port());
 
+		// Create context
+		$context = stream_context_create(array(
+		    'socket' => array(
+		        'bindto' => '0:0', // Bind to any available IP and OS decided port
+		    ),
+		));
+
 		// Create the socket
-		if(($socket = stream_socket_client($remote_addr, $errno, $errstr, 3, STREAM_CLIENT_CONNECT)) !== FALSE)
+		if(($socket = stream_socket_client($remote_addr, $errno, $errstr, 5, STREAM_CLIENT_CONNECT, $context)) !== FALSE)
 		{
-			// Create the read timeout on the stream
+			// Create the read timeout on the streams
 			stream_set_timeout($socket, $options['timeout']);
 
 			// Set blocking mode
@@ -686,7 +704,7 @@ class GameQ
 			foreach($read AS $socket)
 			{
 				// See if we have a response
-				if(($response = stream_socket_recvfrom($socket, 2048, STREAM_OOB)) === FALSE)
+				if(($response = stream_socket_recvfrom($socket, 8192, STREAM_OOB)) === FALSE)
 				//if(($response = stream_get_line($socket, 16384)) === FALSE)
 				{
 					continue; // No response yet so lets continue.

@@ -23,10 +23,6 @@
  */
 class GameQ_Protocols_Aa3 extends GameQ_Protocols
 {
-	// Constants
-	const TYPE_INTEGER = 2;
-	const TYPE_ARRAY = 7;
-
 	/**
 	 * Array of packets we want to look up.
 	 * Each key should correspond to a defined method in this or a parent class
@@ -234,16 +230,6 @@ class GameQ_Protocols_Aa3 extends GameQ_Protocols
     	unset($buf, $tmp, $data, $keys, $values, $resultcode, $matches, $teams);
 
     	return $result->fetch();
-    }
-
-    /**
-     * Custom read
-     *
-     * @param GameQ_Buffer $buf
-     */
-    protected function readCustomPascal(GameQ_Buffer &$buf)
-    {
-    	return $buf->read($buf->readInt16());
     }
 
     /**

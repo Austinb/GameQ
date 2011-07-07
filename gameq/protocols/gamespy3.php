@@ -34,11 +34,11 @@ abstract class GameQ_Protocols_Gamespy3 extends GameQ_Protocols
 	const TEAMS = 2;
 
 	/**
-	 * Set the challenge mode to each packet
+	 * Set the packet mode to linear
 	 *
 	 * @var string
 	 */
-	protected $challenge_mode = self::CHALLENGE_MODE_EACH;
+	protected $packet_mode = self::PACKET_MODE_LINEAR;
 
 	/**
 	 * Array of packets we want to look up.

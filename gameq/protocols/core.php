@@ -45,22 +45,19 @@ abstract class GameQ_Protocols_Core
 	const TRANSPORT_UDP = 'udp';
 	const TRANSPORT_TCP = 'tcp';
 
-	/*
-	 * Challenge Modes
-	 */
 	/**
-	 * Can send off the challenge once and reuse it in multiple calls
+	 * Can only send one packet at a time, slower
 	 *
 	 * @var string
 	 */
-	const CHALLENGE_MODE_ONCE = 'once';
+	const PACKET_MODE_LINEAR = 'linear';
 
 	/**
-	 * Has to be sent for each query packet, slow (looking at you GameSpy3...  endglare)
+	 * Can send multiple packets at once and get responses, after challenge request (if required)
 	 *
 	 * @var string
 	 */
-	const CHALLENGE_MODE_EACH = 'each';
+	const PACKET_MODE_MULTI = 'multi';
 
 	/**
 	 * Short name of the protocol
@@ -106,11 +103,11 @@ abstract class GameQ_Protocols_Core
 	protected $protocol = 'unknown';
 
 	/**
-	 * Default mode is we can send one challenge for all query packets
+	 * Packets Mode
 	 *
 	 * @var string
 	 */
-	protected $challenge_mode = self::CHALLENGE_MODE_ONCE;
+	protected $packet_mode = self::PACKET_MODE_MULTI;
 
 	/**
 	 * Holds the valid packet types this protocol has available.
@@ -171,20 +168,6 @@ abstract class GameQ_Protocols_Core
 	protected $challenge_result = TRUE;
 
 	/**
-	 * Holds the sockets that this instance is using.
-	 *
-	 * @var array
-	 */
-	protected $sockets = array();
-
-	/**
-	 * Holds the socket ids of the currently free sockets.
-	 *
-	 * @var array
-	 */
-	protected $sockets_free = array();
-
-	/**
 	 * Create the instance.
 	 *
 	 * @param string $ip
@@ -217,11 +200,11 @@ abstract class GameQ_Protocols_Core
 	}
 
 	/**
-	 * Return the challenge mode for this protocol
+	 * Return the packet mode for this protocol
 	 */
-	public function challenge_mode()
+	public function packet_mode()
 	{
-		return $this->challenge_mode;
+		return $this->packet_mode;
 	}
 
 	/**
