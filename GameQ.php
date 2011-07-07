@@ -45,9 +45,13 @@ class GameQ
 	 */
 	const VERSION = '2.0.0';
 
-	const SERVER_TYPE 	= 'type';
-	const SERVER_HOST 	= 'host';
-	const SERVER_ID 	= 'id';
+	/*
+	 * Server array keys
+	 */
+	const SERVER_TYPE = 'type';
+	const SERVER_HOST = 'host';
+	const SERVER_ID = 'id';
+	const SERVER_OPTIONS = 'options';
 
 	/* Static Section */
 	protected static $instance = NULL;
@@ -157,6 +161,9 @@ class GameQ
 
 	/**
 	 * Make new class
+	 *
+	 * @throws GameQException
+	 * @return boolean
 	 */
 	public function __construct()
 	{
@@ -180,6 +187,7 @@ class GameQ
      *
      * @param    string    $var      Option name
      * @param    mixed     $value    Option value
+     * @return GameQ
      */
     public function setOption($var, $value)
     {
@@ -189,11 +197,11 @@ class GameQ
     }
 
 	/**
-     * Return the value for a specific option.
-     *
-     * @param     string    $var    Option name
-     * @return    mixed     Option value, or null if the option does not exist
-     */
+	 * Return the value for a specific option.
+	 *
+	 * @param string $var
+	 * @return Mixed <NULL, multitype:>
+	 */
     public function getOption($var)
     {
         return isset($this->options[$var]) ? $this->options[$var] : null;
@@ -204,6 +212,7 @@ class GameQ
 	 *
 	 * @param string $name
 	 * @param array $params
+	 * @return GameQ
 	 */
     public function setFilter($name, $params = array())
     {
@@ -216,10 +225,11 @@ class GameQ
     }
 
 	/**
-     * Remove an output filter.
-     *
-     * @param    string    $name    Filter name
-     */
+	 * Remove an output filter.
+	 *
+	 * @param string $name
+	 * @return GameQ
+	 */
     public function removeFilter($name)
     {
         unset($this->filters[$name]);
@@ -238,12 +248,14 @@ class GameQ
 	 *
 	 * 		// Optional keys
 	 * 		'id' => 'someServerId', // By default will use pased host info
+	 * 		'options' => array('timeout' => 5), // By default will use global options
 	 * ));
 	 *
 	 * @param array $server_info
-	 * @param array $options
+	 * @throws GameQException
+	 * @return boolean|GameQ
 	 */
-	public function addServer(Array $server_info=NULL, $options = Array())
+	public function addServer(Array $server_info=NULL)
 	{
 		// Check for server type
 		if(!key_exists(self::SERVER_TYPE, $server_info) || empty($server_info[self::SERVER_TYPE]))
@@ -264,6 +276,15 @@ class GameQ
 		{
 			// Make an id so each server has an id when returned
 			$server_info[self::SERVER_ID] = $server_info[self::SERVER_HOST];
+		}
+
+		// Check for options
+		if(!key_exists(self::SERVER_OPTIONS, $server_info)
+			|| !is_array($server_info[self::SERVER_OPTIONS])
+			|| empty($server_info[self::SERVER_OPTIONS]))
+		{
+			// Make an id so each server has an id when returned
+			$server_info[self::SERVER_OPTIONS] = array();
 		}
 
 		// Define these
@@ -289,7 +310,7 @@ class GameQ
 				'flags' => FILTER_FLAG_NO_PRIV_RANGE,
 			))) // Is not valid ip so assume hostname
 		{
-			// Try to resolve to ipv4 address
+			// Try to resolve to ipv4 address, slow
 			$server_ip = gethostbyname($server_addr);
 
 			// When gethostbyname fails it returns the original string
@@ -308,32 +329,48 @@ class GameQ
 		$this->servers[$server_id] = new $protocol_class(
 			$server_ip,
 			$server_port,
-			array_merge($this->options, $options)
+			array_merge($this->options, $server_info[self::SERVER_OPTIONS])
 		);
 
 		return $this; // Make calls chaninable
 	}
 
-	public function addServers(Array $servers = NULL)
+	/**
+	 * Add multiple servers at once
+	 *
+	 * @param array $servers
+	 * @return GameQ
+	 */
+	public function addServers(Array $servers=NULL)
 	{
-		/*foreach($servers AS $server_id => $server_info)
+		// Loop thru all the servers and add them
+		foreach($servers AS $server_info)
 		{
-			$this->addServer($server_id, $server_info);
-		}*/
+			$this->addServer($server_info);
+		}
 
 		return $this; // Make calls chaninable
 	}
 
 	/**
 	 * Clear all the added servers.  Creates clean instance.
+	 *
+	 * @return GameQ
 	 */
 	public function clearServers()
 	{
 		// Reset all the servers
 		$this->servers = array();
 		$this->sockets = array();
+
+		return $this; // Make Chainable
 	}
 
+	/**
+	 * Make all the data requests (i.e. challenges, queries, etc...)
+	 *
+	 * @return multitype:multitype:
+	 */
 	public function requestData()
 	{
 		// Data returned array
@@ -399,6 +436,7 @@ class GameQ
 	 *
 	 * @param array $data
 	 * @param GameQ_Protocols_Core $protocol_instance
+	 * @return array
 	 */
     protected function filterResponse($data, GameQ_Protocols_Core $protocol_instance)
     {
@@ -414,6 +452,7 @@ class GameQ
 	 * Process the servers that support multi requests.  That being multiple packets can be sent out at once.
 	 *
 	 * @param array $servers
+	 * @return boolean
 	 */
 	protected function requestMulti($servers=array())
 	{
@@ -438,9 +477,10 @@ class GameQ
 	}
 
 	/**
-	 * Process "liner" servers.  Servers that cant send multi packets after single challenge. So Slow!
+	 * Process "linear" servers.  Servers that do not support multiple packet calls at once.  So Slow!
 	 *
 	 * @param array $servers
+	 * @return boolean
 	 */
 	protected function requestLinear($servers)
 	{
@@ -512,9 +552,10 @@ class GameQ
 	}
 
 	/**
-	 * Send off the challenges needed
+	 * Send off needed challenges and get the response
 	 *
 	 * @param array $instances
+	 * @return boolean
 	 */
 	protected function challenge(Array $instances=NULL)
 	{
@@ -558,9 +599,10 @@ class GameQ
 	}
 
 	/**
-	 * Get the actual server information
+	 * Query the server for actual server information (i.e. info, players, etc...)
 	 *
 	 * @param array $instances
+	 * @return boolean
 	 */
 	protected function queryServerInfo(Array $instances=NULL)
 	{
@@ -629,6 +671,7 @@ class GameQ
 	 * @param GameQ_Protocols_Core $instance
 	 * @param bool $blocking
 	 * @throws GameQException
+	 * @return boolean|resource
 	 */
 	protected function socket_open(GameQ_Protocols_Core $instance, $blocking=FALSE)
 	{
@@ -670,6 +713,8 @@ class GameQ
 
 	/**
 	 * Listen to all the created sockets and return the responses
+	 *
+	 * @return array
 	 */
 	protected function sockets_listen()
 	{
