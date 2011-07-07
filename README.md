@@ -7,7 +7,8 @@ Note that this is very Alpha as I rewrite a lot of the code and bring the functi
 Requirements
 ============
 * PHP 5.3+
-	* Bzip2 - http://www.php.net/manual/en/book.bzip2.php
+	* Bzip2 - http://www.php.net/manual/en/book.bzip2.php (A2S Compressed Responses)
+	* Zlib - http://www.php.net/manual/en/book.zlib.php (AA3 Compressed Responses)
 
 ChangeLog
 =========

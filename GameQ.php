@@ -32,8 +32,9 @@ spl_autoload_register(array('GameQ', 'auto_load'));
  * any games servers.  All necessary sub-classes are loaded as needed.
  *
  * Requirements:
- *  - PHP 5.3
+ *  - PHP 5.3+
  *  	* Bzip2 - http://www.php.net/manual/en/book.bzip2.php
+ *  	* Zlib - http://www.php.net/manual/en/book.zlib.php
  *
  * @author Austin Bischoff <austin@codebeard.com>
  */
@@ -44,17 +45,12 @@ class GameQ
 	 */
 	const VERSION = '2.0.0';
 
-	const DIR_FILTERS 	= 'filters';
-	const DIR_PROTOCOLS = 'protocols';
-
 	const SERVER_TYPE 	= 'type';
 	const SERVER_HOST 	= 'host';
 	const SERVER_ID 	= 'id';
 
 	/* Static Section */
 	protected static $instance = NULL;
-
-	const PATH_FILTERS = 'filters';
 
 	/**
 	 * Create a new instance of this class
@@ -164,9 +160,17 @@ class GameQ
 	 */
 	public function __construct()
 	{
+		// Check for Bzip2
 		if(!function_exists('bzdecompress'))
 		{
 			throw new GameQException('Bzip2 is not installed.  See http://www.php.net/manual/en/book.bzip2.php for more info.', 0);
+			return FALSE;
+		}
+
+		// Check for Zlib
+		if(!function_exists('gzuncompress'))
+		{
+			throw new GameQException('Zlib is not installed.  See http://www.php.net/manual/en/book.zlib.php for more info.', 0);
 			return FALSE;
 		}
 	}
