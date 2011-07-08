@@ -160,13 +160,15 @@ class GameQ
 	protected $filters = array();
 
 	/**
-	 * Make new class
+	 * Make new class and check for requirements
 	 *
 	 * @throws GameQException
 	 * @return boolean
 	 */
 	public function __construct()
 	{
+		// @todo: Add PHP version check?
+
 		// Check for Bzip2
 		if(!function_exists('bzdecompress'))
 		{
@@ -482,7 +484,7 @@ class GameQ
 	 * @param array $servers
 	 * @return boolean
 	 */
-	protected function requestLinear($servers)
+	protected function requestLinear($servers=array())
 	{
 		// Loop thru all the linear servers
 		foreach($servers AS $server_id => $instance)
