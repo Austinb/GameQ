@@ -95,6 +95,12 @@ class GameQ_Protocols_Bfbc2 extends GameQ_Protocols
 
     protected function process_status()
     {
+    	// Make sure we have a valid response
+    	if(!$this->hasValidResponse(self::PACKET_STATUS))
+    	{
+    		return array();
+    	}
+
     	// Set the result to a new result instance
     	$result = new GameQ_Result();
 
@@ -125,6 +131,12 @@ class GameQ_Protocols_Bfbc2 extends GameQ_Protocols
 
     protected function process_version()
     {
+    	// Make sure we have a valid response
+    	if(!$this->hasValidResponse(self::PACKET_VERSION))
+    	{
+    		return array();
+    	}
+
     	// Set the result to a new result instance
     	$result = new GameQ_Result();
 
@@ -150,6 +162,12 @@ class GameQ_Protocols_Bfbc2 extends GameQ_Protocols
 
     protected function process_players()
     {
+    	// Make sure we have a valid response
+    	if(!$this->hasValidResponse(self::PACKET_PLAYERS))
+    	{
+    		return array();
+    	}
+
     	// Set the result to a new result instance
     	$result = new GameQ_Result();
 

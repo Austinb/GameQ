@@ -118,6 +118,12 @@ class GameQ_Protocols_Ffow extends GameQ_Protocols
 
 	protected function process_info()
 	{
+		// Make sure we have a valid response
+		if(!$this->hasValidResponse(self::PACKET_INFO))
+		{
+			return array();
+		}
+
 		// Set the result to a new result instance
 		$result = new GameQ_Result();
 
@@ -170,6 +176,12 @@ class GameQ_Protocols_Ffow extends GameQ_Protocols
 	 */
 	protected function process_rules()
 	{
+		// Make sure we have a valid response
+		if(!$this->hasValidResponse(self::PACKET_RULES))
+		{
+			return array();
+		}
+
 		// Set the result to a new result instance
 		$result = new GameQ_Result();
 
@@ -221,6 +233,12 @@ class GameQ_Protocols_Ffow extends GameQ_Protocols
 
 	protected function process_players()
 	{
+		// Make sure we have a valid response
+		if(!$this->hasValidResponse(self::PACKET_PLAYERS))
+		{
+			return array();
+		}
+
 		return array();
 	}
 }

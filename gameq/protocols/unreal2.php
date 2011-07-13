@@ -103,6 +103,12 @@ abstract class GameQ_Protocols_Unreal2 extends GameQ_Protocols
 
 	protected function process_details()
 	{
+		// Make sure we have a valid response
+		if(!$this->hasValidResponse(self::PACKET_DETAILS))
+		{
+			return array();
+		}
+
 		// Set the result to a new result instance
 		$result = new GameQ_Result();
 
@@ -157,6 +163,12 @@ abstract class GameQ_Protocols_Unreal2 extends GameQ_Protocols
 	 */
 	protected function process_rules()
 	{
+		// Make sure we have a valid response
+		if(!$this->hasValidResponse(self::PACKET_RULES))
+		{
+			return array();
+		}
+
 		// Set the result to a new result instance
 		$result = new GameQ_Result();
 
@@ -215,6 +227,12 @@ abstract class GameQ_Protocols_Unreal2 extends GameQ_Protocols
 	 */
 	protected function process_players()
 	{
+		// Make sure we have a valid response
+		if(!$this->hasValidResponse(self::PACKET_PLAYERS))
+		{
+			return array();
+		}
+
 		// Set the result to a new result instance
 		$result = new GameQ_Result();
 

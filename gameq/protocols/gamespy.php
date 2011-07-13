@@ -136,6 +136,12 @@ abstract class GameQ_Protocols_Gamespy extends GameQ_Protocols
      */
 	protected function process_status()
 	{
+		// Make sure we have a valid response
+		if(!$this->hasValidResponse(self::PACKET_STATUS))
+		{
+			return array();
+		}
+
 		// Set the result to a new result instance
 		$result = new GameQ_Result();
 

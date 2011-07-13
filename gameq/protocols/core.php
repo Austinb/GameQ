@@ -491,4 +491,17 @@ abstract class GameQ_Protocols_Core
 	{
 		return TRUE;
 	}
+
+	protected function hasValidResponse($packet_type)
+	{
+		// Check for valid packet.  All packet responses should have atleast 1 array key (0).
+		if(isset($this->packets_response[$packet_type][0])
+			&& !empty($this->packets_response[$packet_type][0])
+			)
+		{
+			return TRUE;
+		}
+
+		return FALSE;
+	}
 }
