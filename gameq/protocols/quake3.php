@@ -187,6 +187,7 @@ class GameQ_Protocols_Quake3 extends GameQ_Protocols
 			$result->addPlayer('frags', $buf->readString("\x20"));
 			$result->addPlayer('ping',  $buf->readString("\x20"));
 
+			// Skip first "
 			$buf->skip(1);
 
 			// Add player name
