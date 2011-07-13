@@ -41,10 +41,10 @@ class GameQ_Protocols_Ffow extends GameQ_Protocols
 	);
 
 	/**
-	* Set the packet mode to linear
-	*
-	* @var string
-	*/
+	 * Set the packet mode to linear
+	 *
+	 * @var string
+	 */
 	protected $packet_mode = self::PACKET_MODE_LINEAR;
 
 	/**
@@ -86,17 +86,16 @@ class GameQ_Protocols_Ffow extends GameQ_Protocols
 	 */
 	protected $name_long = "Frontlines: Fuel of War";
 
-
 	/*
-	* Internal methods
-	*/
+	 * Internal methods
+	 */
 
 	/**
-	* Parse the challenge response and apply it to all the packet types
-	* that require it.
-	*
-	* @see GameQ_Protocols_Core::parseChallengeAndApply()
-	*/
+	 * Parse the challenge response and apply it to all the packet types
+	 * that require it.
+	 *
+	 * @see GameQ_Protocols_Core::parseChallengeAndApply()
+	 */
 	protected function parseChallengeAndApply()
 	{
 		// Skip the header
@@ -119,8 +118,6 @@ class GameQ_Protocols_Ffow extends GameQ_Protocols
 
 	protected function process_info()
 	{
-		//var_dump($this->packets_response); exit;
-
 		// Set the result to a new result instance
 		$result = new GameQ_Result();
 
@@ -205,8 +202,6 @@ class GameQ_Protocols_Ffow extends GameQ_Protocols
 			}
 		}
 
-		var_dump($buf->getBuffer());
-
 		unset($buf, $data);
 
 		// Return the result
@@ -227,23 +222,5 @@ class GameQ_Protocols_Ffow extends GameQ_Protocols
 	protected function process_players()
 	{
 		return array();
-
-		/*var_dump($this->packets);
-
-		var_dump($this->packets_response); exit;
-
-		// Set the result to a new result instance
-		$result = new GameQ_Result();
-
-		// Parse the response
-		$data = $this->preProcess_info($this->packets_response[self::PACKET_PLAYERS]);
-
-		// Create a new buffer
-		$buf = new GameQ_Buffer($data);
-
-		unset($buf, $data);
-
-		// Return the result
-		return $result->fetch();*/
 	}
 }
