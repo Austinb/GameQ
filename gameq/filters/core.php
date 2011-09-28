@@ -45,6 +45,11 @@ abstract class GameQ_Filters_Core
         }
     }
 
-
+    /**
+     * Actually apply the filter to the passed results
+     *
+     * @param array $results
+     * @param GameQ_Protocols_Core $protocol_instance
+     */
     abstract public function filter($results, GameQ_Protocols_Core $protocol_instance);
 }

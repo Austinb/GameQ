@@ -29,7 +29,7 @@ class GameQ_Result
      *
      * @var        array
      */
-    private $result = array();
+    protected $result = array();
 
     /**
      * Adds variable to results

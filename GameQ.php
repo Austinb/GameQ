@@ -81,6 +81,7 @@ class GameQ
 			// Transform the class name into a path
 			$file = str_replace('_', '/', strtolower($class));
 
+			// Find the file and return the full path, if it exists
 			if ($path = self::find_file($file))
 			{
 				// Load the class file
@@ -112,6 +113,7 @@ class GameQ
 		// Create a partial path of the filename
 		$path = GAMEQ_BASE.$file.'.php';
 
+		// Is a file so we can include it
 		if(is_file($path))
 		{
 			$found = $path;
@@ -130,7 +132,7 @@ class GameQ
 	/**
 	 * Defined options by default
 	 *
-	 * @var array
+	 * @var array()
 	 */
 	protected $options = array(
 		'debug' => FALSE,
@@ -153,7 +155,7 @@ class GameQ
 	protected $sockets = array();
 
 	/**
-	 * Holds the list of filters that need to be applied to the results
+	 * Holds the global list of filters that need to be applied to the results
 	 *
 	 * @var array
 	 */
@@ -218,6 +220,7 @@ class GameQ
 	 */
     public function setFilter($name, $params = array())
     {
+    	// Create the proper filter class name
     	$filter_class = 'GameQ_Filters_'.$name;
 
         // Pass any parameters
@@ -227,7 +230,7 @@ class GameQ
     }
 
 	/**
-	 * Remove an output filter.
+	 * Remove a global output filter.
 	 *
 	 * @param string $name
 	 * @return GameQ
@@ -246,10 +249,12 @@ class GameQ
 	 * $this->addServer(array(
 	 * 		// Required keys
 	 * 		'type' => 'cs',
-	 * 		'host' => '127.0.0.1:27015', or 'somehost.com:27015' Port also not required
+	 * 		'host' => '127.0.0.1:27015', '127.0.0.1' or 'somehost.com:27015'
+	 * 			Port not required, but will use the default port in the class which may not be correct for the
+	 * 			specific server being queried.
 	 *
 	 * 		// Optional keys
-	 * 		'id' => 'someServerId', // By default will use pased host info
+	 * 		'id' => 'someServerId', // By default will use pased host info (i.e. 127.0.0.1:27015)
 	 * 		'options' => array('timeout' => 5), // By default will use global options
 	 * ));
 	 *
@@ -299,7 +304,7 @@ class GameQ
 		{
 			list($server_addr, $server_port) = explode(':', $server_info[self::SERVER_HOST]);
 		}
-		else // No port
+		else // No port, will use the default port defined by the protocol class
 		{
 			$server_addr = $server_info[self::SERVER_HOST];
 		}
@@ -387,23 +392,23 @@ class GameQ
 			'linear' => array(),
 		);
 
-		// Loop thru all of the servers added and ceatgorize them
+		// Loop thru all of the servers added and categorize them
 		foreach($this->servers AS $server_id => $instance)
 		{
-			// Check to see what kind of server this is and if we have a specific challenge type
+			// Check to see what kind of server this is and how we can send packets
 			if($instance->packet_mode() == $instance::PACKET_MODE_LINEAR)
 			{
 				$queries['linear'][$server_id] = $instance;
 			}
 			else // We can send this out in a multi request
 			{
-				// Check to make sure we should issue a challenge
+				// Check to see if we should issue a challenge first
 				if($instance->hasChallenge())
 				{
 					$queries['multi']['challenges'][$server_id] = $instance;
 				}
 
-				// Add this instance to do info call
+				// Add this instance to do info query
 				$queries['multi']['info'][$server_id] = $instance;
 			}
 		}
@@ -427,7 +432,7 @@ class GameQ
 			$data[$server_id] = $this->filterResponse($instance->processResponse(), $instance);
 		}
 
-		// Send back the data array, could be empty
+		// Send back the data array, could be empty if nothing went to plan
 		return $data;
 	}
 
@@ -450,8 +455,84 @@ class GameQ
         return $data;
     }
 
+    /**
+    * Process "linear" servers.  Servers that do not support multiple packet calls at once.  So Slow!
+    * This method also blocks the socket, you have been warned!!
+    *
+    * @param array $servers
+    * @return boolean
+    */
+    protected function requestLinear($servers=array())
+    {
+    	// Loop thru all the linear servers
+    	foreach($servers AS $server_id => $instance)
+    	{
+    		// First we need to get a socket
+    		$socket = $this->socket_open($instance, TRUE);
+
+    		// Socket id
+    		$socket_id = (int) $socket;
+
+    		// See if we have challenges to send off
+    		if($instance->hasChallenge())
+    		{
+    			// Now send off the challenge packet
+    			fwrite($socket, $instance->getPacket('challenge'));
+
+    			// Read in the challenge response
+    			$instance->challengeResponse(array(fread($socket, 4096)));
+
+    			// Now we need to parse and apply the challenge response to all the packets that require it
+    			$instance->challengeVerifyAndParse();
+    		}
+
+    		// Grab the packets we need to send, minus the challenge packet
+    		$packets = $instance->getPacket('!challenge');
+
+    		// Now loop the packets, begin the slowness
+    		foreach($packets AS $packet_type => $packet)
+    		{
+    			// Add the socket information so we can retreive it easily
+    			$this->sockets = array(
+    			$socket_id => array(
+    						'server_id' => $server_id,
+    						'packet_type' => $packet_type,
+    						'socket' => $socket,
+    			)
+    			);
+
+    			// Write the packet
+    			fwrite($socket, $packet);
+
+    			// If this is TCP we have to handle differently
+    			if($instance->transport() == $instance::TRANSPORT_TCP)
+    			{
+    				// Save the response from this packet now
+    				$instance->packetResponse($packet_type, stream_get_contents($socket));
+    			}
+    			else // Packet is default (UDP)
+    			{
+    				// Get the responses from the query
+    				$responses = $this->sockets_listen();
+
+    				// Lets look at our responses
+    				foreach($responses AS $socket_id => $response)
+    				{
+    					// Save the response from this packet
+    					$instance->packetResponse($packet_type, $response);
+    				}
+    			}
+    		}
+    	}
+
+    	// Now close all the socket(s) and clean up any data
+    	$this->sockets_close();
+
+    	return TRUE;
+    }
+
 	/**
-	 * Process the servers that support multi requests.  That being multiple packets can be sent out at once.
+	 * Process the servers that support multi requests. That means multiple packets can be sent out at once.
 	 *
 	 * @param array $servers
 	 * @return boolean
@@ -462,7 +543,7 @@ class GameQ
 		if(count($servers['challenges']) > 0)
 		{
 			// Now lets send off all the challenges
-			$this->challenge($servers['challenges']);
+			$this->sendChallenge($servers['challenges']);
 
 			// Now let's process the challenges
 			// Loop thru all the instances
@@ -479,87 +560,12 @@ class GameQ
 	}
 
 	/**
-	 * Process "linear" servers.  Servers that do not support multiple packet calls at once.  So Slow!
-	 *
-	 * @param array $servers
-	 * @return boolean
-	 */
-	protected function requestLinear($servers=array())
-	{
-		// Loop thru all the linear servers
-		foreach($servers AS $server_id => $instance)
-		{
-			// First we need to get a socket
-			$socket = $this->socket_open($instance, TRUE);
-
-			// Socket id
-			$socket_id = (int) $socket;
-
-			// See if we have challenges to send off
-			if($instance->hasChallenge())
-			{
-				// Now send off the challenge packet
-				fwrite($socket, $instance->getPacket('challenge'));
-
-				// Read in the challenge response
-				$instance->challengeResponse(array(fread($socket, 4096)));
-
-				// Now we need to parse and apply the challenge response to all the packets that require it
-				$instance->challengeVerifyAndParse();
-			}
-
-			// Grab the packets we need to send, minus the challenge packet
-			$packets = $instance->getPacket('!challenge');
-
-			// Now loop the packets, begin the slowness
-			foreach($packets AS $packet_type => $packet)
-			{
-				// Add the socket information so we can retreive it easily
-				$this->sockets = array(
-					$socket_id => array(
-						'server_id' => $server_id,
-						'packet_type' => $packet_type,
-						'socket' => $socket,
-					)
-				);
-
-				// Write the packet
-				fwrite($socket, $packet);
-
-				// If this is TCP we have to handle differently
-				if($instance->transport() == $instance::TRANSPORT_TCP)
-				{
-					// Save the response from this packet now
-					$instance->packetResponse($packet_type, stream_get_contents($socket));
-				}
-				else // UDP
-				{
-					// Get the responses from the query
-					$responses = $this->sockets_listen();
-
-					// Lets look at our responses
-					foreach($responses AS $socket_id => $response)
-					{
-						// Save the response from this packet
-						$instance->packetResponse($packet_type, $response);
-					}
-				}
-			}
-		}
-
-		// Now close all the socket(s) and clean up any data
-		$this->sockets_close();
-
-		return TRUE;
-	}
-
-	/**
 	 * Send off needed challenges and get the response
 	 *
 	 * @param array $instances
 	 * @return boolean
 	 */
-	protected function challenge(Array $instances=NULL)
+	protected function sendChallenge(Array $instances=NULL)
 	{
 		// Loop thru all the instances we need to send out challenges for
 		foreach($instances AS $server_id => $instance)
@@ -577,7 +583,7 @@ class GameQ
 				'socket' => $socket,
 			);
 
-			// Let's sleep shortly so we are not hammering out calls raipd fire style
+			// Let's sleep shortly so we are not hammering out calls rapid fire style hogging cpu
 			usleep(200000);
 		}
 
@@ -590,7 +596,7 @@ class GameQ
 			// Back out the server_id we need to update the challenge response for
 			$server_id = $this->sockets[$socket_id]['server_id'];
 
-			// Now set the proper response for the challenge because we might need it later
+			// Now set the proper response for the challenge because we will need it later
 			$this->servers[$server_id]->challengeResponse($response);
 		}
 
@@ -601,13 +607,14 @@ class GameQ
 	}
 
 	/**
-	 * Query the server for actual server information (i.e. info, players, etc...)
+	 * Query the server for actual server information (i.e. info, players, rules, etc...)
 	 *
 	 * @param array $instances
 	 * @return boolean
 	 */
 	protected function queryServerInfo(Array $instances=NULL)
 	{
+		// Loop all the server instances
 		foreach($instances AS $server_id => $instance)
 		{
 			// Invoke the beforeSend method

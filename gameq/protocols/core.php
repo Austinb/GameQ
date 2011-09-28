@@ -103,7 +103,7 @@ abstract class GameQ_Protocols_Core
 	protected $protocol = 'unknown';
 
 	/**
-	 * Packets Mode
+	 * Packets Mode is multi by default since most games support it
 	 *
 	 * @var string
 	 */
@@ -290,14 +290,14 @@ abstract class GameQ_Protocols_Core
 	/**
 	 * Get/set the challenge response
 	 *
-	 * @param array $reponse
+	 * @param array $response
 	 */
-	public function challengeResponse($reponse = Array())
+	public function challengeResponse($response = Array())
 	{
 		// Act as setter
-		if(!empty($reponse))
+		if(!empty($response))
 		{
-			$this->challenge_response = $reponse;
+			$this->challenge_response = $response;
 		}
 
 		return $this->challenge_response;
@@ -335,6 +335,9 @@ abstract class GameQ_Protocols_Core
 		return $this->challenge_buffer;
 	}
 
+	/**
+	 * Verify the challenge response and parse it
+	 */
 	public function challengeVerifyAndParse()
 	{
 		// Check to make sure the response exists
@@ -355,12 +358,18 @@ abstract class GameQ_Protocols_Core
 		return $this->parseChallengeAndApply();
 	}
 
-	public function packetResponse($packet_type, $reponse = Array())
+	/**
+	 * Get/set the packet response
+	 *
+	 * @param string $packet_type
+	 * @param array $response
+	 */
+	public function packetResponse($packet_type, $response = Array())
 	{
 		// Act as setter
-		if(!empty($reponse))
+		if(!empty($response))
 		{
-			$this->packets_response[$packet_type] = $reponse;
+			$this->packets_response[$packet_type] = $response;
 		}
 
 		return $this->packets_response[$packet_type];
@@ -481,7 +490,7 @@ abstract class GameQ_Protocols_Core
     		$this->packets[$packet_type] = sprintf($packet, $challenge_string);
     	}
 
-		return true;
+		return TRUE;
 	}
 
 	/**
@@ -492,6 +501,11 @@ abstract class GameQ_Protocols_Core
 		return TRUE;
 	}
 
+	/**
+	 * Determine whether or not the response is valid for a specific packet type
+	 *
+	 * @param string $packet_type
+	 */
 	protected function hasValidResponse($packet_type)
 	{
 		// Check for valid packet.  All packet responses should have atleast 1 array key (0).
