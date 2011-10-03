@@ -26,6 +26,13 @@
 abstract class GameQ_Protocols_Core
 {
 	/*
+	 * Constants for class states
+	 */
+	const STATE_TESTING = 1;
+	const STATE_BETA = 2;
+	const STATE_STABLE = 3;
+
+	/*
 	 * Constants for packet keys
 	 */
 	const PACKET_ALL = 'all'; // Some protocols allow all data to be sent back in one call.
@@ -58,6 +65,13 @@ abstract class GameQ_Protocols_Core
 	 * @var string
 	 */
 	const PACKET_MODE_MULTI = 'multi';
+
+	/**
+	 * Current version of this class
+	 *
+	 * @var string
+	 */
+	protected $version = '2.0';
 
 	/**
 	 * Short name of the protocol
@@ -168,13 +182,20 @@ abstract class GameQ_Protocols_Core
 	protected $challenge_result = TRUE;
 
 	/**
+	 * Define the state of this class
+	 *
+	 * @var int
+	 */
+	protected $state = self::STATE_STABLE;
+
+	/**
 	 * Create the instance.
 	 *
 	 * @param string $ip
 	 * @param mixed $port false|int
 	 * @param array $options
 	 */
-	public function __construct($ip, $port = FALSE, $options = array())
+	public function __construct($ip = FALSE, $port = FALSE, $options = array())
 	{
 		$this->ip($ip);
 
@@ -197,6 +218,30 @@ abstract class GameQ_Protocols_Core
 	public function __toString()
 	{
 		return $this->name;
+	}
+
+	/**
+	* Short (callable) name of this class
+	*/
+	public function name()
+	{
+		return $this->name;
+	}
+
+	/**
+	 * Long name of this class
+	 */
+	public function name_long()
+	{
+		return $this->name_long;
+	}
+
+	/**
+	 * Return the status of this Protocol Class
+	 */
+	public function state()
+	{
+		return $this->state;
 	}
 
 	/**

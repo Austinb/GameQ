@@ -25,7 +25,7 @@
  *
  * @author Austin Bischoff <austin@codebeard.com>
  */
-class GameQ_Protocols_Minequery extends GameQ_Protocols
+abstract class GameQ_Protocols_Minequery extends GameQ_Protocols
 {
 	/**
 	 * Array of packets we want to look up.

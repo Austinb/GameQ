@@ -52,7 +52,7 @@ class GameQ_Protocols_Quake3 extends GameQ_Protocols
 	 *
 	 * @var int
 	 */
-	protected $port = 1; // Default port, used if not set when instanced
+	protected $port = 27960; // Default port, used if not set when instanced
 
 	/**
 	 * The protocol being used

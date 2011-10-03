@@ -88,11 +88,9 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
 	 */
 	protected $name_long = "Battlefield 3";
 
-
 	/*
 	* Internal methods
 	*/
-
     protected function process_status()
     {
     	// Make sure we have a valid response

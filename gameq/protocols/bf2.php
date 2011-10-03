@@ -29,13 +29,6 @@ class GameQ_Protocols_Bf2 extends GameQ_Protocols_Gamespy3
 	protected $port = 29900;
 
 	/**
-	 * Set the challenge mode to each packet
-	 *
-	 * @var string
-	 */
-	protected $challenge_mode = self::CHALLENGE_MODE_ONCE;
-
-	/**
 	 * Array of packets we want to look up.
 	 * Each key should correspond to a defined method in this or a parent class
 	 *

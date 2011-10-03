@@ -26,5 +26,7 @@ class GameQ_Protocols_Avp2 extends GameQ_Protocols_Gamespy
 	protected $name = "avp2";
 	protected $name_long = "Aliens vs Preadtor 2";
 
+	protected $state = self::STATE_TESTING;
+
 	protected $port = 27888;
 }

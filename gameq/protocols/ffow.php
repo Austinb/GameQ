@@ -40,6 +40,8 @@ class GameQ_Protocols_Ffow extends GameQ_Protocols
 		self::PACKET_INFO => "\xFF\xFF\xFF\xFF\x46\x4C\x53\x51",
 	);
 
+	protected $state = self::STATE_TESTING;
+
 	/**
 	 * Set the packet mode to linear
 	 *
