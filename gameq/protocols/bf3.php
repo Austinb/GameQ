@@ -117,11 +117,12 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
 
     	$result->add('hostname', $words[1]);
     	$result->add('numplayers', $words[2]);
-    	$result->add('map', $words[3]);
+    	$result->add('maxplayers', $words[3]);
+    	$result->add('map', $words[4]);
+    	$result->add('gamemode', $words[5]);
 
-    	// From beta
-    	$result->add('password', $words[4]); // Guess
-    	$result->add('time_elapsed', $words[5]); // Guess
+    	// The $words array contains more up to 12 indexes but without documentation they are just guesses.
+    	// @todo: Add unknown values once protocol information has been released.
 
     	unset($buf);
 
@@ -183,8 +184,11 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
     		return array();
     	}
 
-    	// Number of players
-    	$num_players = $words[1];
+    	// Count the number of words and figure out the highest index.
+    	$words_total = count($words)-1;
+
+    	// Just incase this changed between calls.
+    	$result->add('numplayers', $words[1]);
 
     	// The number of player info points
     	$num_tags = $words[2];
@@ -192,27 +196,22 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
     	// Pull out the tags, they start at index=3, length of num_tags
 		$tags = array_slice($words, 3, $num_tags);
 
-		// Init the position
-		$position = 3 + $num_tags;
-
-		// Save the start position
-		$start_position = $position;
-
-		// Loop the stuff
-		// @todo: See if we can clean this up any, seems a bit... messy....
-		for (; $position < $num_players * $num_tags + $start_position;
-			$position += $num_tags)
+		// Loop until we run out of positions
+		for($pos=(3+$num_tags);$pos<=$words_total;$pos+=$num_tags)
 		{
-			for ($a = $position, $b = 0; $a < $position + $num_tags;
-				$a++, $b++)
+			// Pull out this player
+			$player = array_slice($words, $pos, $num_tags);
+
+			// Loop the tags and add the proper value for the tag.
+			foreach($tags AS $tag_index => $tag)
 			{
-				$result->addPlayer($tags[$b], $words[$a]);
+				$result->addPlayer($tag, $player[$tag_index]);
 			}
 		}
 
 		// @todo: Add some team definition stuff
 
-    	unset($buf);
+    	unset($buf, $tags, $words, $player);
 
     	return $result->fetch();
     }
