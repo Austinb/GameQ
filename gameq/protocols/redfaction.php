@@ -76,31 +76,6 @@ class GameQ_Protocols_Redfaction extends GameQ_Protocols
 	 * Internal methods
 	*/
 
-	protected function preProcess_status($packets)
-	{
-		// Should only be one packet
-		if (count($packets) > 1)
-		{
-			throw new GameQException('Enemy Territor: Quake Wars status has more than 1 packet');
-		}
-
-		// Make buffer so we can check this out
-		$buf = new GameQ_Buffer($packets[0]);
-
-		// Grab the header
-		$header = $buf->readString();
-
-		// Now lets verify the header
-		if(!strstr($header, 'infoExResponse'))
-		{
-			throw new GameQException('Unable to match Enemy Territor: Quake Wars response header. Header: '. $header);
-			return FALSE;
-		}
-
-		// Return the data with the header stripped, ready to go.
-		return $buf->getBuffer();
-	}
-
 	/**
 	 * Process the server status
 	 *
@@ -120,7 +95,8 @@ class GameQ_Protocols_Redfaction extends GameQ_Protocols
 		// Header, we're being carefull here
         if ($buf->read() !== "\x00")
         {
-            throw new GameQ_ParsingException($this->p);
+            throw new GameQException('Header error in Red Faction');
+			return FALSE;
         }
 
         // Dunno
