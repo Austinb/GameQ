@@ -95,7 +95,7 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
 	 *
 	 * @var int
 	 */
-	protected $port = 47220; // Default port, used if not set when instanced
+	protected $port = 25200; // Default port, used if not set when instanced
 
 	/**
 	 * The protocol being used
