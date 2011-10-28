@@ -17,35 +17,47 @@
  */
 
 /**
- * This filter makes sure a fixed set of variables is always available
+ * This filter makes sure a fixed set of properties (i.e. gq_) is always available regardless of protocol
  *
  * @author Austin Bischoff <austin@codebeard.com>
  */
 class GameQ_Filters_Normalise extends GameQ_Filters
 {
-	protected $vars = array(
-    	// target       => source
-		'dedicated'     => array('listenserver', 'dedic', 'bf2dedicated', 'netserverdedicated', 'bf2142dedicated'),
-        'gametype'      => array('ggametype', 'sigametype', 'matchtype'),
-        'hostname'      => array('svhostname', 'servername', 'siname', 'name'),
-        'mapname'       => array('map', 'simap'),
-        'maxplayers'    => array('svmaxclients', 'simaxplayers', 'maxclients'),
-        'mod'           => array('game', 'gamedir', 'gamevariant'),
-        'numplayers'    => array('clients', 'sinumplayers'),
-        'password'      => array('protected', 'siusepass', 'sineedpass', 'pswrd', 'gneedpass', 'auth'),
-        'players'       => array('players'),
-		'teams'       	=> array('team'),
-	);
+	/**
+	 * Default normalization items.  Can be overwritten on a protocol basis.
+	 *
+	 * @var array
+	 */
+	protected $normalize = array(
+		// General
+		'general' => array(
+	    	// target       => source
+			'dedicated'     => array('listenserver', 'dedic', 'bf2dedicated', 'netserverdedicated', 'bf2142dedicated'),
+	        'gametype'      => array('ggametype', 'sigametype', 'matchtype'),
+	        'hostname'      => array('svhostname', 'servername', 'siname', 'name'),
+	        'mapname'       => array('map', 'simap'),
+	        'maxplayers'    => array('svmaxclients', 'simaxplayers', 'maxclients'),
+	        'mod'           => array('game', 'gamedir', 'gamevariant'),
+	        'numplayers'    => array('clients', 'sinumplayers'),
+	        'password'      => array('protected', 'siusepass', 'sineedpass', 'pswrd', 'gneedpass', 'auth'),
+	        'players'       => array('players'),
+			'teams'       	=> array('team'),
+		),
 
-	protected $player = array(
-		'name'          => array('nick', 'player', 'playername'),
-        'score'         => array('kills', 'frags', 'skill', 'score'),
-        'ping'          => array('ping'),
-	);
+		// Indvidual
+		'player' => array(
+			'name'          => array('nick', 'player', 'playername', 'name'),
+			'kills'         => array('kills'),
+			'deaths'        => array('deaths'),
+	        'score'         => array('kills', 'frags', 'skill', 'score'),
+	        'ping'          => array('ping'),
+		),
 
-	protected $team = array(
-		'name'          => array('name', 'teamname', 'team_t'),
-		'score'         => array('score', 'score_t'),
+		// Team
+		'team' => array(
+			'name'          => array('name', 'teamname', 'team_t'),
+			'score'         => array('score', 'score_t'),
+		),
 	);
 
     /**
@@ -62,17 +74,25 @@ class GameQ_Filters_Normalise extends GameQ_Filters
     		return $result;
     	}
 
-        // Normalise results
-        $result = $this->normalise($data, $this->vars);
+    	// Here we check to see if we override these defaults.
+    	if(($normalize = $protocol_instance->getNormalize()) !== FALSE)
+    	{
+    		// Merge this stuff in
+    		$this->normalize = array_merge_recursive($this->normalize, $normalize);
+    	}
 
-        // Normalise players
-        if (is_array($result['gq_players'])) {
+        // normalize the general items
+        $result = $this->normalize($data, 'general');
 
+        // normalize players
+        if (isset($result['gq_players']) && is_array($result['gq_players']))
+        {
             // Don't rename the players array
             $result['players'] = $result['gq_players'];
 
-            foreach ($result['players'] as $key => $player) {
-                $result['players'][$key] = array_merge($player, $this->normalise($player, $this->player));
+            foreach ($result['players'] as $key => $player)
+            {
+                $result['players'][$key] = array_merge($player, $this->normalize($player, 'player'));
             }
 
 			$result['gq_numplayers'] = count($result['players']);
@@ -82,14 +102,15 @@ class GameQ_Filters_Normalise extends GameQ_Filters
 			$result['players'] = array();
 		}
 
-    	// Normalise teams
-        if (is_array($result['gq_teams'])) {
-
+    	// normalize teams
+        if (isset($result['gq_teams']) && is_array($result['gq_teams']))
+        {
             // Don't rename the teams array
             $result['teams'] = $result['gq_teams'];
 
-            foreach ($result['teams'] as $key => $team) {
-                $result['teams'][$key] = array_merge($team, $this->normalise($team, $this->team));
+            foreach ($result['teams'] as $key => $team)
+            {
+                $result['teams'][$key] = array_merge($team, $this->normalize($team, 'team'));
             }
 
 			$result['gq_numteams'] = count($result['teams']);
@@ -112,31 +133,42 @@ class GameQ_Filters_Normalise extends GameQ_Filters
 
 
     /**
-     * Normalise an array
+     * normalize an array
      *
-     * @param     array    $data    The data to normalise
-     * @param     array    $vars    An array containing source and target names
-     * @return    array    A normalised array
+     * @param     array    $data    The data to normalize
+     * @param     array    $properties The properties we want to normalize
+     * @return    array    A normalized array
      */
-    private function normalise($data, $vars)
+    private function normalize($data, $properties)
     {
+    	// Make sure this is not empty
+    	if(!isset($this->normalize[$properties]))
+    	{
+    		// We just return empty array
+    		return array();
+    	}
+
+    	$props = $this->normalize[$properties];
+
         // Create a new array, with all the specified variables
-        $new = $this->fill($vars);
+        $new = $this->fill($props);
 
-        foreach ($data as $var => $value) {
-
-            // Normalise values
+        foreach ($data as $var => $value)
+        {
+            // normalize values
             $stripped = strtolower(str_replace('_', '', $var));
 
-            foreach ($vars as $target => $sources) {
-                if ($target == $stripped or in_array($stripped, $sources)) {
-                    $new['gq_' . $target] = $value;
-                    unset($vars[$target]);
-
+            foreach ($props as $target => $sources)
+            {
+            	if ($target == $stripped or in_array($stripped, $sources))
+            	{
+                	$new['gq_' . $target] = $value;
+                    //unset($vars[$target]);
                     break;
                 }
             }
         }
+
         return $new;
     }
 
@@ -151,7 +183,8 @@ class GameQ_Filters_Normalise extends GameQ_Filters
     {
         $data = array();
 
-        foreach ($vars as $target => $source) {
+        foreach ($vars as $target => $source)
+        {
             $data['gq_' . $target] = $val;
         }
 

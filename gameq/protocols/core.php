@@ -189,6 +189,13 @@ abstract class GameQ_Protocols_Core
 	protected $state = self::STATE_STABLE;
 
 	/**
+	 * Holds and changes we want to make to the normailze filter
+	 *
+	 * @var array
+	 */
+	protected $normalize = FALSE;
+
+	/**
 	 * Create the instance.
 	 *
 	 * @param string $ip
@@ -520,6 +527,14 @@ abstract class GameQ_Protocols_Core
 	public function beforeSend()
 	{
 		return TRUE;
+	}
+
+	/**
+	 * Get the normalize property
+	 */
+	public function getNormalize()
+	{
+		return $this->normalize;
 	}
 
 	/**

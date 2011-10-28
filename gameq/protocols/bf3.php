@@ -24,6 +24,36 @@
 class GameQ_Protocols_Bf3 extends GameQ_Protocols
 {
 	/**
+	 * Normalization for this protocol class
+	 *
+	 * @var array
+	 */
+	protected $normalize = array(
+		// General
+		'general' => array(
+			'dedicated' => array('dedicated'),
+			'hostname' => array('hostname'),
+			'password' => array('password'),
+			'numplayers' => array('numplayers'),
+			'maxplayers' => array('maxplayers'),
+			'mapname' => array('map'),
+			'gametype' => array('gametype'),
+	        'players' => array('players'),
+			'teams' => array('team'),
+		),
+
+		// Player
+		'player' => array(
+	        'score' => array('score'),
+		),
+
+		// Team
+		'team' => array(
+			'score' => array('tickets'),
+		),
+	);
+
+	/**
 	 * Array of packets we want to look up.
 	 * Each key should correspond to a defined method in this or a parent class
 	 *
@@ -115,7 +145,8 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
     		throw new GameQException('Packet Response was not OK! Buffer:'.$buf->getBuffer());
     	}
 
-    	unset($buf);
+    	// Server is always dedicated
+    	$result->add('dedicated', 'true');
 
     	// These are the same no matter what mode the server is in
     	$result->add('hostname', $words[1]);
@@ -133,7 +164,10 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
     	if(stristr($words[4], 'Rush'))
     	{
     		$result->addSub('teams', 'tickets', $words[8]);
+    		$result->addSub('teams', 'id', 1);
+
     		$result->addSub('teams', 'tickets', $words[9]);
+    		$result->addSub('teams', 'id', 2);
 
     		// 10 is blank...?
 
@@ -149,7 +183,10 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
     		$result->add('numteams', $words[8]);
 
     		$result->addSub('teams', 'tickets', $words[9]);
+    		$result->addSub('teams', 'id', 1);
+
     		$result->addSub('teams', 'tickets', $words[10]);
+    		$result->addSub('teams', 'id', 2);
 
     		// 11 is what?
     		// 12 is blank...?
@@ -161,6 +198,8 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
     		$result->add('uptime', $words[16]);
     		$result->add('roundtime', $words[17]);
     	}
+
+    	unset($buf, $words);
 
     	return $result->fetch();
     }
@@ -191,7 +230,7 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
 
     	$result->add('version', $words[2]);
 
-    	unset($buf);
+    	unset($buf, $words);
 
     	return $result->fetch();
     }
@@ -243,6 +282,9 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
 			{
 				$result->addPlayer($tag, $player[$tag_index]);
 			}
+
+			// No pings in this game
+			$result->addPlayer('ping', 'false');
 		}
 
 		// @todo: Add some team definition stuff
