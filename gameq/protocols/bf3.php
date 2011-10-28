@@ -115,16 +115,52 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
     		throw new GameQException('Packet Response was not OK! Buffer:'.$buf->getBuffer());
     	}
 
+    	unset($buf);
+
+    	// These are the same no matter what mode the server is in
     	$result->add('hostname', $words[1]);
     	$result->add('numplayers', $words[2]);
     	$result->add('maxplayers', $words[3]);
-    	$result->add('map', $words[4]);
-    	$result->add('gamemode', $words[5]);
+    	$result->add('gametype', $words[4]);
+    	$result->add('map', $words[5]);
 
-    	// The $words array contains more up to 12 indexes but without documentation they are just guesses.
-    	// @todo: Add unknown values once protocol information has been released.
+    	$result->add('roundsplayed', $words[6]);
+    	$result->add('roundstotal', $words[7]);
 
-    	unset($buf);
+    	// Fun part begins below
+
+    	// We are a rush server
+    	if(stristr($words[4], 'Rush'))
+    	{
+    		$result->addSub('teams', 'tickets', $words[8]);
+    		$result->addSub('teams', 'tickets', $words[9]);
+
+    		// 10 is blank...?
+
+    		$result->add('ranked', $words[11]);
+    		$result->add('punkbuster', $words[12]);
+    		$result->add('password', $words[13]);
+
+    		$result->add('uptime', $words[14]);
+    		$result->add('roundtime', $words[15]);
+    	}
+    	else // Assume Conquest or TDM
+    	{
+    		$result->add('numteams', $words[8]);
+
+    		$result->addSub('teams', 'tickets', $words[9]);
+    		$result->addSub('teams', 'tickets', $words[10]);
+
+    		// 11 is what?
+    		// 12 is blank...?
+
+    		$result->add('ranked', $words[13]);
+    		$result->add('punkbuster', $words[14]);
+    		$result->add('password', $words[15]);
+
+    		$result->add('uptime', $words[16]);
+    		$result->add('roundtime', $words[17]);
+    	}
 
     	return $result->fetch();
     }
@@ -187,14 +223,14 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
     	// Count the number of words and figure out the highest index.
     	$words_total = count($words)-1;
 
-    	// Just incase this changed between calls.
-    	$result->add('numplayers', $words[1]);
-
     	// The number of player info points
-    	$num_tags = $words[2];
+    	$num_tags = $words[1];
 
     	// Pull out the tags, they start at index=3, length of num_tags
-		$tags = array_slice($words, 3, $num_tags);
+		$tags = array_slice($words, 2, $num_tags);
+
+		// Just incase this changed between calls.
+		$result->add('numplayers', $words[9]);
 
 		// Loop until we run out of positions
 		for($pos=(3+$num_tags);$pos<=$words_total;$pos+=$num_tags)

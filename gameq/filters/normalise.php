@@ -39,7 +39,7 @@ class GameQ_Filters_Normalise extends GameQ_Filters
 
 	protected $player = array(
 		'name'          => array('nick', 'player', 'playername'),
-        'score'         => array('score', 'kills', 'frags', 'skill'),
+        'score'         => array('kills', 'frags', 'skill', 'score'),
         'ping'          => array('ping'),
 	);
 
