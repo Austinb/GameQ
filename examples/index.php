@@ -6,9 +6,9 @@ require '../GameQ.php';
 // see list.php for all supported games and identifiers.
 $servers = array(
 	array(
-		'id' => 'BF3 Beta',
+		'id' => 'BF3',
 		'type' => 'bf3',
-		'host' => '216.246.49.106:47220',
+		'host' => '8.6.15.241:25200',
 	),
 	array(
 		'id' => 'Test CS 1.6',

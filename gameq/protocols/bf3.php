@@ -148,6 +148,9 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
     	// Server is always dedicated
     	$result->add('dedicated', 'true');
 
+    	// No mods, as of yet
+    	$result->add('mod', 'false');
+
     	// These are the same no matter what mode the server is in
     	$result->add('hostname', $words[1]);
     	$result->add('numplayers', $words[2]);

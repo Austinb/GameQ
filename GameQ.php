@@ -31,7 +31,7 @@ spl_autoload_register(array('GameQ', 'auto_load'));
  * This class should be the only one that is included when you use GameQ to query
  * any games servers.  All necessary sub-classes are loaded as needed.
  *
- * Requirements:
+ * Requirements: See wiki or README for more information on the requirements
  *  - PHP 5.3+
  *  	* Bzip2 - http://www.php.net/manual/en/book.bzip2.php
  *  	* Zlib - http://www.php.net/manual/en/book.zlib.php
@@ -125,10 +125,6 @@ class GameQ
 
 	/* Dynamic Section */
 
-	/*
-	 * Defined properties
-	 */
-
 	/**
 	 * Defined options by default
 	 *
@@ -138,6 +134,7 @@ class GameQ
 		'debug' => FALSE,
 		'raw' => FALSE,
 		'timeout' => 3, // Seconds
+		'filters' => array(),
 	);
 
 	/**
@@ -153,13 +150,6 @@ class GameQ
 	 * @var array
 	 */
 	protected $sockets = array();
-
-	/**
-	 * Holds the global list of filters that need to be applied to the results
-	 *
-	 * @var array
-	 */
-	protected $filters = array();
 
 	/**
 	 * Make new class and check for requirements
@@ -187,29 +177,43 @@ class GameQ
 	}
 
 	/**
-     * Set an option.
-     *
-     * @param    string    $var      Option name
-     * @param    mixed     $value    Option value
-     * @return GameQ
-     */
-    public function setOption($var, $value)
-    {
-        $this->options[$var] = $value;
-
-		return $this; // Make chainable
-    }
+	 * Get an option's value
+	 *
+	 * @param string $option
+	 */
+	public function __get($option)
+	{
+		return isset($this->options[$option]) ? $this->options[$option] : NULL;
+	}
 
 	/**
-	 * Return the value for a specific option.
+	 * Set an option's value
+	 *
+	 * @param string $option
+	 * @param mixed $value
+	 * @return boolean
+	 */
+	public function __set($option, $value)
+	{
+		$this->options[$option] = $value;
+
+		return TRUE;
+	}
+
+	/**
+	 * Chainable call to __set, uses set as the actual setter
 	 *
 	 * @param string $var
-	 * @return Mixed <NULL, multitype:>
+	 * @param mixed $value
+	 * @return GameQ
 	 */
-    public function getOption($var)
-    {
-        return isset($this->options[$var]) ? $this->options[$var] : null;
-    }
+	public function setOption($var, $value)
+	{
+		// Use magic
+		$this->{$var} = $value;
+
+		return $this; // Make chainable
+	}
 
 	/**
 	 * Set an output filter.
@@ -218,16 +222,16 @@ class GameQ
 	 * @param array $params
 	 * @return GameQ
 	 */
-    public function setFilter($name, $params = array())
-    {
-    	// Create the proper filter class name
-    	$filter_class = 'GameQ_Filters_'.$name;
+	public function setFilter($name, $params = array())
+	{
+		// Create the proper filter class name
+		$filter_class = 'GameQ_Filters_'.$name;
 
-        // Pass any parameters
-        $this->filters[$name] = new $filter_class($params);
+		// Pass any parameters and make the class
+		$this->options['filters'][$name] = new $filter_class($params);
 
-        return $this; // Make chainable
-    }
+		return $this; // Make chainable
+	}
 
 	/**
 	 * Remove a global output filter.
@@ -235,12 +239,12 @@ class GameQ
 	 * @param string $name
 	 * @return GameQ
 	 */
-    public function removeFilter($name)
-    {
-        unset($this->filters[$name]);
+	public function removeFilter($name)
+	{
+		unset($this->options['filters'][$name]);
 
-        return $this; // Make chainable
-    }
+		return $this; // Make chainable
+	}
 
 	/**
 	 * Add a server to be queried
@@ -312,10 +316,10 @@ class GameQ
 		// Set the ip to the address by default
 		$server_ip = $server_addr;
 
-		// Now lets validate the server address
+		// Now lets validate the server address, see if it is a hostname
 		if(!filter_var($server_addr, FILTER_VALIDATE_IP, array(
-				'flags' => FILTER_FLAG_NO_PRIV_RANGE,
-			))) // Is not valid ip so assume hostname
+			'flags' => FILTER_FLAG_NO_PRIV_RANGE,
+		))) // Is not valid ip so assume hostname
 		{
 			// Try to resolve to ipv4 address, slow
 			$server_ip = gethostbyname($server_addr);
@@ -329,7 +333,7 @@ class GameQ
 			}
 		}
 
-		// Create the class so we can reference it properly
+		// Create the class so we can reference it properly later
 		$protocol_class = 'GameQ_Protocols_'.ucfirst($server_info[self::SERVER_TYPE]);
 
 		// Create the new instance and add it to the servers list
@@ -429,7 +433,7 @@ class GameQ
 		foreach($this->servers AS $server_id => $instance)
 		{
 			// Lets process this and filter
-			$data[$server_id] = $this->filterResponse($instance->processResponse(), $instance);
+			$data[$server_id] = $this->filterResponse($instance);
 		}
 
 		// Send back the data array, could be empty if nothing went to plan
@@ -441,95 +445,99 @@ class GameQ
 	/**
 	 * Apply all set filters to the data returned by gameservers.
 	 *
-	 * @param array $data
 	 * @param GameQ_Protocols_Core $protocol_instance
 	 * @return array
 	 */
-    protected function filterResponse($data, GameQ_Protocols_Core $protocol_instance)
-    {
-    	foreach($this->filters AS $filter_name => $filter_instance)
-    	{
-    		$data = $filter_instance->filter($data, $protocol_instance);
-        }
+	protected function filterResponse(GameQ_Protocols_Core $protocol_instance)
+	{
+		// Let's pull out the "raw" data we are going to filter
+		$data = $protocol_instance->processResponse();
 
-        return $data;
-    }
+		// Loop each of the filters we have attached
+		foreach($this->options['filters'] AS $filter_name => $filter_instance)
+		{
+			// Overwrite the data with the "filtered" data
+			$data = $filter_instance->filter($data, $protocol_instance);
+		}
 
-    /**
-    * Process "linear" servers.  Servers that do not support multiple packet calls at once.  So Slow!
-    * This method also blocks the socket, you have been warned!!
-    *
-    * @param array $servers
-    * @return boolean
-    */
-    protected function requestLinear($servers=array())
-    {
-    	// Loop thru all the linear servers
-    	foreach($servers AS $server_id => $instance)
-    	{
-    		// First we need to get a socket
-    		$socket = $this->socket_open($instance, TRUE);
+		return $data;
+	}
 
-    		// Socket id
-    		$socket_id = (int) $socket;
+	/**
+	 * Process "linear" servers.  Servers that do not support multiple packet calls at once.  So Slow!
+	 * This method also blocks the socket, you have been warned!!
+	 *
+	 * @param array $servers
+	 * @return boolean
+	 */
+	protected function requestLinear($servers=array())
+	{
+		// Loop thru all the linear servers
+		foreach($servers AS $server_id => $instance)
+		{
+			// First we need to get a socket
+			$socket = $this->socket_open($instance, TRUE);
 
-    		// See if we have challenges to send off
-    		if($instance->hasChallenge())
-    		{
-    			// Now send off the challenge packet
-    			fwrite($socket, $instance->getPacket('challenge'));
+			// Socket id
+			$socket_id = (int) $socket;
 
-    			// Read in the challenge response
-    			$instance->challengeResponse(array(fread($socket, 4096)));
+			// See if we have challenges to send off
+			if($instance->hasChallenge())
+			{
+				// Now send off the challenge packet
+				fwrite($socket, $instance->getPacket('challenge'));
 
-    			// Now we need to parse and apply the challenge response to all the packets that require it
-    			$instance->challengeVerifyAndParse();
-    		}
+				// Read in the challenge response
+				$instance->challengeResponse(array(fread($socket, 4096)));
 
-    		// Grab the packets we need to send, minus the challenge packet
-    		$packets = $instance->getPacket('!challenge');
+				// Now we need to parse and apply the challenge response to all the packets that require it
+				$instance->challengeVerifyAndParse();
+			}
 
-    		// Now loop the packets, begin the slowness
-    		foreach($packets AS $packet_type => $packet)
-    		{
-    			// Add the socket information so we can retreive it easily
-    			$this->sockets = array(
-    			$socket_id => array(
-    						'server_id' => $server_id,
-    						'packet_type' => $packet_type,
-    						'socket' => $socket,
-    			)
-    			);
+			// Grab the packets we need to send, minus the challenge packet
+			$packets = $instance->getPacket('!challenge');
 
-    			// Write the packet
-    			fwrite($socket, $packet);
+			// Now loop the packets, begin the slowness
+			foreach($packets AS $packet_type => $packet)
+			{
+				// Add the socket information so we can retreive it easily
+				$this->sockets = array(
+					$socket_id => array(
+						'server_id' => $server_id,
+						'packet_type' => $packet_type,
+						'socket' => $socket,
+					)
+				);
 
-    			// If this is TCP we have to handle differently
-    			if($instance->transport() == $instance::TRANSPORT_TCP)
-    			{
-    				// Save the response from this packet now
-    				$instance->packetResponse($packet_type, stream_get_contents($socket));
-    			}
-    			else // Packet is default (UDP)
-    			{
-    				// Get the responses from the query
-    				$responses = $this->sockets_listen();
+				// Write the packet
+				fwrite($socket, $packet);
 
-    				// Lets look at our responses
-    				foreach($responses AS $socket_id => $response)
-    				{
-    					// Save the response from this packet
-    					$instance->packetResponse($packet_type, $response);
-    				}
-    			}
-    		}
-    	}
+				// If this is TCP we have to handle differently
+				if($instance->transport() == GameQ_Protocols_Core::TRANSPORT_TCP)
+				{
+					// Save the response from this packet now
+					$instance->packetResponse($packet_type, stream_get_contents($socket));
+				}
+				else // Packet is default (UDP)
+				{
+					// Get the responses from the query
+					$responses = $this->sockets_listen();
 
-    	// Now close all the socket(s) and clean up any data
-    	$this->sockets_close();
+					// Lets look at our responses
+					foreach($responses AS $socket_id => $response)
+					{
+						// Save the response from this packet
+						$instance->packetResponse($packet_type, $response);
+					}
+				}
+			}
+		}
 
-    	return TRUE;
-    }
+		// Now close all the socket(s) and clean up any data
+		$this->sockets_close();
+
+		return TRUE;
+	}
 
 	/**
 	 * Process the servers that support multi requests. That means multiple packets can be sent out at once.
@@ -686,10 +694,10 @@ class GameQ
 	{
 		// Define some local vars really fast
 		$errno = null;
-        $errstr = null;
+		$errstr = null;
 
-        // Grab the options for this instance
-        $options = $instance->options();
+		// Grab the options for this instance
+		$options = $instance->options();
 
 		// Create the remote address
 		$remote_addr = sprintf("%s://%s:%d", $instance->transport(), $instance->ip(), $instance->port());
@@ -698,7 +706,7 @@ class GameQ
 		$context = stream_context_create(array(
 		    'socket' => array(
 		        'bindto' => '0:0', // Bind to any available IP and OS decided port
-		    ),
+			),
 		));
 
 		// Create the socket
@@ -765,7 +773,7 @@ class GameQ
 				}
 
 				// Add the response we got back
-                $responses[(int) $socket][] = $response;
+				$responses[(int) $socket][] = $response;
 			}
 
 			// Because stream_select modifies read we need to reset it each
