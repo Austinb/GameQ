@@ -400,7 +400,7 @@ class GameQ
 		foreach($this->servers AS $server_id => $instance)
 		{
 			// Check to see what kind of server this is and how we can send packets
-			if($instance->packet_mode() == $instance::PACKET_MODE_LINEAR)
+			if($instance->packet_mode() == GameQ_Protocols_Core::PACKET_MODE_LINEAR)
 			{
 				$queries['linear'][$server_id] = $instance;
 			}
@@ -582,12 +582,12 @@ class GameQ
 			$socket = $this->socket_open($instance);
 
 			// Now write the challenge packet to the socket.
-			fwrite($socket, $instance->getPacket($instance::PACKET_CHALLENGE));
+			fwrite($socket, $instance->getPacket(GameQ_Protocols_Core::PACKET_CHALLENGE));
 
 			// Add the socket information so we can retreive it easily
 			$this->sockets[(int) $socket] = array(
 				'server_id' => $server_id,
-				'packet_type' => $instance::PACKET_CHALLENGE,
+				'packet_type' => GameQ_Protocols_Core::PACKET_CHALLENGE,
 				'socket' => $socket,
 			);
 
