@@ -318,7 +318,7 @@ class GameQ
 
 		// Now lets validate the server address, see if it is a hostname
 		if(!filter_var($server_addr, FILTER_VALIDATE_IP, array(
-			'flags' => FILTER_FLAG_NO_PRIV_RANGE,
+			'flags' => FILTER_FLAG_IPV4,
 		))) // Is not valid ip so assume hostname
 		{
 			// Try to resolve to ipv4 address, slow
@@ -380,7 +380,7 @@ class GameQ
 	/**
 	 * Make all the data requests (i.e. challenges, queries, etc...)
 	 *
-	 * @return multitype:multitype:
+	 * @return multitype:Ambigous <multitype:, multitype:boolean string mixed >
 	 */
 	public function requestData()
 	{
@@ -400,7 +400,7 @@ class GameQ
 		foreach($this->servers AS $server_id => $instance)
 		{
 			// Check to see what kind of server this is and how we can send packets
-			if($instance->packet_mode() == GameQ_Protocols_Core::PACKET_MODE_LINEAR)
+			if($instance->packet_mode() == GameQ_Protocols::PACKET_MODE_LINEAR)
 			{
 				$queries['linear'][$server_id] = $instance;
 			}
@@ -445,10 +445,10 @@ class GameQ
 	/**
 	 * Apply all set filters to the data returned by gameservers.
 	 *
-	 * @param GameQ_Protocols_Core $protocol_instance
+	 * @param GameQ_Protocols $protocol_instance
 	 * @return array
 	 */
-	protected function filterResponse(GameQ_Protocols_Core $protocol_instance)
+	protected function filterResponse(GameQ_Protocols $protocol_instance)
 	{
 		// Let's pull out the "raw" data we are going to filter
 		$data = $protocol_instance->processResponse();
@@ -513,7 +513,7 @@ class GameQ
 				fwrite($socket, $packet);
 
 				// If this is TCP we have to handle differently
-				if($instance->transport() == GameQ_Protocols_Core::TRANSPORT_TCP)
+				if($instance->transport() == GameQ_Protocols::TRANSPORT_TCP)
 				{
 					// Save the response from this packet now
 					$instance->packetResponse($packet_type, stream_get_contents($socket));
@@ -582,12 +582,12 @@ class GameQ
 			$socket = $this->socket_open($instance);
 
 			// Now write the challenge packet to the socket.
-			fwrite($socket, $instance->getPacket(GameQ_Protocols_Core::PACKET_CHALLENGE));
+			fwrite($socket, $instance->getPacket(GameQ_Protocols::PACKET_CHALLENGE));
 
 			// Add the socket information so we can retreive it easily
 			$this->sockets[(int) $socket] = array(
 				'server_id' => $server_id,
-				'packet_type' => GameQ_Protocols_Core::PACKET_CHALLENGE,
+				'packet_type' => GameQ_Protocols::PACKET_CHALLENGE,
 				'socket' => $socket,
 			);
 
@@ -685,12 +685,12 @@ class GameQ
 	/**
 	 * Open a new socket based on the instance information
 	 *
-	 * @param GameQ_Protocols_Core $instance
+	 * @param GameQ_Protocols $instance
 	 * @param bool $blocking
 	 * @throws GameQException
 	 * @return boolean|resource
 	 */
-	protected function socket_open(GameQ_Protocols_Core $instance, $blocking=FALSE)
+	protected function socket_open(GameQ_Protocols $instance, $blocking=FALSE)
 	{
 		// Define some local vars really fast
 		$errno = null;
