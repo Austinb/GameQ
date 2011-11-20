@@ -1,0 +1,27 @@
+<phpunit backupGlobals="true"
+         backupStaticAttributes="false"
+         bootstrap="../GameQ.php"
+         cacheTokens="true"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         forceCoversAnnotation="false"
+         mapTestClassNameToCoveredClassName="false"
+         printerClass="PHPUnit_TextUI_ResultPrinter"
+         processIsolation="false"
+         stopOnError="false"
+         stopOnFailure="false"
+         stopOnIncomplete="false"
+         stopOnSkipped="false"
+         testSuiteLoaderClass="PHPUnit_Runner_StandardTestSuiteLoader"
+         strict="false"
+         verbose="false">
+	<testsuites>
+	  <testsuite name="My Test Suite">
+	    <directory>/path/to/*Test.php files</directory>
+	    <file>/path/to/MyTest.php</file>
+	    <exclude>/path/to/exclude</exclude>
+	  </testsuite>
+	</testsuites>
+</phpunit>
