@@ -26,6 +26,12 @@
  */
 abstract class GameQ_Protocols_Source extends GameQ_Protocols
 {
+	/*
+	 * Source engine type constants
+	 */
+	const SOURCE_ENGINE = 0;
+	const GOLDSOURCE_ENGINE = 1;
+
 	/**
 	 * Array of packets we want to look up.
 	 * Each key should correspond to a defined method in this or a parent class
@@ -79,6 +85,13 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
 	protected $name_long = "Source Server";
 
 	/**
+	 * Define the Source engine type.  By default it is assumed to be Source
+	 *
+	 * @var int
+	 */
+	protected $source_engine = self::SOURCE_ENGINE;
+
+	/**
 	 * Parse the challenge response and apply it to all the packet types
 	 * that require it.
 	 *
@@ -104,10 +117,8 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
      */
     protected function preProcess_details($packets)
     {
-    	// Still working on this section for different types of games.
-    	// It seems some games return a bunch more junk
-    	// For now we just use index 0 for the server info data.
-    	return $packets[0];
+    	// Process the packets
+    	return $this->process_packets($packets);
     }
 
     /**
@@ -129,43 +140,71 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
     	// Let's preprocess the rules
     	$data = $this->preProcess_details($this->packets_response[self::PACKET_DETAILS]);
 
+    	// Create a new buffer
     	$buf = new GameQ_Buffer($data);
 
+    	// Skip the header (0xFF0xFF0xFF0xFF)
+    	$buf->skip(4);
+
+    	// Get the type
+    	$type = $buf->read(1);
+
     	// Make sure the data is formatted properly
-    	if($buf->lookAhead(4) != "\xFF\xFF\xFF\xFF")
+    	// Source is 0x49, Goldsource is 0x6d, 0x44 I am not sure about
+    	if(!in_array($type, array("\x49", "\x44", "\x6d")))
     	{
-    		throw new GameQException("Data for ".__METHOD__." does not have the proper header. Header: ".$buf->lookAhead(4));
+    		throw new GameQException("Data for ".__METHOD__." does not have the proper header type (should be 0x49|0x44|0x6d). Header type: 0x".bin2hex($type));
     		return array();
     	}
 
-    	// Skip the header
-    	$buf->skip(4);
+    	// Update the engine type for other calls and other methods, if necessary
+    	if(bin2hex($type) == '6d')
+    	{
+    		$this->source_engine = self::GOLDSOURCE_ENGINE;
+    	}
 
-    	// Figure out what type of server this is
-        // 0x49 for source, 0x6D for goldsource (obsolete)
-        $type = '0x' . bin2hex($buf->read(1));
-
-        if ($type == 0x6D) $result->add('address', $buf->readString());
-        else               $result->add('protocol', $buf->readInt8());
+    	// Check engine type
+    	if ($this->source_engine == self::GOLDSOURCE_ENGINE)
+    	{
+    		$result->add('address', $buf->readString());
+    	}
+        else
+        {
+        	$result->add('protocol', $buf->readInt8());
+        }
 
         $result->add('hostname', $buf->readString());
         $result->add('map', $buf->readString());
         $result->add('game_dir', $buf->readString());
         $result->add('game_descr', $buf->readString());
 
-        if ($type != 0x6D) $result->add('steamappid', $buf->readInt16());
+        // Check engine type
+        if ($this->source_engine != self::GOLDSOURCE_ENGINE)
+        {
+        	$result->add('steamappid', $buf->readInt16());
+        }
 
         $result->add('num_players', $buf->readInt8());
         $result->add('max_players', $buf->readInt8());
 
-        if ($type == 0x6D) $result->add('protocol', $buf->readInt8());
-        else               $result->add('num_bots', $buf->readInt8());
+        // Check engine type
+        if ($this->source_engine == self::GOLDSOURCE_ENGINE)
+        {
+        	$result->add('protocol', $buf->readInt8());
+        }
+        else
+        {
+        	$result->add('num_bots', $buf->readInt8());
+        }
 
         $result->add('dedicated', $buf->read());
         $result->add('os', $buf->read());
         $result->add('password', $buf->readInt8());
         $result->add('secure', $buf->readInt8());
         $result->add('version', $buf->readInt8());
+
+        // Add extra data flag check here
+        // https://developer.valvesoftware.com/wiki/Server_Queries#Source_servers_2
 
         unset($buf);
 
@@ -179,8 +218,8 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
      */
 	protected function preProcess_players($packets)
     {
-    	// Should only be one array entry so just return it
-    	return $packets[0];
+    	// Process the packets
+    	return $this->process_packets($packets);
     }
 
     /**
@@ -202,17 +241,15 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
     	// Let's preprocess the rules
     	$data = $this->preProcess_players($this->packets_response[self::PACKET_PLAYERS]);
 
+    	// Create a new buffer
     	$buf = new GameQ_Buffer($data);
 
     	// Make sure the data is formatted properly
-    	if($buf->lookAhead(5) != "\xFF\xFF\xFF\xFF\x44")
+    	if(($header = $buf->read(5)) != "\xFF\xFF\xFF\xFF\x44")
     	{
-    		throw new GameQException("Data for ".__METHOD__." does not have the proper header. Header: ".$buf->lookAhead(5));
+    		throw new GameQException("Data for ".__METHOD__." does not have the proper header (should be 0xFF0xFF0xFF0xFF0x44). Header: ".bin2hex($header));
     		return array();
     	}
-
-    	// Skip the header
-    	$buf->skip(5);
 
     	// Pull out the number of players
     	$num_players = $buf->readInt8();
@@ -231,7 +268,7 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
         {
             $result->addPlayer('id', $buf->readInt8());
             $result->addPlayer('name', $buf->readString());
-            $result->addPlayer('score', $buf->readInt32());
+            $result->addPlayer('score', $buf->readInt32Signed());
             $result->addPlayer('time', $buf->readFloat32());
         }
 
@@ -248,44 +285,8 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
      */
 	protected function preProcess_rules($packets)
     {
-    	// Only one packet so we should be ok, unverfied
-    	if(count($packets) == 1)
-    	{
-    		// See if the packet is compressed, if so decompress
-    		if($this->isCompressed($packets[0]) === TRUE)
-    		{
-    			// Decompress and return the packet
-				return $this->decompress($packets[0]);
-    		}
-
-    		// Return the first array entry as the string
-    		return $packets[0];
-    	}
-
-    	// Make new buffer for prefix lookup
-    	$buf = new GameQ_Buffer($packets[0]);
-
-    	// We have multiple lines and they are all prefixed, see if we can find the prefix_length
-    	$prefix_length = strlen($buf->readString("\xFF\xFF\xFF\xFF\x45")); // Want the length before the proper header
-
-    	$buffer = array();
-
-    	// Loop all the packets as they might have come in bunches
-    	foreach($packets AS $key => $packet)
-    	{
-    		$buf = new GameQ_Buffer($packet);
-
-			// Skip header Junk for multi lines
-            $buf->skip($prefix_length);
-
-            // Pull out the buffer into the key
-            $buffer[$key] = $buf->getBuffer();
-
-            unset($buf);
-    	}
-
-    	// Merge and return as one string
-    	return implode('', $buffer);
+    	// Process the packets
+    	return $this->process_packets($packets);
     }
 
     /**
@@ -310,26 +311,17 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
     	$buf = new GameQ_Buffer($data);
 
     	// Make sure the data is formatted properly
-    	if($buf->lookAhead(5) != "\xFF\xFF\xFF\xFF\x45")
+    	if(($header = $buf->read(5)) != "\xFF\xFF\xFF\xFF\x45")
     	{
-    		throw new GameQException("Data for ".__METHOD__." does not have the proper header. Header: ".$buf->lookAhead(5));
+    		throw new GameQException("Data for ".__METHOD__." does not have the proper header (should be 0xFF0xFF0xFF0xFF0x45). Header: ".bin2hex($header));
     		return array();
     	}
 
-    	// Skip the header plus E
-    	$buf->skip(5);
-
         // Count the number of rules
-        $count = $buf->readInt16();
-
-		/*// Old code kept for historical, not sure where this needed
-        if ($count == 65535) {
-            $buf->skip();
-            $count = $buf->readInt16();
-        }*/
+        $num_rules = $buf->readInt16Signed();
 
         // Add the count of the number of rules this server has
-        $result->add('num_rules', $count);
+        $result->add('num_rules', $num_rules);
 
         // Rules
         while ($buf->getLength())
@@ -343,65 +335,97 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
     }
 
     /**
-     * Check to see if this packet is compressed
+     * Process the packets to make sure we combine and decompress as needed
      *
-     * @param string $packet
-     */
-    protected function isCompressed($packet)
-    {
-    	// Default is not compressed
-    	$iscompressed = FALSE;
-
-    	// Create a new buffer to see if this is compressed.
-    	$buf = new GameQ_Buffer($packet);
-
-    	// Skip the header
-    	$buf->skip(4);
-
-    	// Check to see if the packet is compressed
-    	if($buf->readInt32() & 0x80000000)
-    	{
-    		$iscompressed = TRUE;
-    	}
-
-    	unset($buf, $packet);
-
-    	return $iscompressed;
-    }
-
-    /**
-     * Decompress the packet
-     *
-     * @param string $packet
+     * @param array $packets
      * @throws GameQException
+     * @return string
      */
-    protected function decompress($packet)
+    protected function process_packets($packets)
     {
-    	// Create a new buffer to see if this is compressed.
-    	$buf = new GameQ_Buffer($packet);
+    	// Make a buffer to see if we should have multiple packets
+    	$buffer = new GameQ_Buffer($packets[0]);
 
-    	// Skip the header
-    	$buf->skip(4);
+    	// First we need to see if the packet is split
+    	// -2 = split packets
+    	// -1 = single packet
+    	$packet_type = $buffer->readInt32Signed();
 
-    	// Grab some info
-    	$request_id = $buf->readInt32();
-		$num_packets = $buf->readInt8();
-		$cur_packet  = $buf->readInt8();
-		$packet_length = $buf->readInt32();
-        $packet_checksum = $buf->readInt32();
-
-    	// Now lets try to decompress the packet
-    	$result = bzdecompress($buf->getBuffer());
-
-    	// Check to make sure this checks out
-    	if(strlen($result) != $packet_length)
+    	// This is one packet so just return the rest of the buffer
+    	if($packet_type == -1)
     	{
-			throw new GameQException("Checksum for compressed packet failed!");
-			return '';
+    		// Free some memory
+    		unset($buffer);
+
+    		// We always return the packet as expected, with null included
+    		return $packets[0];
     	}
 
-    	unset($request_id, $num_packets, $cur_packet, $packet_checksum, $packet_length, $packet);
+    	// Free some memory
+    	unset($buffer);
 
-    	return $result;
+    	// Init array so we can order
+    	$packs = array();
+
+    	// We have multiple packets so we need to get them and order them
+    	foreach($packets AS $packet)
+    	{
+    		// Make a buffer so we can read this info
+    		$buffer = new GameQ_Buffer($packet);
+
+    		// Pull some info
+    		$packet_type = $buffer->readInt32Signed();
+    		$request_id = $buffer->readInt32Signed();
+
+    		// Check to see if this is compressed
+    		if($request_id & 0x80000000)
+    		{
+    			// Get some info
+    			$num_packets = $buffer->readInt8();
+    			$cur_packet  = $buffer->readInt8();
+    			$packet_length = $buffer->readInt32();
+    			$packet_checksum = $buffer->readInt32();
+
+    			// Try to decompress
+    			$result = bzdecompress($buffer->getBuffer());
+
+    			// Now verify the length
+    			if(strlen($result) != $packet_length)
+    			{
+    				throw new GameQException("Checksum for compressed packet failed! Length expected {$packet_length}, length returned".strlen($result));
+    			}
+
+    			// Set the new packs
+    			$packs[$cur_packet] = $result;
+    		}
+    		else // Normal packet
+    		{
+    			// Gold source does things a bit different
+    			if($this->source_engine == self::GOLDSOURCE_ENGINE)
+    			{
+    				$packet_number = $buffer->readInt8();
+    			}
+    			else
+    			{
+
+	    			$packet_number = $buffer->readInt16Signed();
+	    			$split_length = $buffer->readInt16Signed();
+    			}
+
+    			// Now add the rest of the packet to the new array with the packet_number as the id so we can order it
+    			$packs[$packet_number] = $buffer->getBuffer();
+    		}
+
+    		unset($buffer);
+    	}
+
+    	// Free some memory
+    	unset($packets, $packet);
+
+    	// Sort the packets by packet number
+    	ksort($packs);
+
+    	// Now combine the packs into one and return
+    	return implode("", $packs);
     }
 }

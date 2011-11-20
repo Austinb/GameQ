@@ -25,4 +25,25 @@ class GameQ_Protocols_Cs16 extends GameQ_Protocols_Source
 {
 	protected $name = "cs16";
 	protected $name_long = "Counter-Strike 1.6";
+
+	/**
+	 * We have to overload this function to cheat the rules processing because of some wierdness, old ass game!
+	 *
+	 * @see GameQ_Protocols_Source::preProcess_rules()
+	 */
+	protected function preProcess_rules($packets)
+	{
+		$engine_orig = $this->source_engine;
+
+		// Override the engine type for rules, not sure why its like that
+		$this->source_engine = self::GOLDSOURCE_ENGINE;
+
+		// Now process the rules
+		$ret = parent::preProcess_rules($packets);
+
+		// Reset the engine type
+		$this->source_engine = $engine_orig;
+
+		return $ret;
+	}
 }

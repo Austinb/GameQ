@@ -256,9 +256,7 @@ class GameQ_Buffer
     }
 
     /**
-     * Read an int32 from the buffer
-     *
-     * @return  int             The data read
+     * Read a 32-bit unsigned integer
      */
     public function readInt32()
     {
@@ -267,14 +265,31 @@ class GameQ_Buffer
     }
 
     /**
-     * Read an int16 from the buffer
-     *
-     * @return  int             The data read
+     * Read a 32-bit signed integer
+     */
+    public function readInt32Signed()
+    {
+    	$int = unpack('lint', $this->read(4));
+
+    	return $int['int'];
+    }
+
+    /**
+     * Read a 16-bit unsigned integer
      */
     public function readInt16()
     {
         $int = unpack('Sint', $this->read(2));
         return $int['int'];
+    }
+
+    /**
+     * Read a 16-big signed integer
+     */
+    public function readInt16Signed()
+    {
+    	$int = unpack('sint', $this->read(2));
+    	return $int['int'];
     }
 
     /**

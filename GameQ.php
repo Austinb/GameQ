@@ -757,7 +757,7 @@ class GameQ
 			foreach($read AS $socket)
 			{
 				// See if we have a response
-				if(($response = stream_socket_recvfrom($socket, 2048)) === FALSE)
+				if(($response = stream_socket_recvfrom($socket, 8192)) === FALSE)
 				//if(($response = stream_get_line($socket, 16384)) === FALSE)
 				{
 					continue; // No response yet so lets continue.
