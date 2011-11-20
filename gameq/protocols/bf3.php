@@ -156,7 +156,7 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
     	}
 
 		// Set the result to a new result instance
-    	$result = $this->decode_status_response($result, $words);
+    	$result = $this->decode_status_response($words);
 
     	unset($buf, $words);
 
