@@ -136,6 +136,37 @@ class GameQ_Protocols_Bf3_Test extends PHPUnit_Framework_TestCase
 				)
 			),
 
+			array(
+				array('OK', 'i3D.net - BigBrotherBot #3 (FR)', '0', '16', 'SquadDeathMatch0', 'MP_011', '0', '1', '4', '0', '0', '0', '0', '50', '', 'true', 'true', 'false', '494866', '5'),
+				array(
+					'dedicated' => 'true',
+					'mod' => 'false',
+					'hostname' => 'i3D.net - BigBrotherBot #3 (FR)',
+					'numplayers' => '0',
+					'maxplayers' => '16',
+					'gametype' => 'SquadDeathMatch0',
+					'map' => 'MP_011',
+					'roundsplayed' => '0',
+					'roundstotal' => '1',
+					'targetscore' => '50',
+					'online' => '',
+					'ranked' => 'true',
+					'punkbuster' => 'true',
+					'password' => 'false',
+					'uptime' => '494866',
+					'roundtime' => '5',
+					'teams' => array(
+						array('id' => 1, 'tickets' => '0'),
+						array('id' => 2, 'tickets' => '0'),
+						array('id' => 3, 'tickets' => '0'),
+						array('id' => 4, 'tickets' => '0'),
+					)
+				)
+			),
+
+			
+			
+		
 		);
 	}
 
