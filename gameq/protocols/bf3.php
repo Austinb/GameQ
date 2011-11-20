@@ -53,20 +53,6 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
 		),
 	);
 
-	protected $teams = array(
-		0 => array(
-			"name" => "Spectator",
-		),
-		1 => array(
-			"name" => "United States",
-		),
-		2 => array(
-			"name" => "Russian",
-		),
-	);
-
-	protected $maps = array();
-
 	/**
 	 * Array of packets we want to look up.
 	 * Each key should correspond to a defined method in this or a parent class
@@ -147,6 +133,7 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
 
     	$buf->skip(8); /* skip header */
 
+    	// Decode the words into an array so we can use this data
     	$words = $this->decodeWords($buf);
 
     	// Make sure we got OK
@@ -155,29 +142,14 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
     		throw new GameQException('Packet Response was not OK! Buffer:'.$buf->getBuffer());
     	}
 
-		// Set the result to a new result instance
-    	$result = $this->decode_status_response($words);
-
-    	unset($buf, $words);
-
-    	return $result->fetch();
-    }
-    
-    /**
-     * Returns a GameQ_Result from a BF3 response to a serverInfo command.
-     *  
-     * @param array $words array of strings received from the game server
-     * @return GameQ_Result
-     */
-    protected static function decode_status_response($words)
-    {
+    	// Set the result to a new result instance
     	$result = new GameQ_Result();
 
     	// Server is always dedicated
-    	$result->add('dedicated', 'true');
+    	$result->add('dedicated', TRUE);
 
     	// No mods, as of yet
-    	$result->add('mod', 'false');
+    	$result->add('mod', FALSE);
 
     	// These are the same no matter what mode the server is in
     	$result->add('hostname', $words[1]);
@@ -189,39 +161,35 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
     	$result->add('roundsplayed', $words[6]);
     	$result->add('roundstotal', $words[7]);
 
-    	// Fun part begins below
-    	$numteams = intval($words[8]);
-    	if ($numteams >= 1) {
-    		$result->addSub('teams', 'tickets', $words[9]);
-    		$result->addSub('teams', 'id', 1);
-    	}
-    	if ($numteams >= 2) {
-    		$result->addSub('teams', 'tickets', $words[10]);
-    		$result->addSub('teams', 'id', 2);
-    	}
-    	if ($numteams >= 3) {
-    		$result->addSub('teams', 'tickets', $words[11]);
-    		$result->addSub('teams', 'id', 3);
-    	}
-    	if ($numteams >= 4) {
-    		$result->addSub('teams', 'tickets', $words[12]);
-    		$result->addSub('teams', 'id', 4);
-    	}
-    	
-    	$afterTeamIndex = 9 + $numteams;
-    	
-    	
-    	$result->add('targetscore', $words[$afterTeamIndex + 0]);
-    	$result->add('online', $words[$afterTeamIndex + 1]);
-    	$result->add('ranked', $words[$afterTeamIndex + 2]);
-		$result->add('punkbuster', $words[$afterTeamIndex + 3]);
-		$result->add('password', $words[$afterTeamIndex + 4]);
-		$result->add('uptime', $words[$afterTeamIndex + 5]);
-		$result->add('roundtime', $words[$afterTeamIndex + 6]);
+    	// Figure out the number of teams
+    	$num_teams = intval($words[8]);
 
-		return $result;
+    	// Set the current index
+    	$index_current = 9;
+
+    	// Loop for the number of teams found, increment along the way
+    	for($id=1; $id<=$num_teams; $id++)
+    	{
+    		$result->addSub('teams', 'tickets', $words[$index_current]);
+    		$result->addSub('teams', 'id', $id);
+
+    		// Increment
+    		$index_current++;
+    	}
+
+    	// Get and set the rest of the data points.
+    	$result->add('targetscore', $words[$index_current]);
+    	$result->add('online', (bool) $words[$index_current + 1]);
+    	$result->add('ranked', (bool) $words[$index_current + 2]);
+    	$result->add('punkbuster', (bool) $words[$index_current + 3]);
+    	$result->add('password', (bool) $words[$index_current + 4]);
+    	$result->add('uptime', $words[$index_current + 5]);
+    	$result->add('roundtime', $words[$index_current + 6]);
+
+    	unset($buf, $words);
+
+    	return $result->fetch();
     }
-    
 
     protected function preProcess_version($packets=array())
     {
