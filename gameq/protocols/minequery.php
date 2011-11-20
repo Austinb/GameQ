@@ -54,13 +54,6 @@ abstract class GameQ_Protocols_Minequery extends GameQ_Protocols
 	protected $transport = self::TRANSPORT_TCP;
 
 	/**
-	 * Set the packet mode to linear
-	 *
-	 * @var string
-	 */
-	protected $packet_mode = self::PACKET_MODE_LINEAR;
-
-	/**
 	 * Default port for this server type
 	 *
 	 * @var int

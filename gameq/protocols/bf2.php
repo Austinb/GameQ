@@ -29,6 +29,13 @@ class GameQ_Protocols_Bf2 extends GameQ_Protocols_Gamespy3
 	protected $port = 29900;
 
 	/**
+	* Set the packet mode to multi, Gamespy v3 is by default a linear set of calls
+	*
+	* @var string
+	*/
+	protected $packet_mode = self::PACKET_MODE_MULTI;
+
+	/**
 	 * Array of packets we want to look up.
 	 * Each key should correspond to a defined method in this or a parent class
 	 *

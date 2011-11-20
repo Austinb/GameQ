@@ -272,14 +272,14 @@ class GameQ
 		if(!key_exists(self::SERVER_TYPE, $server_info) || empty($server_info[self::SERVER_TYPE]))
 		{
 			throw new GameQException("Missing server info key '".self::SERVER_TYPE."'");
-			return false;
+			return FALSE;
 		}
 
 		// Check for server host
 		if(!key_exists(self::SERVER_HOST, $server_info) || empty($server_info[self::SERVER_HOST]))
 		{
 			throw new GameQException("Missing server info key '".self::SERVER_HOST."'");
-			return false;
+			return FALSE;
 		}
 
 		// Check for server id
@@ -329,7 +329,7 @@ class GameQ
 			if($server_ip === $server_addr)
 			{
 				throw new GameQException("Unable to lookup ip for hostname '{$server_addr}'");
-				return false;
+				return FALSE;
 			}
 		}
 
@@ -475,7 +475,7 @@ class GameQ
 		// Loop thru all the linear servers
 		foreach($servers AS $server_id => $instance)
 		{
-			// First we need to get a socket
+			// First we need to get a socket and we need to block because this is linear
 			$socket = $this->socket_open($instance, TRUE);
 
 			// Socket id
@@ -512,23 +512,14 @@ class GameQ
 				// Write the packet
 				fwrite($socket, $packet);
 
-				// If this is TCP we have to handle differently
-				if($instance->transport() == GameQ_Protocols::TRANSPORT_TCP)
-				{
-					// Save the response from this packet now
-					$instance->packetResponse($packet_type, stream_get_contents($socket));
-				}
-				else // Packet is default (UDP)
-				{
-					// Get the responses from the query
-					$responses = $this->sockets_listen();
+				// Get the responses from the query
+				$responses = $this->sockets_listen();
 
-					// Lets look at our responses
-					foreach($responses AS $socket_id => $response)
-					{
-						// Save the response from this packet
-						$instance->packetResponse($packet_type, $response);
-					}
+				// Lets look at our responses
+				foreach($responses AS $socket_id => $response)
+				{
+					// Save the response from this packet
+					$instance->packetResponse($packet_type, $response);
 				}
 			}
 		}
@@ -692,10 +683,6 @@ class GameQ
 	 */
 	protected function socket_open(GameQ_Protocols $instance, $blocking=FALSE)
 	{
-		// Define some local vars really fast
-		$errno = null;
-		$errstr = null;
-
 		// Grab the options for this instance
 		$options = $instance->options();
 
@@ -710,18 +697,18 @@ class GameQ
 		));
 
 		// Create the socket
-		if(($socket = stream_socket_client($remote_addr, $errno, $errstr, 5, STREAM_CLIENT_CONNECT, $context)) !== FALSE)
+		if(($socket = stream_socket_client($remote_addr, $errno = NULL, $errstr = NULL, $this->timeout, STREAM_CLIENT_CONNECT, $context)) !== FALSE)
 		{
 			// Create the read timeout on the streams
-			stream_set_timeout($socket, $options['timeout']);
+			stream_set_timeout($socket, $this->timeout);
 
 			// Set blocking mode
 			stream_set_blocking($socket, $blocking);
 		}
 		else // Throw an error
 		{
-			throw new GameQException(__METHOD__ . ' Error: ' .$errstr, $errno);
-			return false;
+			throw new GameQException(__METHOD__ . ' Error creating socket: '.$errstr, $errno);
+			return FALSE;
 		}
 
 		// return the socket
@@ -735,8 +722,10 @@ class GameQ
 	 */
 	protected function sockets_listen()
 	{
+		// To store the responses
 		$responses = array();
 
+		// To store the sockets
 		$sockets = array();
 
 		// Loop and pull out all the actual sockets
@@ -746,27 +735,29 @@ class GameQ
 			$sockets[$socket_id] = $socket_data['socket'];
 		}
 
-		$results = array();
+		// Init some variables
 		$read = $sockets;
-		$write = NULL;
-		$except = NULL;
-		$starttime = microtime(true);
 
-		while (($t = $this->options['timeout'] * 1000000 - (microtime(true) - $starttime) * 10000) > 0)
+		// This is when it should stop
+		$time_stop = microtime(TRUE) + $this->timeout;
+
+		// Let's loop until we break something.
+		while (microtime(TRUE) < $time_stop)
 		{
-			// Now lets listen
-			$streams = stream_select($read, $write, $except, 0, $t);
+			// Now lets listen for some streams, but do not cross the streams!
+			$streams = stream_select($read, $write = NULL, $except = NULL, 0, 800000);
 
 			// We had error or no streams left
-			if($streams === FALSE || $streams <= 0)
+			if($streams === FALSE || ($streams <= 0))
 			{
 				break;
 			}
 
+			// Loop the sockets that received data back
 			foreach($read AS $socket)
 			{
 				// See if we have a response
-				if(($response = stream_socket_recvfrom($socket, 8192, STREAM_OOB)) === FALSE)
+				if(($response = stream_socket_recvfrom($socket, 2048)) === FALSE)
 				//if(($response = stream_get_line($socket, 16384)) === FALSE)
 				{
 					continue; // No response yet so lets continue.
@@ -781,8 +772,11 @@ class GameQ
 			$read = $sockets;
 
 			// Sleep for a short bit so we dont 99% the cpu
-			usleep(50000);
+			//usleep(50000);
 		}
+
+		// Free up some memory
+		unset($streams, $read, $sockets, $time_stop);
 
 		return $responses;
 	}
@@ -792,11 +786,14 @@ class GameQ
 	 */
 	protected function sockets_close()
 	{
+		// Loop all the existing sockets, valid or not
 		foreach($this->sockets AS $socket_id => $data)
 		{
 			fclose($data['socket']);
 			unset($this->sockets[$socket_id]);
 		}
+
+		return TRUE;
 	}
 }
 

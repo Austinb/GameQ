@@ -53,6 +53,20 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
 		),
 	);
 
+	protected $teams = array(
+		0 => array(
+			"name" => "Spectator",
+		),
+		1 => array(
+			"name" => "United States",
+		),
+		2 => array(
+			"name" => "Russian",
+		),
+	);
+
+	protected $maps = array();
+
 	/**
 	 * Array of packets we want to look up.
 	 * Each key should correspond to a defined method in this or a parent class
@@ -71,13 +85,6 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
 	 * @var string
 	 */
 	protected $transport = self::TRANSPORT_TCP;
-
-	/**
-	* Set the packet mode to linear
-	*
-	* @var string
-	*/
-	protected $packet_mode = self::PACKET_MODE_LINEAR;
 
 	/**
 	 * Methods to be run when processing the response(s)
@@ -121,6 +128,12 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
 	/*
 	* Internal methods
 	*/
+	protected function preProcess_status($packets=array())
+	{
+		// Implode and return
+		return implode('', $packets);
+	}
+
     protected function process_status()
     {
     	// Make sure we have a valid response
@@ -133,7 +146,7 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
     	$result = new GameQ_Result();
 
     	// Make buffer for data
-    	$buf = new GameQ_Buffer($this->packets_response[self::PACKET_STATUS]);
+    	$buf = new GameQ_Buffer($this->preProcess_status($this->packets_response[self::PACKET_STATUS]));
 
     	$buf->skip(8); /* skip header */
 
@@ -207,6 +220,12 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
     	return $result->fetch();
     }
 
+    protected function preProcess_version($packets=array())
+    {
+    	// Implode and return
+    	return implode('', $packets);
+    }
+
     protected function process_version()
     {
     	// Make sure we have a valid response
@@ -219,7 +238,7 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
     	$result = new GameQ_Result();
 
     	// Make buffer for data
-    	$buf = new GameQ_Buffer($this->packets_response[self::PACKET_VERSION]);
+    	$buf = new GameQ_Buffer($this->preProcess_version($this->packets_response[self::PACKET_VERSION]));
 
     	$buf->skip(8); /* skip header */
 
@@ -238,6 +257,12 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
     	return $result->fetch();
     }
 
+    protected function preProcess_players($packets=array())
+    {
+    	// Implode and return
+    	return implode('', $packets);
+    }
+
     protected function process_players()
     {
     	// Make sure we have a valid response
@@ -250,7 +275,7 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
     	$result = new GameQ_Result();
 
     	// Make buffer for data
-    	$buf = new GameQ_Buffer($this->packets_response[self::PACKET_PLAYERS]);
+    	$buf = new GameQ_Buffer($this->preProcess_players($this->packets_response[self::PACKET_PLAYERS]));
 
     	$buf->skip(8); /* skip header */
 
