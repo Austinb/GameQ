@@ -142,9 +142,6 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
     		return array();
     	}
 
-    	// Set the result to a new result instance
-    	$result = new GameQ_Result();
-
     	// Make buffer for data
     	$buf = new GameQ_Buffer($this->preProcess_status($this->packets_response[self::PACKET_STATUS]));
 
@@ -157,6 +154,24 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
     	{
     		throw new GameQException('Packet Response was not OK! Buffer:'.$buf->getBuffer());
     	}
+
+		// Set the result to a new result instance
+    	$result = $this->decode_status_response($words);
+
+    	unset($buf, $words);
+
+    	return $result->fetch();
+    }
+    
+    /**
+     * Returns a GameQ_Result from a BF3 response to a serverInfo command.
+     *  
+     * @param array $words array of strings received from the game server
+     * @return GameQ_Result
+     */
+    protected static function decode_status_response($words)
+    {
+    	$result = new GameQ_Result();
 
     	// Server is always dedicated
     	$result->add('dedicated', 'true');
@@ -175,50 +190,38 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
     	$result->add('roundstotal', $words[7]);
 
     	// Fun part begins below
-
-    	// We are a rush server
-    	if(stristr($words[4], 'Rush'))
-    	{
-    		$result->addSub('teams', 'tickets', $words[8]);
-    		$result->addSub('teams', 'id', 1);
-
+    	$numteams = intval($words[8]);
+    	if ($numteams >= 1) {
     		$result->addSub('teams', 'tickets', $words[9]);
-    		$result->addSub('teams', 'id', 2);
-
-    		// 10 is blank...?
-
-    		$result->add('ranked', $words[11]);
-    		$result->add('punkbuster', $words[12]);
-    		$result->add('password', $words[13]);
-
-    		$result->add('uptime', $words[14]);
-    		$result->add('roundtime', $words[15]);
+    		$result->addSub('teams', 'id', 1);
     	}
-    	else // Assume Conquest or TDM
-    	{
-    		$result->add('numteams', $words[8]);
-
-    		$result->addSub('teams', 'tickets', $words[9]);
-    		$result->addSub('teams', 'id', 1);
-
+    	if ($numteams >= 2) {
     		$result->addSub('teams', 'tickets', $words[10]);
     		$result->addSub('teams', 'id', 2);
-
-    		// 11 is what?
-    		// 12 is blank...?
-
-    		$result->add('ranked', $words[13]);
-    		$result->add('punkbuster', $words[14]);
-    		$result->add('password', $words[15]);
-
-    		$result->add('uptime', $words[16]);
-    		$result->add('roundtime', $words[17]);
     	}
+    	if ($numteams >= 3) {
+    		$result->addSub('teams', 'tickets', $words[11]);
+    		$result->addSub('teams', 'id', 3);
+    	}
+    	if ($numteams >= 4) {
+    		$result->addSub('teams', 'tickets', $words[12]);
+    		$result->addSub('teams', 'id', 4);
+    	}
+    	
+    	$afterTeamIndex = 9 + $numteams;
+    	
+    	
+    	$result->add('targetscore', $words[$afterTeamIndex + 0]);
+    	$result->add('online', $words[$afterTeamIndex + 1]);
+    	$result->add('ranked', $words[$afterTeamIndex + 2]);
+		$result->add('punkbuster', $words[$afterTeamIndex + 3]);
+		$result->add('password', $words[$afterTeamIndex + 4]);
+		$result->add('uptime', $words[$afterTeamIndex + 5]);
+		$result->add('roundtime', $words[$afterTeamIndex + 6]);
 
-    	unset($buf, $words);
-
-    	return $result->fetch();
+		return $result;
     }
+    
 
     protected function preProcess_version($packets=array())
     {
