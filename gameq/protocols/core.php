@@ -228,8 +228,35 @@ abstract class GameQ_Protocols_Core
 	}
 
 	/**
-	* Short (callable) name of this class
-	*/
+	 * Get an option's value
+	 *
+	 * @param string $option
+	 * @return mixed
+	 */
+	public function __get($option)
+	{
+		return isset($this->options[$option]) ? $this->options[$option] : NULL;
+	}
+
+	/**
+	 * Set an option's value
+	 *
+	 * @param string $option
+	 * @param mixed $value
+	 * @return boolean
+	 */
+	public function __set($option, $value)
+	{
+		$this->options[$option] = $value;
+
+		return TRUE;
+	}
+
+	/**
+	 * Short (callable) name of this class
+	 *
+	 * @return string
+	 */
 	public function name()
 	{
 		return $this->name;
@@ -512,6 +539,13 @@ abstract class GameQ_Protocols_Core
 			}
 			catch (GameQ_ProtocolsException $e)
 			{
+				// Check to see if we are in debug, if so bubble up the exception
+				if($this->debug)
+				{
+					throw new GameQException($e->getMessage(), $e->getCode(), $e);
+					return FALSE;
+				}
+
 				// We ignore this and continue
 				continue;
 			}
