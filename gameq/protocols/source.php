@@ -405,9 +405,8 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
     			{
     				$packet_number = $buffer->readInt8();
     			}
-    			else
+    			else // New source
     			{
-
 	    			$packet_number = $buffer->readInt16Signed();
 	    			$split_length = $buffer->readInt16Signed();
     			}
