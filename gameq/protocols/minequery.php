@@ -88,7 +88,7 @@ abstract class GameQ_Protocols_Minequery extends GameQ_Protocols
 	/**
      * Process the server status
      *
-     * @throws GameQException
+     * @throws GameQ_ProtocolsException
      */
 	protected function process_status()
 	{
@@ -101,7 +101,7 @@ abstract class GameQ_Protocols_Minequery extends GameQ_Protocols
 		// Check to see if this is valid JSON.
 		if(($data = json_decode($this->packets_response[self::PACKET_STATUS])) === NULL)
 		{
-			throw new GameQException('Unable to decode the JSON data for Minequery');
+			throw new GameQ_ProtocolsException('Unable to decode the JSON data for Minequery');
 			return FALSE;
 		}
 

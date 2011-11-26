@@ -136,7 +136,7 @@ class GameQ_Protocols_Aa3 extends GameQ_Protocols
     	// Lets parse out all the data
     	if(preg_match('/attributeNames(.+)attributeValues(.+)resultCode(.*)/ism', $data, $m) === FALSE)
     	{
-    		throw new GameQException("AA3 Packet response is not in a valid format");
+    		throw new GameQ_ProtocolsException("AA3 Packet response is not in a valid format");
     		return array();
     	}
 

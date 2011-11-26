@@ -112,7 +112,7 @@ class GameQ_Protocols_Bfbc2 extends GameQ_Protocols
 
     	if (!isset ($words[0]) || $words[0] != 'OK')
     	{
-    		throw new GameQException('Packet Response was not OK! Buffer:'.$buf->getBuffer());
+    		throw new GameQ_ProtocolsException('Packet Response was not OK! Buffer:'.$buf->getBuffer());
     	}
 
     	$result->add('hostname', $words[1]);

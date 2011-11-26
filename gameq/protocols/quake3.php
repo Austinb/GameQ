@@ -84,7 +84,7 @@ class GameQ_Protocols_Quake3 extends GameQ_Protocols
     	// Should only be one packet
     	if (count($packets) > 1)
     	{
-    		throw new GameQException('Quake 3 status has more than 1 packet');
+    		throw new GameQ_ProtocolsException('Quake 3 status has more than 1 packet');
     	}
 
     	// Make buffer so we can check this out
@@ -96,7 +96,7 @@ class GameQ_Protocols_Quake3 extends GameQ_Protocols
     	// Now lets verify the header
     	if($header != "\xFF\xFF\xFF\xFFstatusResponse\x0A\x5C")
     	{
-    		throw new GameQException('Unable to match Gamespy 3 challenge response header. Header: '. $header);
+    		throw new GameQ_ProtocolsException('Unable to match Gamespy 3 challenge response header. Header: '. $header);
     		return FALSE;
     	}
 
@@ -107,7 +107,7 @@ class GameQ_Protocols_Quake3 extends GameQ_Protocols
     /**
      * Process the server status
      *
-     * @throws GameQException
+     * @throws GameQ_ProtocolsException
      */
 	protected function process_status()
 	{

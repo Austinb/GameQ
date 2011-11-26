@@ -25,3 +25,13 @@ abstract class GameQ_Protocols extends GameQ_Protocols_Core
 {
 
 }
+
+/**
+ * GameQ Protocol Exception
+ *
+ * Allows for another level of exception handling when doing loops. Makes it possible to recover and continue
+ * when there is an exception within one of the protocol classes.
+ *
+ * @author Austin Bischoff <austin@codebeard.com>
+ */
+class GameQ_ProtocolsException extends Exception {}

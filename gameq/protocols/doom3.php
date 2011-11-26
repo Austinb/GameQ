@@ -101,7 +101,7 @@ class GameQ_Protocols_Doom3 extends GameQ_Protocols
 		// Header
         if ($buf->readInt16() !== 65535 or $buf->readString() !== 'infoResponse')
         {
-            throw new GameQException('Header for response does not match. Buffer:'.$this->packets_response[self::PACKET_ALL]);
+            throw new GameQ_ProtocolsException('Header for response does not match. Buffer:'.$this->packets_response[self::PACKET_ALL]);
             return array();
         }
 

@@ -99,7 +99,7 @@ abstract class GameQ_Protocols_Gamespy extends GameQ_Protocols
         	// Check to see if we had a preg_match error
         	if(preg_match("#^(.*)\\\\queryid\\\\([^\\\\]+)(\\\\|$)#", $packet, $matches) === FALSE)
         	{
-        		throw new GameQException('An error occured while parsing the status packets');
+        		throw new GameQ_ProtocolsException('An error occured while parsing the status packets');
         		return $packets_ordered;
         	}
 
@@ -132,7 +132,7 @@ abstract class GameQ_Protocols_Gamespy extends GameQ_Protocols
     /**
      * Process the server status
      *
-     * @throws GameQException
+     * @throws GameQ_ProtocolsException
      */
 	protected function process_status()
 	{

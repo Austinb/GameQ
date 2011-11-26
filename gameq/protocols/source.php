@@ -124,7 +124,7 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
     /**
      * Handles processing the details data into a usable format
      *
-     * @throws GameQException
+     * @throws GameQ_ProtocolsException
      */
 	protected function process_details()
     {
@@ -153,7 +153,7 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
     	// Source is 0x49, Goldsource is 0x6d, 0x44 I am not sure about
     	if(!in_array($type, array("\x49", "\x44", "\x6d")))
     	{
-    		throw new GameQException("Data for ".__METHOD__." does not have the proper header type (should be 0x49|0x44|0x6d). Header type: 0x".bin2hex($type));
+    		throw new GameQ_ProtocolsException("Data for ".__METHOD__." does not have the proper header type (should be 0x49|0x44|0x6d). Header type: 0x".bin2hex($type));
     		return array();
     	}
 
@@ -225,7 +225,7 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
     /**
      * Handles processing the player data into a useable format
      *
-     * @throws GameQException
+     * @throws GameQ_ProtocolsException
      */
 	protected function process_players()
     {
@@ -247,7 +247,7 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
     	// Make sure the data is formatted properly
     	if(($header = $buf->read(5)) != "\xFF\xFF\xFF\xFF\x44")
     	{
-    		throw new GameQException("Data for ".__METHOD__." does not have the proper header (should be 0xFF0xFF0xFF0xFF0x44). Header: ".bin2hex($header));
+    		throw new GameQ_ProtocolsException("Data for ".__METHOD__." does not have the proper header (should be 0xFF0xFF0xFF0xFF0x44). Header: ".bin2hex($header));
     		return array();
     	}
 
@@ -292,7 +292,7 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
     /**
      * Handles processing the rules data into a usable format
      *
-     * @throws GameQException
+     * @throws GameQ_ProtocolsException
      */
 	protected function process_rules()
     {
@@ -313,7 +313,7 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
     	// Make sure the data is formatted properly
     	if(($header = $buf->read(5)) != "\xFF\xFF\xFF\xFF\x45")
     	{
-    		throw new GameQException("Data for ".__METHOD__." does not have the proper header (should be 0xFF0xFF0xFF0xFF0x45). Header: ".bin2hex($header));
+    		throw new GameQ_ProtocolsException("Data for ".__METHOD__." does not have the proper header (should be 0xFF0xFF0xFF0xFF0x45). Header: ".bin2hex($header));
     		return array();
     	}
 
@@ -338,7 +338,7 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
      * Process the packets to make sure we combine and decompress as needed
      *
      * @param array $packets
-     * @throws GameQException
+     * @throws GameQ_ProtocolsException
      * @return string
      */
     protected function process_packets($packets)
@@ -392,7 +392,7 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
     			// Now verify the length
     			if(strlen($result) != $packet_length)
     			{
-    				throw new GameQException("Checksum for compressed packet failed! Length expected {$packet_length}, length returned".strlen($result));
+    				throw new GameQ_ProtocolsException("Checksum for compressed packet failed! Length expected {$packet_length}, length returned".strlen($result));
     			}
 
     			// Set the new packs

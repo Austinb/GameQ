@@ -79,7 +79,7 @@ class GameQ_Protocols_Redfaction extends GameQ_Protocols
 	/**
 	 * Process the server status
 	 *
-	 * @throws GameQException
+	 * @throws GameQ_ProtocolsException
 	 */
 	protected function process_status()
 	{
@@ -95,7 +95,7 @@ class GameQ_Protocols_Redfaction extends GameQ_Protocols
 		// Header, we're being carefull here
         if ($buf->read() !== "\x00")
         {
-            throw new GameQException('Header error in Red Faction');
+            throw new GameQ_ProtocolsException('Header error in Red Faction');
 			return FALSE;
         }
 

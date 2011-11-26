@@ -93,7 +93,7 @@ abstract class GameQ_Protocols_Gamespy2 extends GameQ_Protocols
     /**
      * Process the server details
      *
-     * @throws GameQException
+     * @throws GameQ_ProtocolsException
      */
 	protected function process_details()
 	{
@@ -115,14 +115,14 @@ abstract class GameQ_Protocols_Gamespy2 extends GameQ_Protocols
 		// Make sure the data is formatted properly
     	if($buf->lookAhead(5) != "\x00\x43\x4F\x52\x59")
     	{
-    		throw new GameQException("Data for ".__METHOD__." does not have the proper header. Header: ".$buf->lookAhead(5));
+    		throw new GameQ_ProtocolsException("Data for ".__METHOD__." does not have the proper header. Header: ".$buf->lookAhead(5));
     		return false;
     	}
 
 		// Now verify the end of the data is correct
     	if($buf->readLast() !== "\x00")
     	{
-    		throw new GameQException("Data for ".__METHOD__." does not have the proper ending. Ending: ".$buf->readLast());
+    		throw new GameQ_ProtocolsException("Data for ".__METHOD__." does not have the proper ending. Ending: ".$buf->readLast());
     		return false;
     	}
 
@@ -161,7 +161,7 @@ abstract class GameQ_Protocols_Gamespy2 extends GameQ_Protocols
     /**
      * Process the player data
      *
-     * @throws GameQException
+     * @throws GameQ_ProtocolsException
      */
 	protected function process_players()
 	{
@@ -183,14 +183,14 @@ abstract class GameQ_Protocols_Gamespy2 extends GameQ_Protocols
 		// Make sure the data is formatted properly
     	if($buf->lookAhead(6) != "\x00\x43\x4F\x52\x59\x00")
     	{
-    		throw new GameQException("Data for ".__METHOD__." does not have the proper header. Header: ".$buf->lookAhead(6));
+    		throw new GameQ_ProtocolsException("Data for ".__METHOD__." does not have the proper header. Header: ".$buf->lookAhead(6));
     		return false;
     	}
 
 		// Now verify the end of the data is correct
     	if($buf->readLast() !== "\x00")
     	{
-    		throw new GameQException("Data for ".__METHOD__." does not have the proper ending. Ending: ".$buf->readLast());
+    		throw new GameQ_ProtocolsException("Data for ".__METHOD__." does not have the proper ending. Ending: ".$buf->readLast());
     		return false;
     	}
 

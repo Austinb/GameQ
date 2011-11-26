@@ -496,14 +496,26 @@ abstract class GameQ_Protocols_Core
 			// Lets make sure the data method defined exists.
 			if(!method_exists($this, $method))
 			{
+				// We should never get here in a production environment
 				throw new GameQException('Unable to load method '.__CLASS__.'::'.$method);
-				continue; // Move along, nothing to see here
+				return FALSE;
 			}
 
-			// Call the proper process method(s).  All methods should return an array of data.
-			// Preprocessing should be handled by these methods internally as well.
-			// Merge in the results when done.
-			$results = array_merge($results, call_user_func_array(array($this, $method), array()));
+			// Setup a catch for protocol level errors
+			try
+			{
+				// Call the proper process method.  All methods should return an array of data.
+				// Preprocessing should be handled by these methods internally as well.
+				// Merge in the results when done.
+				$results = array_merge($results, call_user_func_array(array($this, $method), array()));
+
+			}
+			catch (GameQ_ProtocolsException $e)
+			{
+				// We ignore this and continue
+				continue;
+			}
+
 		}
 
 		// Now add some default stuff

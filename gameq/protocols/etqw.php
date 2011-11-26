@@ -80,7 +80,7 @@ class GameQ_Protocols_Etqw extends GameQ_Protocols
 		// Should only be one packet
 		if (count($packets) > 1)
 		{
-			throw new GameQException('Enemy Territor: Quake Wars status has more than 1 packet');
+			throw new GameQ_ProtocolsException('Enemy Territor: Quake Wars status has more than 1 packet');
 		}
 
 		// Make buffer so we can check this out
@@ -92,7 +92,7 @@ class GameQ_Protocols_Etqw extends GameQ_Protocols
 		// Now lets verify the header
 		if(!strstr($header, 'infoExResponse'))
 		{
-			throw new GameQException('Unable to match Enemy Territor: Quake Wars response header. Header: '. $header);
+			throw new GameQ_ProtocolsException('Unable to match Enemy Territor: Quake Wars response header. Header: '. $header);
 			return FALSE;
 		}
 
@@ -103,7 +103,7 @@ class GameQ_Protocols_Etqw extends GameQ_Protocols
 	/**
 	 * Process the server status
 	 *
-	 * @throws GameQException
+	 * @throws GameQ_ProtocolsException
 	 */
 	protected function process_status()
 	{

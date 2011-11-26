@@ -139,7 +139,7 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
     	// Make sure we got OK
     	if (!isset ($words[0]) || $words[0] != 'OK')
     	{
-    		throw new GameQException('Packet Response was not OK! Buffer:'.$buf->getBuffer());
+    		throw new GameQ_ProtocolsException('Packet Response was not OK! Buffer:'.$buf->getBuffer());
     	}
 
     	// Set the result to a new result instance
