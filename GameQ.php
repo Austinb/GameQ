@@ -476,7 +476,11 @@ class GameQ
 		foreach($servers AS $server_id => $instance)
 		{
 			// First we need to get a socket and we need to block because this is linear
-			$socket = $this->socket_open($instance, TRUE);
+			if(($socket = $this->socket_open($instance, TRUE)) === FALSE)
+			{
+				// Skip it
+				continue;
+			}
 
 			// Socket id
 			$socket_id = (int) $socket;
@@ -570,7 +574,11 @@ class GameQ
 		foreach($instances AS $server_id => $instance)
 		{
 			// Make a new socket
-			$socket = $this->socket_open($instance);
+			if(($socket = $this->socket_open($instance)) === FALSE)
+			{
+				// Skip it
+				continue;
+			}
 
 			// Now write the challenge packet to the socket.
 			fwrite($socket, $instance->getPacket(GameQ_Protocols::PACKET_CHALLENGE));
@@ -632,7 +640,11 @@ class GameQ
 			foreach($packets AS $packet_type => $packet)
 			{
 				// Make a new socket
-				$socket = $this->socket_open($instance);
+				if(($socket = $this->socket_open($instance)) === FALSE)
+				{
+					// Skip it
+					continue;
+				}
 
 				// Now write the packet to the socket.
 				fwrite($socket, $packet);
@@ -707,7 +719,13 @@ class GameQ
 		}
 		else // Throw an error
 		{
-			throw new GameQException(__METHOD__ . ' Error creating socket: '.$errstr, $errno);
+			// Check to see if we are in debug, if so throw the exception
+			if($this->debug)
+			{
+				throw new GameQException(__METHOD__." Error creating socket to server {$remote_addr}. Error:".$errstr, $errno);
+			}
+
+			// We didnt create so we need to return false.
 			return FALSE;
 		}
 
