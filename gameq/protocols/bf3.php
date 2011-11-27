@@ -186,16 +186,13 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
     	$result->add('uptime', $words[$index_current + 5]);
     	$result->add('roundtime', $words[$index_current + 6]);
 
-    	// R9 and beyond
-    	if(count(array_slice($words, ($index_current+7))) > 0)
-    	{
-	    	$result->add('ip_port', $words[$index_current + 7]);
-	    	$result->add('punkbuster_version', $words[$index_current + 8]);
-    		$result->add('join_queue', (bool) $words[$index_current + 9]);
-    		$result->add('region', $words[$index_current + 10]);
-    		$result->add('pingsite', $words[$index_current + 11]);
-    		$result->add('country', $words[$index_current + 12]);
-    	}
+    	// Added in R9
+	    $result->add('ip_port', $words[$index_current + 7]);
+	    $result->add('punkbuster_version', $words[$index_current + 8]);
+    	$result->add('join_queue', (bool) $words[$index_current + 9]);
+    	$result->add('region', $words[$index_current + 10]);
+    	$result->add('pingsite', $words[$index_current + 11]);
+    	$result->add('country', $words[$index_current + 12]);
 
     	unset($buf, $words);
 
