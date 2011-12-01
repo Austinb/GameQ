@@ -70,7 +70,6 @@ class GameQ_Protocols_Aa3 extends GameQ_Protocols
 	 */
 	protected $name_long = "America's Army 3";
 
-
 	/*
 	* Internal methods
 	*/

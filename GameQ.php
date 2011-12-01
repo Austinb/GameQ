@@ -498,6 +498,9 @@ class GameQ
 				$instance->challengeVerifyAndParse();
 			}
 
+			// Invoke the beforeSend method
+			$instance->beforeSend();
+
 			// Grab the packets we need to send, minus the challenge packet
 			$packets = $instance->getPacket('!challenge');
 
@@ -695,9 +698,6 @@ class GameQ
 	 */
 	protected function socket_open(GameQ_Protocols $instance, $blocking=FALSE)
 	{
-		// Grab the options for this instance
-		$options = $instance->options();
-
 		// Create the remote address
 		$remote_addr = sprintf("%s://%s:%d", $instance->transport(), $instance->ip(), $instance->port());
 
@@ -711,7 +711,7 @@ class GameQ
 		// Create the socket
 		if(($socket = stream_socket_client($remote_addr, $errno = NULL, $errstr = NULL, $this->timeout, STREAM_CLIENT_CONNECT, $context)) !== FALSE)
 		{
-			// Create the read timeout on the streams
+			// Set the read timeout on the streams
 			stream_set_timeout($socket, $this->timeout);
 
 			// Set blocking mode
@@ -719,15 +719,17 @@ class GameQ
 		}
 		else // Throw an error
 		{
-			// Check to see if we are in debug, if so throw the exception
+			// Check to see if we are in debug mode, if so throw the exception
 			if($this->debug)
 			{
-				throw new GameQException(__METHOD__." Error creating socket to server {$remote_addr}. Error:".$errstr, $errno);
+				throw new GameQException(__METHOD__." Error creating socket to server {$remote_addr}. Error: ".$errstr, $errno);
 			}
 
 			// We didnt create so we need to return false.
 			return FALSE;
 		}
+
+		unset($context, $remote_addr);
 
 		// return the socket
 		return $socket;
@@ -776,7 +778,6 @@ class GameQ
 			{
 				// See if we have a response
 				if(($response = stream_socket_recvfrom($socket, 8192)) === FALSE)
-				//if(($response = stream_get_line($socket, 16384)) === FALSE)
 				{
 					continue; // No response yet so lets continue.
 				}
