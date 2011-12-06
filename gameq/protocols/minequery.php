@@ -98,8 +98,11 @@ abstract class GameQ_Protocols_Minequery extends GameQ_Protocols
 			return array();
 		}
 
+		// The response should be a single string so just combine all the packets into a single string
+		$response = implode('', $this->packets_response[self::PACKET_STATUS]);
+
 		// Check to see if this is valid JSON.
-		if(($data = json_decode($this->packets_response[self::PACKET_STATUS])) === NULL)
+		if(($data = json_decode($response)) === NULL)
 		{
 			throw new GameQ_ProtocolsException('Unable to decode the JSON data for Minequery');
 			return FALSE;
@@ -107,6 +110,9 @@ abstract class GameQ_Protocols_Minequery extends GameQ_Protocols
 
 		// Set the result to a new result instance
 		$result = new GameQ_Result();
+
+		// Server is always dedicated
+		$result->add('dedicated', TRUE);
 
 		// Add the address and port info
 		$result->add('serverport', $data->serverPort);

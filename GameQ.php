@@ -742,6 +742,9 @@ class GameQ
 	 */
 	protected function sockets_listen()
 	{
+		// Set the loop to active
+		$loop_active = TRUE;
+
 		// To store the responses
 		$responses = array();
 
@@ -762,7 +765,7 @@ class GameQ
 		$time_stop = microtime(TRUE) + $this->timeout;
 
 		// Let's loop until we break something.
-		while (microtime(TRUE) < $time_stop)
+		while ($loop_active && microtime(TRUE) < $time_stop)
 		{
 			// Now lets listen for some streams, but do not cross the streams!
 			$streams = stream_select($read, $write = NULL, $except = NULL, 0, 800000);
@@ -782,6 +785,15 @@ class GameQ
 					continue; // No response yet so lets continue.
 				}
 
+				// Check to see if the reponse is empty, if so we are done
+				// @todo: Verify that this does not affect other protocols, added for Minequery
+				if(strlen($response) == 0)
+				{
+					// End the while loop
+					$loop_active = FALSE;
+					break;
+				}
+
 				// Add the response we got back
 				$responses[(int) $socket][] = $response;
 			}
@@ -789,9 +801,6 @@ class GameQ
 			// Because stream_select modifies read we need to reset it each
 			// time to the original array of sockets
 			$read = $sockets;
-
-			// Sleep for a short bit so we dont 99% the cpu
-			//usleep(50000);
 		}
 
 		// Free up some memory
