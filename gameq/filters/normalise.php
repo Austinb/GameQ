@@ -68,7 +68,7 @@ class GameQ_Filters_Normalise extends GameQ_Filters
     {
     	$result = array();
 
-    	// No dsta passed so something bad happened
+    	// No data passed so something bad happened
     	if(empty($data))
     	{
     		return $result;

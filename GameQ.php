@@ -785,8 +785,9 @@ class GameQ
 					continue; // No response yet so lets continue.
 				}
 
-				// Check to see if the reponse is empty, if so we are done
+				// Check to see if the response is empty, if so we are done
 				// @todo: Verify that this does not affect other protocols, added for Minequery
+				// Initial testing showed this change did not affect any of the other protocols
 				if(strlen($response) == 0)
 				{
 					// End the while loop

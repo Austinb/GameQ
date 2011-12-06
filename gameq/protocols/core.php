@@ -287,6 +287,15 @@ abstract class GameQ_Protocols_Core
 	}
 
 	/**
+	 * Return the protocol property
+	 *
+	 */
+	public function protocol()
+	{
+		return $this->protocol;
+	}
+
+	/**
 	 * Get/set the ip address of the server
 	 *
 	 * @param string $ip
