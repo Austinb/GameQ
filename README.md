@@ -17,3 +17,7 @@ See CHANGELOG for specific list of changes
 License
 =======
 See LICENSE for more information
+
+Donations
+=========
+If you like this project and use it a lot please feel free to donate here: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VAU2KADATP5PU.
