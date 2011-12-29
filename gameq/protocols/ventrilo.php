@@ -30,10 +30,10 @@
 class GameQ_Protocols_Ventrilo extends GameQ_Protocols
 {
 	/**
-	* Normalization for this protocol class
-	*
-	* @var array
-	*/
+	 * Normalization for this protocol class
+	 *
+	 * @var array
+	 */
 	protected $normalize = array(
 		// General
 		'general' => array(
@@ -84,10 +84,10 @@ class GameQ_Protocols_Ventrilo extends GameQ_Protocols
 	protected $port = 3784; // Default port, used if not set when instanced
 
 	/**
-	 * The trasport method to use to actually send the data
+	 * Set to run in linear mode
+	 *
+	 * @var string
 	 */
-	//protected $transport = self::TRANSPORT_TCP;
-
 	protected $packet_mode = self::PACKET_MODE_LINEAR;
 
 	/**
