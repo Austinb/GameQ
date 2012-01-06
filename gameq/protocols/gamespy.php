@@ -31,6 +31,9 @@ abstract class GameQ_Protocols_Gamespy extends GameQ_Protocols
 	 * Array of packets we want to look up.
 	 * Each key should correspond to a defined method in this or a parent class
 	 *
+	 * Note: We only send the status packet since that has all the information we ever need.
+	 * The other packets are left for reference purposes
+	 *
 	 * @var array
 	 */
 	protected $packets = array(
@@ -82,7 +85,7 @@ abstract class GameQ_Protocols_Gamespy extends GameQ_Protocols
      * Internal methods
      */
 
-    protected function preProcess_status($packets)
+    protected function preProcess($packets)
     {
     	// Only one packet so its in order
     	if (count($packets) == 1)
@@ -146,7 +149,7 @@ abstract class GameQ_Protocols_Gamespy extends GameQ_Protocols
 		$result = new GameQ_Result();
 
     	// Lets pre process and make sure these things are in the proper order by id
-    	$data = $this->preProcess_status($this->packets_response[self::PACKET_STATUS]);
+    	$data = $this->preProcess($this->packets_response[self::PACKET_STATUS]);
 
     	// Create a new buffer
     	$buf = new GameQ_Buffer($data);
