@@ -709,7 +709,7 @@ class GameQ
 		));
 
 		// Create the socket
-		if(($socket = stream_socket_client($remote_addr, $errno = NULL, $errstr = NULL, $this->timeout, STREAM_CLIENT_CONNECT, $context)) !== FALSE)
+		if(($socket = @stream_socket_client($remote_addr, $errno = NULL, $errstr = NULL, $this->timeout, STREAM_CLIENT_CONNECT, $context)) !== FALSE)
 		{
 			// Set the read timeout on the streams
 			stream_set_timeout($socket, $this->timeout);
