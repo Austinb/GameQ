@@ -17,9 +17,9 @@
  */
 
 /**
- * Teamspeak 3 Protocol Class
+ * Teamspeak 2 Protocol Class
  *
- * This class provides some functionality for getting status information for Teamspeak 3
+ * This class provides some functionality for getting status information for Teamspeak 2
  * servers.
  *
  * This code ported from GameQ v1.  Credit to original author(s) as I just updated it to
@@ -27,7 +27,7 @@
  *
  * @author Austin Bischoff <austin@codebeard.com>
  */
-class GameQ_Protocols_Teamspeak3 extends GameQ_Protocols
+class GameQ_Protocols_Teamspeak2 extends GameQ_Protocols
 {
 	/**
 	 * Normalization for this protocol class
@@ -38,22 +38,23 @@ class GameQ_Protocols_Teamspeak3 extends GameQ_Protocols
 		// General
 		'general' => array(
 			'dedicated' => array('dedicated'),
-			'hostname' => array('virtualservername'),
-			'password' => array('virtualserverflag_password'),
-			'numplayers' => array('virtualserverclientsonline'),
-			'maxplayers' => array('virtualservermaxclients'),
+			'hostname' => array('servername'),
+			'password' => array('serverpassword'),
+			'numplayers' => array('servercurrentusers'),
+			'maxplayers' => array('servermaxusers'),
 	        'players' => array('players'),
 			'teams' => array('teams'),
 		),
 
 		// Player
 		'player' => array(
-	        //'score' => array('score'),
+			'id' => array('pid'),
+			'team' => array('cid'),
 		),
 
 		// Team
 		'team' => array(
-			//'score' => array('tickets'),
+			'id' => array('id'),
 		),
 	);
 
@@ -64,9 +65,9 @@ class GameQ_Protocols_Teamspeak3 extends GameQ_Protocols
 	 * @var array
 	 */
 	protected $packets = array(
-		self::PACKET_DETAILS => "use port=%d\x0Aserverinfo\x0A",
-		self::PACKET_PLAYERS => "use port=%d\x0Aclientlist\x0A",
-		self::PACKET_CHANNELS => "use port=%d\x0Achannellist -topic\x0A",
+		self::PACKET_DETAILS => "sel %d\x0Asi\x0A",
+		self::PACKET_PLAYERS => "sel %d\x0Apl\x0A",
+		self::PACKET_CHANNELS => "sel %d\x0Acl\x0A",
 	);
 
 	/**
@@ -85,14 +86,14 @@ class GameQ_Protocols_Teamspeak3 extends GameQ_Protocols
 	 *
 	 * @var int
 	 */
-	protected $port = 9987; // Default port, used if not set when instanced
+	protected $port = 8767; // Default port, used if not set when instanced
 
 	/**
 	 * Because Teamspeak is run like a master server we have to know what port we are really querying
 	 *
 	 * @var int
 	 */
-	protected $master_server_port = 10011;
+	protected $master_server_port = 51234;
 
 	/**
 	 * We have to use TCP connection
@@ -106,40 +107,21 @@ class GameQ_Protocols_Teamspeak3 extends GameQ_Protocols
 	 *
 	 * @var string
 	 */
-	protected $protocol = 'teamspeak3';
+	protected $protocol = 'teamspeak2';
 
 	/**
 	 * String name of this protocol class
 	 *
 	 * @var string
 	 */
-	protected $name = 'teamspeak3';
+	protected $name = 'teamspeak2';
 
 	/**
 	 * Longer string name of this protocol class
 	 *
 	 * @var string
 	 */
-	protected $name_long = "Teamspeak 3";
-
-	/**
-	 * Define the items being replaced to fix the return
-	 *
-	 * @var array
-	 */
-	protected $string_replace = array(
-      "\\\\" => "\\",
-      "\\/" => "/",
-      "\\s" => " ",
-      "\\p" => "|",
-      "\\;" => ";",
-      "\\a" => "\a",
-      "\\b" => "\b",
-      "\\f" => "\f",
-      "\\n" => "\n",
-      "\\r" => "\r",
-      "\\t" => "\t"
-    );
+	protected $name_long = "Teamspeak 2";
 
 	/**
 	 * We need to affect the packets we are sending before they are sent
@@ -191,22 +173,30 @@ class GameQ_Protocols_Teamspeak3 extends GameQ_Protocols
 		// Let's preprocess the status
 		$buffer = $this->preProcess($this->packets_response[self::PACKET_DETAILS]);
 
-		// Process the buffer response
-		$data = array_shift($this->parse_response($buffer));
-
 		// Set the result to a new result instance
 		$result = new GameQ_Result();
 
 		// Always dedicated
 		$result->add('dedicated', TRUE);
 
-		// Loop the data and add it to the result
-		foreach($data AS $key => $value)
+		// Let's loop until we run out of data
+		while($buffer->getLength())
 		{
+			// Grab the row, which is an item
+			// Check for end of packet
+			if(($row = trim($buffer->readString("\n"))) == 'OK')
+			{
+				break;
+			}
+
+			// Split out the information
+			list($key, $value) = explode('=', $row, 2);
+
+			// Add this to the result
 			$result->add($key, $value);
 		}
 
-		unset($data, $buffer, $key, $value);
+		unset($buffer, $row, $key, $value);
 
         return $result->fetch();
 	}
@@ -225,25 +215,40 @@ class GameQ_Protocols_Teamspeak3 extends GameQ_Protocols
 		// Let's preprocess the status
 		$buffer = $this->preProcess($this->packets_response[self::PACKET_CHANNELS]);
 
-		// Process the buffer response
-		$data = $this->parse_response($buffer);
-
 		// Set the result to a new result instance
 		$result = new GameQ_Result();
 
-		foreach ($data AS $channel)
+		// The first line holds the column names, data returned is in column/row format
+		$columns = explode("\t", trim($buffer->readString("\n")), 9);
+
+		// Loop thru the rows until we run out of information
+		while($buffer->getLength())
 		{
-			foreach ($channel AS $key => $value)
+			// Grab the row, which is a tabbed list of items
+			// Check for end of packet
+			if(($row = trim($buffer->readString("\n"))) == 'OK')
 			{
+				break;
+			}
+
+			// Explode and merge the data with the columns, then parse
+			$data = array_combine($columns, explode("\t", $row, 9));
+
+			foreach($data AS $key => $value)
+			{
+				// Now add the data to the result
 				$result->addTeam($key, $value);
 			}
 		}
 
-		unset($data, $buffer, $channel, $key, $value);
+		unset($data, $buffer, $row, $columns, $key, $value);
 
         return $result->fetch();
 	}
 
+	/**
+	 * Process the players response
+	 */
 	protected function process_players()
 	{
 		// Make sure we have a valid response
@@ -255,27 +260,33 @@ class GameQ_Protocols_Teamspeak3 extends GameQ_Protocols
 		// Let's preprocess the status
 		$buffer = $this->preProcess($this->packets_response[self::PACKET_PLAYERS]);
 
-		// Process the buffer response
-		$data = $this->parse_response($buffer);
-
 		// Set the result to a new result instance
 		$result = new GameQ_Result();
 
-		foreach ($data AS $player)
-	    {
-	    	// filter out query clients
-			if ($player['client_type'] == 1)
+		// The first line holds the column names, data returned is in column/row format
+		$columns = explode("\t", trim($buffer->readString("\n")), 16);
+
+		// Loop thru the rows until we run out of information
+		while($buffer->getLength())
+		{
+			// Grab the row, which is a tabbed list of items
+			// Check for end of packet
+			if(($row = trim($buffer->readString("\n"))) == 'OK')
 			{
-	        	continue;
+				break;
 			}
 
-	      	foreach ($player AS $key => $value)
-	      	{
-	        	$result->addPlayer($key, $value);
-	      	}
-	    }
+			// Explode and merge the data with the columns, then parse
+			$data = array_combine($columns, explode("\t", $row, 16));
 
-		unset($data, $buffer, $player, $key, $value);
+			foreach($data AS $key => $value)
+			{
+				// Now add the data to the result
+				$result->addPlayer($key, $value);
+			}
+		}
+
+		unset($data, $buffer, $row, $columns, $key, $value);
 
 		return $result->fetch();
 	}
@@ -297,14 +308,11 @@ class GameQ_Protocols_Teamspeak3 extends GameQ_Protocols
 		}
 
 		// Check to make sure the header is correct
-		if(($type = $buffer->readString("\n")) != 'TS3')
+		if(($type = trim($buffer->readString("\n"))) != '[TS]')
 		{
-			throw new GameQ_ProtocolsException(__METHOD__.": Header returned did not match.  Returned {$type}");
+			throw new GameQ_ProtocolsException(__METHOD__.": Header returned did not match.  Returned type {$type}");
 			return FALSE;
 		}
-
-		// Burn the welcome msg
-		$buffer->readString("\n");
 
 		// Verify the response and return
 		return $this->verify_response(trim($buffer->readString("\n")));
@@ -319,47 +327,12 @@ class GameQ_Protocols_Teamspeak3 extends GameQ_Protocols
 	protected function verify_response($response)
 	{
 		// Check the response
-		if($response != 'error id=0 msg=ok')
+		if($response != 'OK')
 		{
-			throw new GameQ_ProtocolsException(__METHOD__.": Header response was not ok.  Response {$response}");
+			throw new GameQ_ProtocolsException(__METHOD__.": Header return response was no 'OK'.  Returned response {$response}");
 			return FALSE;
 		}
 
 		return TRUE;
-	}
-
-	/**
-	 * Parse the buffer response into an array and return it
-	 *
-	 * @param GameQ_Buffer $buffer
-	 */
-	protected function parse_response(GameQ_Buffer &$buffer)
-	{
-		// The data is in the first block
-		$data = explode ('|', trim($buffer->readString("\n")));
-
-		// The response is the last block
-		$this->verify_response(trim($buffer->readString("\n")));
-
-		$return = array();
-
-		foreach ($data as $part)
-		{
-			$variables = explode (' ', $part);
-
-			$info = array();
-
-			foreach ($variables as $variable)
-			{
-				list($key, $value) = explode('=', $variable, 2);
-
-				$info[$key] = str_replace(array_keys($this->string_replace), array_values($this->string_replace), $value);
-			}
-
-			// Add this to the return
-			$return[] = $info;
-		}
-
-		return $return;
 	}
 }
