@@ -23,7 +23,7 @@
  */
 class GameQ_Protocols_Armedassault extends GameQ_Protocols_Gamespy2
 {
-	protected $name = "armedassualt";
+	protected $name = "armedassault";
 	protected $name_long = "Armed Assault";
 
 	protected $port = 2302;
