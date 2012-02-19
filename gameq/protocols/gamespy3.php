@@ -25,7 +25,7 @@
  *
  * @author Austin Bischoff <austin@codebeard.com>
  */
-abstract class GameQ_Protocols_Gamespy3 extends GameQ_Protocols
+class GameQ_Protocols_Gamespy3 extends GameQ_Protocols
 {
 	/*
 	 * Constants

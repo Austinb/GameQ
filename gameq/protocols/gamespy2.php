@@ -25,7 +25,7 @@
  *
  * @author Austin Bischoff <austin@codebeard.com>
  */
-abstract class GameQ_Protocols_Gamespy2 extends GameQ_Protocols
+class GameQ_Protocols_Gamespy2 extends GameQ_Protocols
 {
 	/**
 	 * Array of packets we want to look up.
@@ -256,6 +256,6 @@ abstract class GameQ_Protocols_Gamespy2 extends GameQ_Protocols
             }
         }
 
-        return;
+		return;
 	}
 }
