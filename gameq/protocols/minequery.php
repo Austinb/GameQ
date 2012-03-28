@@ -23,9 +23,11 @@
  * that use the Minequery protocol for querying
  * server status.
  *
+ * Make sure you have Minequery running.  Check the GameQ github wiki for specifics.
+ *
  * @author Austin Bischoff <austin@codebeard.com>
  */
-abstract class GameQ_Protocols_Minequery extends GameQ_Protocols
+class GameQ_Protocols_Minequery extends GameQ_Protocols
 {
 	/**
 	 * Array of packets we want to look up.

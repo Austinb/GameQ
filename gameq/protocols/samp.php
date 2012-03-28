@@ -96,7 +96,7 @@ class GameQ_Protocols_Samp extends GameQ_Protocols
 		// Let's loop the packets and set the proper pieces
 		foreach($this->packets AS $packet_type => $packet)
 		{
-			// Update the query port for the server
+			// Fill out the packet with the server info
 			$this->packets[$packet_type] = sprintf($packet, $address, $port);
 		}
 
