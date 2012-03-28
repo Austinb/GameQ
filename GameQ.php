@@ -122,7 +122,6 @@ class GameQ
 		return $found;
 	}
 
-
 	/* Dynamic Section */
 
 	/**
@@ -343,7 +342,7 @@ class GameQ
 			array_merge($this->options, $server_info[self::SERVER_OPTIONS])
 		);
 
-		return $this; // Make calls chaninable
+		return $this; // Make calls chainable
 	}
 
 	/**
@@ -360,7 +359,7 @@ class GameQ
 			$this->addServer($server_info);
 		}
 
-		return $this; // Make calls chaninable
+		return $this; // Make calls chainable
 	}
 
 	/**
