@@ -32,7 +32,7 @@ spl_autoload_register(array('GameQ', 'auto_load'));
  * any games servers.  All necessary sub-classes are loaded as needed.
  *
  * Requirements: See wiki or README for more information on the requirements
- *  - PHP 5.3+
+ *  - PHP 5.2+ (Recommended 5.3+)
  *  	* Bzip2 - http://www.php.net/manual/en/book.bzip2.php
  *  	* Zlib - http://www.php.net/manual/en/book.zlib.php
  *
@@ -131,7 +131,6 @@ class GameQ
 	 */
 	protected $options = array(
 		'debug' => FALSE,
-		'raw' => FALSE,
 		'timeout' => 3, // Seconds
 		'filters' => array(),
 	);

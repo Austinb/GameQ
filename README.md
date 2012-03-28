@@ -17,10 +17,11 @@ Usage & Examples: https://github.com/Austinb/GameQ/wiki/Usage-&-examples-v2
 Quick and Dirty:
 
     $gq = new GameQ();
-    $gq->addServer(
+    $gq->addServer(array(
+    	'id' => 'my_server',
     	'type' => 'css', // Counter-Strike: Source
     	'host' => '127.0.0.1:27015',
-    );
+    ));
     
     $results = $gq->requestData(); // Returns an array of results
     
