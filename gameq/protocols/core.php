@@ -31,6 +31,7 @@ abstract class GameQ_Protocols_Core
 	const STATE_TESTING = 1;
 	const STATE_BETA = 2;
 	const STATE_STABLE = 3;
+	const STATE_DEPRECATED = 4;
 
 	/*
 	 * Constants for packet keys

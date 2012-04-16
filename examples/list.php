@@ -117,6 +117,10 @@ foreach ($protocols AS $gameq => $info)
 		case 3:
 			$state = 'Stable';
 			break;
+
+		case 4:
+			$state = 'Deprecated';
+			break;
 	}
 
     $cls = empty($cls) ? ' class="uneven"' : '';

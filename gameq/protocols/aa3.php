@@ -24,7 +24,7 @@
 class GameQ_Protocols_Aa3 extends GameQ_Protocols_Source
 {
 	protected $name = "aa3";
-	protected $name_long = "AA 3";
+	protected $name_long = " America's Army 3 (> 3.2)";
 
 	protected $port = 27020;
 }

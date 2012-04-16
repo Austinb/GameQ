@@ -24,6 +24,13 @@
 class GameQ_Protocols_Aa3pre32 extends GameQ_Protocols
 {
 	/**
+	 * This class is no longer valid
+	 *
+	 * @var int
+	 */
+	protected $state = self::STATE_DEPRECATED;
+
+	/**
 	 * Array of packets we want to look up.
 	 * Each key should correspond to a defined method in this or a parent class
 	 *
@@ -68,7 +75,7 @@ class GameQ_Protocols_Aa3pre32 extends GameQ_Protocols
 	 *
 	 * @var string
 	 */
-	protected $name_long = "America's Army 3 (pre 3.2)";
+	protected $name_long = "America's Army 3 (< 3.2)";
 
 	/*
 	* Internal methods
@@ -92,8 +99,6 @@ class GameQ_Protocols_Aa3pre32 extends GameQ_Protocols
 
 	protected function preProcess_all($packets=array())
 	{
-		print_r($packets); exit;
-
 		// We only got one packet
 		if(count($packets) == 1)
 		{
