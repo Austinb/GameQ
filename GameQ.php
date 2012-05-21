@@ -758,6 +758,8 @@ class GameQ
 
 		// Init some variables
 		$read = $sockets;
+		$write = NULL;
+		$except = NULL;
 
 		// This is when it should stop
 		$time_stop = microtime(TRUE) + $this->timeout;
@@ -766,7 +768,7 @@ class GameQ
 		while ($loop_active && microtime(TRUE) < $time_stop)
 		{
 			// Now lets listen for some streams, but do not cross the streams!
-			$streams = stream_select($read, $write = NULL, $except = NULL, 0, 800000);
+			$streams = stream_select($read, $write, $except, 0, 800000);
 
 			// We had error or no streams left
 			if($streams === FALSE || ($streams <= 0))
