@@ -354,7 +354,8 @@ class GameQ_Protocols_Teamspeak3 extends GameQ_Protocols
 
 			foreach ($variables as $variable)
 			{
-				list($key, $value) = explode('=', $variable, 2);
+				// Explode and make sure we always have 2 items in the array
+				list($key, $value) = array_pad(explode('=', $variable, 2), 2, '');
 
 				$info[$key] = str_replace(array_keys($this->string_replace), array_values($this->string_replace), $value);
 			}
