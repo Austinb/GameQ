@@ -192,7 +192,10 @@ class GameQ_Protocols_Teamspeak3 extends GameQ_Protocols
 		$buffer = $this->preProcess($this->packets_response[self::PACKET_DETAILS]);
 
 		// Process the buffer response
-		$data = array_shift($this->parse_response($buffer));
+		$data = $this->parse_response($buffer);
+
+		// Shift off the first item
+		$data = array_shift($data);
 
 		// Set the result to a new result instance
 		$result = new GameQ_Result();
