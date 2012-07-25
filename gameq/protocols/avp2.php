@@ -17,14 +17,14 @@
  */
 
 /**
- * Aliens vs Preadtor 2 Protocol Class
+ * Aliens vs Predator 2 Protocol Class
  *
  * @author Austin Bischoff <austin@codebeard.com>
  */
 class GameQ_Protocols_Avp2 extends GameQ_Protocols_Gamespy
 {
 	protected $name = "avp2";
-	protected $name_long = "Aliens vs Preadtor 2";
+	protected $name_long = "Aliens vs Predator 2";
 
 	protected $state = self::STATE_TESTING;
 
