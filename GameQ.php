@@ -133,6 +133,9 @@ class GameQ
 		'debug' => FALSE,
 		'timeout' => 3, // Seconds
 		'filters' => array(),
+
+        // Advanced settings
+	    'stream_timeout' => 50000, // See http://www.php.net/manual/en/function.stream-select.php for more info
 	);
 
 	/**
@@ -749,7 +752,7 @@ class GameQ
 		// To store the sockets
 		$sockets = array();
 
-		// Loop and pull out all the actual sockets
+		// Loop and pull out all the actual sockets we need to listen on
 		foreach($this->sockets AS $socket_id => $socket_data)
 		{
 			// Append the actual socket we are listening to
@@ -768,11 +771,12 @@ class GameQ
 		while ($loop_active && microtime(TRUE) < $time_stop)
 		{
 			// Now lets listen for some streams, but do not cross the streams!
-			$streams = stream_select($read, $write, $except, 0, 800000);
+			$streams = stream_select($read, $write, $except, 0, $this->stream_timeout);
 
-			// We had error or no streams left
+			// We had error or no streams left, kill the loop
 			if($streams === FALSE || ($streams <= 0))
 			{
+			    $loop_active = FALSE;
 				break;
 			}
 
@@ -805,7 +809,7 @@ class GameQ
 		}
 
 		// Free up some memory
-		unset($streams, $read, $sockets, $time_stop);
+		unset($streams, $read, $write, $except, $sockets, $time_stop, $response);
 
 		return $responses;
 	}
