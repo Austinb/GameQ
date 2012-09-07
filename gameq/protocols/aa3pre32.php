@@ -99,6 +99,13 @@ class GameQ_Protocols_Aa3pre32 extends GameQ_Protocols
 
 	protected function preProcess_all($packets=array())
 	{
+	    // Check to make sure we have zlib installed
+	    if(!function_exists('gzuncompress'))
+	    {
+	        throw new GameQ_ProtocolsException('Zlib is not installed.  See http://www.php.net/manual/en/book.zlib.php for more info.', 0);
+	        return FALSE;
+	    }
+
 		// We only got one packet
 		if(count($packets) == 1)
 		{

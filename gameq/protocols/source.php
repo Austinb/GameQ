@@ -380,6 +380,13 @@ abstract class GameQ_Protocols_Source extends GameQ_Protocols
     		// Check to see if this is compressed
     		if($request_id & 0x80000000)
     		{
+    		    // Check to see if we have Bzip2 installed
+    		    if(!function_exists('bzdecompress'))
+    		    {
+    		        throw new GameQ_ProtocolsException('Bzip2 is not installed.  See http://www.php.net/manual/en/book.bzip2.php for more info.', 0);
+    		        return FALSE;
+    		    }
+
     			// Get some info
     			$num_packets = $buffer->readInt8();
     			$cur_packet  = $buffer->readInt8();

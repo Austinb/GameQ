@@ -7,8 +7,10 @@ GameQ v2 is based off of the original GameQ PHP program from http://gameq.source
 Requirements
 ============
 * PHP 5.2 (Recommended 5.3+)
-	* Bzip2 - http://www.php.net/manual/en/book.bzip2.php (A2S Compressed Responses)
-	* Zlib - http://www.php.net/manual/en/book.zlib.php (AA3 Compressed Responses)
+
+Extras you might need:
+* Bzip2 - Used for A2S Compressed responses (http://www.php.net/manual/en/book.bzip2.php)
+* Zlib - Used for AA3 (before version 3.2) compressed responses (http://www.php.net/manual/en/book.zlib.php)
 	
 Example
 =======

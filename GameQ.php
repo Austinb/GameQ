@@ -158,20 +158,6 @@ class GameQ
 	public function __construct()
 	{
 		// @todo: Add PHP version check?
-
-		// Check for Bzip2
-		if(!function_exists('bzdecompress'))
-		{
-			throw new GameQException('Bzip2 is not installed.  See http://www.php.net/manual/en/book.bzip2.php for more info.', 0);
-			return FALSE;
-		}
-
-		// Check for Zlib
-		if(!function_exists('gzuncompress'))
-		{
-			throw new GameQException('Zlib is not installed.  See http://www.php.net/manual/en/book.zlib.php for more info.', 0);
-			return FALSE;
-		}
 	}
 
 	/**
