@@ -21,10 +21,58 @@
  *
  * @author Austin Bischoff <austin@codebeard.com>
  */
-class GameQ_Protocols_Killingfloor extends GameQ_Protocols_unreal2
+class GameQ_Protocols_Killingfloor extends GameQ_Protocols_Unreal2
 {
 	protected $name = "killingfloor";
 	protected $name_long = "Killing Floor";
 
 	protected $port = 7708;
+
+	/**
+	 * Overloaded for Killing Floor servername issue, could be all unreal2 games though
+	 *
+	 * @see GameQ_Protocols_Unreal2::process_details()
+	 */
+	protected function process_details()
+	{
+	    // Make sure we have a valid response
+	    if(!$this->hasValidResponse(self::PACKET_DETAILS))
+	    {
+	        return array();
+	    }
+
+	    // Set the result to a new result instance
+	    $result = new GameQ_Result();
+
+	    // Let's preprocess the rules
+	    $data = $this->preProcess_details($this->packets_response[self::PACKET_DETAILS]);
+
+	    // Create a buffer
+	    $buf = new GameQ_Buffer($data);
+
+	    $result->add('serverid',    $buf->readInt32());          // 0
+	    $result->add('serverip',    $buf->readPascalString(1));  // empty
+	    $result->add('gameport',    $buf->readInt32());
+	    $result->add('queryport',   $buf->readInt32()); // 0
+
+	    // We burn the first char since it is not always correct with the hostname
+	    $buf->skip(1);
+
+	    // Read as a regular string since the length is incorrect (what we skipped earlier)
+	    $result->add('servername',  $buf->readString());
+
+        // The rest is read as normal
+	    $result->add('mapname',     $buf->readPascalString(1));
+	    $result->add('gametype',    $buf->readPascalString(1));
+	    $result->add('playercount', $buf->readInt32());
+	    $result->add('maxplayers',  $buf->readInt32());
+	    $result->add('ping',        $buf->readInt32());          // 0
+
+	    // @todo: There is extra data after this point (~9 bytes), cant find any reference on what it is
+
+	    unset($buf);
+
+	    // Return the result
+	    return $result->fetch();
+	}
 }
