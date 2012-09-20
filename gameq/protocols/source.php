@@ -24,7 +24,7 @@
  *
  * @author Austin Bischoff <austin@codebeard.com>
  */
-abstract class GameQ_Protocols_Source extends GameQ_Protocols
+class GameQ_Protocols_Source extends GameQ_Protocols
 {
 	/*
 	 * Source engine type constants
