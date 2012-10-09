@@ -36,7 +36,7 @@
     ],
     "require": {
         "php": ">=5.2",
-        "ext-bzip2": "*",
+        "ext-bz2": "*",
         "ext-zlib": "*"
     },
     "autoload": {
