@@ -1,0 +1,45 @@
+{
+    "name": "blackskyliner/game-q",
+    "description": "GameQ Gameserver Library",
+    "license": "GPL-3.0+",
+    "authors": [
+        {
+            "name": "Christoph Kretzschmar",
+            "email": "blackskyliner@googlemail.com",
+            "role": "Packagist/Composer Maintainer",
+            "homepage": "https://github.com/Blackskyliner"
+        },
+        {
+            "name": "Austin Bischoff",
+            "email": "austin.bischoff@gmail.com",
+            "role": "Developer",
+            "homepage": "https://github.com/Austinb"
+        },
+        
+        {
+            "name": "Alexander Hambalgo",
+            "role": "Developer",
+            "homepage": "http://balgo.users.sourceforge.net/"
+        },
+
+        {
+            "name": "Holger",
+            "role": "Developer",
+            "homepage": "http://icet33.users.sourceforge.net/"
+        },
+        {
+            "name": "Sebastian Weidenbach",
+            "role": "Developer",
+            "homepage": "http://sebastianwe.users.sourceforge.net/"
+        }
+
+    ],
+    "require": {
+        "php": ">=5.2",
+        "ext-bzip2": "*",
+        "ext-zlib": "*"
+    },
+    "autoload": {
+        "psr-0": { "": "." }
+    }
+}
