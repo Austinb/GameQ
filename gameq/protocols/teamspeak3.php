@@ -158,7 +158,7 @@ class GameQ_Protocols_Teamspeak3 extends GameQ_Protocols
 		// Set the port we are connecting to the master port
 		$this->port = $this->master_server_port;
 
-		return TRUE;
+		return true;
 	}
 
 
@@ -201,7 +201,7 @@ class GameQ_Protocols_Teamspeak3 extends GameQ_Protocols
 		$result = new GameQ_Result();
 
 		// Always dedicated
-		$result->add('dedicated', TRUE);
+		$result->add('dedicated', true);
 
 		// Loop the data and add it to the result
 		foreach($data AS $key => $value)
@@ -296,14 +296,14 @@ class GameQ_Protocols_Teamspeak3 extends GameQ_Protocols
 		if($buffer->getLength() < 6)
 		{
 			throw new GameQ_ProtocolsException(__METHOD__.": Length of buffer is not long enough");
-			return FALSE;
+			return false;
 		}
 
 		// Check to make sure the header is correct
 		if(($type = $buffer->readString("\n")) != 'TS3')
 		{
 			throw new GameQ_ProtocolsException(__METHOD__.": Header returned did not match.  Returned {$type}");
-			return FALSE;
+			return false;
 		}
 
 		// Burn the welcome msg
@@ -325,10 +325,10 @@ class GameQ_Protocols_Teamspeak3 extends GameQ_Protocols
 		if($response != 'error id=0 msg=ok')
 		{
 			throw new GameQ_ProtocolsException(__METHOD__.": Header response was not ok.  Response {$response}");
-			return FALSE;
+			return false;
 		}
 
-		return TRUE;
+		return true;
 	}
 
 	/**
@@ -366,4 +366,38 @@ class GameQ_Protocols_Teamspeak3 extends GameQ_Protocols
 
 		return $return;
 	}
+
+    /**
+     * Returns a normalize function which can do more protocol specific filtering.
+     *
+     * @return null|\Closure|callable
+     */
+    public function getNormalizeFunction()
+    {
+        return array($this, 'ts3_normalize');
+    }
+
+    /**
+     * Normalize the array key of clients and channels to their respective id
+     *
+     * @param &$data Reference to the raw data.
+     */
+    public function ts3_normalize(&$data)
+    {
+        // normalize clients
+        $players = array();
+        foreach($data['players'] as $player)
+        {
+            $players[$player['clid']] = $player;
+        }
+        $data['players'] = $players;
+
+        // normalize channels
+        $channels = array();
+        foreach($data['teams'] as $channel)
+        {
+            $channels[$channel['cid']] = $channel;
+        }
+        $data['teams'] = $channels;
+    }
 }

@@ -122,6 +122,11 @@ class GameQ_Filters_Normalise extends GameQ_Filters
 
         unset($result['gq_players'], $result['gq_teams']);
 
+        $callable = $protocol_instance->getNormalizeFunction();
+        if($callable !== null and is_callable($callable))
+        {
+            call_user_func($callable, &$result);
+        }
 
         // Merge and sort array
         $result = (array_merge($data, $result));
