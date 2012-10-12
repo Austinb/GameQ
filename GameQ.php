@@ -96,7 +96,7 @@ class GameQ
 		}
 		catch (Exception $e)
 		{
-			throw new GameQException($e->getMessage(), $e->getMessage(), $e);
+			throw new GameQException($e->getMessage(), $e->getCode(), $e);
 			die;
 		}
 	}
