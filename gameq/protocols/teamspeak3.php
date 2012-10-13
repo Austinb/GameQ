@@ -39,7 +39,7 @@ class GameQ_Protocols_Teamspeak3 extends GameQ_Protocols
 		'general' => array(
 			'dedicated' => array('dedicated'),
 			'hostname' => array('virtualservername'),
-			'password' => array('virtualserverflag_password'),
+			'password' => array('virtualserverflagpassword'),
 			'numplayers' => array('virtualserverclientsonline'),
 			'maxplayers' => array('virtualservermaxclients'),
 	        'players' => array('players'),
@@ -48,11 +48,13 @@ class GameQ_Protocols_Teamspeak3 extends GameQ_Protocols
 
 		// Player
 		'player' => array(
+            'name' => 'clientnickname'
 	        //'score' => array('score'),
 		),
 
 		// Team
 		'team' => array(
+            'name' => array('channelname')
 			//'score' => array('tickets'),
 		),
 	);
