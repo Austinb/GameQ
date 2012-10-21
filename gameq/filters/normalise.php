@@ -125,7 +125,7 @@ class GameQ_Filters_Normalise extends GameQ_Filters
         $callable = $protocol_instance->getNormalizeFunction();
         if($callable !== null and is_callable($callable))
         {
-            call_user_func($callable, &$result);
+            $result = call_user_func($callable, $result);
         }
 
         // Merge and sort array

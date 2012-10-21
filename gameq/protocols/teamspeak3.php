@@ -383,9 +383,9 @@ class GameQ_Protocols_Teamspeak3 extends GameQ_Protocols
     /**
      * Normalize the array key of clients and channels to their respective id
      *
-     * @param &$data Reference to the raw data.
+     * @param $data Reference to the raw data.
      */
-    public function ts3_normalize(&$data)
+    public function ts3_normalize($data)
     {
         // normalize clients
         $players = array();
@@ -402,5 +402,7 @@ class GameQ_Protocols_Teamspeak3 extends GameQ_Protocols
             $channels[$channel['cid']] = $channel;
         }
         $data['teams'] = $channels;
+
+        return $data;
     }
 }
