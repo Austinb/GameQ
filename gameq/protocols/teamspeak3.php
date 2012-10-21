@@ -48,15 +48,13 @@ class GameQ_Protocols_Teamspeak3 extends GameQ_Protocols
 
 		// Player
 		'player' => array(
-            'name' => 'clientnickname',
-            'team' => 'clid'
-	        //'score' => array('score'),
+            'name' => array('clientnickname'),
+            'team' => array('clid'),
 		),
 
 		// Team
 		'team' => array(
-            'name' => array('channelname')
-			//'score' => array('tickets'),
+            'name' => array('channelname'),
 		),
 	);
 
