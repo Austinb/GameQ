@@ -190,7 +190,7 @@ class GameQ_Protocols_Source extends GameQ_Protocols
         // Check engine type
         if ($this->source_engine == self::GOLDSOURCE_ENGINE)
         {
-        	$result->add('protocol', $buf->readInt8());
+        	$result->add('version', $buf->readInt8());
         }
         else
         {
@@ -201,7 +201,16 @@ class GameQ_Protocols_Source extends GameQ_Protocols
         $result->add('os', $buf->read());
         $result->add('password', $buf->readInt8());
         $result->add('secure', $buf->readInt8());
-        $result->add('version', $buf->readInt8());
+        
+        // Check engine type
+        if ($this->source_engine == self::GOLDSOURCE_ENGINE)
+        {
+        	$result->add('num_bots', $buf->readInt8());
+        }
+        else
+        {
+        	$result->add('version', $buf->readInt8());
+        }
 
         // Add extra data flag check here
         // https://developer.valvesoftware.com/wiki/Server_Queries#Source_servers_2
