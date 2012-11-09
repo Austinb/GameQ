@@ -200,6 +200,13 @@ class GameQ_Protocols_Source extends GameQ_Protocols
         $result->add('dedicated', $buf->read());
         $result->add('os', $buf->read());
         $result->add('password', $buf->readInt8());
+        
+        // Check engine type
+        if ($this->source_engine == self::GOLDSOURCE_ENGINE)
+        {
+        	$result->add('ismod', $buf->readInt8());
+        }
+        
         $result->add('secure', $buf->readInt8());
         
         // Check engine type
@@ -212,7 +219,7 @@ class GameQ_Protocols_Source extends GameQ_Protocols
         	$result->add('version', $buf->readInt8());
         }
 
-        // Add extra data flag check here
+        // Add extra data flag check here, old for source games (not goldsource)
         // https://developer.valvesoftware.com/wiki/Server_Queries#Source_servers_2
 
         unset($buf);
