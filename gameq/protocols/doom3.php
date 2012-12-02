@@ -136,17 +136,28 @@ class GameQ_Protocols_Doom3 extends GameQ_Protocols
 	 *
 	 * @param GameQ_Buffer $buf
 	 * @param GameQ_Result $result
+	 * 
+	 * @return void
 	 */
 	protected function parsePlayers(GameQ_Buffer &$buf, GameQ_Result &$result)
 	{
+		// There is no way to see the number of players so we have to increment
+		// a variable and do it that way.
+		$players = 0;
+		
+		
+		// Loop thru the buffer until we run out of data
 		while (($id = $buf->readInt8()) != 32)
 		{
 			$result->addPlayer('id',   $id);
 			$result->addPlayer('ping', $buf->readInt16());
 			$result->addPlayer('rate', $buf->readInt32());
 			$result->addPlayer('name', $buf->readString());
+			
+			$players++;
 		}
-
-		return true;
+		
+		// Add the number of players to the result
+		$result->add('numplayers', $players);
 	}
 }
