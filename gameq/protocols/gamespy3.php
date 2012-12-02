@@ -217,7 +217,11 @@ class GameQ_Protocols_Gamespy3 extends GameQ_Protocols
 
             $result->add($key, $buf->readString());
     	}
-
+    	
+    	// Now we need to offload to parse the remaining data, player and team information
+    	$this->parsePlayerTeamInfo($buf, $result);
+    	
+    	/* Old code, kept incase I need to quickly revert
     	// Now lets go on and do the rest of the info
     	while($buf->getLength() && $type = $buf->readInt8())
     	{
@@ -232,7 +236,8 @@ class GameQ_Protocols_Gamespy3 extends GameQ_Protocols
     			$this->parseSub(self::PLAYERS, $buf, $result);
     			$this->parseSub(self::TEAMS, $buf, $result);
     		}
-    	}
+    	}*/
+    	
 
     	// Return the result
 		return $result->fetch();
@@ -258,9 +263,94 @@ class GameQ_Protocols_Gamespy3 extends GameQ_Protocols
 
         return TRUE;
     }
+    
+    /**
+     * Parse the player and team information but do it smartly.  Update to the old parseSub method.
+     * 
+     * @param GameQ_Buffer $buf
+     * @param GameQ_Result $result
+     */
+    protected function parsePlayerTeamInfo(GameQ_Buffer &$buf, GameQ_Result &$result)
+    {
+    	/*
+    	 * Explode the data into groups. First is player, next is team (item_t) 
+    	 * 
+    	 * Each group should be as follows:
+    	 * 
+    	 * [0] => item_
+    	 * [1] => information for item_
+    	 * ...
+    	 */
+    	$data = explode("\x00\x00", $buf->getBuffer());
+    	
+    	// By default item_group is blank, this will be set for each loop thru the data
+    	$item_group = '';
+    	
+    	// By default the item_type is blank, this will be set on each loop
+    	$item_type = '';
+    	
+    	// Loop through all of the $data for information and pull it out into the result
+    	for($x=0; $x < count($data)-1; $x++)
+    	{
+    		// Pull out the item
+    		$item = $data[$x];
+    		
+    		// If this is an empty item, move on
+    		if($item == '' || $item == "\x00")
+    		{
+    			continue;
+    		}
+    		
+    		// Check to see if $item has a _ at the end, this is player info
+    		if(substr($item, -1) == '_')
+    		{
+    			// Set the item group
+    			$item_group = 'players';
+    			
+    			// Set the item type, rip off any trailing stuff
+    			$item_type = rtrim($item, '_');
+    		}
+    		// Check to see if $item has a _t at the end, this is team info
+    		elseif(substr($item, -2) == '_t')
+    		{
+    			// Set the item group
+    			$item_group = 'teams';
+    			
+    			// Set the item type, rip off any trailing stuff
+    			$item_type = rtrim($item, '_t');
+    		}
+    		// We can assume it is data belonging to a previously defined item
+    		else
+    		{
+    			// Make a temp buffer so we have easier access to the data
+    			$buf_temp = new GameQ_Buffer($item);
+    			
+	    		// Get the values
+	            while ($buf_temp->getLength())
+	            {
+	                // No value so break the loop, end of string
+	                if (($val = $buf_temp->readString()) === '')
+	                {
+						break;
+	                }
+	
+	                // Add the value to the proper item in the correct group
+	                $result->addSub($item_group, $item_type, trim($val));
+	            }
+	            
+	            // Unset out buffer
+	            unset($buf_temp);
+    		}
+    	}
+    	
+    	// Free up some memory
+    	unset($data, $item, $item_group, $item_type, $val);
+    }    
 
 	/**
 	 * Parse the sub sections of the returned data, usually teams/players info
+	 * 
+	 * @deprecated
 	 *
 	 * @param int $type
 	 * @param GameQ_Buffer $buf
