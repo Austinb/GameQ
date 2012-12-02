@@ -136,8 +136,6 @@ class GameQ_Protocols_Doom3 extends GameQ_Protocols
 	 *
 	 * @param GameQ_Buffer $buf
 	 * @param GameQ_Result $result
-	 * 
-	 * @return void
 	 */
 	protected function parsePlayers(GameQ_Buffer &$buf, GameQ_Result &$result)
 	{
@@ -159,5 +157,7 @@ class GameQ_Protocols_Doom3 extends GameQ_Protocols
 		
 		// Add the number of players to the result
 		$result->add('numplayers', $players);
+		
+		return TRUE;
 	}
 }
