@@ -21,7 +21,7 @@
  *
  * @author Austin Bischoff <austin@codebeard.com>
  */
-class GameQ_Protocols_Stalker extends GameQ_Protocols_Gamespy3
+class GameQ_Protocols_Stalker extends GameQ_Protocols_Gamespy2
 {
 	protected $name = "stalker";
 	protected $name_long = "S.T.A.L.K.E.R: Shadow of Chernobyl";
