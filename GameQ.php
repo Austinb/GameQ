@@ -135,7 +135,7 @@ class GameQ
 		'filters' => array(),
 
         // Advanced settings
-	    'stream_timeout' => 50000, // See http://www.php.net/manual/en/function.stream-select.php for more info
+	    'stream_timeout' => 400000, // See http://www.php.net/manual/en/function.stream-select.php for more info
 	);
 
 	/**
