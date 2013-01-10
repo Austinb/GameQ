@@ -17,14 +17,14 @@
  */
 
 /**
- * Multi Theft Auto Protocol Class
+ * Medal of Honor: Spearhead Protocol Class
  *
  * @author Marcel Bößendörfer <m.boessendoerfer@marbis.net>
  */
-class GameQ_Protocols_Mta extends GameQ_Protocols_ASE
+class GameQ_Protocols_Mohsh extends GameQ_Protocols_Gamespy
 {
-	protected $name = "Mta";
-	protected $name_long = "Multi Theft Auto";
+	protected $name = "mohsh";
+	protected $name_long = "Medal of Honor: Spearhead";
 
-	protected $port = 22126;
+	protected $port = 12203;
 }
