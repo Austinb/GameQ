@@ -26,5 +26,5 @@ class GameQ_Protocols_Mta extends GameQ_Protocols_ASE
 	protected $name = "Mta";
 	protected $name_long = " Multi Theft Auto";
 
-	protected $port = 22003;
+	protected $port = 22126;
 }
