@@ -1,27 +1,32 @@
 {
     "name": "austinb/gameq",
     "description": "GameQ Gameserver Library",
+    "version": "2.0.0",
     "license": "GPL-3.0+",
     "authors": [
         {
+            "name": "Austin Bischoff",
+            "email": "austin.bischoff@gmail.com",
+            "role": "Packagist/Composer Maintainer, Developer",
+            "homepage": "https://github.com/Austinb"
+        },
+        {
             "name": "Christoph Kretzschmar",
             "email": "blackskyliner@googlemail.com",
-            "role": "Packagist/Composer Maintainer",
+            "role": "Developer",
             "homepage": "https://github.com/Blackskyliner"
         },
         {
-            "name": "Austin Bischoff",
-            "email": "austin.bischoff@gmail.com",
+            "name": "Marcel Bößendörfer",
+            "email": "m.boessendoerfer@marbis.net",
             "role": "Developer",
-            "homepage": "https://github.com/Austinb"
+            "homepage": "https://github.com/nitrado"
         },
-        
         {
             "name": "Alexander Hambalgo",
             "role": "Developer",
             "homepage": "http://balgo.users.sourceforge.net/"
         },
-
         {
             "name": "Holger",
             "role": "Developer",
@@ -32,8 +37,12 @@
             "role": "Developer",
             "homepage": "http://sebastianwe.users.sourceforge.net/"
         }
-
     ],
+    "support": {
+    	"source": "https://github.com/Austinb/GameQ",
+        "issues": "https://github.com/Austinb/GameQ/issues",
+        "wiki": "https://github.com/Austinb/GameQ/wiki"
+    },
     "require": {
         "php": ">=5.2",
         "ext-bz2": "*",
