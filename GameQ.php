@@ -130,13 +130,14 @@ class GameQ
 	 * @var array()
 	 */
 	protected $options = array(
-		'debug' => FALSE,
-		'timeout' => 3, // Seconds
-		'filters' => array(),
-
-        // Advanced settings
-	    'stream_timeout' => 400000, // See http://www.php.net/manual/en/function.stream-select.php for more info
-	);
+            'debug' => FALSE,
+            'timeout' => 3, // Seconds
+            'filters' => array(),
+            
+            // Advanced settings
+            'stream_timeout' => 400000, // See http://www.php.net/manual/en/function.stream-select.php for more info
+            'packet_delay' => 50000,
+        );
 
 	/**
 	 * Array of servers being queried
@@ -581,7 +582,7 @@ class GameQ
 			);
 
 			// Let's sleep shortly so we are not hammering out calls rapid fire style hogging cpu
-			usleep(200000);
+			usleep($this->packet_delay);
 		}
 
 		// Now we need to listen for challenge response(s)
@@ -647,7 +648,7 @@ class GameQ
 				);
 
 				// Let's sleep shortly so we are not hammering out calls raipd fire style
-				usleep(50000);
+				usleep($this->packet_delay);
 			}
 		}
 

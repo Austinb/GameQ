@@ -17,14 +17,14 @@
  */
 
 /**
- * Unreal Tournament 2004 Protocol Class
+ * Medal of Honor: Spearhead Protocol Class
  *
- * @author Austin Bischoff <austin@codebeard.com>
+ * @author Marcel Bößendörfer <m.boessendoerfer@marbis.net>
  */
-class GameQ_Protocols_Ut2004 extends GameQ_Protocols_Unreal2
+class GameQ_Protocols_Mohsh extends GameQ_Protocols_Gamespy
 {
-	protected $name = "ut2004";
-	protected $name_long = "Unreal Tournament 2004";
+	protected $name = "mohsh";
+	protected $name_long = "Medal of Honor: Spearhead";
 
-	protected $port = 7778;
+	protected $port = 12203;
 }
