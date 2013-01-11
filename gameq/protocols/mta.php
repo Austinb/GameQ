@@ -17,14 +17,14 @@
  */
 
 /**
- * Unreal Tournament 2004 Protocol Class
+ * Multi Theft Auto Protocol Class
  *
- * @author Austin Bischoff <austin@codebeard.com>
+ * @author Marcel Bößendörfer <m.boessendoerfer@marbis.net>
  */
-class GameQ_Protocols_Ut2004 extends GameQ_Protocols_Unreal2
+class GameQ_Protocols_Mta extends GameQ_Protocols_ASE
 {
-	protected $name = "ut2004";
-	protected $name_long = "Unreal Tournament 2004";
+	protected $name = "Mta";
+	protected $name_long = "Multi Theft Auto";
 
-	protected $port = 7778;
+	protected $port = 22126;
 }
