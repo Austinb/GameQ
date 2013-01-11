@@ -17,14 +17,14 @@
  */
 
 /**
- * Unreal Tournament 2004 Protocol Class
+ * DayZ Mod Protocol Class
  *
- * @author Austin Bischoff <austin@codebeard.com>
+ * @author Marcel Bößendörfer <m.boessendoerfer@marbis.net>
  */
-class GameQ_Protocols_Ut2004 extends GameQ_Protocols_Unreal2
+class GameQ_Protocols_Dayz extends GameQ_Protocols_Armedassault2
 {
-	protected $name = "ut2004";
-	protected $name_long = "Unreal Tournament 2004";
+	protected $name = "dayz";
+	protected $name_long = "DayZ Mod";
 
-	protected $port = 7778;
+	protected $port = 2302;
 }
