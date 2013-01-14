@@ -100,7 +100,7 @@ abstract class GameQ_Protocols_Core
 	 *
 	 * @var mixed FALSE|int
 	 */
-	protected $port = NULL;
+	protected $port = null;
 
 	/**
 	 * The trasport method to use to actually send the data
@@ -151,7 +151,7 @@ abstract class GameQ_Protocols_Core
 	 *
 	 * @var GameQ_Result
 	 */
-	protected $result = NULL;
+	protected $result = null;
 
 	/**
 	 * Options for this protocol
@@ -165,14 +165,14 @@ abstract class GameQ_Protocols_Core
 	 *
 	 * @var array
 	 */
-	protected $challenge_response = NULL;
+	protected $challenge_response = null;
 
 	/**
 	 * Holds the challenge buffer.
 	 *
 	 * @var GameQ_Buffer
 	 */
-	protected $challenge_buffer = NULL;
+	protected $challenge_buffer = null;
 
 	/**
 	 * Holds the result of the challenge, if any
@@ -180,7 +180,7 @@ abstract class GameQ_Protocols_Core
 	 *
 	 * @var mixed
 	 */
-	protected $challenge_result = TRUE;
+	protected $challenge_result = true;
 
 	/**
 	 * Define the state of this class
@@ -194,7 +194,7 @@ abstract class GameQ_Protocols_Core
 	 *
 	 * @var array
 	 */
-	protected $normalize = FALSE;
+	protected $normalize = false;
 
 	/**
 	 * Create the instance.
@@ -203,12 +203,12 @@ abstract class GameQ_Protocols_Core
 	 * @param mixed $port false|int
 	 * @param array $options
 	 */
-	public function __construct($ip = FALSE, $port = FALSE, $options = array())
+	public function __construct($ip = false, $port = false, $options = array())
 	{
 		$this->ip($ip);
 
 		// We have a specific port set so let's set it.
-		if($port !== FALSE)
+		if($port !== false)
 		{
 			$this->port($port);
 		}
@@ -236,7 +236,7 @@ abstract class GameQ_Protocols_Core
 	 */
 	public function __get($option)
 	{
-		return isset($this->options[$option]) ? $this->options[$option] : NULL;
+		return isset($this->options[$option]) ? $this->options[$option] : null;
 	}
 
 	/**
@@ -250,7 +250,7 @@ abstract class GameQ_Protocols_Core
 	{
 		$this->options[$option] = $value;
 
-		return TRUE;
+		return true;
 	}
 
 	/**
@@ -301,10 +301,10 @@ abstract class GameQ_Protocols_Core
 	 *
 	 * @param string $ip
 	 */
-	public function ip($ip = FALSE)
+	public function ip($ip = false)
 	{
 		// Act as setter
-		if($ip !== FALSE)
+		if($ip !== false)
 		{
 			$this->ip = $ip;
 		}
@@ -317,10 +317,10 @@ abstract class GameQ_Protocols_Core
 	 *
 	 * @param int $port
 	 */
-	public function port($port = FALSE)
+	public function port($port = false)
 	{
 		// Act as setter
-		if($port !== FALSE)
+		if($port !== false)
 		{
 			$this->port = $port;
 		}
@@ -333,10 +333,10 @@ abstract class GameQ_Protocols_Core
 	 *
 	 * @param string $type
 	 */
-	public function transport($type = FALSE)
+	public function transport($type = false)
 	{
 		// Act as setter
-		if($type !== FALSE)
+		if($type !== false)
 		{
 			$this->transport = $type;
 		}
@@ -373,7 +373,7 @@ abstract class GameQ_Protocols_Core
 	 */
 	public function challengeOK()
 	{
-		return ($this->challenge_result === TRUE);
+		return ($this->challenge_result === true);
 	}
 
 	/**
@@ -397,7 +397,7 @@ abstract class GameQ_Protocols_Core
 	 *
 	 * @param string $result
 	 */
-	public function challengeResult($result = FALSE)
+	public function challengeResult($result = false)
 	{
 		// Act as setter
 		if(!empty($result))
@@ -413,7 +413,7 @@ abstract class GameQ_Protocols_Core
 	 *
 	 * @param GameQ_Buffer $buffer
 	 */
-	public function challengeBuffer($buffer = NULL)
+	public function challengeBuffer($buffer = null)
 	{
 		// Act as setter
 		if(!empty($buffer))
@@ -434,11 +434,11 @@ abstract class GameQ_Protocols_Core
 		{
 			// Set error and skip
 			$this->challenge_result = 'Challenge Response Empty';
-			return FALSE;
+			return false;
 		}
 
 		// Challenge is good to go
-		$this->challenge_result = TRUE;
+		$this->challenge_result = true;
 
 		// Now let's create a new buffer with this response
 		$this->challenge_buffer = new GameQ_Buffer($this->challenge_response[0]);
@@ -535,7 +535,7 @@ abstract class GameQ_Protocols_Core
 			{
 				// We should never get here in a production environment
 				throw new GameQException('Unable to load method '.__CLASS__.'::'.$method);
-				return FALSE;
+				return false;
 			}
 
 			// Setup a catch for protocol level errors
@@ -553,7 +553,7 @@ abstract class GameQ_Protocols_Core
 				if($this->debug)
 				{
 					throw new GameQException($e->getMessage(), $e->getCode(), $e);
-					return FALSE;
+					return false;
 				}
 
 				// We ignore this and continue
@@ -582,7 +582,7 @@ abstract class GameQ_Protocols_Core
 	*/
 	public function beforeSend()
 	{
-		return TRUE;
+		return true;
 	}
 
 	/**
@@ -606,7 +606,7 @@ abstract class GameQ_Protocols_Core
     		$this->packets[$packet_type] = sprintf($packet, $challenge_string);
     	}
 
-		return TRUE;
+		return true;
 	}
 
 	/**
@@ -614,7 +614,7 @@ abstract class GameQ_Protocols_Core
 	 */
 	protected function parseChallengeAndApply()
 	{
-		return TRUE;
+		return true;
 	}
 
 	/**
@@ -629,9 +629,19 @@ abstract class GameQ_Protocols_Core
 			&& !empty($this->packets_response[$packet_type][0])
 			)
 		{
-			return TRUE;
+			return true;
 		}
 
-		return FALSE;
+		return false;
 	}
+
+    /**
+     * Returns a normalize function which can do more protocol specific filtering.
+     *
+     * @return null|\Closure|callable
+     */
+    public function getNormalizeFunction()
+    {
+        return null;
+    }
 }
