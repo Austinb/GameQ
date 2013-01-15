@@ -34,28 +34,29 @@ class GameQ_Protocols_Teamspeak3 extends GameQ_Protocols
 	 *
 	 * @var array
 	 */
-	protected $normalize = array(
-		// General
-		'general' => array(
-			'dedicated' => array('dedicated'),
-			'hostname' => array('virtualservername'),
-			'password' => array('virtualserverflag_password'),
-			'numplayers' => array('virtualserverclientsonline'),
-			'maxplayers' => array('virtualservermaxclients'),
-	        'players' => array('players'),
-			'teams' => array('teams'),
-		),
+    protected $normalize = array(
+        // General
+        'general' => array(
+            'dedicated' => array('dedicated'),
+            'hostname' => array('virtualservername'),
+            'password' => array('virtualserverflagpassword'),
+            'numplayers' => array('virtualserverclientsonline'),
+            'maxplayers' => array('virtualservermaxclients'),
+            'players' => array('players'),
+            'teams' => array('teams'),
+        ),
 
-		// Player
-		'player' => array(
-	        //'score' => array('score'),
-		),
+        // Player
+        'player' => array(
+            'name' => array('clientnickname'),
+            'team' => array('clid'),
+        ),
 
-		// Team
-		'team' => array(
-			//'score' => array('tickets'),
-		),
-	);
+        // Team
+        'team' => array(
+            'name' => array('channelname'),
+        ),
+    );
 
 	/**
 	 * Array of packets we want to look up.
