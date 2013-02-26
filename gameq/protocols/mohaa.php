@@ -26,5 +26,5 @@ class GameQ_Protocols_Mohaa extends GameQ_Protocols_Gamespy
 	protected $name = "mohaa";
 	protected $name_long = "Medal of Honor: Allied Assault";
 
-	protected $port = 12203;
+	protected $port = 12300;
 }

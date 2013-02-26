@@ -26,5 +26,5 @@ class GameQ_Protocols_Mohsh extends GameQ_Protocols_Gamespy
 	protected $name = "mohsh";
 	protected $name_long = "Medal of Honor: Spearhead";
 
-	protected $port = 12203;
+	protected $port = 12300;
 }
