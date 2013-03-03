@@ -287,37 +287,71 @@ class GameQ
 
 		// Define these
 		$server_id = $server_info[self::SERVER_ID];
-		$server_addr = '127.0.0.1';
+		$server_ip = '127.0.0.1';
 		$server_port = FALSE;
 
-		// Pull out the information
-		if(strstr($server_info[self::SERVER_HOST], ':')) // We have a port defined
+		// We have an IPv6 address (and maybe a port)
+		if(substr_count($server_info[self::SERVER_HOST], ':') > 1)
 		{
-			list($server_addr, $server_port) = explode(':', $server_info[self::SERVER_HOST]);
+		    // See if we have a port, input should be in the format [::1]:27015 or similar
+		    if(strstr($server_info[self::SERVER_HOST], ']:'))
+		    {
+		        // Explode to get port
+		        $server_addr = explode(':', $server_info[self::SERVER_HOST]);
+
+		        // Port is the last item in the array, remove it and save
+		        $server_port = array_pop($server_addr);
+
+		        // The rest is the address, recombine
+		        $server_ip = implode(':', $server_addr);
+
+		        unset($server_addr);
+		    }
+
+		    // Just the IPv6 address, no port defined
+		    else
+		    {
+		        $server_ip = $server_info[self::SERVER_HOST];
+		    }
+
+		    // Now let's validate the IPv6 value sent, remove the square brackets ([]) first
+		    if(!filter_var(trim($server_ip, '[]'), FILTER_VALIDATE_IP, array(
+    			'flags' => FILTER_FLAG_IPV6,
+    		)))
+		    {
+		        throw new GameQException("The IPv6 address '{$server_ip}' is invalid.");
+		        return FALSE;
+		    }
 		}
-		else // No port, will use the default port defined by the protocol class
+
+		// IPv4
+		else
 		{
-			$server_addr = $server_info[self::SERVER_HOST];
-		}
+		    // We have a port defined
+		    if(strstr($server_info[self::SERVER_HOST], ':'))
+		    {
+		        list($server_ip, $server_port) = explode(':', $server_info[self::SERVER_HOST]);
+		    }
 
-		// Set the ip to the address by default
-		$server_ip = $server_addr;
+		    // No port, just IPv4
+		    else
+		    {
+		        $server_ip = $server_info[self::SERVER_HOST];
+		    }
 
-		// Now lets validate the server address, see if it is a hostname
-		if(!filter_var($server_addr, FILTER_VALIDATE_IP, array(
-			'flags' => FILTER_FLAG_IPV4,
-		))) // Is not valid ip so assume hostname
-		{
-			// Try to resolve to ipv4 address, slow
-			$server_ip = gethostbyname($server_addr);
-
-			// When gethostbyname fails it returns the original string
-			// so if ip and address are equal this failed.
-			if($server_ip === $server_addr)
-			{
-				throw new GameQException("Unable to lookup ip for hostname '{$server_addr}'");
-				return FALSE;
-			}
+		    // Validate the IPv4 value, if FALSE is not a valid IP, maybe a hostname.  Try to resolve
+		    if(!filter_var($server_ip, FILTER_VALIDATE_IP, array(
+		            'flags' => FILTER_FLAG_IPV4,
+		    )))
+		    {
+		        // When gethostbyname() fails it returns the original string
+		        // so if ip and the result from gethostbyname() are equal this failed.
+		        if($server_ip === gethostbyname($server_ip))
+		        {
+		            throw new GameQException("The host '{$server_ip}' is unresolvable to an IP address.");
+		            return FALSE;
+		        }
+		    }
 		}
 
 		// Create the class so we can reference it properly later
