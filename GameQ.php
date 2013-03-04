@@ -136,6 +136,7 @@ class GameQ
 
         // Advanced settings
 	    'stream_timeout' => 400000, // See http://www.php.net/manual/en/function.stream-select.php for more info
+	    'write_wait' => 500, // How long (in micro-seconds) to pause between writting to server sockets, helps cpu usage
 	);
 
 	/**
@@ -615,7 +616,7 @@ class GameQ
 			);
 
 			// Let's sleep shortly so we are not hammering out calls rapid fire style hogging cpu
-			usleep(200000);
+			usleep($this->write_wait);
 		}
 
 		// Now we need to listen for challenge response(s)
@@ -681,7 +682,7 @@ class GameQ
 				);
 
 				// Let's sleep shortly so we are not hammering out calls raipd fire style
-				usleep(50000);
+				usleep($this->write_wait);
 			}
 		}
 
