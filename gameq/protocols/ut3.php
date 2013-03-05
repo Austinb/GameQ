@@ -19,6 +19,10 @@
 /**
  * Unreal Tournament 3 Protocol Class
  *
+ * NOTE:  The return from UT3 via the GameSpy 3 protocol is anything but consistent.  You may
+ * notice different results even on the same server queried at different times.  No real way to fix
+ * this problem currently.
+ *
  * @author Austin Bischoff <austin@codebeard.com>
  */
 class GameQ_Protocols_Ut3 extends GameQ_Protocols_Gamespy3
@@ -56,7 +60,10 @@ class GameQ_Protocols_Ut3 extends GameQ_Protocols_Gamespy3
         $this->move_result($result, 'p268435717',  'stock_mutators');
 
         // Put custom mutators into an array
-        $result['custom_mutators'] = explode("\x1c", $result['custom_mutators']);
+        if(isset($result['custom_mutators']))
+        {
+            $result['custom_mutators'] = explode("\x1c", $result['custom_mutators']);
+        }
 
         // Delete some unknown stuff
         $this->delete_result($result, array('s1','s9','s11','s12','s13','s14'));
@@ -64,4 +71,7 @@ class GameQ_Protocols_Ut3 extends GameQ_Protocols_Gamespy3
     	// Return the result
 		return $result;
 	}
+
+	// UT3 Hack, yea I know it doesnt belong here. UT3 is such a mess it needs its own version of GSv3
+    //$data = str_replace(array("\x00p1073741829\x00", "p1073741829\x00", "p268435968\x00"), '', $data);
 }

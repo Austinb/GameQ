@@ -27,4 +27,18 @@ class GameQ_Protocols_Armedassault2 extends GameQ_Protocols_Gamespy3
 	protected $name_long = "Armed Assault 2";
 
 	protected $port = 2302;
+
+	protected function parsePlayerTeamInfoNew(GameQ_Buffer &$buf, GameQ_Result &$result)
+	{
+    	// Read the buffer and replace the team_ sub-section under the players section becasue it is broke
+    	$buf_fixed = preg_replace('/team_(.*)score_/m', 'score_', $buf->getBuffer());
+
+    	// Replace the buffer with the "fixed" buffer
+    	$buf = new GameQ_Buffer($buf_fixed);
+
+    	unset($buf_fixed);
+
+    	// Now we continue on with the parent
+    	return parent::parsePlayerTeamInfo($buf, $result);
+	}
 }

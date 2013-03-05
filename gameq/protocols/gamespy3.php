@@ -23,16 +23,12 @@
  * that use the GameSpy3 protocol for querying
  * server status.
  *
+ * Note: UT3 and Crysis2 have known issues with GSv3 responses
+ *
  * @author Austin Bischoff <austin@codebeard.com>
  */
 class GameQ_Protocols_Gamespy3 extends GameQ_Protocols
 {
-	/*
-	 * Constants
-	 */
-	const PLAYERS = 1;
-	const TEAMS = 2;
-
 	/**
 	 * Set the packet mode to linear
 	 *
@@ -221,24 +217,6 @@ class GameQ_Protocols_Gamespy3 extends GameQ_Protocols
     	// Now we need to offload to parse the remaining data, player and team information
     	$this->parsePlayerTeamInfo($buf, $result);
 
-    	/* Old code, kept incase I need to quickly revert
-    	// Now lets go on and do the rest of the info
-    	while($buf->getLength() && $type = $buf->readInt8())
-    	{
-    		// Do specific type
-    		if(in_array($type, array(self::PLAYERS, self::TEAMS)))
-    		{
-	    		// Now get the sub information
-	    		$this->parseSub($type, $buf, $result);
-    		}
-    		else // Do both
-    		{
-    			$this->parseSub(self::PLAYERS, $buf, $result);
-    			$this->parseSub(self::TEAMS, $buf, $result);
-    		}
-    	}*/
-
-
     	// Return the result
 		return $result->fetch();
 	}
@@ -361,63 +339,108 @@ class GameQ_Protocols_Gamespy3 extends GameQ_Protocols
     }
 
 	/**
-	 * Parse the sub sections of the returned data, usually teams/players info
-	 *
-	 * @deprecated
-	 *
-	 * @param int $type
-	 * @param GameQ_Buffer $buf
-	 * @param GameQ_Result $result
-	 */
-	protected function parseSub($type, GameQ_Buffer &$buf, GameQ_Result &$result)
-	{
-		// Get the proper string type
-		switch($type)
-		{
-			case self::PLAYERS:
-				$type_string = 'players';
-				break;
+     * Parse the player and team info
+     *
+     * @param GameQ_Buffer $buf
+     * @param GameQ_Result $result
+     * @throws GameQ_ProtocolsException
+     * @return boolean
+     */
+    protected function parsePlayerTeamInfoNew(GameQ_Buffer &$buf, GameQ_Result &$result)
+    {
+        /**
+         * Player info is always first, team info (if defined) is second.
+         *
+         * Reference:
+         *
+         * Player info is preceeded by a hex code of \x01
+         * Team info is preceeded by a hex code of \x02
+         */
 
-			case self::TEAMS:
-				$type_string = 'teams';
-				break;
-		}
+        // Check the header to make sure the player data is proper
+        if($buf->read(1) != "\x01")
+        {
+            //throw new GameQ_ProtocolsException("First character in player buffer != '\x01'");
+            return FALSE;
+        }
 
-		// Loop until we run out of data
-		while ($buf->getLength())
-		{
-            // Get the header
-            $header = $buf->readString();
+        // Offload the player parsing
+        $this->parseSubInfo('players', $buf->readString("\x00\x00\x00"), $result);
 
-            // No header so break
-            if ($header == "")
+        // Check to make sure we have team information
+        if($buf->getLength() >= 6)
+        {
+            // Burn chars
+            $buf->skip(2);
+
+            // Check the header to make sure the data is proper
+            if($buf->read(1) != "\x02")
             {
-            	break;
+                //throw new GameQ_ProtocolsException("First character in team buffer != '\x02'");
+                return FALSE;
             }
 
-            // Rip off any trailing stuff
-            $header = rtrim($header, '_');
-
-            // Skip next position because it should be empty
-            $buf->skip();
-
-            // Get the values
-            while ($buf->getLength())
-            {
-            	// Grab the value
-                $val = $buf->readString();
-
-                // No value so break
-                if ($val === '')
-                {
-					break;
-                }
-
-                // Add the proper value
-                $result->addSub($type_string, $header, trim($val));
-            }
+            // Offload the team parsing
+            $this->parseSubInfo('teams', $buf->readString("\x00\x00\x00"), $result);
         }
 
         return TRUE;
-	}
+    }
+
+    /**
+     * Parse the sub-item information for players and teams
+     *
+     * @param string $section
+     * @param string $data
+     * @param GameQ_Result $result
+     * @return boolean
+     */
+    protected function parseSubInfo($section, $data, GameQ_Result &$result)
+    {
+        /*
+         * Explode the items so we can iterate easier
+         *
+         * Items should split up as follows:
+         *
+         * [0] => item_
+         * [1] => data for item_
+         * [2] => item2_
+         * [3] => data for item2_
+         * ...
+         */
+        $items = explode("\x00\x00", $data);
+
+        print_r($items);
+
+        // Loop through all of the items
+        for($x = 0; $x < count($items); $x += 2)
+        {
+            // $x is always the key for the item (i.e. player_, ping_, team_, score_, etc...)
+            $item_type = rtrim($items[$x], '_,_t');
+
+            // $x+1 is always the data for the above item
+            // Make a temp buffer so we have easier access to the data
+            $buf_temp = new GameQ_Buffer($items[$x+1]);
+
+            // Get the values
+            while ($buf_temp->getLength())
+            {
+                // No value so break the loop, end of string
+                if (($val = $buf_temp->readString()) === '')
+                {
+                    break;
+                }
+
+                // Add the value to the proper item in the correct group
+                $result->addSub($section, $item_type, trim($val));
+            }
+
+            // Unset out buffer
+            unset($buf_temp, $val);
+        }
+
+        unset($x, $items, $item_type);
+
+        return TRUE;
+    }
 }
