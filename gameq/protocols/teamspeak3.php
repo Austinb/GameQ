@@ -237,6 +237,7 @@ class GameQ_Protocols_Teamspeak3 extends GameQ_Protocols
 
 		foreach ($data AS $channel)
 		{
+			$channel['channel_name'] = htmlentities($channel['channel_name'], ENT_QUOTES, "UTF-8");
 			foreach ($channel AS $key => $value)
 			{
 				$result->addTeam($key, $value);
@@ -273,6 +274,7 @@ class GameQ_Protocols_Teamspeak3 extends GameQ_Protocols
 	        	continue;
 			}
 
+		$player['client_nickname'] = htmlentities($player['client_nickname'], ENT_QUOTES, "UTF-8");
 	      	foreach ($player AS $key => $value)
 	      	{
 	        	$result->addPlayer($key, $value);

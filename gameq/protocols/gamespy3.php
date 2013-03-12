@@ -169,7 +169,7 @@ class GameQ_Protocols_Gamespy3 extends GameQ_Protocols
         	$prefix = $buf->readString();
 
         	// Check to see if the return before has the same prefix present
-        	if(strstr($return[($x-1)], $prefix))
+        	if($prefix != null && strstr($return[($x-1)], $prefix))
         	{
         		// Update the return by removing the prefix plus 2 chars
         		$return[$x] = substr(str_replace($prefix, '', $return[$x]), 2);
