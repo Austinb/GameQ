@@ -50,6 +50,27 @@ abstract class GameQ_Protocols_Tshock extends GameQ_Protocols_Http
             "process_status",
     );
 
+    /**
+     * The protocol being used
+     *
+     * @var string
+     */
+    protected $protocol = 'tshock';
+
+    /**
+     * String name of this protocol class
+     *
+     * @var string
+     */
+    protected $name = 'tshock';
+
+    /**
+     * Longer string name of this protocol class
+     *
+     * @var string
+     */
+    protected $name_long = "Tshock";
+
     /*
      * Internal methods
      */
@@ -58,14 +79,11 @@ abstract class GameQ_Protocols_Tshock extends GameQ_Protocols_Http
         // Implode and rip out the JSON
         preg_match('/\{(.*)\}/ms', implode('', $packets), $m);
 
-        //print_r($m[0]);
         return $m[0];
     }
 
     protected function process_status()
     {
-        //var_dump($this->packets_response);
-
         // Make sure we have a valid response
         if(!$this->hasValidResponse(self::PACKET_STATUS))
         {
@@ -99,6 +117,7 @@ abstract class GameQ_Protocols_Tshock extends GameQ_Protocols_Http
         $result->add('numplayers', $json->playercount);
         $result->add('maxplayers', 0);
 
+        // Players are a comma(space) seperated list
         $players = explode(', ', $json->players);
 
         // Do the players

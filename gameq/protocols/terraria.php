@@ -33,13 +33,6 @@ class GameQ_Protocols_Terraria extends GameQ_Protocols_Tshock
     protected $port = 7878; // Default port, used if not set when instanced
 
 	/**
-	 * The protocol being used
-	 *
-	 * @var string
-	 */
-	protected $protocol = 'terraria';
-
-	/**
 	 * String name of this protocol class
 	 *
 	 * @var string
