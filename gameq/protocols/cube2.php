@@ -19,12 +19,15 @@
 /**
  * Cube 2: Sauerbraten Protocol Class
  *
- * Code adapted from GameQ v1 cube.php protocol class
+ * References:
+ * https://qstat.svn.sourceforge.net/svnroot/qstat/trunk/qstat2/cube2.c
  *
  * @author Austin Bischoff <austin@codebeard.com>
  */
 class GameQ_Protocols_Cube2 extends GameQ_Protocols
 {
+    protected $state = self::STATE_BETA;
+
 	/**
 	 * Array of packets we want to look up.
 	 * Each key should correspond to a defined method in this or a parent class
@@ -105,16 +108,14 @@ class GameQ_Protocols_Cube2 extends GameQ_Protocols
 	    // Create a new buffer
 	    $buf = new GameQ_Buffer($data);
 
-        echo $buf->getBuffer().PHP_EOL.PHP_EOL;
-
 	    // Check the header, should be the same response as the packet we sent
 	    if($buf->read(6) != $this->packets[self::PACKET_STATUS])
 	    {
-	        throw new GameQ_ProtocolsException("Data for ".__METHOD__." does not have the proper header type (should be 0x00).");
+	        throw new GameQ_ProtocolsException("Data for ".__METHOD__." does not have the proper header type (should be {$this->packets[self::PACKET_STATUS]}).");
 	        return array();
 	    }
 
-	    // Note following were figured out using some source and trial and error
+	    // NOTE: the following items were figured out using some source and trial and error
 
 	    $result->add('num_players', $this->readInt($buf));
 	    $result->add('version', $this->readInt($buf));
