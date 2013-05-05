@@ -19,7 +19,7 @@
 /**
  * Red Eclipse
  *
- * This game is based off of Cube 2 but the protocol reponse is way
+ * This game is based off of Cube 2 but the protocol response is way
  * different than Cube 2
  *
  * Thanks to Poil for information to help build out this protocol class
@@ -32,45 +32,6 @@
  */
 class GameQ_Protocols_Redeclipse extends GameQ_Protocols_Cube2
 {
-    protected $state = self::STATE_BETA;
-
-    protected $normalize = array(
-            // General
-            'general' => array(
-                    'hostname' => array('servername'),
-                    'numplayers' => array('num_players'),
-                    'maxplayers' => array('max_players'),
-                    'mapname' => array('map'),
-                    'gametype' => array('gametype'),
-            ),
-    );
-
-	/**
-	 * Array of packets we want to look up.
-	 * Each key should correspond to a defined method in this or a parent class
-	 *
-	 * @var array
-	 */
-	protected $packets = array(
-		self::PACKET_STATUS => "server",
-	);
-
-	/**
-	 * Methods to be run when processing the response(s)
-	 *
-	 * @var array
-	 */
-	protected $process_methods = array(
-		"process_status",
-	);
-
-	/**
-	 * Default port for this server type
-	 *
-	 * @var int
-	 */
-	protected $port = 28802; // Default port, used if not set when instanced
-
 	/**
 	 * The query protocol used to make the call
 	 *
@@ -144,20 +105,9 @@ class GameQ_Protocols_Redeclipse extends GameQ_Protocols_Cube2
 	        );
 
 	/**
-	 * Pre-process the server status data that was returned.
+	 * Process the status result.  This result is different from the parent
 	 *
-	 * @param array $packets
-	 */
-	protected function preProcess_status($packets)
-	{
-	    // Process the packets
-	    return implode('', $packets);
-	}
-
-	/**
-	 * Handles processing the status data into a usable format
-	 *
-	 * @throws GameQ_ProtocolsException
+	 * @see GameQ_Protocols_Cube2::process_status()
 	 */
 	protected function process_status()
 	{
@@ -200,7 +150,7 @@ class GameQ_Protocols_Redeclipse extends GameQ_Protocols_Cube2
 
 	    $result->add('num_players', $this->readInt($buf));
 
-	    $items = $this->readInt($buf); // We dump this
+	    $items = $this->readInt($buf); // We dump this as we dont use it for now
 
 	    $result->add('version', $this->readInt($buf));
 	    $result->add('gamemode', $this->gamemodes[$this->readInt($buf)]);
@@ -217,12 +167,18 @@ class GameQ_Protocols_Redeclipse extends GameQ_Protocols_Cube2
 	            $mutators[] = $mutator;
 	        }
 	    }
+
 	    $result->add('mutators', $mutators);
 	    $result->add('mutators_number', $mutators_number);
 
 	    $result->add('time_remaining', $this->readInt($buf));
 	    $result->add('max_players', $this->readInt($buf));
-	    $result->add('mastermode', $this->mastermodes[$this->readInt($buf)]);
+
+	    $mastermode = $this->readInt($buf);
+
+	    $result->add('mastermode', $this->mastermodes[$mastermode]);
+
+	    $result->add('password', ((in_array($mastermode, array(4)))?TRUE:FALSE));
 
 	    // @todo: No idea what these next 2 are used for
 	    $result->add('variableCount', $this->readInt($buf));
@@ -238,10 +194,11 @@ class GameQ_Protocols_Redeclipse extends GameQ_Protocols_Cube2
 	        $items = explode("\xc", $raw);
 
 	        // Indexes 0, 1 & 5 seem to be junk
-	        // Indexs 2, 3, 4 seem to have something of use, not sure about #3
+	        // Indexes 2, 3, 4 seem to have something of use, not sure about #3
 	        $result->addPlayer('guid', (int) trim($items[2], "[]"));
 
-	        // Index 4 have the player name with some kind int added on to the front, icon or something?
+	        // Index 4 has the player name with some kind int added on to the front, icon or something?
+	        // Anyway remove it for now...
 	        if(preg_match('/(\[[0-9]+\])(.*)/i', $items[4], $name))
 	        {
 	            $result->addPlayer('name', $name[2]);
