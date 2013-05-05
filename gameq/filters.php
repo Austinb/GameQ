@@ -21,7 +21,14 @@
  *
  * @author Austin Bischoff <austin@codebeard.com>
  */
-abstract class GameQ_Filters extends GameQ_Filters_Core
-{
+abstract class GameQ_Filters extends GameQ_Filters_Core {}
 
-}
+/**
+ * GameQ Filters Exception
+ *
+ * Allows for a level of exception handling incase there is an issue/error within
+ * a filter or a required dependency has not been met.
+ *
+ * @author Austin Bischoff <austin@codebeard.com>
+ */
+class GameQ_FiltersException extends Exception {}

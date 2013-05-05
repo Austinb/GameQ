@@ -215,8 +215,17 @@ class GameQ
 		// Create the proper filter class name
 		$filter_class = 'GameQ_Filters_'.$name;
 
-		// Pass any parameters and make the class
-		$this->options['filters'][$name] = new $filter_class($params);
+		try
+		{
+		    // Pass any parameters and make the class
+		    $this->options['filters'][$name] = new $filter_class($params);
+		}
+		catch (GameQ_FiltersException $e)
+		{
+		    // We catch the exception here, thus the filter is not applied
+		    // but we issue a warning
+		    error_log($e->getMessage(), E_USER_WARNING);
+		}
 
 		return $this; // Make chainable
 	}
