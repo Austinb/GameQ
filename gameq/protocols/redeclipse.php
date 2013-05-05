@@ -17,14 +17,20 @@
  */
 
 /**
- * Cube 2: Sauerbraten Protocol Class
+ * Red Eclipse
+ *
+ * This game is based off of Cube 2 but the protocol reponse is way
+ * different than Cube 2
+ *
+ * Thanks to Poil for information to help build out this protocol class
  *
  * References:
- * https://qstat.svn.sourceforge.net/svnroot/qstat/trunk/qstat2/cube2.c
+ * https://github.com/stainsby/redflare/blob/master/poller.js
+ * https://github.com/stainsby/redflare/blob/master/lib/protocol.js
  *
  * @author Austin Bischoff <austin@codebeard.com>
  */
-class GameQ_Protocols_Cube2 extends GameQ_Protocols
+class GameQ_Protocols_Redeclipse extends GameQ_Protocols_Cube2
 {
     protected $state = self::STATE_BETA;
 
@@ -70,21 +76,72 @@ class GameQ_Protocols_Cube2 extends GameQ_Protocols
 	 *
 	 * @var string
 	 */
-	protected $protocol = 'cube2';
+	protected $protocol = 'redeclipse';
 
 	/**
 	 * String name of this protocol class
 	 *
 	 * @var string
 	 */
-	protected $name = 'cube2';
+	protected $name = 'redeclipse';
 
 	/**
 	 * Longer string name of this protocol class
 	 *
 	 * @var string
 	 */
-	protected $name_long = "Cube 2: Sauerbraten";
+	protected $name_long = "Red Eclipse";
+
+	/**
+	 * Defined Game mutators
+	 *
+	 * @var array
+	 */
+	protected $mutators = array(
+	        'multi' => 1,
+	        'ffa' => 2,
+	        'coop' => 4,
+	        'insta' => 8,
+	        'medieval' => 16,
+	        'kaboom' => 32,
+	        'duel' => 64,
+	        'survivor' => 128,
+	        'classic' => 256,
+	        'onslaught' => 512,
+	        'jetpack' => 1024,
+	        'vampire' => 2048,
+	        'expert' => 4096,
+	        'resize' => 8192,
+	        );
+
+	/**
+	 * Defined Master modes (i.e access restrictions)
+	 *
+	 * @var array
+	 */
+	protected $mastermodes = array(
+	        'open', // 0
+	        'veto', // 1
+	        'locked', // 2
+	        'private', // 3
+	        'password', // 4
+	        );
+
+	/**
+	 * Defined Game modes
+	 *
+	 * @var array
+	 */
+	protected $gamemodes = array(
+	        'demo', // 0
+	        'edit', // 1
+	        'deathmatch', // 2
+	        'capture-the-flag', // 3
+	        'defend-the-flag', // 4
+	        'bomberball', // 5
+	        'time-trial', // 6
+	        'gauntlet' // 7
+	        );
 
 	/**
 	 * Pre-process the server status data that was returned.
@@ -126,50 +183,73 @@ class GameQ_Protocols_Cube2 extends GameQ_Protocols
 	        return array();
 	    }
 
-	    // NOTE: the following items were figured out using some source and trial and error
+	    /**
+	     * Reference chart for ints by position
+	     *
+	     * 0 - Num players
+	     * 1 - Number of items to follow (i.e. 8), not used yet
+	     * 2 - Version
+	     * 3 - gamemode (dm, ctf, etc...)
+	     * 4 - mutators (sum of power of 2)
+	     * 5 - Time remaining
+	     * 6 - max players
+	     * 7 - Mastermode (open, password, etc)
+	     * 8 - variable count
+	     * 9 - modification count
+	     */
 
 	    $result->add('num_players', $this->readInt($buf));
+
+	    $items = $this->readInt($buf); // We dump this
+
 	    $result->add('version', $this->readInt($buf));
-	    $result->add('protocol', $this->readInt($buf));
-	    $result->add('mode', $this->readInt($buf));
+	    $result->add('gamemode', $this->gamemodes[$this->readInt($buf)]);
+
+	    // This is a sum of power's of 2 (2^1, 1 << 1)
+	    $mutators_number = $this->readInt($buf);
+
+	    $mutators = array();
+
+	    foreach($this->mutators AS $mutator => $flag)
+	    {
+	        if($flag & $mutators_number)
+	        {
+	            $mutators[] = $mutator;
+	        }
+	    }
+	    $result->add('mutators', $mutators);
+	    $result->add('mutators_number', $mutators_number);
+
 	    $result->add('time_remaining', $this->readInt($buf));
 	    $result->add('max_players', $this->readInt($buf));
-	    $result->add('mastermode', $this->readInt($buf));
+	    $result->add('mastermode', $this->mastermodes[$this->readInt($buf)]);
 
-	    // @todo: Sometimes there is an extra char here before the map string.  Not sure what causes it or how
-	    // to even check for its existance.
+	    // @todo: No idea what these next 2 are used for
+	    $result->add('variableCount', $this->readInt($buf));
+	    $result->add('modificationCount', $this->readInt($buf));
 
 	    $result->add('map', $buf->readString());
 	    $result->add('servername', $buf->readString());
 
+	    // The rest from here is player information, we read until we run out of strings (\x00)
+	    while($raw = $buf->readString())
+	    {
+	        // Items seem to be seperated by \xc
+	        $items = explode("\xc", $raw);
+
+	        // Indexes 0, 1 & 5 seem to be junk
+	        // Indexs 2, 3, 4 seem to have something of use, not sure about #3
+	        $result->addPlayer('guid', (int) trim($items[2], "[]"));
+
+	        // Index 4 have the player name with some kind int added on to the front, icon or something?
+	        if(preg_match('/(\[[0-9]+\])(.*)/i', $items[4], $name))
+	        {
+	            $result->addPlayer('name', $name[2]);
+	        }
+	    }
+
 	    unset($buf, $data);
 
 	    return $result->fetch();
-	}
-
-	/**
-	 * Function to check for varying int values in the responses.  Makes life a little easier
-	 *
-	 * @param GameQ_Buffer $buf
-	 * @return number
-	 */
-	protected function readInt(GameQ_Buffer &$buf)
-	{
-	    // Look ahead and see if 32-bit int
-	    if($buf->lookAhead(1) == "\x81")
-	    {
-	        $buf->skip(1);
-	        return $buf->readInt32();
-	    }
-	    // Look ahead and see if 16-bit int
-	    elseif($buf->lookAhead(1) == "\x80")
-	    {
-	        $buf->skip(1);
-	        return $buf->readInt16();
-	    }
-	    else // 8-bit
-	    {
-	        return $buf->readInt8();
-	    }
 	}
 }
