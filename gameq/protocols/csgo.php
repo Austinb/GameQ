@@ -25,4 +25,6 @@ class GameQ_Protocols_Csgo extends GameQ_Protocols_Source
 {
 	protected $name = "csgo";
 	protected $name_long = "Counter-Strike: Global Offensive";
+	protected $name_short = "CS:GO";
+	protected $link_join = "steam://{IP}:{PORT}/";
 }
