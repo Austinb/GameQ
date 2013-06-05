@@ -25,6 +25,8 @@ class GameQ_Protocols_Dayz extends GameQ_Protocols_Armedassault2
 {
 	protected $name = "dayz";
 	protected $name_long = "DayZ Mod";
+	protected $name_short = "DayZ";
+	protected $link_join = "{IP}:{PORT}";
 
 	protected $port = 2302;
 }
