@@ -80,6 +80,8 @@ class GameQ_Protocols_Aa3pre32 extends GameQ_Protocols
 	/*
 	* Internal methods
 	*/
+	protected $name_short = "AA3.2";
+	protected $link_join = "aa3://{IP}:{PORT}/";
 
 	/**
 	 * Called before the $this->packets are sent.
