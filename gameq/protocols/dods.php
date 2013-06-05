@@ -25,4 +25,6 @@ class GameQ_Protocols_Dods extends GameQ_Protocols_Source
 {
 	protected $name = "dods";
 	protected $name_long = "Day of Defeat: Source";
+	protected $name_short = "DOD:S";
+	protected $link_join = "steam://{IP}:{PORT}/";
 }
