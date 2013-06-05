@@ -25,6 +25,8 @@ class GameQ_Protocols_Armedassault extends GameQ_Protocols_Gamespy2
 {
 	protected $name = "armedassault";
 	protected $name_long = "Armed Assault";
+	protected $name_short = "ArmA";
+	protected $link_join = "arma://{IP}:{PORT}/";
 
 	protected $port = 2302;
 }
