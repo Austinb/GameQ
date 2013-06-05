@@ -25,4 +25,6 @@ class GameQ_Protocols_Alienswarm extends GameQ_Protocols_Source
 {
 	protected $name = "alienswarm";
 	protected $name_long = "Alien Swarm";
+	protected $name_short = "AS";
+	protected $link_join = "steam://{IP}:{PORT}/";
 }
