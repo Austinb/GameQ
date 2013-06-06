@@ -25,4 +25,6 @@ class GameQ_Protocols_Gmod extends GameQ_Protocols_Source
 {
 	protected $name = "gmod";
 	protected $name_long = "Garry's Mod";
+    protected $name_short = "GM"
+	protected $link_join = "steam://connect/{IP}:{PORT}/";
 }

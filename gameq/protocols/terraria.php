@@ -45,7 +45,7 @@ class GameQ_Protocols_Terraria extends GameQ_Protocols_Tshock
 	 * @var string
 	 */
 	protected $name_long = "Terraria";
-    protected $name_short = "Ter";
-    protected $link_join = "";
+	protected $name_short = "Ter";
+	protected $link_join = "";
 
 }

@@ -26,5 +26,5 @@ class GameQ_Protocols_Tfc extends GameQ_Protocols_Source
 	protected $name = "tfc";
 	protected $name_long = "Team Fortress Classic";
     protected $name_short = "TFC";
-    protected $link_join = "steam://{IP}:{PORT}/";
+    protected $link_join = "steam://connect/{IP}:{PORT}/";
 }

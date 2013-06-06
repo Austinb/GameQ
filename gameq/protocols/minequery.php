@@ -82,7 +82,8 @@ class GameQ_Protocols_Minequery extends GameQ_Protocols
 	 * @var string
 	 */
 	protected $name_long = "Minequery";
-
+    protected $name_short = "MC";
+    protected $link_join = "";
     /*
      * Internal methods
      */

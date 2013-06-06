@@ -25,4 +25,6 @@ class GameQ_Protocols_Brink extends GameQ_Protocols_Source
 {
 	protected $name = "brink";
 	protected $name_long = "Brink";
+    protected $name_short = "Brink"
+	protected $link_join = "steam://connect/{IP}:{PORT}/";
 }

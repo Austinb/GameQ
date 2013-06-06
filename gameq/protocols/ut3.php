@@ -29,6 +29,8 @@ class GameQ_Protocols_Ut3 extends GameQ_Protocols_Gamespy3
 {
 	protected $name = "ut3";
 	protected $name_long = "Unreal Tournament 3";
+    protected $name_short = "UT3";
+    protected $link_join = "ut3://{IP}:{PORT}";
 
 	protected $port = 6500;
 

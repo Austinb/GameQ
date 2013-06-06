@@ -26,5 +26,5 @@ class GameQ_Protocols_Css extends GameQ_Protocols_Source
 	protected $name = "css";
 	protected $name_long = "Counter-Strike: Source";
 	protected $name_short = "CS:S";
-	protected $link_join = "steam://{IP}:{PORT}/";
+    protected $link_join = "steam://connect/{IP}:{PORT}/";
 }

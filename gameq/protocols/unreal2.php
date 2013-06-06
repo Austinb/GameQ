@@ -73,6 +73,8 @@ abstract class GameQ_Protocols_Unreal2 extends GameQ_Protocols
 	 * @var string
 	 */
 	protected $name_long = "Unreal 2";
+    protected $name_short = "U2";
+    protected $link_join = "ut://{IP}:{PORT}";
 
     /*
      * Internal methods

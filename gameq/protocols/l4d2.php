@@ -26,5 +26,5 @@ class GameQ_Protocols_L4d2 extends GameQ_Protocols_Source
 	protected $name = "l4d2";
 	protected $name_long = "Left 4 Dead 2";
     protected $name_short = "L4D2";
-    protected $link_join = "steam://{IP}:{PORT}/";
+    protected $link_join = "steam://connect/{IP}:{PORT}/";
 }

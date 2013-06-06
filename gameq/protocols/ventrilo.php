@@ -110,6 +110,9 @@ class GameQ_Protocols_Ventrilo extends GameQ_Protocols
 	 * @var string
 	 */
 	protected $name_long = "Ventrilo";
+    protected $name_short = "Vent";
+    protected $link_join = "ventrilo://{IP}:{PORT}/";
+
 
 	/**
 	 * Encryption table for the header

@@ -70,7 +70,8 @@ abstract class GameQ_Protocols_Tshock extends GameQ_Protocols_Http
      * @var string
      */
     protected $name_long = "Tshock";
-
+    protected $name_short = "Ts";
+    protected $link_join = "";
     /*
      * Internal methods
      */
