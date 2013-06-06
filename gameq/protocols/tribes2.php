@@ -73,6 +73,8 @@ class GameQ_Protocols_Tribes2 extends GameQ_Protocols
 	 * @var string
 	 */
 	protected $name_long = "Tribes 2";
+    protected $name_short = "T2";
+    protected $link_join = "";
 
 	/**
 	 * Pre-process the server info data that was returned.

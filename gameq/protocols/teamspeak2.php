@@ -122,7 +122,8 @@ class GameQ_Protocols_Teamspeak2 extends GameQ_Protocols
 	 * @var string
 	 */
 	protected $name_long = "Teamspeak 2";
-
+    protected $name_short = "TS2";
+    protected $link_join = "teamspeak://{IP}:{PORT}";
 	/**
 	 * We need to affect the packets we are sending before they are sent
 	 *
