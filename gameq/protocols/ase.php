@@ -77,8 +77,10 @@ abstract class GameQ_Protocols_ASE extends GameQ_Protocols
 	 * @var string
 	 */
 	protected $name_long = "All-Seeing Eye";
+    protected $name_short = "ASE";
+    protected $link_join = "arma3://{IP}:{PORT}/";
 
-	/*
+    /*
      * Internal methods
      */
 
