@@ -26,5 +26,5 @@ class GameQ_Protocols_Aoc extends GameQ_Protocols_Source
 	protected $name = "aoc";
 	protected $name_long = "Age of Chivalry";
 	protected $name_short = "AoC";
-    protected $link_join = "steam://connect/{IP}:{PORT}/";
+    protected $link_join = "steam://{IP}:{PORT}/";
 }
