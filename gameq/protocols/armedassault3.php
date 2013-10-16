@@ -24,7 +24,7 @@
  *
  * @author Austin Bischoff <austin@codebeard.com>
  */
-class GameQ_Protocols_Armedassault3 extends GameQ_Protocols_Gamespy2
+class GameQ_Protocols_Armedassault3 extends GameQ_Protocols_Gamespy3
 {
 	protected $name = "armedassault3";
 	protected $name_long = "Armed Assault 3";
