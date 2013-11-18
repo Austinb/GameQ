@@ -18,7 +18,7 @@
 
 /**
  * Battlefield 3 Protocol Class
- * 
+ *
  * Good place for doc status and info is http://www.fpsadmin.com/forum/showthread.php?t=24134
  *
  * @author Austin Bischoff <austin@codebeard.com>
@@ -90,7 +90,7 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
 	 *
 	 * @var int
 	 */
-	protected $port = 25200; // Default port, used if not set when instanced
+	protected $port = 47200; // Default port, used if not set when instanced
 
 	/**
 	 * The protocol being used
@@ -195,7 +195,7 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
     	$result->add('region', $words[$index_current + 10]);
     	$result->add('pingsite', $words[$index_current + 11]);
     	$result->add('country', $words[$index_current + 12]);
-    	
+
     	// Added in R29, No docs as of yet
     	$result->add('quickmatch', $words[$index_current + 13] === 'true'); // Guessed from research
 
