@@ -26,13 +26,6 @@
 class GameQ_Protocols_Bf4 extends GameQ_Protocols_Bf3
 {
 	/**
-	 * The protocol being used
-	 *
-	 * @var string
-	 */
-	protected $protocol = 'bf4';
-
-	/**
 	 * String name of this protocol class
 	 *
 	 * @var string
