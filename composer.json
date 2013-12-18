@@ -49,6 +49,6 @@
         "ext-zlib": "*"
     },
     "autoload": {
-        "psr-0": { "": "." }
+        "psr-0": { "GameQ": "." }
     }
 }
