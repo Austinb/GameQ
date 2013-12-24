@@ -72,6 +72,9 @@ class GameQ_Protocols_Teeworlds extends GameQ_Protocols {
      * @var string
      */
     protected $name_long = "Teeworlds";
+    protected $name_short = "Tw";
+    protected $link_join = "";
+
 
     /*
      * Internal methods

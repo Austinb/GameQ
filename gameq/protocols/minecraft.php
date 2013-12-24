@@ -38,6 +38,8 @@ class GameQ_Protocols_Minecraft extends GameQ_Protocols_Gamespy4
 {
 	protected $name = "minecraft";
 	protected $name_long = "Minecraft";
+    protected $name_short = "MC";
+    protected $link_join = "";
 
 	protected $port = 25565;
 }

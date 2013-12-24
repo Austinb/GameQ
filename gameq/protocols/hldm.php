@@ -25,4 +25,6 @@ class GameQ_Protocols_Hldm extends GameQ_Protocols_Source
 {
 	protected $name = "hldm";
 	protected $name_long = "Half Life: Deathmatch";
+    protected $name_short = "HL:DM";
+    protected $link_join = "steam://connect/{IP}:{PORT}/";
 }

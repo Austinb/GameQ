@@ -25,6 +25,8 @@ class GameQ_Protocols_Cscz extends GameQ_Protocols_Source
 {
 	protected $name = "cscz";
 	protected $name_long = "Counter-Strike: Condition Zero";
+	protected $name_short = "CS:CZ";
+    protected $link_join = "steam://connect/{IP}:{PORT}/";
 
 	/**
 	 * We have to overload this function to cheat the rules processing because of some wierdness, old ass game!

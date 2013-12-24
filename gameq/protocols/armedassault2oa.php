@@ -25,6 +25,8 @@ class GameQ_Protocols_Armedassault2oa extends GameQ_Protocols_Armedassault2
 {
 	protected $name = "armedassault2oa";
 	protected $name_long = "Armed Assault 2: Operation Arrowhead";
+	protected $name_short = "AA2:OA";
+	protected $link_join = "arma2://{IP}:{PORT}/";
 
 	protected $port = 2302;
 }

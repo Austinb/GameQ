@@ -25,6 +25,8 @@ class GameQ_Protocols_Ut2004 extends GameQ_Protocols_Unreal2
 {
 	protected $name = "ut2004";
 	protected $name_long = "Unreal Tournament 2004";
+    protected $name_short = "UT2004";
+    protected $link_join = "ut2004://{IP}:{PORT}";
 
 	protected $port = 7778;
 }

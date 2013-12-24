@@ -25,4 +25,6 @@ class GameQ_Protocols_Insurgency extends GameQ_Protocols_Source
 {
 	protected $name = "insurgency";
 	protected $name_long = "Insurgency";
+    protected $name_short = "IG";
+    protected $link_join = "steam://connect/{IP}:{PORT}/";
 }

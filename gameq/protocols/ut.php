@@ -25,6 +25,8 @@ class GameQ_Protocols_Ut extends GameQ_Protocols_Gamespy
 {
 	protected $name = "ut";
 	protected $name_long = "Unreal Tournament";
+    protected $name_short = "UT";
+    protected $link_join = "ut://{IP}:{PORT}";
 
 	protected $port = 7778;
 }
