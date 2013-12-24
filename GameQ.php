@@ -291,7 +291,7 @@ class GameQ
 			|| !is_array($server_info[self::SERVER_OPTIONS])
 			|| empty($server_info[self::SERVER_OPTIONS]))
 		{
-			// Make an id so each server has an id when returned
+			// Default the options to an empty array
 			$server_info[self::SERVER_OPTIONS] = array();
 		}
 
