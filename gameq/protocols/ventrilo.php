@@ -111,6 +111,8 @@ class GameQ_Protocols_Ventrilo extends GameQ_Protocols
 	 */
 	protected $name_long = "Ventrilo";
 
+	protected $join_link = "ventrilo://%s:%d/";
+
 	/**
 	 * Encryption table for the header
 	 *

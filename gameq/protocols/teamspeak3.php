@@ -123,6 +123,8 @@ class GameQ_Protocols_Teamspeak3 extends GameQ_Protocols
 	 */
 	protected $name_long = "Teamspeak 3";
 
+	protected $join_link = "ts3server://%s?port=%d";
+
 	/**
 	 * Define the items being replaced to fix the return
 	 *

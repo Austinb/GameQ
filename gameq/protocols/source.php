@@ -91,6 +91,8 @@ class GameQ_Protocols_Source extends GameQ_Protocols
 	 */
 	protected $source_engine = self::SOURCE_ENGINE;
 
+	protected $join_link = "steam://connect/%s:%d/";
+
 	/**
 	 * Parse the challenge response and apply it to all the packet types
 	 * that require it.

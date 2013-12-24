@@ -197,6 +197,13 @@ abstract class GameQ_Protocols_Core
 	protected $normalize = FALSE;
 
 	/**
+	 * Quick join link for specific games
+	 *
+	 * @var string
+	 */
+	protected $join_link = NULL;
+
+	/**
 	 * Create the instance.
 	 *
 	 * @param string $ip
@@ -570,6 +577,9 @@ abstract class GameQ_Protocols_Core
 		$results['gq_type'] = (string) $this;
 		$results['gq_transport'] = $this->transport;
 
+		// Process the join link
+		$results['gq_joinlink'] = $this->getJoinLink();
+
 		// Return the raw results
 		return $results;
 	}
@@ -633,5 +643,24 @@ abstract class GameQ_Protocols_Core
 		}
 
 		return FALSE;
+	}
+
+	/**
+	 * Create a server join link based on the server information
+	 *
+	 * @return string
+	 */
+	protected function getJoinLink()
+	{
+	    $link = '';
+
+	    // We have a join_link defined
+	    if(!empty($this->join_link))
+	    {
+	        // @todo: Make this smarter, not all games use $this->port as the client port
+	        $link = sprintf($this->join_link, $this->ip, $this->port);
+	    }
+
+	    return $link;
 	}
 }

@@ -26,5 +26,7 @@ class GameQ_Protocols_Aa extends GameQ_Protocols_Gamespy2
 	protected $name = "aa";
 	protected $name_long = "America's Army";
 
+	protected $link_join = "aao://%s:%d/";
+
 	protected $port = 1717;
 }
