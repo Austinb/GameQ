@@ -794,6 +794,12 @@ class GameQ
 		$write = NULL;
 		$except = NULL;
 
+		// Check to see if $read is empty, if so stream_select() will throw a warning
+		if(empty($read))
+		{
+		    return $responses;
+		}
+
 		// This is when it should stop
 		$time_stop = microtime(TRUE) + $this->timeout;
 
