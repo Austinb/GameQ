@@ -36,7 +36,7 @@ class GameQ_Protocols_M2mp extends GameQ_Protocols
 	 * @var array
 	 */
 	protected $packets = array(
-		self::PACKET_ALL => "M2MP%s%si",
+		self::PACKET_ALL => "M2MP",
 	);
 
 	/**
