@@ -26,6 +26,8 @@ class GameQ_Protocols_Jc2 extends GameQ_Protocols_Source
 	protected $name = "jc2";
 	protected $name_long = "Just Cause 2 Multiplayer";
 
+	protected $port = 7777;
+
 	protected function process_details()
 	{
 	    // Process the server details first
