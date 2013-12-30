@@ -32,7 +32,8 @@ class GameQ_Protocols_Jc2 extends GameQ_Protocols_Source
 	    $results = parent::process_details();
 
 	    // Now we need to fix the "map" for their hack
-	    if(preg_match('/(?P<cur>\d{1,})\/(?P<max>\d{1,})/i', trim($results['map']), $m))
+	    if(isset($results['map'])
+	            && preg_match('/(?P<cur>\d{1,})\/(?P<max>\d{1,})/i', trim($results['map']), $m))
 	    {
 	        // Define the player counts
 	        $results['num_players'] = $m['cur'];
