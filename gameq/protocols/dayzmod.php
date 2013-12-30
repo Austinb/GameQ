@@ -17,14 +17,13 @@
  */
 
 /**
- * DayZ Standalone Protocol Class
+ * DayZ Mod Protocol Class
  *
- * Note that this is not DayZ Mod but a standalone game in Steam
- *
+ * @author Marcel Bößendörfer <m.boessendoerfer@marbis.net>
  * @author Austin Bischoff <austin@codebeard.com>
  */
-class GameQ_Protocols_Dayz extends GameQ_Protocols_Source
+class GameQ_Protocols_Dayzmod extends GameQ_Protocols_Armedassault2
 {
-	protected $name = "dayz";
-	protected $name_long = "DayZ Standalone";
+	protected $name = "dayzmod";
+	protected $name_long = "DayZ Mod";
 }
