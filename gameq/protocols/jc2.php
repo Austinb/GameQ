@@ -41,11 +41,11 @@ class GameQ_Protocols_Jc2 extends GameQ_Protocols_Source
 	        $results['num_players'] = $m['cur'];
 	        $results['max_players'] = $m['max'];
 
-	        // Reset map since we have no idea what it is
-	        $results['map'] = '';
-
 	        unset($m);
 	    }
+
+	    // Map never changes it seems...
+	    $results['map'] = 'Panau';
 
 	    return $results;
 	}
