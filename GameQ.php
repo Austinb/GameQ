@@ -73,6 +73,7 @@ class GameQ
 	 *
 	 * @param string $class
 	 * @throws GameQException
+     * @return bool
 	 */
 	public static function auto_load($class)
 	{
@@ -85,7 +86,7 @@ class GameQ
 			if ($path = self::find_file($file))
 			{
 				// Load the class file
-				require $path;
+				require_once $path;
 
 				// Class has been found
 				return TRUE;
@@ -104,6 +105,7 @@ class GameQ
 	 * Try to find the file based on the class passed.
 	 *
 	 * @param string $file
+     * @return bool|string
 	 */
 	public static function find_file($file)
 	{
