@@ -56,7 +56,7 @@ class GameQ_Buffer
     /**
      * Constructor
      *
-     * @param   string|array    $response   The data
+     * @param   string|array    The data
      */
     public function __construct($data)
     {
@@ -98,11 +98,13 @@ class GameQ_Buffer
      * Read from the buffer
      *
      * @param   int             $length     Length of data to read
+     * @throws  GameQ_ProtocolsException
      * @return  string          The data read
      */
     public function read($length = 1)
     {
-        if (($length + $this->index) > $this->length) {
+        if (($length + $this->index) > $this->length)
+        {
             throw new GameQ_ProtocolsException('Unable to read length={$length} from buffer.  Bad protocol format or return?');
         }
 
@@ -204,7 +206,7 @@ class GameQ_Buffer
     /**
      * Reads a pascal string from the buffer
      *
-     * @paran   int    $offset        Number of bits to cut off the end
+     * @param   int    $offset        Number of bits to cut off the end
      * @param   bool   $read_offset   True if the data after the offset is
      *                                to be read
      * @return  string          The data read
@@ -230,6 +232,7 @@ class GameQ_Buffer
      * If not found, return everything
      *
      * @param   array           $delims      Read until these characters are reached
+     * @param   null            $delimfound
      * @return  string          The data read
      */
     public function readStringMulti($delims, &$delimfound = null)
