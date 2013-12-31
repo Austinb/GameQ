@@ -408,12 +408,12 @@ class GameQ
 		return $this; // Make Chainable
 	}
 
-	/**
-	 * Make all the data requests (i.e. challenges, queries, etc...)
-	 *
-	 * @return multitype:Ambigous <multitype:, multitype:boolean string mixed >
-	 */
-	public function requestData()
+    /**
+     * Make all the data requests (i.e. challenges, queries, etc...)
+     *
+     * @return array
+     */
+    public function requestData()
 	{
 		// Data returned array
 		$data = array();
