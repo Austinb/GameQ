@@ -367,6 +367,12 @@ class GameQ
 		// Create the class so we can reference it properly later
 		$protocol_class = 'GameQ_Protocols_'.ucfirst($server_info[self::SERVER_TYPE]);
 
+        // Error if the protocol is not defined
+        if(!class_exists($protocol_class))
+        {
+            throw new GameQException("The protocol '".$server_info[self::SERVER_TYPE]."' is not defined.");
+        }
+
 		// Create the new instance and add it to the servers list
 		$this->servers[$server_id] = new $protocol_class(
 			$server_ip,
