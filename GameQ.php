@@ -155,10 +155,7 @@ class GameQ
 	protected $sockets = array();
 
 	/**
-	 * Make new class and check for requirements
-	 *
-	 * @throws GameQException
-	 * @return boolean
+	 * Construct class
 	 */
 	public function __construct()
 	{
@@ -169,6 +166,7 @@ class GameQ
 	 * Get an option's value
 	 *
 	 * @param string $option
+     * @return string|null
 	 */
 	public function __get($option)
 	{
