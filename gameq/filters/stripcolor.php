@@ -35,14 +35,20 @@ class GameQ_Filters_Stripcolor extends GameQ_Filters
 			case 'quake2':
 			case 'quake3':
 			case 'doom3':
-				array_walk_recursive($data, array($this, 'stripQuake'));
+                // Strips quake color tags
+				array_walk_recursive($data, function(&$string) {
+                    $string = preg_replace('#(\^.)#', '', $string);
+                });
 				break;
 
 			case 'unreal2':
 			case 'ut3':
 			case 'gamespy3':  //not sure if gamespy3 supports ut colors but won't hurt
 			case 'gamespy2':
-				array_walk_recursive($data, array($this, 'stripUT'));
+                // Strip UT color tags
+				array_walk_recursive($data, function(&$string) {
+                    $string = preg_replace('/\x1b.../', '', $string);
+                });
 				break;
 
 			default:
@@ -50,27 +56,5 @@ class GameQ_Filters_Stripcolor extends GameQ_Filters
 		}
 
 		return $data;
-	}
-
-	/**
-	 * Strips quake color tags
-	 *
-	 * @param  $string  string  String to strip
-	 * @param  $key     string  Array key
-	 */
-	protected function stripQuake(&$string, $key)
-	{
-		$string = preg_replace('#(\^.)#', '', $string);
-	}
-
-	/**
-	 * Strip UT color tags
-	 *
-	 * @param  $string  string  String to strip
-	 * @param  $key     string  Array key
-	 */
-	protected function stripUT(&$string, $key)
-	{
-		$string = preg_replace('/\x1b.../', '', $string);
 	}
 }

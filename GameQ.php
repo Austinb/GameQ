@@ -44,6 +44,7 @@ class GameQ
 	 * Constants
 	 */
 	const VERSION = '2.0.1';
+    const MIN_PHP_VERSION = '5.3.0';
 
 	/*
 	 * Server array keys
@@ -73,6 +74,7 @@ class GameQ
 	 *
 	 * @param string $class
 	 * @throws GameQException
+     * @return bool
 	 */
 	public static function auto_load($class)
 	{
@@ -85,7 +87,7 @@ class GameQ
 			if ($path = self::find_file($file))
 			{
 				// Load the class file
-				require $path;
+				require_once $path;
 
 				// Class has been found
 				return TRUE;
@@ -97,14 +99,14 @@ class GameQ
 		catch (Exception $e)
 		{
 			throw new GameQException($e->getMessage(), $e->getCode(), $e);
-			die;
 		}
-	}
+    }
 
 	/**
 	 * Try to find the file based on the class passed.
 	 *
 	 * @param string $file
+     * @return bool|string
 	 */
 	public static function find_file($file)
 	{
@@ -153,21 +155,22 @@ class GameQ
 	 */
 	protected $sockets = array();
 
-	/**
-	 * Make new class and check for requirements
-	 *
-	 * @throws GameQException
-	 * @return boolean
-	 */
-	public function __construct()
-	{
-		// @todo: Add PHP version check?
-	}
+    /**
+     * Construct class
+     */
+    public function __construct()
+    {
+        if (version_compare(PHP_VERSION, self::MIN_PHP_VERSION) < 0)
+        {
+            throw new GameQException("Your PHP version must be at least ".self::MIN_PHP_VERSION." to use GameQ");
+        }
+    }
 
 	/**
 	 * Get an option's value
 	 *
 	 * @param string $option
+     * @return string|null
 	 */
 	public function __get($option)
 	{
@@ -266,28 +269,26 @@ class GameQ
 	public function addServer(Array $server_info=NULL)
 	{
 		// Check for server type
-		if(!key_exists(self::SERVER_TYPE, $server_info) || empty($server_info[self::SERVER_TYPE]))
+		if(!array_key_exists(self::SERVER_TYPE, $server_info) || empty($server_info[self::SERVER_TYPE]))
 		{
 			throw new GameQException("Missing server info key '".self::SERVER_TYPE."'");
-			return FALSE;
 		}
 
 		// Check for server host
-		if(!key_exists(self::SERVER_HOST, $server_info) || empty($server_info[self::SERVER_HOST]))
+		if(!array_key_exists(self::SERVER_HOST, $server_info) || empty($server_info[self::SERVER_HOST]))
 		{
 			throw new GameQException("Missing server info key '".self::SERVER_HOST."'");
-			return FALSE;
 		}
 
 		// Check for server id
-		if(!key_exists(self::SERVER_ID, $server_info) || empty($server_info[self::SERVER_ID]))
+		if(!array_key_exists(self::SERVER_ID, $server_info) || empty($server_info[self::SERVER_ID]))
 		{
 			// Make an id so each server has an id when returned
 			$server_info[self::SERVER_ID] = $server_info[self::SERVER_HOST];
 		}
 
 		// Check for options
-		if(!key_exists(self::SERVER_OPTIONS, $server_info)
+		if(!array_key_exists(self::SERVER_OPTIONS, $server_info)
 			|| !is_array($server_info[self::SERVER_OPTIONS])
 			|| empty($server_info[self::SERVER_OPTIONS]))
 		{
@@ -297,7 +298,6 @@ class GameQ
 
 		// Define these
 		$server_id = $server_info[self::SERVER_ID];
-		$server_ip = '127.0.0.1';
 		$server_port = FALSE;
 
 		// We have an IPv6 address (and maybe a port)
@@ -330,7 +330,6 @@ class GameQ
     		)))
 		    {
 		        throw new GameQException("The IPv6 address '{$server_ip}' is invalid.");
-		        return FALSE;
 		    }
 		}
 
@@ -359,13 +358,18 @@ class GameQ
 		        if($server_ip === gethostbyname($server_ip))
 		        {
 		            throw new GameQException("The host '{$server_ip}' is unresolvable to an IP address.");
-		            return FALSE;
 		        }
 		    }
 		}
 
 		// Create the class so we can reference it properly later
 		$protocol_class = 'GameQ_Protocols_'.ucfirst($server_info[self::SERVER_TYPE]);
+
+        // Error if the protocol is not defined
+        if(!class_exists($protocol_class))
+        {
+            throw new GameQException("The protocol '".$server_info[self::SERVER_TYPE]."' is not defined.");
+        }
 
 		// Create the new instance and add it to the servers list
 		$this->servers[$server_id] = new $protocol_class(
@@ -408,12 +412,12 @@ class GameQ
 		return $this; // Make Chainable
 	}
 
-	/**
-	 * Make all the data requests (i.e. challenges, queries, etc...)
-	 *
-	 * @return multitype:Ambigous <multitype:, multitype:boolean string mixed >
-	 */
-	public function requestData()
+    /**
+     * Make all the data requests (i.e. challenges, queries, etc...)
+     *
+     * @return array
+     */
+    public function requestData()
 	{
 		// Data returned array
 		$data = array();
@@ -470,6 +474,28 @@ class GameQ
 		// Send back the data array, could be empty if nothing went to plan
 		return $data;
 	}
+
+    /**
+     * Get all protocols that are accepted
+     *
+     * @return array
+     */
+    public function getProtocols()
+    {
+        $protocols = array();
+        if ($handle = opendir(dirname(__FILE__).'/gameq/protocols'))
+        {
+            while (($file = readdir($handle)) !== false)
+            {
+                if(!in_array($file,array('..','.')))
+                {
+                    $protocols[] = str_replace('.php','',$file);
+                }
+            }
+            closedir($handle);
+        }
+        return $protocols;
+    }
 
 	/* Working Methods */
 
