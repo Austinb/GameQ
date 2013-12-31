@@ -99,7 +99,7 @@ class GameQ
 		{
 			throw new GameQException($e->getMessage(), $e->getCode(), $e);
 		}
-	}
+    }
 
 	/**
 	 * Try to find the file based on the class passed.
@@ -473,6 +473,28 @@ class GameQ
 		// Send back the data array, could be empty if nothing went to plan
 		return $data;
 	}
+
+    /**
+     * Get all protocols that are accepted
+     *
+     * @return array
+     */
+    public function getProtocols()
+    {
+        $protocols = array();
+        if ($handle = opendir(dirname(__FILE__).'/gameq/protocols'))
+        {
+            while (($file = readdir($handle)) !== false)
+            {
+                if(!in_array($file,array('..','.')))
+                {
+                    $protocols[] = str_replace('.php','',$file);
+                }
+            }
+            closedir($handle);
+        }
+        return $protocols;
+    }
 
 	/* Working Methods */
 
