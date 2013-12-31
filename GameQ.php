@@ -97,7 +97,6 @@ class GameQ
 		catch (Exception $e)
 		{
 			throw new GameQException($e->getMessage(), $e->getCode(), $e);
-			die;
 		}
 	}
 
@@ -269,14 +268,12 @@ class GameQ
 		if(!key_exists(self::SERVER_TYPE, $server_info) || empty($server_info[self::SERVER_TYPE]))
 		{
 			throw new GameQException("Missing server info key '".self::SERVER_TYPE."'");
-			return FALSE;
 		}
 
 		// Check for server host
 		if(!key_exists(self::SERVER_HOST, $server_info) || empty($server_info[self::SERVER_HOST]))
 		{
 			throw new GameQException("Missing server info key '".self::SERVER_HOST."'");
-			return FALSE;
 		}
 
 		// Check for server id
@@ -330,7 +327,6 @@ class GameQ
     		)))
 		    {
 		        throw new GameQException("The IPv6 address '{$server_ip}' is invalid.");
-		        return FALSE;
 		    }
 		}
 
@@ -359,7 +355,6 @@ class GameQ
 		        if($server_ip === gethostbyname($server_ip))
 		        {
 		            throw new GameQException("The host '{$server_ip}' is unresolvable to an IP address.");
-		            return FALSE;
 		        }
 		    }
 		}
