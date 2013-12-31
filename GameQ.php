@@ -294,7 +294,6 @@ class GameQ
 
 		// Define these
 		$server_id = $server_info[self::SERVER_ID];
-		$server_ip = '127.0.0.1';
 		$server_port = FALSE;
 
 		// We have an IPv6 address (and maybe a port)
