@@ -44,6 +44,7 @@ class GameQ
 	 * Constants
 	 */
 	const VERSION = '2.0.1';
+    const MIN_PHP_VERSION = '5.3.0';
 
 	/*
 	 * Server array keys
@@ -154,13 +155,16 @@ class GameQ
 	 */
 	protected $sockets = array();
 
-	/**
-	 * Construct class
-	 */
-	public function __construct()
-	{
-		// @todo: Add PHP version check?
-	}
+    /**
+     * Construct class
+     */
+    public function __construct()
+    {
+        if (version_compare(PHP_VERSION, self::MIN_PHP_VERSION) < 0)
+        {
+            throw new GameQException("Your PHP version must be at least ".self::MIN_PHP_VERSION." to use GameQ");
+        }
+    }
 
 	/**
 	 * Get an option's value
