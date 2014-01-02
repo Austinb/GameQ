@@ -25,7 +25,7 @@
  *
  * Most of the logic is taken from the original GameQ
  * by Tom Buskens <t.buskens@deviation.nl>
- * 
+ *
  * @author Marcel Bößendörfer <m.boessendoerfer@marbis.net>
  * @author Austin Bischoff <austin@codebeard.com>
  */
@@ -84,65 +84,81 @@ abstract class GameQ_Protocols_ASE extends GameQ_Protocols
 
 	protected function process_all()
 	{
-            if(!$this->hasValidResponse(self::PACKET_ALL))
+        if(!$this->hasValidResponse(self::PACKET_ALL))
+        {
+            return array();
+        }
+        $data = $this->packets_response[self::PACKET_ALL][0];
+
+        $buf = new GameQ_Buffer($data);
+
+        $result = new GameQ_Result();
+
+        // Grab the header
+        $header = $buf->read(4);
+
+        // Header does not match
+        if ($header !== 'EYE1')
+        {
+            throw new GameQException("Exepcted header to be 'EYE1' but got '{$header}' instead.");
+        }
+
+        // Variables
+        $result->add('gamename',    $buf->readPascalString(1, true));
+        $result->add('port',        $buf->readPascalString(1, true));
+        $result->add('servername',  $buf->readPascalString(1, true));
+        $result->add('gametype',    $buf->readPascalString(1, true));
+        $result->add('map',         $buf->readPascalString(1, true));
+        $result->add('version',     $buf->readPascalString(1, true));
+        $result->add('password',    $buf->readPascalString(1, true));
+        $result->add('num_players', $buf->readPascalString(1, true));
+        $result->add('max_players', $buf->readPascalString(1, true));
+
+        // Key / value pairs
+        while($buf->getLength())
+        {
+            // If we have an empty key, we've reached the end
+            $key = $buf->readPascalString(1, true);
+
+            if (empty($key))
             {
-                return array();
-            }
-            $data = $this->packets_response[self::PACKET_ALL][0];
-            $buf = new GameQ_Buffer($data);
-            $result = new GameQ_Result();
-            if ($buf->read(4) !== 'EYE1') {
-                throw new GameQException($data);
-            }
-            // Variables
-            $result->add('gamename',    $buf->readPascalString(1, true));
-            $result->add('port',        $buf->readPascalString(1, true));
-            $result->add('servername',  $buf->readPascalString(1, true));
-            $result->add('gametype',    $buf->readPascalString(1, true));
-            $result->add('map',         $buf->readPascalString(1, true));
-            $result->add('version',     $buf->readPascalString(1, true));
-            $result->add('password',    $buf->readPascalString(1, true));
-            $result->add('num_players', $buf->readPascalString(1, true));
-            $result->add('max_players', $buf->readPascalString(1, true));
-
-            // Key / value pairs
-            while  ($buf->getLength()) {
-                // If we have an empty key, we've reached the end
-                $key = $buf->readPascalString(1, true);
-                if (empty($key)) break;
-
-                // Otherwise, add the pair
-                $result->add(
-                    $key,
-                    $buf->readPascalString(1, true)
-                );
+                break;
             }
 
-            // Players
-            while ($buf->getLength()) {
-                // Get the flags
-                $flags = $buf->readInt8();
+            // Otherwise, add the pair
+            $result->add(
+                $key,
+                $buf->readPascalString(1, true)
+            );
+        }
 
-                // Get data according to the flags
-                if ($flags & 1) {
-                    $result->addPlayer('name', $buf->readPascalString(1, true));
-                }
-                if ($flags & 2) {
-                    $result->addPlayer('team', $buf->readPascalString(1, true));
-                }
-                if ($flags & 4) {
-                    $result->addPlayer('skin', $buf->readPascalString(1, true));
-                }
-                if ($flags & 8) {
-                    $result->addPlayer('score', $buf->readPascalString(1, true));
-                }
-                if ($flags & 16) {
-                    $result->addPlayer('ping', $buf->readPascalString(1, true));
-                }
-                if ($flags & 32) {
-                    $result->addPlayer('time', $buf->readPascalString(1, true));
-                }
+        // Players
+        while ($buf->getLength())
+        {
+            // Get the flags
+            $flags = $buf->readInt8();
+
+            // Get data according to the flags
+            if ($flags & 1) {
+                $result->addPlayer('name', $buf->readPascalString(1, true));
             }
-            return $result->fetch();
+            if ($flags & 2) {
+                $result->addPlayer('team', $buf->readPascalString(1, true));
+            }
+            if ($flags & 4) {
+                $result->addPlayer('skin', $buf->readPascalString(1, true));
+            }
+            if ($flags & 8) {
+                $result->addPlayer('score', $buf->readPascalString(1, true));
+            }
+            if ($flags & 16) {
+                $result->addPlayer('ping', $buf->readPascalString(1, true));
+            }
+            if ($flags & 32) {
+                $result->addPlayer('time', $buf->readPascalString(1, true));
+            }
+        }
+
+        return $result->fetch();
 	}
 }
