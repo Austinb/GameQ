@@ -578,7 +578,10 @@ abstract class GameQ_Protocols_Core
 		$results['gq_transport'] = $this->transport;
 
 		// Process the join link
-		$results['gq_joinlink'] = $this->getJoinLink();
+		if(!isset($results['gq_joinlink']) || empty($results['gq_joinlink']))
+		{
+		    $results['gq_joinlink'] = $this->getJoinLink();
+		}
 
 		// Return the raw results
 		return $results;
