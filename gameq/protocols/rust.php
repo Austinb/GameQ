@@ -27,4 +27,24 @@ class GameQ_Protocols_Rust extends GameQ_Protocols_Source
 {
 	protected $name = "rust";
 	protected $name_long = "Rust";
+        
+        public function port($port = FALSE)
+	{
+		// Act as setter
+		if($port !== FALSE)
+		{
+			$this->port = $port + 1;
+		}
+
+		return $this->port;
+	}
+        
+        public function processResponse() {
+            $results = parent::processResponse();
+            $results['gq_port'] = $this->port - 1;    
+            
+            return $results;
+        }
 }
+
+
