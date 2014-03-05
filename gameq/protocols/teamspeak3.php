@@ -40,7 +40,7 @@ class GameQ_Protocols_Teamspeak3 extends GameQ_Protocols
             'dedicated' => array('dedicated'),
             'hostname' => array('virtualservername'),
             'password' => array('virtualserverflagpassword'),
-            'numplayers' => array('virtualserverclientsonline'),
+            //'numplayers' => array('virtualserverclientsonline'),
             'maxplayers' => array('virtualservermaxclients'),
             'players' => array('players'),
             'teams' => array('teams'),
@@ -231,6 +231,9 @@ class GameQ_Protocols_Teamspeak3 extends GameQ_Protocols
 		{
 			$result->add($key, $value);
 		}
+
+		// Do correction for virtual clients
+		$result->add('numplayers', ($data['virtualserver_clientsonline'] - $data['virtualserver_queryclientsonline']));
 
 		unset($data, $buffer, $key, $value);
 
