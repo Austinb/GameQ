@@ -21,32 +21,39 @@
  *
  * @author Austin Bischoff <austin@codebeard.com>
  */
-class GameQ_Protocols_Jc2 extends GameQ_Protocols_Source
+class GameQ_Protocols_Jc2 extends GameQ_Protocols_Gamespy3
 {
-	protected $name = "jc2";
+	protected $name = "jc2mp";
 	protected $name_long = "Just Cause 2 Multiplayer";
-
 	protected $port = 7777;
 
-	protected function process_details()
+	public function __construct($ip = FALSE, $port = FALSE, $options = array())
 	{
-	    // Process the server details first
-	    $results = parent::process_details();
+		parent::__construct($ip, $port, $options);
+		$this->packets[parent::PACKET_ALL] = "\xFE\xFD\x00\x10\x20\x30\x40%s\xFF\xFF\xFF\x02";
+	}
 
-	    // Now we need to fix the "map" for their hack
-	    if(isset($results['map'])
-	            && preg_match('/(?P<cur>\d{1,})\/(?P<max>\d{1,})/i', trim($results['map']), $m))
-	    {
-	        // Define the player counts
-	        $results['num_players'] = $m['cur'];
-	        $results['max_players'] = $m['max'];
+	private function readInt16BE($buf)
+	{
+		$int = unpack('nint', $buf->read(2));
+		return $int['int'];
+	}
 
-	        unset($m);
-	    }
+	protected function parsePlayerTeamInfo(GameQ_Buffer &$buf, GameQ_Result &$result)
+	{
+		if ($buf->getLength() === 0)
+			return;
 
-	    // Map never changes it seems...
-	    $results['map'] = 'Panau';
+		$num_players = $this->readInt16BE($buf);
+		for($i = 0; $i < $num_players; $i++)
+		{
+			$name = $buf->readString();
+			$steamid = $buf->readString();
+			$ping = $this->readInt16BE($buf);
 
-	    return $results;
+			$result->addPlayer('name', $name);
+			$result->addPlayer('steamid', $steamid);
+			$result->addPlayer('ping', $ping);
+		}
 	}
 }
