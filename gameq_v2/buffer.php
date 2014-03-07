@@ -18,8 +18,6 @@
  *
  */
 
-namespace GameQ;
-
 /**
  * Provide an interface for easy manipulation of a server response
  *
@@ -27,7 +25,7 @@ namespace GameQ;
  * @author         Tom Buskens <t.buskens@deviation.nl>
  * @version        $Revision: 1.4 $
  */
-class Buffer
+class GameQ_Buffer
 {
     /**
      * The original data

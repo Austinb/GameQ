@@ -16,15 +16,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace GameQ;
-
 /**
  * Provide an interface for easy storage of a parsed server response
  *
  * @author    Aidan Lister   <aidan@php.net>
  * @author    Tom Buskens    <t.buskens@deviation.nl>
  */
-class Result
+class GameQ_Result
 {
     /**
      * Formatted server response

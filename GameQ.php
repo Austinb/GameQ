@@ -16,25 +16,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
- * Init some stuff
- */
-// Figure out where we are so we can set the proper references
-define('GAMEQ_BASE', realpath(dirname(__FILE__)).DIRECTORY_SEPARATOR);
-
-// Define the autoload so we can require files easy
-spl_autoload_register(array('GameQ', 'auto_load'));
+// Autoload classes
+set_include_path(realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR);
+spl_autoload_extensions(".php");
+spl_autoload_register();
 
 /**
  * Base GameQ Class
  *
  * This class should be the only one that is included when you use GameQ to query
- * any games servers.  All necessary sub-classes are loaded as needed.
+ * any games servers.
  *
  * Requirements: See wiki or README for more information on the requirements
- *  - PHP 5.2+ (Recommended 5.3+)
+ *  - PHP 5.4.14+
  *  	* Bzip2 - http://www.php.net/manual/en/book.bzip2.php
- *  	* Zlib - http://www.php.net/manual/en/book.zlib.php
  *
  * @author Austin Bischoff <austin@codebeard.com>
  */
@@ -43,15 +38,7 @@ class GameQ
 	/*
 	 * Constants
 	 */
-	const VERSION = '2.0.1';
-
-	/*
-	 * Server array keys
-	 */
-	const SERVER_TYPE = 'type';
-	const SERVER_HOST = 'host';
-	const SERVER_ID = 'id';
-	const SERVER_OPTIONS = 'options';
+	const VERSION = '3.0-alpha';
 
 	/* Static Section */
 	protected static $instance = NULL;
@@ -68,60 +55,6 @@ class GameQ
 		return self::$instance;
 	}
 
-	/**
-	 * Attempt to auto-load a class based on the name
-	 *
-	 * @param string $class
-	 * @throws GameQException
-	 */
-	public static function auto_load($class)
-	{
-		try
-		{
-			// Transform the class name into a path
-			$file = str_replace('_', '/', strtolower($class));
-
-			// Find the file and return the full path, if it exists
-			if ($path = self::find_file($file))
-			{
-				// Load the class file
-				require $path;
-
-				// Class has been found
-				return TRUE;
-			}
-
-			// Class is not in the filesystem
-			return FALSE;
-		}
-		catch (Exception $e)
-		{
-			throw new GameQException($e->getMessage(), $e->getCode(), $e);
-			die;
-		}
-	}
-
-	/**
-	 * Try to find the file based on the class passed.
-	 *
-	 * @param string $file
-	 */
-	public static function find_file($file)
-	{
-		$found = FALSE; // By default we did not find anything
-
-		// Create a partial path of the filename
-		$path = GAMEQ_BASE.$file.'.php';
-
-		// Is a file so we can include it
-		if(is_file($path))
-		{
-			$found = $path;
-		}
-
-		return $found;
-	}
-
 	/* Dynamic Section */
 
 	/**
@@ -136,7 +69,7 @@ class GameQ
 
         // Advanced settings
 	    'stream_timeout' => 200000, // See http://www.php.net/manual/en/function.stream-select.php for more info
-	    'write_wait' => 500, // How long (in micro-seconds) to pause between writting to server sockets, helps cpu usage
+	    'write_wait' => 500, // How long (in micro-seconds) to pause between writing to server sockets, helps cpu usage
 	);
 
 	/**
@@ -147,11 +80,11 @@ class GameQ
 	protected $servers = array();
 
 	/**
-	 * Holds the list of active sockets.  This array is automaically cleaned as needed
+	 * The query method to use.  Default is Native
 	 *
-	 * @var array
+	 * @var string
 	 */
-	protected $sockets = array();
+	protected $query = '\\GameQ\\Query\\Native';
 
 	/**
 	 * Make new class and check for requirements
@@ -204,209 +137,224 @@ class GameQ
 	}
 
 	/**
-	 * Set an output filter.
-	 *
-	 * @param string $name
-	 * @param array $params
-	 * @return GameQ
-	 */
-	public function setFilter($name, $params = array())
-	{
-		// Create the proper filter class name
-		$filter_class = 'GameQ_Filters_'.$name;
-
-		try
-		{
-		    // Pass any parameters and make the class
-		    $this->options['filters'][$name] = new $filter_class($params);
-		}
-		catch (GameQ_FiltersException $e)
-		{
-		    // We catch the exception here, thus the filter is not applied
-		    // but we issue a warning
-		    error_log($e->getMessage(), E_USER_WARNING);
-		}
-
-		return $this; // Make chainable
-	}
-
-	/**
-	 * Remove a global output filter.
-	 *
-	 * @param string $name
-	 * @return GameQ
-	 */
-	public function removeFilter($name)
-	{
-		unset($this->options['filters'][$name]);
-
-		return $this; // Make chainable
-	}
-
-	/**
-	 * Add a server to be queried
-	 *
-	 * Example:
-	 * $this->addServer(array(
-	 * 		// Required keys
-	 * 		'type' => 'cs',
-	 * 		'host' => '127.0.0.1:27015', '127.0.0.1' or 'somehost.com:27015'
-	 * 			Port not required, but will use the default port in the class which may not be correct for the
-	 * 			specific server being queried.
-	 *
-	 * 		// Optional keys
-	 * 		'id' => 'someServerId', // By default will use pased host info (i.e. 127.0.0.1:27015)
-	 * 		'options' => array('timeout' => 5), // By default will use global options
-	 * ));
+	 * Add a single server
 	 *
 	 * @param array $server_info
-	 * @throws GameQException
-	 * @return boolean|GameQ
+	 * @return GameQ
 	 */
 	public function addServer(Array $server_info=NULL)
 	{
-		// Check for server type
-		if(!key_exists(self::SERVER_TYPE, $server_info) || empty($server_info[self::SERVER_TYPE]))
-		{
-			throw new GameQException("Missing server info key '".self::SERVER_TYPE."'");
-			return FALSE;
-		}
+	    // Add and validate the server
+	    $this->servers[uniqid()] = new \GameQ\Server($server_info);
 
-		// Check for server host
-		if(!key_exists(self::SERVER_HOST, $server_info) || empty($server_info[self::SERVER_HOST]))
-		{
-			throw new GameQException("Missing server info key '".self::SERVER_HOST."'");
-			return FALSE;
-		}
-
-		// Check for server id
-		if(!key_exists(self::SERVER_ID, $server_info) || empty($server_info[self::SERVER_ID]))
-		{
-			// Make an id so each server has an id when returned
-			$server_info[self::SERVER_ID] = $server_info[self::SERVER_HOST];
-		}
-
-		// Check for options
-		if(!key_exists(self::SERVER_OPTIONS, $server_info)
-			|| !is_array($server_info[self::SERVER_OPTIONS])
-			|| empty($server_info[self::SERVER_OPTIONS]))
-		{
-			// Default the options to an empty array
-			$server_info[self::SERVER_OPTIONS] = array();
-		}
-
-		// Define these
-		$server_id = $server_info[self::SERVER_ID];
-		$server_ip = '127.0.0.1';
-		$server_port = FALSE;
-
-		// We have an IPv6 address (and maybe a port)
-		if(substr_count($server_info[self::SERVER_HOST], ':') > 1)
-		{
-		    // See if we have a port, input should be in the format [::1]:27015 or similar
-		    if(strstr($server_info[self::SERVER_HOST], ']:'))
-		    {
-		        // Explode to get port
-		        $server_addr = explode(':', $server_info[self::SERVER_HOST]);
-
-		        // Port is the last item in the array, remove it and save
-		        $server_port = array_pop($server_addr);
-
-		        // The rest is the address, recombine
-		        $server_ip = implode(':', $server_addr);
-
-		        unset($server_addr);
-		    }
-
-		    // Just the IPv6 address, no port defined
-		    else
-		    {
-		        $server_ip = $server_info[self::SERVER_HOST];
-		    }
-
-		    // Now let's validate the IPv6 value sent, remove the square brackets ([]) first
-		    if(!filter_var(trim($server_ip, '[]'), FILTER_VALIDATE_IP, array(
-    			'flags' => FILTER_FLAG_IPV6,
-    		)))
-		    {
-		        throw new GameQException("The IPv6 address '{$server_ip}' is invalid.");
-		        return FALSE;
-		    }
-		}
-
-		// IPv4
-		else
-		{
-		    // We have a port defined
-		    if(strstr($server_info[self::SERVER_HOST], ':'))
-		    {
-		        list($server_ip, $server_port) = explode(':', $server_info[self::SERVER_HOST]);
-		    }
-
-		    // No port, just IPv4
-		    else
-		    {
-		        $server_ip = $server_info[self::SERVER_HOST];
-		    }
-
-		    // Validate the IPv4 value, if FALSE is not a valid IP, maybe a hostname.  Try to resolve
-		    if(!filter_var($server_ip, FILTER_VALIDATE_IP, array(
-		            'flags' => FILTER_FLAG_IPV4,
-		    )))
-		    {
-		        // When gethostbyname() fails it returns the original string
-		        // so if ip and the result from gethostbyname() are equal this failed.
-		        if($server_ip === gethostbyname($server_ip))
-		        {
-		            throw new GameQException("The host '{$server_ip}' is unresolvable to an IP address.");
-		            return FALSE;
-		        }
-		    }
-		}
-
-		// Create the class so we can reference it properly later
-		$protocol_class = 'GameQ_Protocols_'.ucfirst($server_info[self::SERVER_TYPE]);
-
-		// Create the new instance and add it to the servers list
-		$this->servers[$server_id] = new $protocol_class(
-			$server_ip,
-			$server_port,
-			array_merge($this->options, $server_info[self::SERVER_OPTIONS])
-		);
-
-		return $this; // Make calls chainable
+	    return $this; // Make calls chainable
 	}
 
 	/**
-	 * Add multiple servers at once
+	 * Add multiple servers in a single call
 	 *
 	 * @param array $servers
 	 * @return GameQ
 	 */
-	public function addServers(Array $servers=NULL)
+	public function addServers(array $servers=NULL)
 	{
-		// Loop thru all the servers and add them
-		foreach($servers AS $server_info)
-		{
-			$this->addServer($server_info);
-		}
+	    // Loop thru all the servers and add them
+	    foreach($servers AS $server_info)
+	    {
+	        $this->addServer($server_info);
+	    }
 
-		return $this; // Make calls chainable
+	    return $this; // Make calls chainable
 	}
 
 	/**
-	 * Clear all the added servers.  Creates clean instance.
+	 * Clear all of the defined servers
 	 *
 	 * @return GameQ
 	 */
 	public function clearServers()
 	{
-		// Reset all the servers
-		$this->servers = array();
-		$this->sockets = array();
+	    // Reset all the servers
+	    $this->servers = array();
 
-		return $this; // Make Chainable
+	    return $this; // Make Chainable
 	}
+
+	public function process()
+	{
+	    // Do server challenge(s)
+	    $this->doChallenges();
+
+	    // Do packets for server(s)
+	    $this->doPackets();
+	}
+
+	/**
+	 * Do server challenges, where required
+	 */
+	protected function doChallenges()
+	{
+	    // We have at least once challenge
+	    $server_challenge = FALSE;
+
+	    // Do challenge packets
+	    foreach($this->servers AS $server_id => $server)
+	    {
+	        if($server->protocol()->hasChallenge())
+	        {
+	            $server_challenge = TRUE;
+
+	            // Make a new class for this query type
+	            $class = new \ReflectionClass($this->query);
+
+	            // Make the socket class
+	            $socket = $class->newInstanceArgs(array(
+	                    $server->protocol()->transport(),
+	                    $server->ip,
+	                    $server->port_query,
+	                    ));
+
+	            // Now write the challenge packet to the socket.
+	            $socket->write($server->protocol()->getPacket(\GameQ\Protocol::PACKET_CHALLENGE));
+
+	            // Add the socket information so we can retreive it easily
+	            $sockets[(int) $socket->get()] = array(
+	                    'server_id' => $server_id,
+	                    'socket' => $socket,
+	                    );
+
+	            unset($socket, $class);
+
+	            // Let's sleep shortly so we are not hammering out calls rapid fire style hogging cpu
+	            usleep($this->write_wait);
+	        }
+	    }
+
+	    // We have at least one server with a challenge, we need to listen for responses
+	    if($server_challenge)
+	    {
+    	    // Now we need to listen for and grab challenge response(s)
+    	    $responses = call_user_func_array(array($this->query, 'getResponses'),
+    	            array($sockets, $this->timeout, $this->stream_timeout));
+
+            // Iterate over the challenge responses
+            foreach($responses AS $socket_id => $response)
+            {
+                // Back out the server_id we need to update the challenge response for
+                $server_id = $sockets[$socket_id]['server_id'];
+
+                // Make this into a buffer so it is easier to manipulate
+                $challenge = new \GameQ\Buffer(implode('', $response));
+
+                // Apply the challenge
+                $this->servers[$server_id]->protocol()->challengeParseAndApply($challenge);
+
+                // Add this socket to be reused, has to be reused in GameSpy3 for example
+                $this->servers[$server_id]->socketAdd($sockets[$socket_id]['socket']);
+            }
+	    }
+	}
+
+	/**
+	 * Send off and get packet responses
+	 */
+	protected function doPackets()
+	{
+	    // Iterate over the server list
+	    foreach($this->servers AS $server_id => $server)
+	    {
+	        // Invoke the beforeSend method
+	        $server->protocol()->beforeSend();
+
+	        // Get all the non-challenge packets we need to send
+	        $packets = $server->protocol()->getPacket('!' . \GameQ\Protocol::PACKET_CHALLENGE);
+
+	        if(count($packets) == 0)
+	        {
+	            // Skip nothing else to do for some reason.
+	            continue;
+	        }
+
+	        // Iterater over the packets we need to send
+	        foreach($packets AS $packet_type => $packet_data)
+	        {
+	            // Try to use an existing socket
+	            if(($socket = $server->socketGet()) === NULL)
+	            {
+	                // We need to make a new socket
+
+	                // Make a new class for this query type
+	                $class = new \ReflectionClass($this->query);
+
+	                // Make the socket class
+	                $socket = $class->newInstanceArgs(array(
+	                        $server->protocol()->transport(),
+	                        $server->ip,
+	                        $server->port_query,
+	                        ));
+
+	                unset($class);
+	            }
+
+	            // Now write the packet to the socket.
+	            $socket->write($packet_data);
+
+	            // Add the socket information so we can retreive it easily
+	            $sockets[(int) $socket->get()] = array(
+	                    'server_id' => $server_id,
+	                    'packet_type' => $packet_type,
+	                    'socket' => $socket,
+	                    );
+
+	            unset($socket);
+
+	            // Let's sleep shortly so we are not hammering out calls raipd fire style
+	            usleep($this->write_wait);
+	        }
+
+	        unset($packets);
+
+	        // Clean up the sockets, if any left over
+	        $server->socketCleanse();
+	    }
+
+	    // Now we need to listen for and grab response(s)
+	    $responses = call_user_func_array(array($this->query, 'getResponses'),
+	            array($sockets, $this->timeout, $this->stream_timeout));
+
+	    // Iterate over the responses
+	    foreach($responses AS $socket_id => $response)
+        {
+            // Back out the server_id
+            $server_id = $sockets[$socket_id]['server_id'];
+
+            // Back out the packet type
+            $packet_type = $sockets[$socket_id]['packet_type'];
+
+            // Save the response from this packet
+            $this->servers[$server_id]->protocol()->packetResponse($packet_type, $response);
+	    }
+
+	    // Now we need to close all of the sockets
+	    foreach($sockets AS $socket)
+	    {
+	        $socket['socket']->close();
+	    }
+
+	    unset($sockets, $socket);
+	}
+
+
+
+
+
+	/*
+	 * Old below here
+	 */
+
+
+
+
 
 	/**
 	 * Make all the data requests (i.e. challenges, queries, etc...)
@@ -776,9 +724,6 @@ class GameQ
 		// Set the loop to active
 		$loop_active = TRUE;
 
-		// To store the responses
-		$responses = array();
-
 		// To store the sockets
 		$sockets = array();
 
@@ -786,7 +731,7 @@ class GameQ
 		foreach($this->sockets AS $socket_id => $socket_data)
 		{
 			// Append the actual socket we are listening to
-			$sockets[$socket_id] = $socket_data['socket'];
+			$sockets[$socket_id] = $socket_data['socket']->get();
 		}
 
 		// Init some variables
@@ -797,7 +742,7 @@ class GameQ
 		// Check to see if $read is empty, if so stream_select() will throw a warning
 		if(empty($read))
 		{
-		    return $responses;
+		    return FALSE;
 		}
 
 		// This is when it should stop
@@ -836,7 +781,7 @@ class GameQ
 				}
 
 				// Add the response we got back
-				$responses[(int) $socket][] = $response;
+				$this->sockets[(int) $socket]['responses'][] = $response;
 			}
 
 			// Because stream_select modifies read we need to reset it each
@@ -847,7 +792,7 @@ class GameQ
 		// Free up some memory
 		unset($streams, $read, $write, $except, $sockets, $time_stop, $response);
 
-		return $responses;
+		return TRUE;
 	}
 
 	/**
@@ -874,4 +819,4 @@ class GameQ
  *
  * @author Austin Bischoff <austin@codebeard.com>
  */
-class GameQException extends Exception {}
+//class GameQException extends Exception {}

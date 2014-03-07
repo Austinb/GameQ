@@ -1,7 +1,7 @@
 {
     "name": "austinb/gameq",
     "description": "GameQ Gameserver Library",
-    "version": "2.0.0",
+    "version": "3.0.0",
     "license": "GPL-3.0+",
     "authors": [
         {
@@ -39,14 +39,13 @@
         }
     ],
     "support": {
-    	"source": "https://github.com/Austinb/GameQ",
+    	"source": "https://github.com/Austinb/GameQ/v3",
         "issues": "https://github.com/Austinb/GameQ/issues",
         "wiki": "https://github.com/Austinb/GameQ/wiki"
     },
     "require": {
-        "php": ">=5.2",
-        "ext-bz2": "*",
-        "ext-zlib": "*"
+        "php": ">=5.4.14",
+        "ext-bz2": "*"
     },
     "autoload": {
         "psr-0": { "GameQ": "." }
