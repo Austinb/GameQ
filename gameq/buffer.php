@@ -284,12 +284,30 @@ class GameQ_Buffer
     }
 
     /**
-     * Read a 16-big signed integer
+     * Read a 16-bit signed integer
      */
     public function readInt16Signed()
     {
     	$int = unpack('sint', $this->read(2));
     	return $int['int'];
+    }
+
+    /**
+     *  Read a 16-bit unsigned little endian integer
+     */
+    public function readInt16LE()
+    {
+        $int = unpack('vint', $this->read(2));
+        return $int['int'];
+    }
+
+    /**
+     * Read a 16-bit unsigned big endian integer
+     */
+    public function readInt16BE()
+    {
+        $int = unpack('nint', $this->read(2));
+        return $int['int'];
     }
 
     /**

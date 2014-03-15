@@ -19,34 +19,42 @@
 /**
  * Just Cause 2 Multiplayer Protocol Class
  *
+ * Special thanks to Woet for some insight on packing
+ *
  * @author Austin Bischoff <austin@codebeard.com>
  */
-class GameQ_Protocols_Jc2 extends GameQ_Protocols_Source
+class GameQ_Protocols_Jc2 extends GameQ_Protocols_Gamespy4
 {
 	protected $name = "jc2";
 	protected $name_long = "Just Cause 2 Multiplayer";
 
 	protected $port = 7777;
 
-	protected function process_details()
+	public function __construct($ip = FALSE, $port = FALSE, $options = array())
 	{
-	    // Process the server details first
-	    $results = parent::process_details();
+	    // Setup the parent first
+	    parent::__construct($ip, $port, $options);
 
-	    // Now we need to fix the "map" for their hack
-	    if(isset($results['map'])
-	            && preg_match('/(?P<cur>\d{1,})\/(?P<max>\d{1,})/i', trim($results['map']), $m))
-	    {
-	        // Define the player counts
-	        $results['num_players'] = $m['cur'];
-	        $results['max_players'] = $m['max'];
-
-	        unset($m);
-	    }
-
-	    // Map never changes it seems...
-	    $results['map'] = 'Panau';
-
-	    return $results;
+	    // Tweak the packet used
+	    $this->packets[self::PACKET_ALL] = "\xFE\xFD\x00\x10\x20\x30\x40%s\xFF\xFF\xFF\x02";
 	}
+
+	/**
+	 * Override the parent, this protocol is returned differently
+	 *
+	 * @see GameQ_Protocols_Gamespy3::parsePlayerTeamInfo()
+	 */
+	protected function parsePlayerTeamInfo(GameQ_Buffer &$buf, GameQ_Result &$result)
+    {
+        // First is the number of players, let's use this. Should have actual players, not connecting
+        $result->add('numplayers', $buf->readInt16BE());
+
+        // Loop until we run out of data
+        while($buf->getLength())
+        {
+            $result->addPlayer('name', $buf->readString());
+            $result->addPlayer('steamid', $buf->readString());
+            $result->addPlayer('ping', $buf->readInt16BE());
+        }
+    }
 }
