@@ -1,3 +1,9 @@
+Notice - May 28, 2014
+======
+Version 2 is now closed to new features.  I will add new games as time allows.  
+
+Please test v3 as much as possible and provide any feedback.  Note that v3 is not production ready.  
+
 Information
 ===========
 GameQ is a PHP program that allows you to query multiple types of multiplayer game servers at the same time.
