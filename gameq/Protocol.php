@@ -20,6 +20,8 @@
 
 namespace GameQ;
 
+use GameQ\Exception\Protocol as Exception;
+
 /**
  * Handles the core functionality for the protocols
  *
@@ -54,20 +56,6 @@ abstract class Protocol
     */
     const TRANSPORT_UDP = 'udp';
     const TRANSPORT_TCP = 'tcp';
-
-    /**
-     * Can only send one packet at a time, slower
-     *
-     * @var string
-     */
-    const PACKET_MODE_LINEAR = 'linear';
-
-    /**
-     * Can send multiple packets at once and get responses, after challenge request (if required)
-     *
-     * @var string
-     */
-    const PACKET_MODE_MULTI = 'multi';
 
     /**
      * Short name of the protocol
@@ -106,18 +94,18 @@ abstract class Protocol
     protected $protocol = 'unknown';
 
     /**
-     * Packets Mode is multi by default since most games support it
-     *
-     * @var string
-     */
-    protected $packet_mode = self::PACKET_MODE_MULTI;
-
-    /**
      * Holds the valid packet types this protocol has available.
      *
      * @var array
      */
     protected $packets = array();
+
+    /**
+     * Holds the response headers and the method to use to process them.
+     *
+     * @var array
+     */
+    protected $responses = array();
 
     /**
      * Holds the list of methods to run when parsing the packet response(s) data. These
@@ -231,14 +219,6 @@ abstract class Protocol
     }
 
     /**
-     * Return the packet mode for this protocol
-     */
-    public function packet_mode()
-    {
-        return $this->packet_mode;
-    }
-
-    /**
      * Return the protocol property
      *
      */
@@ -338,19 +318,18 @@ abstract class Protocol
     /**
      * Get/set the packet response
      *
-     * @param string $packet_type
      * @param array $response
-     * @return multitype:
+     * @return Array:
      */
-    public function packetResponse($packet_type, $response = array())
+    public function packetResponse(Array $response = NULL)
     {
         // Act as setter
         if(!empty($response))
         {
-            $this->packets_response[$packet_type] = $response;
+            $this->packets_response = $response;
         }
 
-        return $this->packets_response[$packet_type];
+        return $this->packets_response;
     }
 
 
@@ -405,4 +384,11 @@ abstract class Protocol
      * Generic method to allow protocol classes to do work right before the query is sent
      */
     public function beforeSend() {}
+
+    /**
+     * Method called to process query response data.  Each extending class has to have one of these functions.
+     *
+     * @return array
+     */
+    abstract public function processReponse();
 }

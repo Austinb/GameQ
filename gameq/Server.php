@@ -112,13 +112,6 @@ class Server {
 			throw new Exception("Missing server info key '".self::SERVER_HOST."'");
 		}
 
-		// Check for server id
-		if(!array_key_exists(self::SERVER_ID, $server_info) || empty($server_info[self::SERVER_ID]))
-		{
-			// Make an id so each server has an id when returned
-			$server_info[self::SERVER_ID] = $server_info[self::SERVER_HOST];
-		}
-
 		// Check for options
 		if(!array_key_exists(self::SERVER_OPTIONS, $server_info)
 			|| !is_array($server_info[self::SERVER_OPTIONS])
@@ -128,8 +121,6 @@ class Server {
 			$server_info[self::SERVER_OPTIONS] = array();
 		}
 
-		// Set the server id
-		$this->id = $server_info[self::SERVER_ID];
 		$this->options = $server_info[self::SERVER_OPTIONS];
 
 		// We have an IPv6 address (and maybe a port)
@@ -149,9 +140,7 @@ class Server {
 
 		        unset($server_addr);
 		    }
-
-		    // Just the IPv6 address, no port defined
-		    else
+		    else // Just the IPv6 address, no port defined
 		    {
 		        $this->ip = $server_info[self::SERVER_HOST];
 		    }
@@ -207,6 +196,16 @@ class Server {
 		    $this->port_query = $this->port_client + $this->protocol->port_diff();
 		}
 
+		// Check for server id
+		if(!array_key_exists(self::SERVER_ID, $server_info) || empty($server_info[self::SERVER_ID]))
+		{
+			// Make an id so each server has an id when returned
+			$server_info[self::SERVER_ID] = sprintf('%s:%d', $this->ip, $this->port_client);
+		}
+
+		// Set the server id
+		$this->id = $server_info[self::SERVER_ID];
+
 		unset($server_info, $class);
     }
 
@@ -235,6 +234,26 @@ class Server {
         return (array_key_exists($key, $this->options)) ? $this->options[$key] : NULL;
     }
 
+    public function id()
+    {
+    	return $this->id;
+    }
+
+    public function ip()
+    {
+    	return $this->ip;
+    }
+
+    public function port_client()
+    {
+    	return $this->port_client;
+    }
+
+    public function port_query()
+    {
+    	return $this->port_query;
+    }
+
     /**
      * Return the protocol class for this server
      *
@@ -243,6 +262,11 @@ class Server {
     public function protocol()
     {
         return $this->protocol;
+    }
+
+    public function getJoinLink()
+    {
+    	return sprintf($this->protocol->join_link(), $this->ip, $this->port_client());
     }
 
     /*
@@ -260,7 +284,7 @@ class Server {
     }
 
     /**
-     * Get a socket from the list to reuse, if any available
+     * Get a socket from the list to reuse, if any are available
      *
      * @return \GameQ\Query\Core
      */

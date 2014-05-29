@@ -51,14 +51,15 @@ class Source extends Protocol {
     );
 
     /**
-     * Methods to be run when processing the response(s)
+     * Use the response flag to figure out what method to run
      *
      * @var array
      */
-    protected $process_methods = array(
-            "process_details",
-            "process_players",
-            "process_rules",
+    protected $responses = array(
+        	"\x49" => "processDetails", // I
+    		"\x6d" => "processDetails", // m, goldsource
+    		"\x44" => "processPlayers", // D
+    		"\x45" => "processRules", // E
     );
 
     /**
@@ -111,281 +112,94 @@ class Source extends Protocol {
         return $this->challengeApply($challenge_buffer->read(4));
     }
 
+    /**
+     * Process the response
+     *
+     * @see \GameQ\Protocol::processReponse()
+     */
+    public function processReponse()
+    {
+    	$results = array();
+
+    	$packets = array();
+
+    	// We need to pre-sort these for split packets so we can do extra work where needed
+    	foreach($this->packets_response AS $response)
+    	{
+    		$buffer = new \GameQ\Buffer($response);
+
+    		$type = $buffer->readInt32Signed();
+
+    		// Single packet
+    		if($type == -1)
+    		{
+    			// We need to peek and see what kind of engine this is for later processing
+    			if($buffer->lookAhead(1) == "\x6d")
+    			{
+    				$this->source_engine = self::GOLDSOURCE_ENGINE;
+    			}
+
+    			$packets[] = $buffer->getBuffer();
+    			continue;
+    		}
+    		else // Split packet
+    		{
+    			// Pull some info
+    			$packet_type = $buffer->readInt32Signed();
+
+				$packets[$packet_type][] = $buffer->getBuffer();
+    		}
+    	}
+
+    	// Now that we have the packets sorted we need to iterate and process them
+    	foreach($packets AS $packet)
+    	{
+    		// We first need to off load split packets to combine them
+    		if(is_array($packet))
+    		{
+    			$buffer = new \GameQ\Buffer($this->processPackets($packet));
+    		}
+    		else
+    		{
+    			$buffer = new \GameQ\Buffer($packet);
+    		}
+
+    		// Figure out what packet response this is for
+    		$response_type = $buffer->read(1);
+
+    		// Figure out which packet response this is
+    		if(!array_key_exists($response_type, $this->responses))
+    		{
+    			throw new Exception(__METHOD__ . " response type '{$response_type}' is not valid");
+    			continue;
+    		}
+
+    		// Now we need to call the proper method
+    		$results = array_merge($results,
+    				call_user_func_array(array($this, $this->responses[$response_type]), array($buffer)));
+
+    		unset($buffer);
+    	}
+
+    	unset($packets, $packet);
+
+    	return $results;
+    }
+
     /*
      * Internal methods
      */
 
     /**
-     * Pre-process the server details data that was returned.
+     * Process the split packets and decompress if necessary
      *
      * @param array $packets
-     */
-    protected function preProcess_details($packets)
-    {
-        // Process the packets
-        return $this->process_packets($packets);
-    }
-
-    /**
-     * Handles processing the details data into a usable format
-     *
-     * @throws GameQ_ProtocolsException
-     */
-    protected function process_details()
-    {
-        // Make sure we have a valid response
-        if(!$this->hasValidResponse(self::PACKET_DETAILS))
-        {
-            return array();
-        }
-
-        // Set the result to a new result instance
-        $result = new GameQ_Result();
-
-        // Let's preprocess the rules
-        $data = $this->preProcess_details($this->packets_response[self::PACKET_DETAILS]);
-
-        // Create a new buffer
-        $buf = new \GameQ\Buffer($data);
-
-        // Skip the header (0xFF0xFF0xFF0xFF)
-        $buf->skip(4);
-
-        // Get the type
-        $type = $buf->read(1);
-
-        // Make sure the data is formatted properly
-        // Source is 0x49, Goldsource is 0x6d, 0x44 I am not sure about
-        if(!in_array($type, array("\x49", "\x44", "\x6d")))
-        {
-            throw new GameQ_ProtocolsException("Data for ".__METHOD__." does not have the proper header type (should be 0x49|0x44|0x6d). Header type: 0x".bin2hex($type));
-            return array();
-        }
-
-        // Update the engine type for other calls and other methods, if necessary
-        if(bin2hex($type) == '6d')
-        {
-            $this->source_engine = self::GOLDSOURCE_ENGINE;
-        }
-
-        // Check engine type
-        if ($this->source_engine == self::GOLDSOURCE_ENGINE)
-        {
-            $result->add('address', $buf->readString());
-        }
-        else
-        {
-            $result->add('protocol', $buf->readInt8());
-        }
-
-        $result->add('hostname', $buf->readString());
-        $result->add('map', $buf->readString());
-        $result->add('game_dir', $buf->readString());
-        $result->add('game_descr', $buf->readString());
-
-        // Check engine type
-        if ($this->source_engine != self::GOLDSOURCE_ENGINE)
-        {
-            $result->add('steamappid', $buf->readInt16());
-        }
-
-        $result->add('num_players', $buf->readInt8());
-        $result->add('max_players', $buf->readInt8());
-
-        // Check engine type
-        if ($this->source_engine == self::GOLDSOURCE_ENGINE)
-        {
-            $result->add('version', $buf->readInt8());
-        }
-        else
-        {
-            $result->add('num_bots', $buf->readInt8());
-        }
-
-        $result->add('dedicated', $buf->read());
-        $result->add('os', $buf->read());
-        $result->add('password', $buf->readInt8());
-
-        // Check engine type
-        if ($this->source_engine == self::GOLDSOURCE_ENGINE)
-        {
-            $result->add('ismod', $buf->readInt8());
-        }
-
-        $result->add('secure', $buf->readInt8());
-
-        // Check engine type
-        if ($this->source_engine == self::GOLDSOURCE_ENGINE)
-        {
-            $result->add('num_bots', $buf->readInt8());
-        }
-        else
-        {
-            $result->add('version', $buf->readInt8());
-        }
-
-        // @todo: Add extra data flag check here, only for source games (not goldsource)
-        // https://developer.valvesoftware.com/wiki/Server_Queries#Source_servers_2
-
-        unset($buf);
-
-        return $result->fetch();
-    }
-
-    /**
-     * Pre-process the player data sent
-     *
-     * @param array $packets
-     */
-    protected function preProcess_players($packets)
-    {
-        // Process the packets
-        return $this->process_packets($packets);
-    }
-
-    /**
-     * Handles processing the player data into a useable format
-     *
-     * @throws GameQ_ProtocolsException
-     */
-    protected function process_players()
-    {
-        // Make sure we have a valid response
-        if(!$this->hasValidResponse(self::PACKET_PLAYERS))
-        {
-            return array();
-        }
-
-        // Set the result to a new result instance
-        $result = new GameQ_Result();
-
-        // Let's preprocess the rules
-        $data = $this->preProcess_players($this->packets_response[self::PACKET_PLAYERS]);
-
-        // Create a new buffer
-        $buf = new \GameQ\Buffer($data);
-
-        // Make sure the data is formatted properly
-        if(($header = $buf->read(5)) != "\xFF\xFF\xFF\xFF\x44")
-        {
-            throw new Exception("Data for ".__METHOD__." does not have the proper header (should be 0xFF0xFF0xFF0xFF0x44). Header: ".bin2hex($header));
-            return array();
-        }
-
-        // Pull out the number of players
-        $num_players = $buf->readInt8();
-
-        // Player count
-        $result->add('num_players', $num_players);
-
-        // No players so no need to look any further
-        if($num_players == 0)
-        {
-            return $result->fetch();
-        }
-
-        // Players list
-        while ($buf->getLength())
-        {
-            $result->addPlayer('id', $buf->readInt8());
-            $result->addPlayer('name', $buf->readString());
-            $result->addPlayer('score', $buf->readInt32Signed());
-            $result->addPlayer('time', $buf->readFloat32());
-        }
-
-        unset($buf);
-
-        return $result->fetch();
-    }
-
-    /**
-     * Pre process the rules data that was returned.  Make sure the return
-     * data is in a single string
-     *
-     * @param array $packets
-     */
-    protected function preProcess_rules($packets)
-    {
-        // Process the packets
-        return $this->process_packets($packets);
-    }
-
-    /**
-     * Handles processing the rules data into a usable format
-     *
-     * @throws GameQ_ProtocolsException
-     */
-    protected function process_rules()
-    {
-        // Make sure we have a valid response
-        if(!$this->hasValidResponse(self::PACKET_RULES))
-        {
-            return array();
-        }
-
-        // Set the result to a new result instance
-        $result = new GameQ_Result();
-
-        // Let's preprocess the rules
-        $data = $this->preProcess_rules($this->packets_response[self::PACKET_RULES]);
-
-        $buf = new \GameQ\Buffer($data);
-
-        // Make sure the data is formatted properly
-        if(($header = $buf->read(5)) != "\xFF\xFF\xFF\xFF\x45")
-        {
-            throw new Exception("Data for ".__METHOD__." does not have the proper header (should be 0xFF0xFF0xFF0xFF0x45). Header: ".bin2hex($header));
-            return array();
-        }
-
-        // Count the number of rules
-        $num_rules = $buf->readInt16Signed();
-
-        // Add the count of the number of rules this server has
-        $result->add('num_rules', $num_rules);
-
-        // Rules
-        while ($buf->getLength())
-        {
-            $result->add($buf->readString(), $buf->readString());
-        }
-
-        unset($buf);
-
-        return $result->fetch();
-    }
-
-    /**
-     * Process the packets to make sure we combine and decompress as needed
-     *
-     * @param array $packets
-     * @throws GameQ_ProtocolsException
+     * @throws Exception
      * @return string
      */
-    protected function process_packets($packets)
+    protected function processPackets(Array $packets = NULL)
     {
-        // Make a buffer to see if we should have multiple packets
-        $buffer = new \GameQ\Buffer($packets[0]);
-
-        // First we need to see if the packet is split
-        // -2 = split packets
-        // -1 = single packet
-        $packet_type = $buffer->readInt32Signed();
-
-        // This is one packet so just return the rest of the buffer
-        if($packet_type == -1)
-        {
-            // Free some memory
-            unset($buffer);
-
-            // We always return the packet as expected, with null included
-            return $packets[0];
-        }
-
-        // Free some memory
-        unset($buffer);
-
-        // Init array so we can order
+    	// Init array so we can order
         $packs = array();
 
         // We have multiple packets so we need to get them and order them
@@ -395,7 +209,6 @@ class Source extends Protocol {
             $buffer = new \GameQ\Buffer($packet);
 
             // Pull some info
-            $packet_type = $buffer->readInt32Signed();
             $request_id = $buffer->readInt32Signed();
 
             // Check to see if this is compressed
@@ -405,7 +218,6 @@ class Source extends Protocol {
                 if(!function_exists('bzdecompress'))
                 {
                     throw new Exception('Bzip2 is not installed.  See http://www.php.net/manual/en/book.bzip2.php for more info.', 0);
-                    return FALSE;
                 }
 
                 // Get some info
@@ -454,5 +266,146 @@ class Source extends Protocol {
 
         // Now combine the packs into one and return
         return implode("", $packs);
+    }
+
+
+    /**
+     * Handles processing the details data into a usable format
+     *
+     * @param \GameQ\Buffer $buffer
+     * @return array
+     */
+    protected function processDetails(\GameQ\Buffer $buffer)
+    {
+    	// Set the result to a new result instance
+    	$result = new \GameQ\Result();
+
+        // Check engine type
+        if ($this->source_engine == self::GOLDSOURCE_ENGINE)
+        {
+            $result->add('address', $buffer->readString());
+        }
+        else
+        {
+            $result->add('protocol', $buffer->readInt8());
+        }
+
+        $result->add('hostname', $buffer->readString());
+        $result->add('map', $buffer->readString());
+        $result->add('game_dir', $buffer->readString());
+        $result->add('game_descr', $buffer->readString());
+
+        // Check engine type
+        if ($this->source_engine != self::GOLDSOURCE_ENGINE)
+        {
+            $result->add('steamappid', $buffer->readInt16());
+        }
+
+        $result->add('num_players', $buffer->readInt8());
+        $result->add('max_players', $buffer->readInt8());
+
+        // Check engine type
+        if ($this->source_engine == self::GOLDSOURCE_ENGINE)
+        {
+            $result->add('version', $buffer->readInt8());
+        }
+        else
+        {
+            $result->add('num_bots', $buffer->readInt8());
+        }
+
+        $result->add('dedicated', $buffer->read());
+        $result->add('os', $buffer->read());
+        $result->add('password', $buffer->readInt8());
+
+        // Check engine type
+        if ($this->source_engine == self::GOLDSOURCE_ENGINE)
+        {
+            $result->add('ismod', $buffer->readInt8());
+        }
+
+        $result->add('secure', $buffer->readInt8());
+
+        // Check engine type
+        if ($this->source_engine == self::GOLDSOURCE_ENGINE)
+        {
+            $result->add('num_bots', $buffer->readInt8());
+        }
+        else
+        {
+            $result->add('version', $buffer->readInt8());
+        }
+
+        // @todo: Add extra data flag check here, only for source games (not goldsource)
+        // https://developer.valvesoftware.com/wiki/Server_Queries#Source_servers_2
+
+        unset($buffer);
+
+        return $result->fetch();
+    }
+
+    /**
+     * Handles processing the player data into a usable format
+     *
+     * @param \GameQ\Buffer $buffer
+     * @return array
+     */
+    protected function processPlayers(\GameQ\Buffer $buffer)
+    {
+    	// Set the result to a new result instance
+    	$result = new \GameQ\Result();
+
+        // Pull out the number of players
+        $num_players = $buffer->readInt8();
+
+        // Player count
+        $result->add('num_players', $num_players);
+
+        // No players so no need to look any further
+        if($num_players == 0)
+        {
+            return $result->fetch();
+        }
+
+        // Players list
+        while ($buffer->getLength())
+        {
+            $result->addPlayer('id', $buffer->readInt8());
+            $result->addPlayer('name', $buffer->readString());
+            $result->addPlayer('score', $buffer->readInt32Signed());
+            $result->addPlayer('time', $buffer->readFloat32());
+        }
+
+        unset($buffer);
+
+        return $result->fetch();
+    }
+
+    /**
+     * Handles processing the rules data into a usable format
+     *
+     * @param \GameQ\Buffer $buffer
+     * @return array
+     */
+    protected function processRules(\GameQ\Buffer $buffer)
+    {
+    	// Set the result to a new result instance
+    	$result = new \GameQ\Result();
+
+        // Count the number of rules
+        $num_rules = $buffer->readInt16Signed();
+
+        // Add the count of the number of rules this server has
+        $result->add('num_rules', $num_rules);
+
+        // Rules
+        while ($buffer->getLength())
+        {
+            $result->add($buffer->readString(), $buffer->readString());
+        }
+
+        unset($buffer);
+
+        return $result->fetch();
     }
 }
