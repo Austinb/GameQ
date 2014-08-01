@@ -39,8 +39,5 @@ class GameQ_Protocols_Rust extends GameQ_Protocols_Source
 	{
 	    // Got to do this first
 	    parent::__construct($ip, $port, $options);
-
-	    // Correct the client port since query_port = client_port + 1
-	    $this->port_client(($this->port_client() - 1));
 	}
 }
