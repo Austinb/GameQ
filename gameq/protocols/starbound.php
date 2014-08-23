@@ -30,4 +30,25 @@ class GameQ_Protocols_Starbound extends GameQ_Protocols_Source
 	protected $name_long = "Starbound";
 
 	protected $port = 21025;
+        
+        /**
+	 * Array of packets we want to look up. (Modified from A2S default.)
+	 * Each key should correspond to a defined method in this or a parent class
+	 *
+	 * @var array
+	 */
+	protected $packets = array(
+		self::PACKET_CHALLENGE => "\xFF\xFF\xFF\xFF\x57",
+		self::PACKET_DETAILS => "\xFF\xFF\xFF\xFFTSource Engine Query\x00",
+		self::PACKET_PLAYERS => "\xFF\xFF\xFF\xFF\x55%s",
+		self::PACKET_RULES => "\xFF\xFF\xFF\xFF\x56%s",
+	);
+        
+        /**
+	* Set the packet mode to linear, Starbound does not support multi packet mode.
+	*
+	* @var string
+	*/
+	protected $packet_mode = self::PACKET_MODE_LINEAR;
+
 }
