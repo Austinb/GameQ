@@ -1,7 +1,7 @@
 {
     "name": "austinb/gameq",
     "description": "GameQ Gameserver Library",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "license": "GPL-3.0+",
     "authors": [
         {
@@ -17,7 +17,7 @@
             "homepage": "https://github.com/Blackskyliner"
         },
         {
-            "name": "Marcel BÃ¶ÃendÃ¶rfer",
+            "name": "Marcel Bößendörfer",
             "email": "m.boessendoerfer@marbis.net",
             "role": "Developer",
             "homepage": "https://github.com/nitrado"
