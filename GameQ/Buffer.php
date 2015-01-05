@@ -20,6 +20,8 @@
 
 namespace GameQ;
 
+use GameQ\Exception\Protocol as Exception;
+
 /**
  * Provide an interface for easy manipulation of a server response
  *
@@ -58,11 +60,11 @@ class Buffer
     /**
      * Constructor
      *
-     * @param   string|array    $response   The data
+     * @param   string|array $response The data
      */
     public function __construct($data)
     {
-        $this->data   = $data;
+        $this->data = $data;
         $this->length = strlen($data);
     }
 
@@ -99,13 +101,15 @@ class Buffer
     /**
      * Read from the buffer
      *
-     * @param   int             $length     Length of data to read
+     * @param   int $length Length of data to read
+     *
      * @return  string          The data read
      */
     public function read($length = 1)
     {
-        if (($length + $this->index) > $this->length) {
-            throw new GameQ_ProtocolsException('Unable to read length={$length} from buffer.  Bad protocol format or return?');
+        if (($length + $this->index) > $this->length)
+        {
+            throw new Exception('Unable to read length={$length} from buffer.  Bad protocol format or return?');
         }
 
         $string = substr($this->data, $this->index, $length);
@@ -124,9 +128,9 @@ class Buffer
      */
     public function readLast()
     {
-        $len           = strlen($this->data);
-        $string        = $this->data{strlen($this->data) - 1};
-        $this->data    = substr($this->data, 0, $len - 1);
+        $len = strlen($this->data);
+        $string = $this->data{strlen($this->data) - 1};
+        $this->data = substr($this->data, 0, $len - 1);
         $this->length -= 1;
 
         return $string;
@@ -135,7 +139,8 @@ class Buffer
     /**
      * Look at the buffer, but don't remove
      *
-     * @param   int             $length     Length of data to read
+     * @param   int $length Length of data to read
+     *
      * @return  string          The data read
      */
     public function lookAhead($length = 1)
@@ -148,7 +153,8 @@ class Buffer
     /**
      * Skip forward in the buffer
      *
-     * @param   int             $length     Length of data to skip
+     * @param   int $length Length of data to skip
+     *
      * @return  void
      */
     public function skip($length = 1)
@@ -160,7 +166,8 @@ class Buffer
      * Jump to a specific position in the buffer,
      * will not jump past end of buffer
      *
-     * @param   int   $index  Position to go to
+     * @param   int $index Position to go to
+     *
      * @return  void
      */
     public function jumpto($index)
@@ -183,7 +190,8 @@ class Buffer
      *
      * If not found, return everything
      *
-     * @param   string          $delim      Read until this character is reached
+     * @param   string $delim Read until this character is reached
+     *
      * @return  string          The data read
      */
     public function readString($delim = "\x00")
@@ -192,7 +200,8 @@ class Buffer
         $len = strpos($this->data, $delim, min($this->index, $this->length));
 
         // If it is not found then return whole buffer
-        if ($len === false) {
+        if ($len === false)
+        {
             return $this->read(strlen($this->data) - $this->index);
         }
 
@@ -207,8 +216,10 @@ class Buffer
      * Reads a pascal string from the buffer
      *
      * @paran   int    $offset        Number of bits to cut off the end
-     * @param   bool   $read_offset   True if the data after the offset is
+     *
+     * @param   bool $read_offset     True if the data after the offset is
      *                                to be read
+     *
      * @return  string          The data read
      */
     public function readPascalString($offset = 0, $read_offset = false)
@@ -218,10 +229,12 @@ class Buffer
         $offset = max($len - $offset, 0);
 
         // Read the data
-        if ($read_offset) {
+        if ($read_offset)
+        {
             return $this->read($offset);
         }
-        else {
+        else
+        {
             return substr($this->read($len), 0, $offset);
         }
     }
@@ -231,21 +244,25 @@ class Buffer
      *
      * If not found, return everything
      *
-     * @param   array           $delims      Read until these characters are reached
+     * @param   array $delims Read until these characters are reached
+     *
      * @return  string          The data read
      */
     public function readStringMulti($delims, &$delimfound = null)
     {
         // Get position of delimiters
-        $pos = array();
-        foreach ($delims as $delim) {
-            if ($p = strpos($this->data, $delim, min($this->index, $this->length))) {
+        $pos = [ ];
+        foreach ($delims as $delim)
+        {
+            if ($p = strpos($this->data, $delim, min($this->index, $this->length)))
+            {
                 $pos[] = $p;
             }
         }
 
         // If none are found then return whole buffer
-        if (empty($pos)) {
+        if (empty($pos))
+        {
             return $this->read(strlen($this->data) - $this->index);
         }
 
@@ -263,6 +280,7 @@ class Buffer
     public function readInt32()
     {
         $int = unpack('Lint', $this->read(4));
+
         return $int['int'];
     }
 
@@ -271,9 +289,9 @@ class Buffer
      */
     public function readInt32Signed()
     {
-    	$int = unpack('lint', $this->read(4));
+        $int = unpack('lint', $this->read(4));
 
-    	return $int['int'];
+        return $int['int'];
     }
 
     /**
@@ -282,6 +300,7 @@ class Buffer
     public function readInt16()
     {
         $int = unpack('Sint', $this->read(2));
+
         return $int['int'];
     }
 
@@ -290,8 +309,9 @@ class Buffer
      */
     public function readInt16Signed()
     {
-    	$int = unpack('sint', $this->read(2));
-    	return $int['int'];
+        $int = unpack('sint', $this->read(2));
+
+        return $int['int'];
     }
 
     /**
@@ -312,6 +332,7 @@ class Buffer
     public function readFloat32()
     {
         $float = unpack('ffloat', $this->read(4));
+
         return $float['float'];
     }
 
@@ -319,18 +340,22 @@ class Buffer
      * Conversion to float
      *
      * @access     public
-     * @param      string    $string   String to convert
+     *
+     * @param      string $string String to convert
+     *
      * @return     float     32 bit float
      */
     public function toFloat($string)
     {
         // Check length
-        if (strlen($string) !== 4) {
+        if (strlen($string) !== 4)
+        {
             return false;
         }
 
         // Convert
         $float = unpack('ffloat', $string);
+
         return $float['float'];
     }
 
@@ -338,19 +363,23 @@ class Buffer
      * Conversion to integer
      *
      * @access     public
-     * @param      string    $string   String to convert
-     * @param      int       $bits     Number of bits
+     *
+     * @param      string $string String to convert
+     * @param      int    $bits   Number of bits
+     *
      * @return     int       Integer according to type
      */
     public function toInt($string, $bits = 8)
     {
         // Check length
-        if (strlen($string) !== ($bits / 8)) {
+        if (strlen($string) !== ($bits / 8))
+        {
             return false;
         }
 
         // Convert
-        switch($bits) {
+        switch ($bits)
+        {
 
             // 8 bit unsigned
             case 8:

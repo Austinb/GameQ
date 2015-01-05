@@ -74,6 +74,7 @@ class Source extends Protocol
 
     /**
      * String name of this protocol class
+     *
      * @type string
      */
     protected $name = 'source';
@@ -100,10 +101,12 @@ class Source extends Protocol
     protected $join_link = "steam://connect/%s:%d/";
 
     /**
+     * Parse the challenge response and apply it to all the packet types
+     *
      * @param \GameQ\Buffer $challenge_buffer
      *
      * @return bool
-     * @throws \GameQ\GameQ_ProtocolsException
+     * @throws \GameQ\Exception\Protocol
      */
     public function challengeParseAndApply(Buffer $challenge_buffer)
     {
@@ -282,7 +285,7 @@ class Source extends Protocol
      * @param \GameQ\Buffer $buffer
      *
      * @return mixed
-     * @throws \GameQ\GameQ_ProtocolsException
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processDetails(Buffer $buffer)
     {
@@ -393,6 +396,7 @@ class Source extends Protocol
 
     /**
      * Handles processing the rules data into a usable format
+     *
      * @param \GameQ\Buffer $buffer
      *
      * @return mixed
