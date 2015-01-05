@@ -13,7 +13,8 @@ Requirements
 
 Installation
 =======
-Add `austinb/gameq` as a requirement to composer.json:
+Add `austinb/gameq` as a requirement to composer.json by using `composer require austinb/gameq:3.*@dev` or by 
+manually adding the following to the composer.json file:
 
 ```javascript
 {
@@ -25,7 +26,8 @@ Add `austinb/gameq` as a requirement to composer.json:
 
 Update your packages with `composer update` or install with `composer install`.
 
-Or if you are not using composer add the following to your autoloader.php to make the GameQ namespace available:
+Or if you are not using composer download the latest version, unpack into your project and add the following to your 
+autoloader.php to make the GameQ namespace available:
 
 ```php
 require_once('/path/to/GameQ/Autoloader.php');
