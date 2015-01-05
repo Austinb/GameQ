@@ -43,7 +43,7 @@ See https://github.com/Austinb/GameQ/commits/v2 for an incremental list of chang
 
 License
 =======
-See LICENSE for more information
+See LICENSE.LGPL for more information
 
 Donations
 =========
