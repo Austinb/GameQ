@@ -20,11 +20,6 @@ use \GameQ\Server as Server;
 use \GameQ\Protocol as Protocol;
 use \GameQ\Exception\Protocol as ProtocolException;
 
-// Autoload classes
-set_include_path(realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR);
-spl_autoload_extensions(".php");
-spl_autoload_register();
-
 /**
  * Base GameQ Class
  *

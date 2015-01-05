@@ -5,7 +5,7 @@ echo '<pre>';
 
 set_time_limit(300);
 
-require  realpath(dirname(__FILE__)) . '/GameQ.php';
+require realpath(dirname(__FILE__)) . '/GameQ/Autoloader.php';
 
 
 $gq = new GameQ();
@@ -19,7 +19,7 @@ $gq = new GameQ();
 $gq->addServer(array(
         //'id' => 2,
         'type' => 'source',
-        'host' => '74.91.126.7:27015'
+        'host' => '64.74.97.72:27017'
 
 ));
 

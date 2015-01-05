@@ -48,6 +48,6 @@
     "ext-bz2": "*"
   },
   "autoload": {
-    "psr-0": {"GameQ": "."}
+    "psr-0": {"GameQ": "GameQ/"}
   }
 }
