@@ -3,18 +3,22 @@
  * This file is part of GameQ.
  *
  * GameQ is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * GameQ is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+use \GameQ\Server as Server;
+use \GameQ\Protocol as Protocol;
+use \GameQ\Exception\Protocol as ProtocolException;
 
 // Autoload classes
 set_include_path(realpath(dirname(__FILE__)) . DIRECTORY_SEPARATOR);
@@ -29,373 +33,399 @@ spl_autoload_register();
  *
  * Requirements: See wiki or README for more information on the requirements
  *  - PHP 5.4.14+
- *  	* Bzip2 - http://www.php.net/manual/en/book.bzip2.php
+ *    * Bzip2 - http://www.php.net/manual/en/book.bzip2.php
  *
  * @author Austin Bischoff <austin@codebeard.com>
  */
 class GameQ
 {
-	/*
-	 * Constants
-	 */
-	const VERSION = '3.0-alpha';
+    /*
+     * Constants
+     */
 
-	/* Static Section */
-	protected static $instance = NULL;
+    /**
+     * Current version
+     */
+    const VERSION = '3.0-alpha';
 
-	/**
-	 * Create a new instance of this class
-	 */
-	public static function factory()
-	{
-		// Create a new instance
-		self::$instance = new self();
+    /* Static Section */
 
-		// Return this new instance
-		return self::$instance;
-	}
+    /**
+     * Holds the instance of itself
+     *
+     * @type self
+     */
+    protected static $instance = null;
 
-	/* Dynamic Section */
+    /**
+     * Create a new instance of this class
+     *
+     * @return \GameQ
+     */
+    public static function factory()
+    {
+        // Create a new instance
+        self::$instance = new self();
 
-	/**
-	 * Defined options by default
-	 *
-	 * @var array()
-	 */
-	protected $options = array(
-		'debug' => FALSE,
-		'timeout' => 3, // Seconds
-		'filters' => array(),
+        // Return this new instance
+        return self::$instance;
+    }
+
+    /* Dynamic Section */
+
+    /**
+     * Default options
+     *
+     * @type array
+     */
+    protected $options = [
+        'debug'          => false,
+        'timeout'        => 3, // Seconds
+        'filters'        => [ ],
 
         // Advanced settings
-	    'stream_timeout' => 200000, // See http://www.php.net/manual/en/function.stream-select.php for more info
-	    'write_wait' => 500, // How long (in micro-seconds) to pause between writing to server sockets, helps cpu usage
-	);
+        'stream_timeout' => 200000, // See http://www.php.net/manual/en/function.stream-select.php for more info
+        'write_wait'     => 500,
+        // How long (in micro-seconds) to pause between writing to server sockets, helps cpu usage
+    ];
 
-	/**
-	 * Array of servers being queried
-	 *
-	 * @var array
-	 */
-	protected $servers = array();
+    /**
+     * Array of servers being queried
+     *
+     * @type array
+     */
+    protected $servers = [ ];
 
-	/**
-	 * The query method to use.  Default is Native
-	 *
-	 * @var string
-	 */
-	protected $query = '\\GameQ\\Query\\Native';
+    /**
+     * The query method to use.  Default is Native
+     *
+     * @type string
+     */
+    protected $query = '\\GameQ\\Query\\Native';
 
-	/**
-	 * Make new class and check for requirements
-	 *
-	 * @throws GameQException
-	 * @return boolean
-	 */
-	public function __construct()
-	{
-		// @todo: Add PHP version check?
-	}
+    /**
+     * Make new class and check for requirements
+     */
+    public function __construct()
+    {
+        // @todo: Add PHP version check?
+    }
 
-	/**
-	 * Get an option's value
-	 *
-	 * @param string $option
-	 */
-	public function __get($option)
-	{
-		return isset($this->options[$option]) ? $this->options[$option] : NULL;
-	}
+    /**
+     * Get an option's value
+     *
+     * @param $option
+     *
+     * @return mixed|null
+     */
+    public function __get($option)
+    {
+        return isset($this->options[ $option ]) ? $this->options[ $option ] : null;
+    }
 
-	/**
-	 * Set an option's value
-	 *
-	 * @param string $option
-	 * @param mixed $value
-	 * @return boolean
-	 */
-	public function __set($option, $value)
-	{
-		$this->options[$option] = $value;
+    /**
+     * Set an option's value
+     *
+     * @param $option
+     * @param $value
+     *
+     * @return bool
+     */
+    public function __set($option, $value)
+    {
+        $this->options[ $option ] = $value;
 
-		return TRUE;
-	}
+        return true;
+    }
 
-	/**
-	 * Chainable call to __set, uses set as the actual setter
-	 *
-	 * @param string $var
-	 * @param mixed $value
-	 * @return GameQ
-	 */
-	public function setOption($var, $value)
-	{
-		// Use magic
-		$this->{$var} = $value;
+    /**
+     * Chainable call to __set, uses set as the actual setter
+     *
+     * @param $var
+     * @param $value
+     *
+     * @return $this
+     */
+    public function setOption($var, $value)
+    {
+        // Use magic
+        $this->{$var} = $value;
 
-		return $this; // Make chainable
-	}
+        return $this; // Make chainable
+    }
 
-	/**
-	 * Add a single server
-	 *
-	 * @param array $server_info
-	 * @return GameQ
-	 */
-	public function addServer(Array $server_info=NULL)
-	{
-	    // Add and validate the server
-	    $this->servers[uniqid()] = new \GameQ\Server($server_info);
+    /**
+     * Add a single server
+     *
+     * @param array $server_info
+     *
+     * @return $this
+     */
+    public function addServer(Array $server_info = null)
+    {
+        // Add and validate the server
+        $this->servers[ uniqid() ] = new Server($server_info);
 
-	    return $this; // Make calls chainable
-	}
+        return $this; // Make calls chainable
+    }
 
-	/**
-	 * Add multiple servers in a single call
-	 *
-	 * @param array $servers
-	 * @return GameQ
-	 */
-	public function addServers(Array $servers=NULL)
-	{
-	    // Loop thru all the servers and add them
-	    foreach($servers AS $server_info)
-	    {
-	        $this->addServer($server_info);
-	    }
+    /**
+     * Add multiple servers in a single call
+     *
+     * @param array $servers
+     *
+     * @return $this
+     */
+    public function addServers(Array $servers = null)
+    {
+        // Loop thru all the servers and add them
+        foreach ($servers AS $server_info)
+        {
+            $this->addServer($server_info);
+        }
 
-	    return $this; // Make calls chainable
-	}
+        return $this; // Make calls chainable
+    }
 
-	/**
-	 * Clear all of the defined servers
-	 *
-	 * @return GameQ
-	 */
-	public function clearServers()
-	{
-	    // Reset all the servers
-	    $this->servers = array();
+    /**
+     * Clear all of the defined servers
+     *
+     * @return $this
+     */
+    public function clearServers()
+    {
+        // Reset all the servers
+        $this->servers = [ ];
 
-	    return $this; // Make Chainable
-	}
+        return $this; // Make Chainable
+    }
 
-	public function process()
-	{
-		$data = array();
+    /**
+     * Main method used to actually process all of the added servers and return the information
+     *
+     * @return array
+     * @throws \Exception
+     */
+    public function process()
+    {
+        $data = [ ];
 
-	    // Do server challenge(s) first, if any
-	    $this->doChallenges();
+        // @todo: Add break up loop to split large arrays into smaller chunks
 
-	    // Do packets for server(s) and get query responses
-	    $this->doQueries();
+        // Do server challenge(s) first, if any
+        $this->doChallenges();
 
-	    // Now we should have some information to process for each server
-	    foreach($this->servers AS $server_id => $server)
-	    {
-	    	$data[$server->id()] = $this->doParseAndFilter($server);
-	    }
+        // Do packets for server(s) and get query responses
+        $this->doQueries();
 
-	    return $data;
-	}
+        // Now we should have some information to process for each server
+        foreach ($this->servers AS $server_id => $server)
+        {
+            $data[ $server->id() ] = $this->doParseAndFilter($server);
+        }
 
-	/**
-	 * Do server challenges, where required
-	 */
-	protected function doChallenges()
-	{
-		$sockets = array();
+        return $data;
+    }
 
-	    // We have at least once challenge
-	    $server_challenge = FALSE;
+    /**
+     * Do server challenges, where required
+     */
+    protected function doChallenges()
+    {
+        $sockets = [ ];
 
-	    // Do challenge packets
-	    foreach($this->servers AS $server_id => $server)
-	    {
-	        if($server->protocol()->hasChallenge())
-	        {
-	            $server_challenge = TRUE;
+        // We have at least once challenge
+        $server_challenge = false;
 
-	            // Make a new class for this query type
-	            $class = new \ReflectionClass($this->query);
+        // Do challenge packets
+        foreach ($this->servers AS $server_id => $server)
+        {
+            if ($server->protocol()->hasChallenge())
+            {
+                $server_challenge = true;
 
-	            // Make the socket class
-	            $socket = $class->newInstanceArgs(array(
-	                    $server->protocol()->transport(),
-	                    $server->ip,
-	                    $server->port_query,
-	                    ));
+                // Make a new class for this query type
+                $class = new \ReflectionClass($this->query);
 
-	            // Now write the challenge packet to the socket.
-	            $socket->write($server->protocol()->getPacket(\GameQ\Protocol::PACKET_CHALLENGE));
+                // Make the socket class
+                $socket = $class->newInstanceArgs([
+                    $server->protocol()->transport(),
+                    $server->ip,
+                    $server->port_query,
+                ]);
 
-	            // Add the socket information so we can reference it easily
-	            $sockets[(int) $socket->get()] = array(
-	                    'server_id' => $server_id,
-	                    'socket' => $socket,
-	                    );
+                // Now write the challenge packet to the socket.
+                $socket->write($server->protocol()->getPacket(Protocol::PACKET_CHALLENGE));
 
-	            unset($socket, $class);
+                // Add the socket information so we can reference it easily
+                $sockets[ (int) $socket->get() ] = [
+                    'server_id' => $server_id,
+                    'socket'    => $socket,
+                ];
 
-	            // Let's sleep shortly so we are not hammering out calls rapid fire style hogging cpu
-	            usleep($this->write_wait);
-	        }
-	    }
+                unset($socket, $class);
 
-	    // We have at least one server with a challenge, we need to listen for responses
-	    if($server_challenge)
-	    {
-    	    // Now we need to listen for and grab challenge response(s)
-    	    $responses = call_user_func_array(array($this->query, 'getResponses'),
-    	            array($sockets, $this->timeout, $this->stream_timeout));
+                // Let's sleep shortly so we are not hammering out calls rapid fire style hogging cpu
+                usleep($this->write_wait);
+            }
+        }
+
+        // We have at least one server with a challenge, we need to listen for responses
+        if ($server_challenge)
+        {
+            // Now we need to listen for and grab challenge response(s)
+            $responses = call_user_func_array([ $this->query, 'getResponses' ],
+                [ $sockets, $this->timeout, $this->stream_timeout ]);
 
             // Iterate over the challenge responses
-            foreach($responses AS $socket_id => $response)
+            foreach ($responses AS $socket_id => $response)
             {
                 // Back out the server_id we need to update the challenge response for
-                $server_id = $sockets[$socket_id]['server_id'];
+                $server_id = $sockets[ $socket_id ]['server_id'];
 
                 // Make this into a buffer so it is easier to manipulate
                 $challenge = new \GameQ\Buffer(implode('', $response));
 
                 // Apply the challenge
-                $this->servers[$server_id]->protocol()->challengeParseAndApply($challenge);
+                $this->servers[ $server_id ]->protocol()->challengeParseAndApply($challenge);
 
                 // Add this socket to be reused, has to be reused in GameSpy3 for example
-                $this->servers[$server_id]->socketAdd($sockets[$socket_id]['socket']);
+                $this->servers[ $server_id ]->socketAdd($sockets[ $socket_id ]['socket']);
             }
-	    }
-	}
+        }
+    }
 
-	/**
-	 * Send off and get query packet responses
-	 */
-	protected function doQueries()
-	{
-		$sockets = array();
+    /**
+     * Run the actual queries and get the response(s)
+     */
+    protected function doQueries()
+    {
+        $sockets = [ ];
 
-	    // Iterate over the server list
-	    foreach($this->servers AS $server_id => $server)
-	    {
-	        // Invoke the beforeSend method
-	        $server->protocol()->beforeSend();
+        // Iterate over the server list
+        foreach ($this->servers AS $server_id => $server)
+        {
+            // Invoke the beforeSend method
+            $server->protocol()->beforeSend();
 
-	        // Get all the non-challenge packets we need to send
-	        $packets = $server->protocol()->getPacket('!' . \GameQ\Protocol::PACKET_CHALLENGE);
+            // Get all the non-challenge packets we need to send
+            $packets = $server->protocol()->getPacket('!' . Protocol::PACKET_CHALLENGE);
 
-	        if(count($packets) == 0)
-	        {
-	            // Skip nothing else to do for some reason.
-	            continue;
-	        }
+            if (count($packets) == 0)
+            {
+                // Skip nothing else to do for some reason.
+                continue;
+            }
 
-	        // Try to use an existing socket
-	        if(($socket = $server->socketGet()) === NULL)
-	        {
-	        	// We need to make a new socket
+            // Try to use an existing socket
+            if (($socket = $server->socketGet()) === null)
+            {
+                // We need to make a new socket
 
-	        	// Make a new class for this query type
-	        	$class = new \ReflectionClass($this->query);
+                // Make a new class for this query type
+                $class = new \ReflectionClass($this->query);
 
-	        	// Make the socket class
-	        	$socket = $class->newInstanceArgs(array(
-	        			$server->protocol()->transport(),
-	        			$server->ip,
-	        			$server->port_query,
-	        	));
+                // Make the socket class
+                $socket = $class->newInstanceArgs([
+                    $server->protocol()->transport(),
+                    $server->ip,
+                    $server->port_query,
+                ]);
 
-	        	unset($class);
-	        }
+                unset($class);
+            }
 
-	        // Iterate over all the packets we need to send
-	        foreach($packets AS $packet_type => $packet_data)
-	        {
-	        	// Now write the packet to the socket.
-	        	$socket->write($packet_data);
+            // Iterate over all the packets we need to send
+            foreach ($packets AS $packet_type => $packet_data)
+            {
+                // Now write the packet to the socket.
+                $socket->write($packet_data);
 
-	        	// Let's sleep shortly so we are not hammering out calls rapid fire style
-	        	usleep($this->write_wait);
-	        }
+                // Let's sleep shortly so we are not hammering out calls rapid fire style
+                usleep($this->write_wait);
+            }
 
-	        unset($packets);
+            unset($packets);
 
-	        // Add the socket information so we can reference it easily
-	        $sockets[(int) $socket->get()] = array(
-	        		'server_id' => $server_id,
-	        		'socket' => $socket,
-	        );
+            // Add the socket information so we can reference it easily
+            $sockets[ (int) $socket->get() ] = [
+                'server_id' => $server_id,
+                'socket'    => $socket,
+            ];
 
-	        // Clean up the sockets, if any left over
-	        $server->socketCleanse();
-	    }
+            // Clean up the sockets, if any left over
+            $server->socketCleanse();
+        }
 
-	    // Now we need to listen for and grab response(s)
-	    $responses = call_user_func_array(array($this->query, 'getResponses'),
-	            array($sockets, $this->timeout, $this->stream_timeout));
+        // Now we need to listen for and grab response(s)
+        $responses = call_user_func_array([ $this->query, 'getResponses' ],
+            [ $sockets, $this->timeout, $this->stream_timeout ]);
 
-	    // Iterate over the responses
-	    foreach($responses AS $socket_id => $response)
+        // Iterate over the responses
+        foreach ($responses AS $socket_id => $response)
         {
             // Back out the server_id
-            $server_id = $sockets[$socket_id]['server_id'];
+            $server_id = $sockets[ $socket_id ]['server_id'];
 
             // Save the response from this packet
-            $this->servers[$server_id]->protocol()->packetResponse($response);
-	    }
+            $this->servers[ $server_id ]->protocol()->packetResponse($response);
+        }
 
-	    // Now we need to close all of the sockets
-	    foreach($sockets AS $socket)
-	    {
-	        $socket['socket']->close();
-	    }
+        // Now we need to close all of the sockets
+        foreach ($sockets AS $socket)
+        {
+            $socket['socket']->close();
+        }
 
-	    unset($sockets, $socket);
-	}
+        unset($sockets, $socket);
+    }
 
-	/**
-	 * Parse the response and filter a specific server
-	 *
-	 * @param \GameQ\Server $server
-	 * @throws \Exception
-	 * @return array
-	 */
-	protected function doParseAndFilter(\GameQ\Server $server)
-	{
-		try
-		{
-			// Get the server response
-			$results = $server->protocol()->processReponse();
+    /**
+     * Parse the response and filter a specific server
+     *
+     * @param \GameQ\Server $server
+     *
+     * @return array|bool
+     * @throws \Exception
+     */
+    protected function doParseAndFilter(Server $server)
+    {
+        try
+        {
+            // Get the server response
+            $results = $server->protocol()->processResponse();
 
-			// Process the join link
-			if(!isset($results['gq_joinlink']) || empty($results['gq_joinlink']))
-			{
-				$results['gq_joinlink'] = $server->getJoinLink();
-			}
+            // Process the join link
+            if (!isset($results['gq_joinlink']) || empty($results['gq_joinlink']))
+            {
+                $results['gq_joinlink'] = $server->getJoinLink();
+            }
 
-			// @todo: Add in global filtering
-		}
-		catch (\GameQ\Exception\Protocol $e) // Catch protocol error, generally a data response change/issue
-		{
-			// Check to see if we are in debug, if so bubble up the exception
-			if($this->debug)
-			{
-				throw new \Exception($e->getMessage(), $e->getCode(), $e);
-				return FALSE;
-			}
+            // @todo: Add in global filtering
+        }
+        catch (ProtocolException $e) // Catch protocol error, generally a data response change/issue
+        {
+            // Check to see if we are in debug, if so bubble up the exception
+            if ($this->debug)
+            {
+                throw new \Exception($e->getMessage(), $e->getCode(), $e);
 
-			// We ignore this server
-			$results = array();
-		}
+                return false;
+            }
 
-		// Now add some default stuff
-		$results['gq_online'] = (count($results) > 0);
-		$results['gq_address'] = $server->ip();
-		$results['gq_port_client'] = $server->port_client();
-		$results['gq_port_query'] = $server->port_query();
-		$results['gq_protocol'] = $server->protocol()->protocol();
-		$results['gq_type'] = (string) $server->protocol();
-		$results['gq_transport'] = $server->protocol()->transport();
+            // We ignore this server
+            $results = [ ];
+        }
 
-		return $results;
-	}
+        // Now add some default stuff
+        $results['gq_online'] = (count($results) > 0);
+        $results['gq_address'] = $server->ip();
+        $results['gq_port_client'] = $server->port_client();
+        $results['gq_port_query'] = $server->port_query();
+        $results['gq_protocol'] = $server->protocol()->protocol();
+        $results['gq_type'] = (string) $server->protocol();
+        $results['gq_transport'] = $server->protocol()->transport();
+
+        return $results;
+    }
 }

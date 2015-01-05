@@ -3,16 +3,16 @@
  * This file is part of GameQ.
  *
  * GameQ is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation; either version 3 of the License, or
  * (at your option) any later version.
  *
  * GameQ is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
@@ -25,19 +25,59 @@ namespace GameQ\Query;
  */
 abstract class Core
 {
-    public $socket = NULL;
+    /**
+     * The socket used by this resource
+     *
+     * @type resource
+     */
+    public $socket = null;
 
-    protected $transport = NULL;
+    /**
+     * The transport type (udp, tcp, etc...)
+     * See http://php.net/manual/en/transports.php for the supported list
+     *
+     * @type string
+     */
+    protected $transport = null;
 
-    protected $ip = NULL;
+    /**
+     * Connection IP address
+     *
+     * @type string
+     */
+    protected $ip = null;
 
-    protected $port = NULL;
+    /**
+     * Connection port
+     *
+     * @type int
+     */
+    protected $port = null;
 
+    /**
+     * The time in seconds to wait before timing out while connecting to the socket
+     *
+     * @type int
+     */
     protected $timeout = 3; // Seconds
 
-    protected $blocking = FALSE;
+    /**
+     * Socket is blocking?
+     *
+     * @type bool
+     */
+    protected $blocking = false;
 
-    public function __construct($transport, $ip, $port, $timeout=3, $blocking=FALSE)
+    /**
+     * Create a new protocol class
+     *
+     * @param      $transport
+     * @param      $ip
+     * @param      $port
+     * @param int  $timeout
+     * @param bool $blocking
+     */
+    public function __construct($transport, $ip, $port, $timeout = 3, $blocking = false)
     {
         $this->transport = $transport;
 
@@ -50,7 +90,17 @@ abstract class Core
         $this->blocking = $blocking;
     }
 
+    /**
+     * Create a new socket
+     *
+     * @return mixed
+     */
     abstract protected function create();
 
+    /**
+     * Close the socket
+     *
+     * @return mixed
+     */
     abstract public function close();
 }
