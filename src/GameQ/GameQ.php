@@ -81,6 +81,7 @@ class GameQ
         'stream_timeout' => 200000, // See http://www.php.net/manual/en/function.stream-select.php for more info
         'write_wait'     => 500,
         // How long (in micro-seconds) to pause between writing to server sockets, helps cpu usage
+        'normalize'      => true, // Normalize all responses
     ];
 
     /**
@@ -200,6 +201,41 @@ class GameQ
     }
 
     /**
+     * Add a filter to the processing list
+     *
+     * @param $filterName
+     * @param $options
+     *
+     * @return $this
+     */
+    public function addFilter($filterName, $options = [ ])
+    {
+
+        // Add the filter
+        $this->options['filters'][$filterName] = $options;
+
+        return $this;
+    }
+
+    /**
+     * Remove a filter from processing
+     *
+     * @param $filterName
+     *
+     * @return $this
+     */
+    public function removeFilter($filterName)
+    {
+
+        // Remove this filter if it has been defined
+        if (array_key_exists($filterName, $this->options['filters'])) {
+            unset($this->options['filters'][$filterName]);
+        }
+
+        return $this;
+    }
+
+    /**
      * Main method used to actually process all of the added servers and return the information
      *
      * @return array
@@ -208,7 +244,13 @@ class GameQ
     public function process()
     {
 
+        // Define the return in case it is empty
         $data = [ ];
+
+        // If the global normalize option is set add the filter if it hasn't been already
+        if ($this->options['normalize'] && !array_key_exists('normalize', $this->options['filters'])) {
+            $this->addFilter('normalize');
+        }
 
         // @todo: Add break up loop to split large arrays into smaller chunks
 
@@ -376,7 +418,7 @@ class GameQ
      *
      * @param \GameQ\Server $server
      *
-     * @return array|bool
+     * @return array|mixed
      * @throws \Exception
      */
     protected function doParseAndFilter(Server $server)
@@ -390,14 +432,30 @@ class GameQ
             if (!isset($results['gq_joinlink']) || empty($results['gq_joinlink'])) {
                 $results['gq_joinlink'] = $server->getJoinLink();
             }
-            // @todo: Add in global filtering
-        } catch (ProtocolException $e) // Catch protocol error, generally a data response change/issue
-        {
+
+            // Loop over the filters
+            foreach ($this->options['filters'] AS $filterName => $options) {
+
+                // Try to do this filter
+                try {
+                    // Make a new reflection class
+                    $class = new \ReflectionClass(sprintf('GameQ\\Filters\\%s', ucfirst($filterName)));
+
+                    // Create a new instance of the filter class specified
+                    $filter = $class->newInstanceArgs([ $options ]);
+
+                    // Apply the filter to the data
+                    $results = $filter->apply($results, $server);
+                } catch (\ReflectionException $e) {
+
+                    // Invalid, skip it
+                    continue;
+                }
+            }
+        } catch (ProtocolException $e) {
             // Check to see if we are in debug, if so bubble up the exception
             if ($this->debug) {
                 throw new \Exception($e->getMessage(), $e->getCode(), $e);
-
-                return false;
             }
 
             // We ignore this server

@@ -20,9 +20,6 @@
 
 namespace GameQ;
 
-use GameQ\Exception\Protocol as Exception;
-use GameQ\Buffer as Buffer;
-
 /**
  * Handles the core functionality for the protocols
  *
@@ -159,14 +156,44 @@ abstract class Protocol
     protected $state = self::STATE_STABLE;
 
     /**
-     * Holds and changes we want to make to the normalize filter
+     * Holds specific normalize settings
      *
-     * @type bool
+     * @todo: Remove this ugly bulk by moving specific ones to their specific game(s)
+     *
+     * @type array
      */
-    protected $normalize = false;
+    protected $normalize = [
+        // General
+        'general' => [
+            // target       => source
+            'dedicated'  => [ 'listenserver', 'dedic', 'bf2dedicated', 'netserverdedicated', 'bf2142dedicated' ],
+            'gametype'   => [ 'ggametype', 'sigametype', 'matchtype' ],
+            'hostname'   => [ 'svhostname', 'servername', 'siname', 'name' ],
+            'mapname'    => [ 'map', 'simap' ],
+            'maxplayers' => [ 'svmaxclients', 'simaxplayers', 'maxclients' ],
+            'mod'        => [ 'game', 'gamedir', 'gamevariant' ],
+            'numplayers' => [ 'clients', 'sinumplayers' ],
+            'password'   => [ 'protected', 'siusepass', 'sineedpass', 'pswrd', 'gneedpass', 'auth' ],
+            'players'    => [ 'players' ],
+            'teams'      => [ 'team' ],
+        ],
+        // Indvidual
+        'player'  => [
+            'name'   => [ 'nick', 'player', 'playername', 'name' ],
+            'kills'  => [ 'kills' ],
+            'deaths' => [ 'deaths' ],
+            'score'  => [ 'kills', 'frags', 'skill', 'score' ],
+            'ping'   => [ 'ping' ],
+        ],
+        // Team
+        'team'    => [
+            'name'  => [ 'name', 'teamname', 'team_t' ],
+            'score' => [ 'score', 'score_t' ],
+        ],
+    ];
 
     /**
-     * Quick join link for specific games
+     * Quick join link
      *
      * @type string
      */
@@ -403,12 +430,23 @@ abstract class Protocol
     protected function challengeApply($challenge_string)
     {
 
-        // Let's loop thru all the packets and append the challenge where it is needed
+        // Let's loop through all the packets and append the challenge where it is needed
         foreach ($this->packets AS $packet_type => $packet) {
             $this->packets[$packet_type] = sprintf($packet, $challenge_string);
         }
 
         return true;
+    }
+
+    /**
+     * Get the normalize settings for the protocol
+     *
+     * @return array
+     */
+    public function getNormalize()
+    {
+
+        return $this->normalize;
     }
 
     /*
