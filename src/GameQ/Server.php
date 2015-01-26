@@ -18,7 +18,7 @@
 
 namespace GameQ;
 
-use \GameQ\Exception\Server as Exception;
+use GameQ\Exception\Server as Exception;
 
 /**
  * Server class to represent each server entity
@@ -140,8 +140,8 @@ class Server
                 $this->ip = implode(':', $server_addr);
 
                 unset($server_addr);
-            } else // Just the IPv6 address, no port defined
-            {
+            } else {
+                // Just the IPv6 address, no port defined
                 $this->ip = $server_info[self::SERVER_HOST];
             }
 
@@ -152,13 +152,12 @@ class Server
             ) {
                 throw new Exception("The IPv6 address '{$this->ip}' is invalid.");
             }
-        } else // IPv4
-        {
+        } else {
             // We have a port defined
             if (strstr($server_info[self::SERVER_HOST], ':')) {
                 list($this->ip, $this->port_client) = explode(':', $server_info[self::SERVER_HOST]);
-            } else // No port, just IPv4
-            {
+            } else {
+                // No port, just IPv4
                 $this->ip = $server_info[self::SERVER_HOST];
             }
 
@@ -177,7 +176,7 @@ class Server
 
 
         // Make the protocol class for this type
-        $class = new \ReflectionClass(sprintf('\\GameQ\\Protocols\\%s', ucfirst($server_info[self::SERVER_TYPE])));
+        $class = new \ReflectionClass(sprintf('GameQ\\Protocols\\%s', ucfirst($server_info[self::SERVER_TYPE])));
 
         // Set the protocol
         $this->protocol = $class->newInstanceArgs([ $this->options ]);
@@ -187,8 +186,8 @@ class Server
             && !empty($this->options[self::SERVER_OPTIONS_QUERY_PORT])
         ) {
             $this->port_query = (int) $this->options[self::SERVER_OPTIONS_QUERY_PORT];
-        } else // Do math based on the protocol class
-        {
+        } else {
+            // Do math based on the protocol class
             $this->port_query = $this->port_client + $this->protocol->port_diff();
         }
 
@@ -308,7 +307,7 @@ class Server
      *
      * @param \GameQ\Query\Core $socket
      */
-    public function socketAdd(\GameQ\Query\Core $socket)
+    public function socketAdd(Query\Core $socket)
     {
 
         $this->sockets[] = $socket;

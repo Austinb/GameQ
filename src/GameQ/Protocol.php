@@ -30,32 +30,46 @@ use GameQ\Buffer as Buffer;
  */
 abstract class Protocol
 {
+
     /**
      * Constants for class states
      */
     const STATE_TESTING    = 1;
+
     const STATE_BETA       = 2;
+
     const STATE_STABLE     = 3;
+
     const STATE_DEPRECATED = 4;
 
     /**
      * Constants for packet keys
      */
     const PACKET_ALL       = 'all'; // Some protocols allow all data to be sent back in one call.
+
     const PACKET_BASIC     = 'basic';
+
     const PACKET_CHALLENGE = 'challenge';
+
     const PACKET_CHANNELS  = 'channels'; // Voice servers
+
     const PACKET_DETAILS   = 'details';
+
     const PACKET_INFO      = 'info';
+
     const PACKET_PLAYERS   = 'players';
+
     const PACKET_STATUS    = 'status';
+
     const PACKET_RULES     = 'rules';
+
     const PACKET_VERSION   = 'version';
 
     /**
      * Transport constants
      */
     const TRANSPORT_UDP = 'udp';
+
     const TRANSPORT_TCP = 'tcp';
 
     /**
@@ -163,6 +177,7 @@ abstract class Protocol
      */
     public function __construct(Array $options)
     {
+
         // Set the options for this specific instance of the class
         $this->options = $options;
     }
@@ -174,6 +189,7 @@ abstract class Protocol
      */
     public function __toString()
     {
+
         return $this->name;
     }
 
@@ -184,6 +200,7 @@ abstract class Protocol
      */
     public function port_diff()
     {
+
         return $this->port_diff;
     }
 
@@ -194,6 +211,7 @@ abstract class Protocol
      */
     public function join_link()
     {
+
         return $this->join_link;
     }
 
@@ -204,6 +222,7 @@ abstract class Protocol
      */
     public function name()
     {
+
         return $this->name;
     }
 
@@ -214,6 +233,7 @@ abstract class Protocol
      */
     public function name_long()
     {
+
         return $this->name_long;
     }
 
@@ -224,6 +244,7 @@ abstract class Protocol
      */
     public function state()
     {
+
         return $this->state;
     }
 
@@ -234,6 +255,7 @@ abstract class Protocol
      */
     public function protocol()
     {
+
         return $this->protocol;
     }
 
@@ -246,9 +268,9 @@ abstract class Protocol
      */
     public function transport($type = false)
     {
+
         // Act as setter
-        if ($type !== false)
-        {
+        if ($type !== false) {
             $this->transport = $type;
         }
 
@@ -264,9 +286,9 @@ abstract class Protocol
      */
     public function options($options = [ ])
     {
+
         // Act as setter
-        if (!empty($options))
-        {
+        if (!empty($options)) {
             $this->options = $options;
         }
 
@@ -287,44 +309,36 @@ abstract class Protocol
      */
     public function getPacket($type = [ ])
     {
+
         // We want an array of packets back
-        if (is_array($type) && !empty($type))
-        {
+        if (is_array($type) && !empty($type)) {
             $packets = [ ];
 
             // Loop the packets
-            foreach ($this->packets AS $packet_type => $packet_data)
-            {
+            foreach ($this->packets AS $packet_type => $packet_data) {
                 // We want this packet
-                if (in_array($packet_type, $type))
-                {
-                    $packets[ $packet_type ] = $packet_data;
+                if (in_array($packet_type, $type)) {
+                    $packets[$packet_type] = $packet_data;
                 }
             }
 
             return $packets;
-        }
-        elseif ($type == '!challenge')
-        {
+        } elseif ($type == '!challenge') {
             $packets = [ ];
 
             // Loop the packets
-            foreach ($this->packets AS $packet_type => $packet_data)
-            {
+            foreach ($this->packets AS $packet_type => $packet_data) {
                 // Dont want challenge packets
-                if ($packet_type == self::PACKET_CHALLENGE)
-                {
+                if ($packet_type == self::PACKET_CHALLENGE) {
                     continue;
                 }
 
-                $packets[ $packet_type ] = $packet_data;
+                $packets[$packet_type] = $packet_data;
             }
 
             return $packets;
-        }
-        elseif (is_string($type))
-        {
-            return $this->packets[ $type ];
+        } elseif (is_string($type)) {
+            return $this->packets[$type];
         }
 
         // Return all the packets
@@ -340,9 +354,9 @@ abstract class Protocol
      */
     public function packetResponse(Array $response = null)
     {
+
         // Act as setter
-        if (!empty($response))
-        {
+        if (!empty($response)) {
             $this->packets_response = $response;
         }
 
@@ -361,7 +375,8 @@ abstract class Protocol
      */
     public function hasChallenge()
     {
-        return (isset($this->packets[ self::PACKET_CHALLENGE ]) && !empty($this->packets[ self::PACKET_CHALLENGE ]));
+
+        return (isset($this->packets[self::PACKET_CHALLENGE]) && !empty($this->packets[self::PACKET_CHALLENGE]));
     }
 
     /**
@@ -374,6 +389,7 @@ abstract class Protocol
      */
     public function challengeParseAndApply(Buffer $challenge_buffer)
     {
+
         return true;
     }
 
@@ -386,10 +402,10 @@ abstract class Protocol
      */
     protected function challengeApply($challenge_string)
     {
+
         // Let's loop thru all the packets and append the challenge where it is needed
-        foreach ($this->packets AS $packet_type => $packet)
-        {
-            $this->packets[ $packet_type ] = sprintf($packet, $challenge_string);
+        foreach ($this->packets AS $packet_type => $packet) {
+            $this->packets[$packet_type] = sprintf($packet, $challenge_string);
         }
 
         return true;

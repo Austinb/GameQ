@@ -147,8 +147,9 @@ class Source extends Protocol
 
                 $packets[] = $buffer->getBuffer();
                 continue;
-            } else // Split packet
-            {
+            } else {
+                // Split packet
+
                 // Pull some info
                 $packet_type = $buffer->readInt32Signed();
 
@@ -237,13 +238,12 @@ class Source extends Protocol
 
                 // Set the new packs
                 $packs[$cur_packet] = $result;
-            } else // Normal packet
-            {
+            } else {
                 // Gold source does things a bit different
                 if ($this->source_engine == self::GOLDSOURCE_ENGINE) {
                     $packet_number = $buffer->readInt8();
-                } else // New source
-                {
+                } else {
+                    // New source
                     $packet_number = $buffer->readInt16Signed();
                     $split_length = $buffer->readInt16Signed();
                 }
