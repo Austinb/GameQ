@@ -103,7 +103,7 @@ class GameQ_Buffer
     public function read($length = 1)
     {
         if (($length + $this->index) > $this->length) {
-            throw new GameQ_ProtocolsException('Unable to read length={$length} from buffer.  Bad protocol format or return?');
+            throw new GameQ_ProtocolsException('Unable to read length=' . $length . ' from buffer.  Bad protocol format or return?');
         }
 
         $string = substr($this->data, $this->index, $length);
