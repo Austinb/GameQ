@@ -174,9 +174,13 @@ class Server
             }
         }
 
+        try {
 
-        // Make the protocol class for this type
-        $class = new \ReflectionClass(sprintf('GameQ\\Protocols\\%s', ucfirst($server_info[self::SERVER_TYPE])));
+            // Make the protocol class for this type
+            $class = new \ReflectionClass(sprintf('GameQ\\Protocols\\%s', ucfirst($server_info[self::SERVER_TYPE])));
+        } catch (\ReflectionException $e) {
+            throw new Exception("Unable to locate Protocols class for '{$server_info[self::SERVER_TYPE]}'");
+        }
 
         // Set the protocol
         $this->protocol = $class->newInstanceArgs([ $this->options ]);
