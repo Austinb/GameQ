@@ -25,6 +25,7 @@ namespace GameQ\Query;
  */
 abstract class Core
 {
+
     /**
      * The socket used by this resource
      *
@@ -79,6 +80,7 @@ abstract class Core
      */
     public function __construct($transport, $ip, $port, $timeout = 3, $blocking = false)
     {
+
         $this->transport = $transport;
 
         $this->ip = $ip;

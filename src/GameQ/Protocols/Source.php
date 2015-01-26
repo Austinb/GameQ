@@ -18,9 +18,9 @@
 
 namespace GameQ\Protocols;
 
-use GameQ\Protocol as Protocol;
-use GameQ\Buffer as Buffer;
-use GameQ\Result as Result;
+use GameQ\Protocol;
+use GameQ\Buffer;
+use GameQ\Result;
 use GameQ\Exception\Protocol as Exception;
 
 /**
@@ -38,6 +38,7 @@ class Source extends Protocol
      * Source engine type constants
      */
     const SOURCE_ENGINE     = 0;
+
     const GOLDSOURCE_ENGINE = 1;
 
     /**
@@ -110,6 +111,7 @@ class Source extends Protocol
      */
     public function challengeParseAndApply(Buffer $challenge_buffer)
     {
+
         // Skip the header
         $challenge_buffer->skip(5);
 
@@ -122,52 +124,44 @@ class Source extends Protocol
      *
      * @return array
      * @throws \GameQ\Exception\Protocol
-     * @throws \GameQ\GameQ_ProtocolsException
      */
     public function processResponse()
     {
+
         $results = [ ];
 
         $packets = [ ];
 
         // We need to pre-sort these for split packets so we can do extra work where needed
-        foreach ($this->packets_response AS $response)
-        {
+        foreach ($this->packets_response AS $response) {
             $buffer = new Buffer($response);
 
             $type = $buffer->readInt32Signed();
 
             // Single packet
-            if ($type == -1)
-            {
+            if ($type == -1) {
                 // We need to peek and see what kind of engine this is for later processing
-                if ($buffer->lookAhead(1) == "\x6d")
-                {
+                if ($buffer->lookAhead(1) == "\x6d") {
                     $this->source_engine = self::GOLDSOURCE_ENGINE;
                 }
 
                 $packets[] = $buffer->getBuffer();
                 continue;
-            }
-            else // Split packet
+            } else // Split packet
             {
                 // Pull some info
                 $packet_type = $buffer->readInt32Signed();
 
-                $packets[ $packet_type ][] = $buffer->getBuffer();
+                $packets[$packet_type][] = $buffer->getBuffer();
             }
         }
 
         // Now that we have the packets sorted we need to iterate and process them
-        foreach ($packets AS $packet)
-        {
+        foreach ($packets AS $packet) {
             // We first need to off load split packets to combine them
-            if (is_array($packet))
-            {
+            if (is_array($packet)) {
                 $buffer = new Buffer($this->processPackets($packet));
-            }
-            else
-            {
+            } else {
                 $buffer = new Buffer($packet);
             }
 
@@ -175,15 +169,14 @@ class Source extends Protocol
             $response_type = $buffer->read(1);
 
             // Figure out which packet response this is
-            if (!array_key_exists($response_type, $this->responses))
-            {
+            if (!array_key_exists($response_type, $this->responses)) {
                 throw new Exception(__METHOD__ . " response type '{$response_type}' is not valid");
                 continue;
             }
 
             // Now we need to call the proper method
             $results = array_merge($results,
-                call_user_func_array([ $this, $this->responses[ $response_type ] ], [ $buffer ]));
+                call_user_func_array([ $this, $this->responses[$response_type] ], [ $buffer ]));
 
             unset($buffer);
         }
@@ -207,12 +200,12 @@ class Source extends Protocol
      */
     protected function processPackets(Array $packets = null)
     {
+
         // Init array so we can order
         $packs = [ ];
 
         // We have multiple packets so we need to get them and order them
-        foreach ($packets AS $packet)
-        {
+        foreach ($packets AS $packet) {
             // Make a buffer so we can read this info
             $buffer = new Buffer($packet);
 
@@ -220,11 +213,9 @@ class Source extends Protocol
             $request_id = $buffer->readInt32Signed();
 
             // Check to see if this is compressed
-            if ($request_id & 0x80000000)
-            {
+            if ($request_id & 0x80000000) {
                 // Check to see if we have Bzip2 installed
-                if (!function_exists('bzdecompress'))
-                {
+                if (!function_exists('bzdecompress')) {
                     throw new Exception('Bzip2 is not installed.  See http://www.php.net/manual/en/book.bzip2.php for more info.',
                         0);
                 }
@@ -239,30 +230,26 @@ class Source extends Protocol
                 $result = bzdecompress($buffer->getBuffer());
 
                 // Now verify the length
-                if (strlen($result) != $packet_length)
-                {
+                if (strlen($result) != $packet_length) {
                     throw new Exception("Checksum for compressed packet failed! Length expected: {$packet_length}, length returned: "
-                        . strlen($result));
+                                        . strlen($result));
                 }
 
                 // Set the new packs
-                $packs[ $cur_packet ] = $result;
-            }
-            else // Normal packet
+                $packs[$cur_packet] = $result;
+            } else // Normal packet
             {
                 // Gold source does things a bit different
-                if ($this->source_engine == self::GOLDSOURCE_ENGINE)
-                {
+                if ($this->source_engine == self::GOLDSOURCE_ENGINE) {
                     $packet_number = $buffer->readInt8();
-                }
-                else // New source
+                } else // New source
                 {
                     $packet_number = $buffer->readInt16Signed();
                     $split_length = $buffer->readInt16Signed();
                 }
 
                 // Now add the rest of the packet to the new array with the packet_number as the id so we can order it
-                $packs[ $packet_number ] = $buffer->getBuffer();
+                $packs[$packet_number] = $buffer->getBuffer();
             }
 
             unset($buffer);
@@ -278,7 +265,6 @@ class Source extends Protocol
         return implode("", $packs);
     }
 
-
     /**
      * Handles processing the details data into a usable format
      *
@@ -289,16 +275,14 @@ class Source extends Protocol
      */
     protected function processDetails(Buffer $buffer)
     {
+
         // Set the result to a new result instance
         $result = new Result();
 
         // Check engine type
-        if ($this->source_engine == self::GOLDSOURCE_ENGINE)
-        {
+        if ($this->source_engine == self::GOLDSOURCE_ENGINE) {
             $result->add('address', $buffer->readString());
-        }
-        else
-        {
+        } else {
             $result->add('protocol', $buffer->readInt8());
         }
 
@@ -308,8 +292,7 @@ class Source extends Protocol
         $result->add('game_descr', $buffer->readString());
 
         // Check engine type
-        if ($this->source_engine != self::GOLDSOURCE_ENGINE)
-        {
+        if ($this->source_engine != self::GOLDSOURCE_ENGINE) {
             $result->add('steamappid', $buffer->readInt16());
         }
 
@@ -317,12 +300,9 @@ class Source extends Protocol
         $result->add('max_players', $buffer->readInt8());
 
         // Check engine type
-        if ($this->source_engine == self::GOLDSOURCE_ENGINE)
-        {
+        if ($this->source_engine == self::GOLDSOURCE_ENGINE) {
             $result->add('version', $buffer->readInt8());
-        }
-        else
-        {
+        } else {
             $result->add('num_bots', $buffer->readInt8());
         }
 
@@ -331,20 +311,16 @@ class Source extends Protocol
         $result->add('password', $buffer->readInt8());
 
         // Check engine type
-        if ($this->source_engine == self::GOLDSOURCE_ENGINE)
-        {
+        if ($this->source_engine == self::GOLDSOURCE_ENGINE) {
             $result->add('ismod', $buffer->readInt8());
         }
 
         $result->add('secure', $buffer->readInt8());
 
         // Check engine type
-        if ($this->source_engine == self::GOLDSOURCE_ENGINE)
-        {
+        if ($this->source_engine == self::GOLDSOURCE_ENGINE) {
             $result->add('num_bots', $buffer->readInt8());
-        }
-        else
-        {
+        } else {
             $result->add('version', $buffer->readInt8());
         }
 
@@ -365,6 +341,7 @@ class Source extends Protocol
      */
     protected function processPlayers(Buffer $buffer)
     {
+
         // Set the result to a new result instance
         $result = new Result();
 
@@ -375,14 +352,12 @@ class Source extends Protocol
         $result->add('num_players', $num_players);
 
         // No players so no need to look any further
-        if ($num_players == 0)
-        {
+        if ($num_players == 0) {
             return $result->fetch();
         }
 
         // Players list
-        while ($buffer->getLength())
-        {
+        while ($buffer->getLength()) {
             $result->addPlayer('id', $buffer->readInt8());
             $result->addPlayer('name', $buffer->readString());
             $result->addPlayer('score', $buffer->readInt32Signed());
@@ -403,6 +378,7 @@ class Source extends Protocol
      */
     protected function processRules(Buffer $buffer)
     {
+
         // Set the result to a new result instance
         $result = new Result();
 
@@ -413,8 +389,7 @@ class Source extends Protocol
         $result->add('num_rules', $num_rules);
 
         // Rules
-        while ($buffer->getLength())
-        {
+        while ($buffer->getLength()) {
             $result->add($buffer->readString(), $buffer->readString());
         }
 

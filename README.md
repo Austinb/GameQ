@@ -30,7 +30,7 @@ Or if you are not using composer download the latest version, unpack into your p
 autoloader.php to make the GameQ namespace available:
 
 ```php
-require_once('/path/to/GameQ/Autoloader.php');
+require_once('/path/to/src/GameQ/Autoloader.php');
 ```
 
 Usage

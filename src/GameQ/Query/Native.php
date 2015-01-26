@@ -35,9 +35,9 @@ class Native extends Core
      */
     public function get()
     {
+
         // No socket for this server, make one
-        if (is_null($this->socket))
-        {
+        if (is_null($this->socket)) {
             $this->create();
         }
 
@@ -54,9 +54,9 @@ class Native extends Core
      */
     public function write($data)
     {
+
         // No socket for this server, make one
-        if (is_null($this->socket))
-        {
+        if (is_null($this->socket)) {
             $this->create();
         }
 
@@ -69,8 +69,8 @@ class Native extends Core
      */
     public function close()
     {
-        if ($this->socket)
-        {
+
+        if ($this->socket) {
             fclose($this->socket);
             $this->socket = null;
         }
@@ -83,6 +83,7 @@ class Native extends Core
      */
     protected function create()
     {
+
         // Create the remote address
         $remote_addr = sprintf("%s://%s:%d", $this->transport, $this->ip, $this->port);
 
@@ -101,20 +102,17 @@ class Native extends Core
         if (($this->socket =
                 stream_socket_client($remote_addr, $errno, $errstr, $this->timeout, STREAM_CLIENT_CONNECT, $context))
             !== false
-        )
-        {
+        ) {
             // Set the read timeout on the streams
             stream_set_timeout($this->socket, $this->timeout);
 
             // Set blocking mode
             stream_set_blocking($this->socket, $this->blocking);
-        }
-        else // Throw an error
+        } else // Throw an error
         {
             throw new Exception(__METHOD__ . " Error creating socket to server {$this->ip}:{$this->port}. Error: "
-                . $errstr, $errno);
+                                . $errstr, $errno);
         }
-
     }
 
     /**
@@ -128,6 +126,7 @@ class Native extends Core
      */
     static public function getResponses(array $sockets, $timeout, $stream_timeout)
     {
+
         // Set the loop to active
         $loop_active = true;
 
@@ -137,10 +136,9 @@ class Native extends Core
         $sockets_tmp = [ ];
 
         // Loop and pull out all the actual sockets we need to listen on
-        foreach ($sockets AS $socket_id => $socket_data)
-        {
+        foreach ($sockets AS $socket_id => $socket_data) {
             // Append the actual socket we are listening to
-            $sockets_tmp[ $socket_id ] = $socket_data['socket']->get();
+            $sockets_tmp[$socket_id] = $socket_data['socket']->get();
         }
 
         // Init some variables
@@ -149,8 +147,7 @@ class Native extends Core
         $except = null;
 
         // Check to see if $read is empty, if so stream_select() will throw a warning
-        if (empty($read))
-        {
+        if (empty($read)) {
             return $responses;
         }
 
@@ -158,37 +155,32 @@ class Native extends Core
         $time_stop = microtime(true) + $timeout;
 
         // Let's loop until we break something.
-        while ($loop_active && microtime(true) < $time_stop)
-        {
+        while ($loop_active && microtime(true) < $time_stop) {
             // Now lets listen for some streams, but do not cross the streams!
             $streams = stream_select($read, $write, $except, 0, $stream_timeout);
 
             // We had error or no streams left, kill the loop
-            if ($streams === false || ($streams <= 0))
-            {
+            if ($streams === false || ($streams <= 0)) {
                 $loop_active = false;
                 break;
             }
 
             // Loop the sockets that received data back
-            foreach ($read AS $socket)
-            {
+            foreach ($read AS $socket) {
                 // See if we have a response
-                if (($response = stream_socket_recvfrom($socket, 8192)) === false)
-                {
+                if (($response = stream_socket_recvfrom($socket, 8192)) === false) {
                     continue; // No response yet so lets continue.
                 }
 
                 // Check to see if the response is empty, if so we are done
-                if (strlen($response) == 0)
-                {
+                if (strlen($response) == 0) {
                     // End the while loop
                     $loop_active = false;
                     break;
                 }
 
                 // Add the response we got back
-                $responses[ (int) $socket ][] = $response;
+                $responses[(int) $socket][] = $response;
             }
 
             // Because stream_select modifies read we need to reset it each

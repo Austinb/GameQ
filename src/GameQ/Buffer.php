@@ -109,7 +109,7 @@ class Buffer
     {
         if (($length + $this->index) > $this->length)
         {
-            throw new Exception('Unable to read length={$length} from buffer.  Bad protocol format or return?');
+            throw new Exception("Unable to read length={$length} from buffer.  Bad protocol format or return?");
         }
 
         $string = substr($this->data, $this->index, $length);

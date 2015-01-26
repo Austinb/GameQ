@@ -32,14 +32,18 @@ class Server
      * Server array keys
      */
     const SERVER_TYPE    = 'type';
+
     const SERVER_HOST    = 'host';
+
     const SERVER_ID      = 'id';
+
     const SERVER_OPTIONS = 'options';
 
     /*
      * Server options keys
      */
     const SERVER_OPTIONS_QUERY_PORT         = 'query_port';
+
     const SERVER_OPTIONS_MASTER_SERVER_PORT = 'master_server_port';
 
     /**
@@ -100,38 +104,34 @@ class Server
      */
     public function __construct(Array $server_info)
     {
+
         // Check for server type
-        if (!array_key_exists(self::SERVER_TYPE, $server_info) || empty($server_info[ self::SERVER_TYPE ]))
-        {
+        if (!array_key_exists(self::SERVER_TYPE, $server_info) || empty($server_info[self::SERVER_TYPE])) {
             throw new Exception("Missing server info key '" . self::SERVER_TYPE . "'");
         }
 
         // Check for server host
-        if (!array_key_exists(self::SERVER_HOST, $server_info) || empty($server_info[ self::SERVER_HOST ]))
-        {
+        if (!array_key_exists(self::SERVER_HOST, $server_info) || empty($server_info[self::SERVER_HOST])) {
             throw new Exception("Missing server info key '" . self::SERVER_HOST . "'");
         }
 
         // Check for options
         if (!array_key_exists(self::SERVER_OPTIONS, $server_info)
-            || !is_array($server_info[ self::SERVER_OPTIONS ])
-            || empty($server_info[ self::SERVER_OPTIONS ])
-        )
-        {
+            || !is_array($server_info[self::SERVER_OPTIONS])
+            || empty($server_info[self::SERVER_OPTIONS])
+        ) {
             // Default the options to an empty array
-            $server_info[ self::SERVER_OPTIONS ] = [ ];
+            $server_info[self::SERVER_OPTIONS] = [ ];
         }
 
-        $this->options = $server_info[ self::SERVER_OPTIONS ];
+        $this->options = $server_info[self::SERVER_OPTIONS];
 
         // We have an IPv6 address (and maybe a port)
-        if (substr_count($server_info[ self::SERVER_HOST ], ':') > 1)
-        {
+        if (substr_count($server_info[self::SERVER_HOST], ':') > 1) {
             // See if we have a port, input should be in the format [::1]:27015 or similar
-            if (strstr($server_info[ self::SERVER_HOST ], ']:'))
-            {
+            if (strstr($server_info[self::SERVER_HOST], ']:')) {
                 // Explode to get port
-                $server_addr = explode(':', $server_info[ self::SERVER_HOST ]);
+                $server_addr = explode(':', $server_info[self::SERVER_HOST]);
 
                 // Port is the last item in the array, remove it and save
                 $this->port_client = (int) array_pop($server_addr);
@@ -140,43 +140,36 @@ class Server
                 $this->ip = implode(':', $server_addr);
 
                 unset($server_addr);
-            }
-            else // Just the IPv6 address, no port defined
+            } else // Just the IPv6 address, no port defined
             {
-                $this->ip = $server_info[ self::SERVER_HOST ];
+                $this->ip = $server_info[self::SERVER_HOST];
             }
 
             // Now let's validate the IPv6 value sent, remove the square brackets ([]) first
             if (!filter_var(trim($this->ip, '[]'), FILTER_VALIDATE_IP, [
                 'flags' => FILTER_FLAG_IPV6,
             ])
-            )
-            {
+            ) {
                 throw new Exception("The IPv6 address '{$this->ip}' is invalid.");
             }
-        }
-        else // IPv4
+        } else // IPv4
         {
             // We have a port defined
-            if (strstr($server_info[ self::SERVER_HOST ], ':'))
+            if (strstr($server_info[self::SERVER_HOST], ':')) {
+                list($this->ip, $this->port_client) = explode(':', $server_info[self::SERVER_HOST]);
+            } else // No port, just IPv4
             {
-                list($this->ip, $this->port_client) = explode(':', $server_info[ self::SERVER_HOST ]);
-            }
-            else // No port, just IPv4
-            {
-                $this->ip = $server_info[ self::SERVER_HOST ];
+                $this->ip = $server_info[self::SERVER_HOST];
             }
 
             // Validate the IPv4 value, if FALSE is not a valid IP, maybe a hostname.  Try to resolve
             if (!filter_var($this->ip, FILTER_VALIDATE_IP, [
                 'flags' => FILTER_FLAG_IPV4,
             ])
-            )
-            {
+            ) {
                 // When gethostbyname() fails it returns the original string
                 // so if ip and the result from gethostbyname() are equal this failed.
-                if ($this->ip === gethostbyname($this->ip))
-                {
+                if ($this->ip === gethostbyname($this->ip)) {
                     throw new Exception("Unable to resolve the host '{$this->ip}' to an IP address.");
                 }
             }
@@ -184,32 +177,29 @@ class Server
 
 
         // Make the protocol class for this type
-        $class = new \ReflectionClass(sprintf('\\GameQ\\Protocols\\%s', ucfirst($server_info[ self::SERVER_TYPE ])));
+        $class = new \ReflectionClass(sprintf('\\GameQ\\Protocols\\%s', ucfirst($server_info[self::SERVER_TYPE])));
 
         // Set the protocol
         $this->protocol = $class->newInstanceArgs([ $this->options ]);
 
         // There is an option for the query port, we will do this now
         if (array_key_exists(self::SERVER_OPTIONS_QUERY_PORT, $this->options)
-            && !empty($this->options[ self::SERVER_OPTIONS_QUERY_PORT ])
-        )
-        {
-            $this->port_query = (int) $this->options[ self::SERVER_OPTIONS_QUERY_PORT ];
-        }
-        else // Do math based on the protocol class
+            && !empty($this->options[self::SERVER_OPTIONS_QUERY_PORT])
+        ) {
+            $this->port_query = (int) $this->options[self::SERVER_OPTIONS_QUERY_PORT];
+        } else // Do math based on the protocol class
         {
             $this->port_query = $this->port_client + $this->protocol->port_diff();
         }
 
         // Check for server id
-        if (!array_key_exists(self::SERVER_ID, $server_info) || empty($server_info[ self::SERVER_ID ]))
-        {
+        if (!array_key_exists(self::SERVER_ID, $server_info) || empty($server_info[self::SERVER_ID])) {
             // Make an id so each server has an id when returned
-            $server_info[ self::SERVER_ID ] = sprintf('%s:%d', $this->ip, $this->port_client);
+            $server_info[self::SERVER_ID] = sprintf('%s:%d', $this->ip, $this->port_client);
         }
 
         // Set the server id
-        $this->id = $server_info[ self::SERVER_ID ];
+        $this->id = $server_info[self::SERVER_ID];
 
         unset($server_info, $class);
     }
@@ -224,7 +214,8 @@ class Server
      */
     public function setOption($key, $value)
     {
-        $this->options[ $key ] = $value;
+
+        $this->options[$key] = $value;
 
         return $this; // Make chainable
     }
@@ -238,7 +229,8 @@ class Server
      */
     public function getOption($key)
     {
-        return (array_key_exists($key, $this->options)) ? $this->options[ $key ] : null;
+
+        return (array_key_exists($key, $this->options)) ? $this->options[$key] : null;
     }
 
     /**
@@ -248,6 +240,7 @@ class Server
      */
     public function id()
     {
+
         return $this->id;
     }
 
@@ -258,6 +251,7 @@ class Server
      */
     public function ip()
     {
+
         return $this->ip;
     }
 
@@ -268,6 +262,7 @@ class Server
      */
     public function port_client()
     {
+
         return $this->port_client;
     }
 
@@ -278,6 +273,7 @@ class Server
      */
     public function port_query()
     {
+
         return $this->port_query;
     }
 
@@ -288,6 +284,7 @@ class Server
      */
     public function protocol()
     {
+
         return $this->protocol;
     }
 
@@ -298,6 +295,7 @@ class Server
      */
     public function getJoinLink()
     {
+
         return sprintf($this->protocol->join_link(), $this->ip, $this->port_client());
     }
 
@@ -312,6 +310,7 @@ class Server
      */
     public function socketAdd(\GameQ\Query\Core $socket)
     {
+
         $this->sockets[] = $socket;
     }
 
@@ -322,10 +321,10 @@ class Server
      */
     public function socketGet()
     {
+
         $socket = null;
 
-        if (count($this->sockets) > 0)
-        {
+        if (count($this->sockets) > 0) {
             $socket = array_pop($this->sockets);
         }
 
@@ -337,9 +336,9 @@ class Server
      */
     public function socketCleanse()
     {
+
         // Close all of the sockets available
-        foreach ($this->sockets AS $socket)
-        {
+        foreach ($this->sockets AS $socket) {
             $socket->close();
         }
 
