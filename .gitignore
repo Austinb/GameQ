@@ -4,3 +4,5 @@
 /.settings/*
 vendor
 /.idea
+composer.lock
+composer.phar

@@ -47,9 +47,14 @@
     "php": ">=5.4.14",
     "ext-bz2": "*"
   },
+  "require-dev": {
+    "phpunit/phpunit": "4.4.*",
+    "phpunit/php-invoker": "*"
+  },
   "autoload": {
     "psr-4": {
-      "GameQ\\": "src"
+      "GameQ\\": "src",
+      "GameQ\\Tests\\": "tests"
     }
   }
 }
