@@ -42,8 +42,15 @@ class Server
     /*
      * Server options keys
      */
-    const SERVER_OPTIONS_QUERY_PORT         = 'query_port';
 
+    /*
+     * Use this option when the query_port and client connect ports are different
+     */
+    const SERVER_OPTIONS_QUERY_PORT = 'query_port';
+
+    /*
+     * Used only for Teamspeak servers
+     */
     const SERVER_OPTIONS_MASTER_SERVER_PORT = 'master_server_port';
 
     /**
