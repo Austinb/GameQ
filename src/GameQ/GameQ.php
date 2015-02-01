@@ -187,6 +187,51 @@ class GameQ
     }
 
     /**
+     * Add a set of servers from a file or an array of files.
+     * Supported formats:
+     * JSON
+     *
+     * @param array $files
+     *
+     * @return $this
+     * @throws \Exception
+     */
+    public function addServersFromFiles($files = [ ])
+    {
+
+        // Since we expect an array let us turn a string (i.e. single file) into an array
+        if (!is_array($files)) {
+            $files = [ $files ];
+        }
+
+        // Iterate over the file(s) and add them
+        foreach ($files as $file) {
+            // Check to make sure the file exists and we can read it
+            if (!file_exists($file) || !is_readable($file)) {
+                continue;
+            }
+
+            // See if this file is JSON
+            if (($servers = json_decode(file_get_contents($file), true)) === null
+                && json_last_error() !== JSON_ERROR_NONE
+            ) {
+                // Type not supported
+                continue;
+            }
+
+            // Add this list of servers
+            $this->addServers($servers);
+        }
+
+        // Check to make sure the file exists and we can read it
+        if (!file_exists($file) || !is_readable($file)) {
+            throw new \Exception("Unable to find or read the file '{$file}'.  Please check your input.");
+        }
+
+        return $this;
+    }
+
+    /**
      * Clear all of the defined servers
      *
      * @return $this
