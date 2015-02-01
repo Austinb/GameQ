@@ -16,13 +16,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+namespace GameQ\Protocols;
+
 /**
- * Counter-Strike: Source Protocol Class
+ * Class Css
  *
+ * @package GameQ\Protocols
  * @author Austin Bischoff <austin@codebeard.com>
  */
-class GameQ_Protocols_Css extends GameQ_Protocols_Source
+class Css extends Source
 {
-	protected $name = "css";
-	protected $name_long = "Counter-Strike: Source";
+    /**
+     * String name of this protocol class
+     *
+     * @type string
+     */
+    protected $name = 'css';
+
+    /**
+     * Longer string name of this protocol class
+     *
+     * @type string
+     */
+    protected $name_long = "Counter-Strike: Source";
 }
