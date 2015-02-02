@@ -31,11 +31,9 @@ class Css extends Base
     public function testResponses($responses, $result)
     {
 
-        //var_dump($result); exit;
-
-        // Create a server, dont worry we arent going to try to query it
+        // Create a server, don't worry we aren't going to try to query it
         $server = new \GameQ\Server([
-            \GameQ\Server::SERVER_HOST => $result['gq_address'] .':'. $result['gq_port_query'],
+            \GameQ\Server::SERVER_HOST => $result['gq_address'] . ':' . $result['gq_port_query'],
             \GameQ\Server::SERVER_TYPE => 'css',
         ]);
 
@@ -53,6 +51,6 @@ class Css extends Base
 
         $testResult = $method->invoke(new \GameQ\GameQ(), $server);
 
-        $this->assertEquals($testResult, $result);
+        $this->assertEquals($result, $testResult);
     }
 }
