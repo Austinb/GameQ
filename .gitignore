@@ -6,3 +6,4 @@ vendor
 /.idea
 composer.lock
 composer.phar
+coverage/

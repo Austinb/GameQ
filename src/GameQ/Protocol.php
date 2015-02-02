@@ -337,9 +337,11 @@ abstract class Protocol
     public function getPacket($type = [ ])
     {
 
+        $packets = [ ];
+
+
         // We want an array of packets back
         if (is_array($type) && !empty($type)) {
-            $packets = [ ];
 
             // Loop the packets
             foreach ($this->packets AS $packet_type => $packet_data) {
@@ -348,28 +350,25 @@ abstract class Protocol
                     $packets[$packet_type] = $packet_data;
                 }
             }
-
-            return $packets;
         } elseif ($type == '!challenge') {
-            $packets = [ ];
 
             // Loop the packets
             foreach ($this->packets AS $packet_type => $packet_data) {
                 // Dont want challenge packets
-                if ($packet_type == self::PACKET_CHALLENGE) {
-                    continue;
+                if ($packet_type != self::PACKET_CHALLENGE) {
+                    $packets[$packet_type] = $packet_data;
                 }
-
-                $packets[$packet_type] = $packet_data;
             }
-
-            return $packets;
         } elseif (is_string($type)) {
-            return $this->packets[$type];
+            // Return specific packet type
+            $packets = $this->packets[$type];
+        } else {
+            // Return all packets
+            $packets = $this->packets;
         }
 
-        // Return all the packets
-        return $this->packets;
+        // Return the packets
+        return $packets;
     }
 
     /**
