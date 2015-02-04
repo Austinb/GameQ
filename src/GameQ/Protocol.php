@@ -409,6 +409,8 @@ abstract class Protocol
      * Parse the challenge response and add it to the buffer items that need it.
      * This should be overloaded by extending class
      *
+     * @codeCoverageIgnore
+     *
      * @param \GameQ\Buffer $challenge_buffer
      *
      * @return bool
@@ -454,6 +456,8 @@ abstract class Protocol
 
     /**
      * Generic method to allow protocol classes to do work right before the query is sent
+     *
+     * @codeCoverageIgnore
      */
     public function beforeSend()
     {

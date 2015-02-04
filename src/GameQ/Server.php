@@ -114,12 +114,12 @@ class Server
 
         // Check for server type
         if (!array_key_exists(self::SERVER_TYPE, $server_info) || empty($server_info[self::SERVER_TYPE])) {
-            throw new Exception("Missing server info key '" . self::SERVER_TYPE . "'");
+            throw new Exception("Missing server info key '" . self::SERVER_TYPE . "'!");
         }
 
         // Check for server host
         if (!array_key_exists(self::SERVER_HOST, $server_info) || empty($server_info[self::SERVER_HOST])) {
-            throw new Exception("Missing server info key '" . self::SERVER_HOST . "'");
+            throw new Exception("Missing server info key '" . self::SERVER_HOST . "'!");
         }
 
         // Check for options
@@ -148,8 +148,8 @@ class Server
 
                 unset($server_addr);
             } else {
-                // Just the IPv6 address, no port defined
-                $this->ip = $server_info[self::SERVER_HOST];
+                // Just the IPv6 address, no port defined, fail
+                throw new Exception("The host address '{$server_info[self::SERVER_HOST]}' is missing the port.  All servers must have a port defined!");
             }
 
             // Now let's validate the IPv6 value sent, remove the square brackets ([]) first
@@ -164,8 +164,8 @@ class Server
             if (strstr($server_info[self::SERVER_HOST], ':')) {
                 list($this->ip, $this->port_client) = explode(':', $server_info[self::SERVER_HOST]);
             } else {
-                // No port, just IPv4
-                $this->ip = $server_info[self::SERVER_HOST];
+                // No port, fail
+                throw new Exception("The host address '{$server_info[self::SERVER_HOST]}' is missing the port.  All servers must have a port defined!");
             }
 
             // Validate the IPv4 value, if FALSE is not a valid IP, maybe a hostname.  Try to resolve
@@ -186,7 +186,7 @@ class Server
             // Make the protocol class for this type
             $class = new \ReflectionClass(sprintf('GameQ\\Protocols\\%s', ucfirst($server_info[self::SERVER_TYPE])));
         } catch (\ReflectionException $e) {
-            throw new Exception("Unable to locate Protocols class for '{$server_info[self::SERVER_TYPE]}'");
+            throw new Exception("Unable to locate Protocols class for '{$server_info[self::SERVER_TYPE]}'!");
         }
 
         // Set the protocol
@@ -316,6 +316,8 @@ class Server
     /**
      * Add a socket for this server to be reused
      *
+     * @codeCoverageIgnore
+     *
      * @param \GameQ\Query\Core $socket
      */
     public function socketAdd(Query\Core $socket)
@@ -326,6 +328,8 @@ class Server
 
     /**
      * Get a socket from the list to reuse, if any are available
+     *
+     * @codeCoverageIgnore
      *
      * @return \GameQ\Query\Core|null
      */
@@ -343,6 +347,8 @@ class Server
 
     /**
      * Clear any sockets still listed and attempt to close them
+     *
+     * @codeCoverageIgnore
      */
     public function socketCleanse()
     {

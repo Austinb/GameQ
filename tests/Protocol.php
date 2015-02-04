@@ -18,6 +18,11 @@
 
 namespace GameQ\Tests;
 
+/**
+ * Protocol test class
+ *
+ * @package GameQ\Tests
+ */
 class Protocol extends \PHPUnit_Framework_TestCase
 {
 
