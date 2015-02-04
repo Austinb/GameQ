@@ -31,17 +31,22 @@ class Css extends Base
     public function testResponses($responses, $result)
     {
 
-        // Create a server, don't worry we aren't going to try to query it
-        $server = new \GameQ\Server([
-            \GameQ\Server::SERVER_HOST => $result['gq_address'] . ':' . $result['gq_port_query'],
-            \GameQ\Server::SERVER_TYPE => 'css',
+        // Create a mock server
+        $server = $this->getMock('\GameQ\Server', null, [
+            [
+                \GameQ\Server::SERVER_HOST => $result['gq_address'] . ':' . $result['gq_port_query'],
+                \GameQ\Server::SERVER_TYPE => 'css',
+            ]
         ]);
 
         // Set the packet response as if we have really queried it
         $server->protocol()->packetResponse($responses);
 
+        // Create a mock GameQ
+        $gq = $this->getMock('\GameQ\GameQ', null, [ ]);
+
         // Reflect on GameQ class so we can parse
-        $gameq = new \ReflectionClass('\GameQ\GameQ');
+        $gameq = new \ReflectionClass($gq);
 
         // Get the parse method so we can call it
         $method = $gameq->getMethod('doParseAndFilter');
@@ -49,7 +54,7 @@ class Css extends Base
         // Set the method to accessible
         $method->setAccessible(true);
 
-        $testResult = $method->invoke(new \GameQ\GameQ(), $server);
+        $testResult = $method->invoke($gq, $server);
 
         $this->assertEquals($result, $testResult);
     }
