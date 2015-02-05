@@ -19,8 +19,8 @@
 
 /*
  * This file will query a single server and save the contents of the raw packet responses as well as the parsed
- * packets into their own indexed files underneah tests/Protocols/Providers.  These are used to unit testing of
- * the protocol classes to make sure changes do not break existing functionality.
+ * packets into their own indexed files underneath tests/Protocols/Providers/.  These are used for unit testing of
+ * the protocol classes to make sure changes do not break existing functionality. Something v2 had a few problems with.
  *
  * Requires composer install in dev mode
  *
