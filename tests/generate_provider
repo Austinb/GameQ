@@ -1,5 +1,32 @@
 #!/usr/bin/env php
 <?php
+/**
+ * This file is part of GameQ.
+ *
+ * GameQ is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * GameQ is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/*
+ * This file will query a single server and save the contents of the raw packet responses as well as the parsed
+ * packets into their own indexed files underneah tests/Protocols/Providers.  These are used to unit testing of
+ * the protocol classes to make sure changes do not break existing functionality.
+ *
+ * Requires composer install in dev mode
+ *
+ * Usage example:
+ * $ php tests/generate_provider -s 127.0.0.1:27015 -p css
+ */
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -15,20 +42,14 @@ $specs->add('p|protocol:', 'Protocol of the server')
 
 $parser = new OptionParser($specs);
 
-function showHelp($specs)
-{
-
-    $printer = new GetOptionKit\OptionPrinter\ConsoleOptionPrinter;
-    echo $printer->render($specs) . PHP_EOL;
-}
-
 try {
+    // Parse the argv
     $result = $parser->parse($argv);
 
     // Get the options
     $options = $result->toArray();
-    var_dump($options);
 
+    // Make sure options exist
     if (!array_key_exists('server', $options) || !array_key_exists('protocol', $options)) {
         throw new Exception('Missing arguments');
     }
@@ -37,16 +58,15 @@ try {
     $provider_dir = sprintf('%s/Protocols/Providers/%s', __DIR__, ucfirst(strtolower($options['protocol'])));
 
     // Make the directory if it does not already exist
-    if(!is_dir($provider_dir))
-    {
+    if (!is_dir($provider_dir)) {
         mkdir($provider_dir, null, true);
     }
 
     // Figure out the number of files in the provider directory
     $pd = new FilesystemIterator($provider_dir, FilesystemIterator::SKIP_DOTS);
 
-    // Figure out the index
-    $index = (iterator_count($pd)/2) + 1;
+    // Figure out the index by taking the count and divide by 2 since there are 2 files for each server test
+    $index = (iterator_count($pd) / 2) + 1;
 
     unset($pd);
 
@@ -63,9 +83,7 @@ try {
         \GameQ\Server::SERVER_ID      => $options['server'],
         \GameQ\Server::SERVER_TYPE    => $options['protocol'],
         \GameQ\Server::SERVER_HOST    => $options['server'],
-        \GameQ\Server::SERVER_OPTIONS => [
-        ],
-
+        \GameQ\Server::SERVER_OPTIONS => [ ],
     ]);
 
     // Process
@@ -75,12 +93,12 @@ try {
     file_put_contents(sprintf('%s/%d_result.json', $provider_dir, $index), json_encode($results[$options['server']]));
 
     exit(0);
-
 } catch (Exception $e) {
 
     echo $e->getMessage() . PHP_EOL;
 
-    showHelp($specs);
+    $printer = new GetOptionKit\OptionPrinter\ConsoleOptionPrinter;
+    echo $printer->render($specs) . PHP_EOL;
 
     exit(1);
 }
