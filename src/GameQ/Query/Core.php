@@ -100,9 +100,36 @@ abstract class Core
     abstract protected function create();
 
     /**
+     * Get the socket
+     *
+     * @return mixed
+     */
+    abstract public function get();
+
+    /**
+     * Write data to the socket
+     *
+     * @param $data
+     *
+     * @return mixed
+     */
+    abstract public function write($data);
+
+    /**
      * Close the socket
      *
      * @return mixed
      */
     abstract public function close();
+
+    /**
+     * Read the responses from the socket(s)
+     *
+     * @param array $sockets
+     * @param       $timeout
+     * @param       $stream_timeout
+     *
+     * @return mixed
+     */
+    abstract static public function getResponses(array $sockets, $timeout, $stream_timeout);
 }
