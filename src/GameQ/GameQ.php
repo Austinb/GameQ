@@ -74,14 +74,16 @@ class GameQ
      * @type array
      */
     protected $options = [
-        'debug'          => false,
-        'timeout'        => 3, // Seconds
-        'filters'        => [ ],
+        'debug'                => false,
+        'timeout'              => 3, // Seconds
+        'filters'              => [ 'normalize' ],
         // Advanced settings
-        'stream_timeout' => 200000, // See http://www.php.net/manual/en/function.stream-select.php for more info
-        'write_wait'     => 500,
+        'stream_timeout'       => 200000, // See http://www.php.net/manual/en/function.stream-select.php for more info
+        'write_wait'           => 500,
         // How long (in micro-seconds) to pause between writing to server sockets, helps cpu usage
-        'normalize'      => true, // Normalize all responses
+
+        // Used for generating protocol tests
+        'capture_packets_file' => null,
     ];
 
     /**
@@ -292,11 +294,6 @@ class GameQ
         // Define the return in case it is empty
         $data = [ ];
 
-        // If the global normalize option is set add the filter if it hasn't been already
-        if ($this->options['normalize'] && !array_key_exists('normalize', $this->options['filters'])) {
-            $this->addFilter('normalize');
-        }
-
         // @todo: Add break up loop to split large arrays into smaller chunks
 
         // Do server challenge(s) first, if any
@@ -472,6 +469,12 @@ class GameQ
     {
 
         try {
+            // We want to save this server's response
+            if (!is_null($this->capture_packets_file)) {
+                file_put_contents($this->capture_packets_file,
+                    implode(PHP_EOL . '||' . PHP_EOL, $server->protocol()->packetResponse()));
+            }
+
             // Get the server response
             $results = $server->protocol()->processResponse();
 

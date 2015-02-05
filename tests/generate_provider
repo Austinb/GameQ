@@ -1,0 +1,86 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__ . '/../vendor/autoload.php';
+
+use GetOptionKit\OptionCollection;
+use GetOptionKit\OptionParser;
+
+$specs = new OptionCollection;
+$specs->add('s|server:', 'Server to contact ip|hostname:port')
+      ->isa('String');
+
+$specs->add('p|protocol:', 'Protocol of the server')
+      ->isa('String');
+
+$parser = new OptionParser($specs);
+
+function showHelp($specs)
+{
+
+    $printer = new GetOptionKit\OptionPrinter\ConsoleOptionPrinter;
+    echo $printer->render($specs) . PHP_EOL;
+}
+
+try {
+    $result = $parser->parse($argv);
+
+    // Get the options
+    $options = $result->toArray();
+    var_dump($options);
+
+    if (!array_key_exists('server', $options) || !array_key_exists('protocol', $options)) {
+        throw new Exception('Missing arguments');
+    }
+
+    // Build the directory where we want to store this data
+    $provider_dir = sprintf('%s/Protocols/Providers/%s', __DIR__, ucfirst(strtolower($options['protocol'])));
+
+    // Make the directory if it does not already exist
+    if(!is_dir($provider_dir))
+    {
+        mkdir($provider_dir, null, true);
+    }
+
+    // Figure out the number of files in the provider directory
+    $pd = new FilesystemIterator($provider_dir, FilesystemIterator::SKIP_DOTS);
+
+    // Figure out the index
+    $index = (iterator_count($pd)/2) + 1;
+
+    unset($pd);
+
+    // Let's do GameQ
+    $gq = new \GameQ\GameQ();
+    $gq->removeFilter('normalize'); // We dont care about normalize for testing the core
+    $gq->setOption('debug', true);
+    $gq->setOption('timeout', 10);
+    $gq->setOption('stream_timeout', 900000);
+    $gq->setOption('capture_packets_file', sprintf('%s/%d_response.txt', $provider_dir, $index));
+
+    // Add our test server
+    $gq->addServer([
+        \GameQ\Server::SERVER_ID      => $options['server'],
+        \GameQ\Server::SERVER_TYPE    => $options['protocol'],
+        \GameQ\Server::SERVER_HOST    => $options['server'],
+        \GameQ\Server::SERVER_OPTIONS => [
+        ],
+
+    ]);
+
+    // Process
+    $results = $gq->process();
+
+    // Save the result into a file
+    file_put_contents(sprintf('%s/%d_result.json', $provider_dir, $index), json_encode($results[$options['server']]));
+
+    exit(0);
+
+} catch (Exception $e) {
+
+    echo $e->getMessage() . PHP_EOL;
+
+    showHelp($specs);
+
+    exit(1);
+}
