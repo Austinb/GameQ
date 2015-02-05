@@ -208,16 +208,16 @@ class GameQ_Protocols_Source extends GameQ_Protocols
         {
         	$result->add('ismod', $buf->readInt8());
 			
-		if ($result->get('ismod'))
-		{
-			$result->add('mod_urlinfo', $buf->readString());
-			$result->add('mod_urldl', $buf->readString());
-			$buf->skip();
-			$result->add('mod_version', $buf->readInt32Signed());
-			$result->add('mod_size', $buf->readInt32Signed());
-			$result->add('mod_urldl', $buf->toInt($buf->readInt8()));
-			$result->add('mod_cldll', $buf->toInt($buf->readInt8()));
-		}
+			if ($result->get('ismod'))
+			{
+				$result->add('mod_urlinfo', $buf->readString());
+				$result->add('mod_urldl', $buf->readString());
+				$buf->skip();
+				$result->add('mod_version', $buf->readInt32Signed());
+				$result->add('mod_size', $buf->readInt32Signed());
+				$result->add('mod_type', $buf->toInt($buf->readInt8()));
+				//$result->add('mod_cldll', $buf->toInt($buf->readInt8()));
+			}
         }
 
         $result->add('secure', $buf->readInt8());
