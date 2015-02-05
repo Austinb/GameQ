@@ -61,7 +61,7 @@ class Source extends Protocol
      */
     protected $responses = [
         "\x49" => "processDetails", // I
-        "\x6d" => "processDetails", // m, goldsource
+        "\x6d" => "processDetailsGoldSource", // m, goldsource
         "\x44" => "processPlayers", // D
         "\x45" => "processRules", // E
     ];
@@ -201,7 +201,6 @@ class Source extends Protocol
      */
     protected function processPackets(Array $packets = null)
     {
-
         // Init array so we can order
         $packs = [ ];
 
@@ -210,46 +209,55 @@ class Source extends Protocol
             // Make a buffer so we can read this info
             $buffer = new Buffer($packet);
 
-            // Pull some info
-            $request_id = $buffer->readInt32Signed();
+            // Gold source
+            if ($this->source_engine == self::GOLDSOURCE_ENGINE) {
 
-            // Check to see if this is compressed
-            if ($request_id & 0x80000000) {
-                // Check to see if we have Bzip2 installed
-                if (!function_exists('bzdecompress')) {
-                    throw new Exception('Bzip2 is not installed.  See http://www.php.net/manual/en/book.bzip2.php for more info.',
-                        0);
-                }
+                // Grab the packet number
+                $packet_number = $buffer->readInt8();
 
-                // Get some info
-                $num_packets = $buffer->readInt8();
-                $cur_packet = $buffer->readInt8();
-                $packet_length = $buffer->readInt32();
-                $packet_checksum = $buffer->readInt32();
-
-                // Try to decompress
-                $result = bzdecompress($buffer->getBuffer());
-
-                // Now verify the length
-                if (strlen($result) != $packet_length) {
-                    throw new Exception("Checksum for compressed packet failed! Length expected: {$packet_length}, length returned: "
-                                        . strlen($result));
-                }
-
-                // Set the new packs
-                $packs[$cur_packet] = $result;
-            } else {
-                // Gold source does things a bit different
-                if ($this->source_engine == self::GOLDSOURCE_ENGINE) {
-                    $packet_number = $buffer->readInt8();
-                } else {
-                    // New source
-                    $packet_number = $buffer->readInt16Signed();
-                    $split_length = $buffer->readInt16Signed();
-                }
+                // Burn the header \xFF\xFF\xFF\xFF
+                $buffer->read(4);
 
                 // Now add the rest of the packet to the new array with the packet_number as the id so we can order it
                 $packs[$packet_number] = $buffer->getBuffer();
+            } else {
+
+                $request_id = $buffer->readInt32Signed();
+
+                // Check to see if this is compressed
+                if ($request_id & 0x80000000) {
+
+                    // Check to see if we have Bzip2 installed
+                    if (!function_exists('bzdecompress')) {
+                        throw new Exception('Bzip2 is not installed.  See http://www.php.net/manual/en/book.bzip2.php for more info.',
+                            0);
+                    }
+
+                    // Get some info
+                    $num_packets = $buffer->readInt8();
+                    $cur_packet = $buffer->readInt8();
+                    $packet_length = $buffer->readInt32();
+                    $packet_checksum = $buffer->readInt32();
+
+                    // Try to decompress
+                    $result = bzdecompress($buffer->getBuffer());
+
+                    // Now verify the length
+                    if (strlen($result) != $packet_length) {
+                        throw new Exception("Checksum for compressed packet failed! Length expected: {$packet_length}, length returned: "
+                                            . strlen($result));
+                    }
+
+                    // Set the new packs
+                    $packs[$cur_packet] = $result;
+                } else {
+
+                    $packet_number = $buffer->readInt16Signed();
+                    $split_length = $buffer->readInt16Signed();
+
+                    // Now add the rest of the packet to the new array with the packet_number as the id so we can order it
+                    $packs[$packet_number] = $buffer->getBuffer();
+                }
             }
 
             unset($buffer);
@@ -275,57 +283,94 @@ class Source extends Protocol
      */
     protected function processDetails(Buffer $buffer)
     {
-
         // Set the result to a new result instance
         $result = new Result();
 
-        // Check engine type
-        if ($this->source_engine == self::GOLDSOURCE_ENGINE) {
-            $result->add('address', $buffer->readString());
-        } else {
-            $result->add('protocol', $buffer->readInt8());
-        }
-
+        $result->add('protocol', $buffer->readInt8());
         $result->add('hostname', $buffer->readString());
         $result->add('map', $buffer->readString());
         $result->add('game_dir', $buffer->readString());
         $result->add('game_descr', $buffer->readString());
-
-        // Check engine type
-        if ($this->source_engine != self::GOLDSOURCE_ENGINE) {
-            $result->add('steamappid', $buffer->readInt16());
-        }
-
+        $result->add('steamappid', $buffer->readInt16());
         $result->add('num_players', $buffer->readInt8());
         $result->add('max_players', $buffer->readInt8());
+        $result->add('num_bots', $buffer->readInt8());
+        $result->add('dedicated', $buffer->read());
+        $result->add('os', $buffer->read());
+        $result->add('password', $buffer->readInt8());
+        $result->add('secure', $buffer->readInt8());
+        $result->add('version', $buffer->readInt8());
 
-        // Check engine type
-        if ($this->source_engine == self::GOLDSOURCE_ENGINE) {
-            $result->add('version', $buffer->readInt8());
-        } else {
-            $result->add('num_bots', $buffer->readInt8());
+        // Extra data flag
+        $edf = $buffer->readInt8();
+
+        if($edf & 0x80000000) {
+            $result->add('port', $buffer->readInt8());
         }
 
+        if($edf & 0x10000000) {
+            $result->add('steam_id', $buffer->readInt16());
+        }
+
+        if($edf & 0x40000000) {
+            $result->add('sourcetv_port', $buffer->readInt8());
+            $result->add('sourcetv_name', $buffer->readString());
+        }
+
+        if($edf & 0x20000000) {
+            $result->add('keywords', $buffer->readString());
+        }
+
+        if($edf & 0x01000000) {
+            $result->add('game_id', $buffer->readInt16());
+        }
+
+        unset($buffer);
+
+        return $result->fetch();
+    }
+
+    /**
+     * Handles processing the server details from goldsource response
+     *
+     * @param \GameQ\Buffer $buffer
+     *
+     * @return mixed
+     * @throws \GameQ\Exception\Protocol
+     */
+    protected function processDetailsGoldSource(Buffer $buffer)
+    {
+        // Set the result to a new result instance
+        $result = new Result();
+
+        $result->add('address', $buffer->readString());
+        $result->add('hostname', $buffer->readString());
+        $result->add('map', $buffer->readString());
+        $result->add('game_dir', $buffer->readString());
+        $result->add('game_descr', $buffer->readString());
+        $result->add('num_players', $buffer->readInt8());
+        $result->add('max_players', $buffer->readInt8());
+        $result->add('version', $buffer->readInt8());
         $result->add('dedicated', $buffer->read());
         $result->add('os', $buffer->read());
         $result->add('password', $buffer->readInt8());
 
-        // Check engine type
-        if ($this->source_engine == self::GOLDSOURCE_ENGINE) {
-            $result->add('ismod', $buffer->readInt8());
+        // Mod section
+        $result->add('ismod', $buffer->readInt8());
+
+        // We only run these if ismod is 1 (true)
+        if ($result->get('ismod')) {
+            $result->add('mod_urlinfo', $buffer->readString());
+            $result->add('mod_urldl', $buffer->readString());
+            $buffer->skip();
+            $result->add('mod_version', $buffer->readInt32Signed());
+            $result->add('mod_size', $buffer->readInt32Signed());
+            $result->add('mod_type', $buffer->readInt8());
+            $result->add('mod_cldll', $buffer->readInt8());
         }
 
         $result->add('secure', $buffer->readInt8());
-
-        // Check engine type
-        if ($this->source_engine == self::GOLDSOURCE_ENGINE) {
-            $result->add('num_bots', $buffer->readInt8());
-        } else {
-            $result->add('version', $buffer->readInt8());
-        }
-
-        // @todo: Add extra data flag check here, only for source games (not goldsource)
-        // https://developer.valvesoftware.com/wiki/Server_Queries#Source_servers_2
+        $result->add('num_bots', $buffer->readInt8());
 
         unset($buffer);
 
