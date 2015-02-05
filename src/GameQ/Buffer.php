@@ -51,7 +51,7 @@ class Buffer
     /**
      * Position of pointer
      *
-     * @var        string
+     * @var        int
      * @access     public
      */
     private $index = 0;
@@ -59,7 +59,7 @@ class Buffer
     /**
      * Constructor
      *
-     * @param   string|array $response The data
+     * @param $data
      */
     public function __construct($data)
     {
@@ -104,9 +104,10 @@ class Buffer
     /**
      * Read from the buffer
      *
-     * @param   int $length Length of data to read
+     * @param int $length
      *
-     * @return  string          The data read
+     * @return string
+     * @throws \GameQ\Exception\Protocol
      */
     public function read($length = 1)
     {
@@ -223,12 +224,11 @@ class Buffer
     /**
      * Reads a pascal string from the buffer
      *
-     * @paran   int    $offset        Number of bits to cut off the end
+     * @param int  $offset      Number of bits to cut off the end
+     * @param bool $read_offset True if the data after the offset is to be read
      *
-     * @param   bool $read_offset     True if the data after the offset is
-     *                                to be read
-     *
-     * @return  string          The data read
+     * @return string
+     * @throws \GameQ\Exception\Protocol
      */
     public function readPascalString($offset = 0, $read_offset = false)
     {
@@ -250,9 +250,11 @@ class Buffer
      *
      * If not found, return everything
      *
-     * @param   array $delims Read until these characters are reached
+     * @param      $delims
+     * @param null $delimfound
      *
-     * @return  string          The data read
+     * @return string
+     * @throws \GameQ\Exception\Protocol
      */
     public function readStringMulti($delims, &$delimfound = null)
     {
