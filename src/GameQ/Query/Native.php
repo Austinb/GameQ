@@ -108,8 +108,7 @@ class Native extends Core
 
             // Set blocking mode
             stream_set_blocking($this->socket, $this->blocking);
-        } else // Throw an error
-        {
+        } else {
             throw new Exception(__METHOD__ . " Error creating socket to server {$this->ip}:{$this->port}. Error: "
                                 . $errstr, $errno);
         }
@@ -172,19 +171,18 @@ class Native extends Core
                     continue; // No response yet so lets continue.
                 }
 
-                // Check to see if the response is empty, if so we are done
+                // Check to see if the response is empty, if so we are done with this server
                 if (strlen($response) == 0) {
-                    // End the while loop
-                    $loop_active = false;
-                    break;
+                    // Testing these changes to see if they provide more reliable responses.
+                    unset($sockets_tmp[(int) $socket]);
+                    continue;
                 }
 
                 // Add the response we got back
                 $responses[(int) $socket][] = $response;
             }
 
-            // Because stream_select modifies read we need to reset it each
-            // time to the original array of sockets
+            // Because stream_select modifies read we need to reset it each time to the original array of sockets
             $read = $sockets_tmp;
         }
 
