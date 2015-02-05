@@ -337,6 +337,7 @@ class GameQ
                     $server->protocol()->transport(),
                     $server->ip,
                     $server->port_query,
+                    $this->timeout,
                 ]);
 
                 // Now write the challenge packet to the socket.
@@ -367,7 +368,7 @@ class GameQ
                 $server_id = $sockets[$socket_id]['server_id'];
 
                 // Make this into a buffer so it is easier to manipulate
-                $challenge = new \GameQ\Buffer(implode('', $response));
+                $challenge = new Buffer(implode('', $response));
 
                 // Apply the challenge
                 $this->servers[$server_id]->protocol()->challengeParseAndApply($challenge);
@@ -411,6 +412,7 @@ class GameQ
                     $server->protocol()->transport(),
                     $server->ip,
                     $server->port_query,
+                    $this->timeout,
                 ]);
 
                 unset($class);
