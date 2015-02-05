@@ -26,43 +26,47 @@ namespace GameQ;
  */
 class Result
 {
+
     /**
      * Formatted server response
      *
      * @var        array
      */
-    protected $result = array();
+    protected $result = [ ];
 
     /**
      * Adds variable to results
      *
-     * @param      string    $name      Variable name
-     * @param      string    $value     Variable value
+     * @param      string $name  Variable name
+     * @param      string $value Variable value
      */
     public function add($name, $value)
     {
+
         $this->result[$name] = $value;
     }
 
     /**
      * Adds player variable to output
      *
-     * @param       string   $name      Variable name
-     * @param       string   $value     Variable value
+     * @param       string $name  Variable name
+     * @param       string $value Variable value
      */
     public function addPlayer($name, $value)
     {
+
         $this->addSub('players', $name, $value);
     }
 
     /**
      * Adds player variable to output
      *
-     * @param       string   $name      Variable name
-     * @param       string   $value     Variable value
+     * @param       string $name  Variable name
+     * @param       string $value Variable value
      */
     public function addTeam($name, $value)
     {
+
         $this->addSub('teams', $name, $value);
     }
 
@@ -75,9 +79,10 @@ class Result
      */
     public function addSub($sub, $key, $value)
     {
+
         // Nothing of this type yet, set an empty array
         if (!isset($this->result[$sub]) or !is_array($this->result[$sub])) {
-            $this->result[$sub] = array();
+            $this->result[$sub] = [ ];
         }
 
         // Find the first entry that doesn't have this variable
@@ -103,17 +108,20 @@ class Result
      */
     public function fetch()
     {
+
         return $this->result;
     }
 
     /**
      * Return a single variable
      *
-     * @param   string  $var    The variable name
+     * @param   string $var The variable name
+     *
      * @return  mixed   The variable value
      */
     public function get($var)
     {
+
         return isset($this->result[$var]) ? $this->result[$var] : null;
     }
 }

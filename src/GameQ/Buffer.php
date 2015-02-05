@@ -31,6 +31,7 @@ use GameQ\Exception\Protocol as Exception;
  */
 class Buffer
 {
+
     /**
      * The original data
      *
@@ -47,7 +48,6 @@ class Buffer
      */
     private $length;
 
-
     /**
      * Position of pointer
      *
@@ -56,7 +56,6 @@ class Buffer
      */
     private $index = 0;
 
-
     /**
      * Constructor
      *
@@ -64,6 +63,7 @@ class Buffer
      */
     public function __construct($data)
     {
+
         $this->data = $data;
         $this->length = strlen($data);
     }
@@ -75,6 +75,7 @@ class Buffer
      */
     public function getData()
     {
+
         return $this->data;
     }
 
@@ -85,6 +86,7 @@ class Buffer
      */
     public function getBuffer()
     {
+
         return substr($this->data, $this->index);
     }
 
@@ -95,6 +97,7 @@ class Buffer
      */
     public function getLength()
     {
+
         return max($this->length - $this->index, 0);
     }
 
@@ -107,8 +110,8 @@ class Buffer
      */
     public function read($length = 1)
     {
-        if (($length + $this->index) > $this->length)
-        {
+
+        if (($length + $this->index) > $this->length) {
             throw new Exception("Unable to read length={$length} from buffer.  Bad protocol format or return?");
         }
 
@@ -128,6 +131,7 @@ class Buffer
      */
     public function readLast()
     {
+
         $len = strlen($this->data);
         $string = $this->data{strlen($this->data) - 1};
         $this->data = substr($this->data, 0, $len - 1);
@@ -145,6 +149,7 @@ class Buffer
      */
     public function lookAhead($length = 1)
     {
+
         $string = substr($this->data, $this->index, $length);
 
         return $string;
@@ -159,6 +164,7 @@ class Buffer
      */
     public function skip($length = 1)
     {
+
         $this->index += $length;
     }
 
@@ -172,6 +178,7 @@ class Buffer
      */
     public function jumpto($index)
     {
+
         $this->index = min($index, $this->length - 1);
     }
 
@@ -182,6 +189,7 @@ class Buffer
      */
     public function getPosition()
     {
+
         return $this->index;
     }
 
@@ -196,12 +204,12 @@ class Buffer
      */
     public function readString($delim = "\x00")
     {
+
         // Get position of delimiter
         $len = strpos($this->data, $delim, min($this->index, $this->length));
 
         // If it is not found then return whole buffer
-        if ($len === false)
-        {
+        if ($len === false) {
             return $this->read(strlen($this->data) - $this->index);
         }
 
@@ -224,17 +232,15 @@ class Buffer
      */
     public function readPascalString($offset = 0, $read_offset = false)
     {
+
         // Get the proper offset
         $len = $this->readInt8();
         $offset = max($len - $offset, 0);
 
         // Read the data
-        if ($read_offset)
-        {
+        if ($read_offset) {
             return $this->read($offset);
-        }
-        else
-        {
+        } else {
             return substr($this->read($len), 0, $offset);
         }
     }
@@ -250,19 +256,17 @@ class Buffer
      */
     public function readStringMulti($delims, &$delimfound = null)
     {
+
         // Get position of delimiters
         $pos = [ ];
-        foreach ($delims as $delim)
-        {
-            if ($p = strpos($this->data, $delim, min($this->index, $this->length)))
-            {
+        foreach ($delims as $delim) {
+            if ($p = strpos($this->data, $delim, min($this->index, $this->length))) {
                 $pos[] = $p;
             }
         }
 
         // If none are found then return whole buffer
-        if (empty($pos))
-        {
+        if (empty($pos)) {
             return $this->read(strlen($this->data) - $this->index);
         }
 
@@ -279,6 +283,7 @@ class Buffer
      */
     public function readInt32()
     {
+
         $int = unpack('Lint', $this->read(4));
 
         return $int['int'];
@@ -289,6 +294,7 @@ class Buffer
      */
     public function readInt32Signed()
     {
+
         $int = unpack('lint', $this->read(4));
 
         return $int['int'];
@@ -299,6 +305,7 @@ class Buffer
      */
     public function readInt16()
     {
+
         $int = unpack('Sint', $this->read(2));
 
         return $int['int'];
@@ -309,6 +316,7 @@ class Buffer
      */
     public function readInt16Signed()
     {
+
         $int = unpack('sint', $this->read(2));
 
         return $int['int'];
@@ -321,6 +329,7 @@ class Buffer
      */
     public function readInt8()
     {
+
         return ord($this->read(1));
     }
 
@@ -331,6 +340,7 @@ class Buffer
      */
     public function readFloat32()
     {
+
         $float = unpack('ffloat', $this->read(4));
 
         return $float['float'];
@@ -347,9 +357,9 @@ class Buffer
      */
     public function toFloat($string)
     {
+
         // Check length
-        if (strlen($string) !== 4)
-        {
+        if (strlen($string) !== 4) {
             return false;
         }
 
@@ -371,15 +381,14 @@ class Buffer
      */
     public function toInt($string, $bits = 8)
     {
+
         // Check length
-        if (strlen($string) !== ($bits / 8))
-        {
+        if (strlen($string) !== ($bits / 8)) {
             return false;
         }
 
         // Convert
-        switch ($bits)
-        {
+        switch ($bits) {
 
             // 8 bit unsigned
             case 8:
