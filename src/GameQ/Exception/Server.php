@@ -25,4 +25,6 @@ namespace GameQ\Exception;
  *
  * @author Austin Bischoff <austin@codebeard.com>
  */
-class Server extends \Exception {}
+class Server extends \Exception
+{
+}

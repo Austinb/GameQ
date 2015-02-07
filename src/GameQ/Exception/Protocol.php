@@ -25,4 +25,6 @@ namespace GameQ\Exception;
  *
  * @author Austin Bischoff <austin@codebeard.com>
  */
-class Protocol extends \Exception {}
+class Protocol extends \Exception
+{
+}

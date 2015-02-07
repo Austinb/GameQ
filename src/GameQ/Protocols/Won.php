@@ -63,5 +63,4 @@ class Won extends Source
      * @type string
      */
     protected $name_long = "World Opponent Network";
-
 }

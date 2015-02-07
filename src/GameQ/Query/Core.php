@@ -131,7 +131,7 @@ abstract class Core
      *
      * @return mixed
      */
-    static public function getResponses(array $sockets, $timeout, $stream_timeout)
+    public static function getResponses(array $sockets, $timeout, $stream_timeout)
     {
     }
 }

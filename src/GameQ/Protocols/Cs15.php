@@ -42,5 +42,4 @@ class Cs15 extends Won
      * @type string
      */
     protected $name_long = "Counter-Strike 1.5";
-
 }

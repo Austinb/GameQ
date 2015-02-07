@@ -133,7 +133,7 @@ class Source extends Protocol
         $packets = [ ];
 
         // We need to pre-sort these for split packets so we can do extra work where needed
-        foreach ($this->packets_response AS $response) {
+        foreach ($this->packets_response as $response) {
             $buffer = new Buffer($response);
 
             $type = $buffer->readInt32Signed();
@@ -158,7 +158,7 @@ class Source extends Protocol
         }
 
         // Now that we have the packets sorted we need to iterate and process them
-        foreach ($packets AS $packet) {
+        foreach ($packets as $packet) {
             // We first need to off load split packets to combine them
             if (is_array($packet)) {
                 $buffer = new Buffer($this->processPackets($packet));
@@ -176,8 +176,10 @@ class Source extends Protocol
             }
 
             // Now we need to call the proper method
-            $results = array_merge($results,
-                call_user_func_array([ $this, $this->responses[$response_type] ], [ $buffer ]));
+            $results = array_merge(
+                $results,
+                call_user_func_array([ $this, $this->responses[$response_type] ], [ $buffer ])
+            );
 
             unset($buffer);
         }
@@ -201,11 +203,12 @@ class Source extends Protocol
      */
     protected function processPackets(Array $packets = null)
     {
+
         // Init array so we can order
         $packs = [ ];
 
         // We have multiple packets so we need to get them and order them
-        foreach ($packets AS $packet) {
+        foreach ($packets as $packet) {
             // Make a buffer so we can read this info
             $buffer = new Buffer($packet);
 
@@ -229,8 +232,10 @@ class Source extends Protocol
 
                     // Check to see if we have Bzip2 installed
                     if (!function_exists('bzdecompress')) {
-                        throw new Exception('Bzip2 is not installed.  See http://www.php.net/manual/en/book.bzip2.php for more info.',
-                            0);
+                        throw new Exception(
+                            'Bzip2 is not installed.  See http://www.php.net/manual/en/book.bzip2.php for more info.',
+                            0
+                        );
                     }
 
                     // Get some info
@@ -244,8 +249,10 @@ class Source extends Protocol
 
                     // Now verify the length
                     if (strlen($result) != $packet_length) {
-                        throw new Exception("Checksum for compressed packet failed! Length expected: {$packet_length}, length returned: "
-                                            . strlen($result));
+                        throw new Exception(
+                            "Checksum for compressed packet failed! Length expected: {$packet_length}, length
+                            returned: ". strlen($result)
+                        );
                     }
 
                     // Set the new packs
@@ -283,6 +290,7 @@ class Source extends Protocol
      */
     protected function processDetails(Buffer $buffer)
     {
+
         // Set the result to a new result instance
         $result = new Result();
 
@@ -304,24 +312,24 @@ class Source extends Protocol
         // Extra data flag
         $edf = $buffer->readInt8();
 
-        if($edf & 0x80000000) {
+        if ($edf & 0x80000000) {
             $result->add('port', $buffer->readInt8());
         }
 
-        if($edf & 0x10000000) {
+        if ($edf & 0x10000000) {
             $result->add('steam_id', $buffer->readInt16());
         }
 
-        if($edf & 0x40000000) {
+        if ($edf & 0x40000000) {
             $result->add('sourcetv_port', $buffer->readInt8());
             $result->add('sourcetv_name', $buffer->readString());
         }
 
-        if($edf & 0x20000000) {
+        if ($edf & 0x20000000) {
             $result->add('keywords', $buffer->readString());
         }
 
-        if($edf & 0x01000000) {
+        if ($edf & 0x01000000) {
             $result->add('game_id', $buffer->readInt16());
         }
 
@@ -340,6 +348,7 @@ class Source extends Protocol
      */
     protected function processDetailsGoldSource(Buffer $buffer)
     {
+
         // Set the result to a new result instance
         $result = new Result();
 

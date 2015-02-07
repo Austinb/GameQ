@@ -109,8 +109,10 @@ class Native extends Core
             // Set blocking mode
             stream_set_blocking($this->socket, $this->blocking);
         } else {
-            throw new Exception(__METHOD__ . " Error creating socket to server {$this->ip}:{$this->port}. Error: "
-                                . $errstr, $errno);
+            throw new Exception(
+                __METHOD__ . " Error creating socket to server {$this->ip}:{$this->port}. Error: ". $errstr,
+                $errno
+            );
         }
     }
 
@@ -123,7 +125,7 @@ class Native extends Core
      *
      * @return array
      */
-    static public function getResponses(array $sockets, $timeout, $stream_timeout)
+    public static function getResponses(array $sockets, $timeout, $stream_timeout)
     {
 
         // Set the loop to active
@@ -135,7 +137,7 @@ class Native extends Core
         $sockets_tmp = [ ];
 
         // Loop and pull out all the actual sockets we need to listen on
-        foreach ($sockets AS $socket_id => $socket_data) {
+        foreach ($sockets as $socket_id => $socket_data) {
             // Append the actual socket we are listening to
             $sockets_tmp[$socket_id] = $socket_data['socket']->get();
         }
@@ -165,7 +167,7 @@ class Native extends Core
             }
 
             // Loop the sockets that received data back
-            foreach ($read AS $socket) {
+            foreach ($read as $socket) {
                 // See if we have a response
                 if (($response = stream_socket_recvfrom($socket, 8192)) === false) {
                     continue; // No response yet so lets continue.

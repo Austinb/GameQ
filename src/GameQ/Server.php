@@ -149,7 +149,10 @@ class Server
                 unset($server_addr);
             } else {
                 // Just the IPv6 address, no port defined, fail
-                throw new Exception("The host address '{$server_info[self::SERVER_HOST]}' is missing the port.  All servers must have a port defined!");
+                throw new Exception(
+                    "The host address '{$server_info[self::SERVER_HOST]}' is missing the port.  All
+                servers must have a port defined!"
+                );
             }
 
             // Now let's validate the IPv6 value sent, remove the square brackets ([]) first
@@ -165,7 +168,10 @@ class Server
                 list($this->ip, $this->port_client) = explode(':', $server_info[self::SERVER_HOST]);
             } else {
                 // No port, fail
-                throw new Exception("The host address '{$server_info[self::SERVER_HOST]}' is missing the port.  All servers must have a port defined!");
+                throw new Exception(
+                    "The host address '{$server_info[self::SERVER_HOST]}' is missing the port. All
+                servers must have a port defined!"
+                );
             }
 
             // Validate the IPv4 value, if FALSE is not a valid IP, maybe a hostname.  Try to resolve
@@ -199,7 +205,7 @@ class Server
             $this->port_query = (int) $this->options[self::SERVER_OPTIONS_QUERY_PORT];
         } else {
             // Do math based on the protocol class
-            $this->port_query = $this->port_client + $this->protocol->port_diff();
+            $this->port_query = $this->port_client + $this->protocol->portDiff();
         }
 
         // Check for server id
@@ -270,7 +276,7 @@ class Server
      *
      * @return int|null
      */
-    public function port_client()
+    public function portClient()
     {
 
         return $this->port_client;
@@ -281,7 +287,7 @@ class Server
      *
      * @return int|null
      */
-    public function port_query()
+    public function portQuery()
     {
 
         return $this->port_query;
@@ -306,7 +312,7 @@ class Server
     public function getJoinLink()
     {
 
-        return sprintf($this->protocol->join_link(), $this->ip, $this->port_client());
+        return sprintf($this->protocol->joinLink(), $this->ip, $this->portClient());
     }
 
     /*
@@ -354,7 +360,7 @@ class Server
     {
 
         // Close all of the sockets available
-        foreach ($this->sockets AS $socket) {
+        foreach ($this->sockets as $socket) {
             $socket->close();
         }
 

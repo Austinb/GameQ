@@ -225,7 +225,7 @@ abstract class Protocol
      *
      * @return int
      */
-    public function port_diff()
+    public function portDiff()
     {
 
         return $this->port_diff;
@@ -236,7 +236,7 @@ abstract class Protocol
      *
      * @return string
      */
-    public function join_link()
+    public function joinLink()
     {
 
         return $this->join_link;
@@ -258,7 +258,7 @@ abstract class Protocol
      *
      * @return string
      */
-    public function name_long()
+    public function nameLong()
     {
 
         return $this->name_long;
@@ -344,7 +344,7 @@ abstract class Protocol
         if (is_array($type) && !empty($type)) {
 
             // Loop the packets
-            foreach ($this->packets AS $packet_type => $packet_data) {
+            foreach ($this->packets as $packet_type => $packet_data) {
                 // We want this packet
                 if (in_array($packet_type, $type)) {
                     $packets[$packet_type] = $packet_data;
@@ -353,7 +353,7 @@ abstract class Protocol
         } elseif ($type == '!challenge') {
 
             // Loop the packets
-            foreach ($this->packets AS $packet_type => $packet_data) {
+            foreach ($this->packets as $packet_type => $packet_data) {
                 // Dont want challenge packets
                 if ($packet_type != self::PACKET_CHALLENGE) {
                     $packets[$packet_type] = $packet_data;
@@ -432,7 +432,7 @@ abstract class Protocol
     {
 
         // Let's loop through all the packets and append the challenge where it is needed
-        foreach ($this->packets AS $packet_type => $packet) {
+        foreach ($this->packets as $packet_type => $packet) {
             $this->packets[$packet_type] = sprintf($packet, $challenge_string);
         }
 

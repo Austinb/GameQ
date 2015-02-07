@@ -181,7 +181,7 @@ class GameQ
     {
 
         // Loop thru all the servers and add them
-        foreach ($servers AS $server_info) {
+        foreach ($servers as $server_info) {
             $this->addServer($server_info);
         }
 
@@ -298,7 +298,7 @@ class GameQ
         $this->doQueries();
 
         // Now we should have some information to process for each server
-        foreach ($this->servers AS $server_id => $server) {
+        foreach ($this->servers as $server_id => $server) {
             $data[$server->id()] = $this->doParseAndFilter($server);
         }
 
@@ -317,7 +317,7 @@ class GameQ
         $server_challenge = false;
 
         // Do challenge packets
-        foreach ($this->servers AS $server_id => $server) {
+        foreach ($this->servers as $server_id => $server) {
             if ($server->protocol()->hasChallenge()) {
                 $server_challenge = true;
 
@@ -351,11 +351,13 @@ class GameQ
         // We have at least one server with a challenge, we need to listen for responses
         if ($server_challenge) {
             // Now we need to listen for and grab challenge response(s)
-            $responses = call_user_func_array([ $this->query, 'getResponses' ],
-                [ $sockets, $this->timeout, $this->stream_timeout ]);
+            $responses = call_user_func_array(
+                [ $this->query, 'getResponses' ],
+                [ $sockets, $this->timeout, $this->stream_timeout ]
+            );
 
             // Iterate over the challenge responses
-            foreach ($responses AS $socket_id => $response) {
+            foreach ($responses as $socket_id => $response) {
                 // Back out the server_id we need to update the challenge response for
                 $server_id = $sockets[$socket_id]['server_id'];
 
@@ -380,7 +382,7 @@ class GameQ
         $sockets = [ ];
 
         // Iterate over the server list
-        foreach ($this->servers AS $server_id => $server) {
+        foreach ($this->servers as $server_id => $server) {
             // Invoke the beforeSend method
             $server->protocol()->beforeSend();
 
@@ -411,7 +413,7 @@ class GameQ
             }
 
             // Iterate over all the packets we need to send
-            foreach ($packets AS $packet_type => $packet_data) {
+            foreach ($packets as $packet_type => $packet_data) {
                 // Now write the packet to the socket.
                 $socket->write($packet_data);
 
@@ -432,11 +434,13 @@ class GameQ
         }
 
         // Now we need to listen for and grab response(s)
-        $responses = call_user_func_array([ $this->query, 'getResponses' ],
-            [ $sockets, $this->timeout, $this->stream_timeout ]);
+        $responses = call_user_func_array(
+            [ $this->query, 'getResponses' ],
+            [ $sockets, $this->timeout, $this->stream_timeout ]
+        );
 
         // Iterate over the responses
-        foreach ($responses AS $socket_id => $response) {
+        foreach ($responses as $socket_id => $response) {
             // Back out the server_id
             $server_id = $sockets[$socket_id]['server_id'];
 
@@ -445,7 +449,7 @@ class GameQ
         }
 
         // Now we need to close all of the sockets
-        foreach ($sockets AS $socket) {
+        foreach ($sockets as $socket) {
             $socket['socket']->close();
         }
 
@@ -466,8 +470,10 @@ class GameQ
         try {
             // We want to save this server's response
             if (!is_null($this->capture_packets_file)) {
-                file_put_contents($this->capture_packets_file,
-                    implode(PHP_EOL . '||' . PHP_EOL, $server->protocol()->packetResponse()));
+                file_put_contents(
+                    $this->capture_packets_file,
+                    implode(PHP_EOL . '||' . PHP_EOL, $server->protocol()->packetResponse())
+                );
             }
 
             // Get the server response
@@ -479,7 +485,7 @@ class GameQ
             }
 
             // Loop over the filters
-            foreach ($this->options['filters'] AS $filterName => $options) {
+            foreach ($this->options['filters'] as $filterName => $options) {
 
                 // Try to do this filter
                 try {
@@ -510,8 +516,8 @@ class GameQ
         // Now add some default stuff
         $results['gq_online'] = (count($results) > 0);
         $results['gq_address'] = $server->ip();
-        $results['gq_port_client'] = $server->port_client();
-        $results['gq_port_query'] = $server->port_query();
+        $results['gq_port_client'] = $server->portClient();
+        $results['gq_port_query'] = $server->portQuery();
         $results['gq_protocol'] = $server->protocol()->protocol();
         $results['gq_type'] = (string) $server->protocol();
         $results['gq_transport'] = $server->protocol()->transport();
