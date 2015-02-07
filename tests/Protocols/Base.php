@@ -58,4 +58,46 @@ abstract class Base extends \PHPUnit_Framework_TestCase
 
         return $providers;
     }
+
+    /**
+     * Generic query test function to simulate testing of protocol classes
+     *
+     * @param $host
+     * @param $protocol
+     * @param $responses
+     *
+     * @return mixed
+     */
+    protected function queryTest($host, $protocol, $responses)
+    {
+
+        // Create a mock server
+        $server = $this->getMock('\GameQ\Server', null, [
+            [
+                \GameQ\Server::SERVER_HOST => $host,
+                \GameQ\Server::SERVER_TYPE => $protocol,
+            ]
+        ]);
+
+        // Set the packet response as if we have really queried it
+        $server->protocol()->packetResponse($responses);
+
+        // Create a mock GameQ
+        $gq_mock = $this->getMock('\GameQ\GameQ', null, [ ]);
+
+        // Reflect on GameQ class so we can parse
+        $gameq = new \ReflectionClass($gq_mock);
+
+        // Get the parse method so we can call it
+        $method = $gameq->getMethod('doParseAndFilter');
+
+        // Set the method to accessible
+        $method->setAccessible(true);
+
+        $testResult = $method->invoke($gq_mock, $server);
+
+        unset($server, $gq_mock, $gameq, $method);
+
+        return $testResult;
+    }
 }
