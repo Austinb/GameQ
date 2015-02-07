@@ -1,5 +1,11 @@
 Very ALPHA - NOT FOR PRODUCTION
 
+[![Build Status](https://travis-ci.org/Austinb/GameQ.svg?branch=v3)](https://travis-ci.org/Austinb/GameQ)
+[![Coverage Status](https://coveralls.io/repos/Austinb/GameQ/badge.svg?branch=v3)](https://coveralls.io/r/Austinb/GameQ)
+
+[![License](https://poser.pugx.org/austinb/gameq/license.svg)](https://packagist.org/packages/austinb/gameq)
+[![Latest Unstable Version](https://poser.pugx.org/austinb/gameq/v/unstable.svg)](https://packagist.org/packages/austinb/gameq)
+
 Information
 ===========
 GameQ is a PHP program that allows you to query multiple types of multiplayer game & voice servers at the same time.
