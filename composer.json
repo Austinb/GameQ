@@ -1,6 +1,7 @@
 {
   "name": "austinb/gameq",
   "description": "GameQ Gameserver Library",
+  "keywords": ["gameq","serverstatus"],
   "version": "3.0.0",
   "license": "LGPL-3.0+",
   "authors": [
@@ -48,8 +49,11 @@
     "ext-bz2": "*"
   },
   "require-dev": {
+    "ext-curl": "*",
     "phpunit/phpunit": "4.4.*",
     "phpunit/php-invoker": "*",
+    "squizlabs/php_codesniffer": "1.4.*@stable",
+    "satooshi/php-coveralls": "dev-master",
     "corneltek/getoptionkit": "~2"
   },
   "autoload": {
