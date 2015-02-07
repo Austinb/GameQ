@@ -28,9 +28,11 @@ abstract class Base extends \PHPUnit_Framework_TestCase
      */
     public function loadData()
     {
+        // Explode the class that called to avoid strict error
+        $class = explode('\\', get_called_class());
 
         // Determine the folder to grab the provider files and results from
-        $providersLookup = sprintf('%s/Providers/%s/', __DIR__, array_pop(explode('\\', get_called_class())));
+        $providersLookup = sprintf('%s/Providers/%s/', __DIR__, array_pop($class));
 
         // Init the return array
         $providers = [ ];
