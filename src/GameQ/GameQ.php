@@ -225,11 +225,6 @@ class GameQ
             $this->addServers($servers);
         }
 
-        // Check to make sure the file exists and we can read it
-        if (!file_exists($file) || !is_readable($file)) {
-            throw new \Exception("Unable to find or read the file '{$file}'.  Please check your input.");
-        }
-
         return $this;
     }
 
