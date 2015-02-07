@@ -18,6 +18,11 @@
 
 namespace GameQ\Tests\Protocols;
 
+/**
+ * Test Class for CS Source
+ *
+ * @package GameQ\Tests\Protocols
+ */
 class Css extends Base
 {
     /**
@@ -31,30 +36,11 @@ class Css extends Base
     public function testResponses($responses, $result)
     {
 
-        // Create a mock server
-        $server = $this->getMock('\GameQ\Server', null, [
-            [
-                \GameQ\Server::SERVER_HOST => $result['gq_address'] . ':' . $result['gq_port_query'],
-                \GameQ\Server::SERVER_TYPE => 'css',
-            ]
-        ]);
-
-        // Set the packet response as if we have really queried it
-        $server->protocol()->packetResponse($responses);
-
-        // Create a mock GameQ
-        $gq = $this->getMock('\GameQ\GameQ', null, [ ]);
-
-        // Reflect on GameQ class so we can parse
-        $gameq = new \ReflectionClass($gq);
-
-        // Get the parse method so we can call it
-        $method = $gameq->getMethod('doParseAndFilter');
-
-        // Set the method to accessible
-        $method->setAccessible(true);
-
-        $testResult = $method->invoke($gq, $server);
+        $testResult = $this->queryTest(
+            $result['gq_address'] . ':' . $result['gq_port_query'],
+            'css',
+            $responses
+        );
 
         $this->assertEquals($result, $testResult);
     }
