@@ -72,7 +72,7 @@ class Protocol extends \PHPUnit_Framework_TestCase
 
         $reflection_property_namelong->setValue($this->stub, $nameLong);
 
-        $this->assertEquals($nameLong, $this->stub->name_long());
+        $this->assertEquals($nameLong, $this->stub->nameLong());
 
         // Test transport
         $this->assertEquals(\GameQ\Protocol::TRANSPORT_UDP, $this->stub->transport());

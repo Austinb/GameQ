@@ -127,7 +127,7 @@ class Server extends \PHPUnit_Framework_TestCase
      * Test ipv4 missing port
      *
      * @expectedException \GameQ\Exception\Server
-     * @expectedExceptionMessage The host address '127.0.0.1' is missing the port.  All servers must have a port
+     * @expectedExceptionMessage The host address '127.0.0.1' is missing the port. All servers must have a port
      *                           defined!
      */
     public function testIpv4NoPort()

@@ -150,8 +150,8 @@ class Server
             } else {
                 // Just the IPv6 address, no port defined, fail
                 throw new Exception(
-                    "The host address '{$server_info[self::SERVER_HOST]}' is missing the port.  All
-                servers must have a port defined!"
+                    "The host address '{$server_info[self::SERVER_HOST]}' is missing the port.  All "
+                ."servers must have a port defined!"
                 );
             }
 
@@ -169,8 +169,8 @@ class Server
             } else {
                 // No port, fail
                 throw new Exception(
-                    "The host address '{$server_info[self::SERVER_HOST]}' is missing the port. All
-                servers must have a port defined!"
+                    "The host address '{$server_info[self::SERVER_HOST]}' is missing the port. All "
+                ."servers must have a port defined!"
                 );
             }
 
