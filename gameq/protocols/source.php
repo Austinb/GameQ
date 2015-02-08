@@ -229,11 +229,40 @@ class GameQ_Protocols_Source extends GameQ_Protocols
         }
         else
         {
-        	$result->add('version', $buf->readInt8());
+        	$result->add('version', $buf->readString());
         }
 
-        // Add extra data flag check here, only for source games (not goldsource)
-        // https://developer.valvesoftware.com/wiki/Server_Queries#Source_servers_2
+		// Extra data flag
+		$edf = $buf->readInt8();
+
+		if ($edf & 0x80) {
+			$result->add('port', $buf->readInt16Signed());
+		}
+
+		if ($edf & 0x10) {
+			$a = $buf->readInt32();
+			$b = $buf->readInt32();
+
+			$result->add('steam_id', ($b << 32) | $a);
+			unset($a, $b);
+		}
+
+		if ($edf & 0x40) {
+			$result->add('sourcetv_port', $buf->readInt16Signed());
+			$result->add('sourcetv_name', $buf->readString());
+		}
+
+		if ($edf & 0x20) {
+			$result->add('keywords', $buf->readString());
+		}
+
+		if ($edf & 0x01) {
+			$a = $buf->readInt32();
+			$b = $buf->readInt32();
+
+			$result->add('game_id', ($b << 32) | $a);
+			unset($a, $b);
+		}
 
         unset($buf);
 
@@ -396,7 +425,7 @@ class GameQ_Protocols_Source extends GameQ_Protocols
     	// Init array so we can order
     	$packs = array();
 
-    	// We have multiple packets so we need to get them and order them
+		// We have multiple packets so we need to get them and order them
     	foreach($packets AS $packet)
     	{
     		// Make a buffer so we can read this info
