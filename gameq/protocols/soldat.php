@@ -23,7 +23,7 @@
  */
 class GameQ_Protocols_Soldat extends GameQ_Protocols_ASE
 {
-	protected $name = "Soldat";
+	protected $name = "soldat";
 	protected $name_long = "Soldat";
 
 	protected $port = 23196;
