@@ -50,9 +50,9 @@
   },
   "require-dev": {
     "ext-curl": "*",
-    "phpunit/phpunit": "4.4.*",
+    "phpunit/phpunit": "4.5.*@stable",
     "phpunit/php-invoker": "*",
-    "squizlabs/php_codesniffer": "1.4.*@stable",
+    "squizlabs/php_codesniffer": "2.2.*@stable",
     "satooshi/php-coveralls": "dev-master",
     "corneltek/getoptionkit": "~2"
   },

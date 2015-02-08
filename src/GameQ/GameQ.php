@@ -486,7 +486,6 @@ class GameQ
 
             // Loop over the filters
             foreach ($this->options['filters'] as $filterName => $options) {
-
                 // Try to do this filter
                 try {
                     // Make a new reflection class
@@ -498,7 +497,6 @@ class GameQ
                     // Apply the filter to the data
                     $results = $filter->apply($results, $server);
                 } catch (\ReflectionException $e) {
-
                     // Invalid, skip it
                     continue;
                 }

@@ -214,7 +214,6 @@ class Source extends Protocol
 
             // Gold source
             if ($this->source_engine == self::GOLDSOURCE_ENGINE) {
-
                 // Grab the packet number
                 $packet_number = $buffer->readInt8();
 
@@ -224,12 +223,10 @@ class Source extends Protocol
                 // Now add the rest of the packet to the new array with the packet_number as the id so we can order it
                 $packs[$packet_number] = $buffer->getBuffer();
             } else {
-
                 $request_id = $buffer->readInt32Signed();
 
                 // Check to see if this is compressed
                 if ($request_id & 0x80000000) {
-
                     // Check to see if we have Bzip2 installed
                     if (!function_exists('bzdecompress')) {
                         throw new Exception(
@@ -251,14 +248,13 @@ class Source extends Protocol
                     if (strlen($result) != $packet_length) {
                         throw new Exception(
                             "Checksum for compressed packet failed! Length expected: {$packet_length}, length
-                            returned: ". strlen($result)
+                            returned: " . strlen($result)
                         );
                     }
 
                     // Set the new packs
                     $packs[$cur_packet] = $result;
                 } else {
-
                     $packet_number = $buffer->readInt16Signed();
                     $split_length = $buffer->readInt16Signed();
 

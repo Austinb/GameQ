@@ -151,7 +151,7 @@ class Server
                 // Just the IPv6 address, no port defined, fail
                 throw new Exception(
                     "The host address '{$server_info[self::SERVER_HOST]}' is missing the port.  All "
-                ."servers must have a port defined!"
+                    . "servers must have a port defined!"
                 );
             }
 
@@ -170,7 +170,7 @@ class Server
                 // No port, fail
                 throw new Exception(
                     "The host address '{$server_info[self::SERVER_HOST]}' is missing the port. All "
-                ."servers must have a port defined!"
+                    . "servers must have a port defined!"
                 );
             }
 
@@ -188,7 +188,6 @@ class Server
         }
 
         try {
-
             // Make the protocol class for this type
             $class = new \ReflectionClass(sprintf('GameQ\\Protocols\\%s', ucfirst($server_info[self::SERVER_TYPE])));
         } catch (\ReflectionException $e) {
