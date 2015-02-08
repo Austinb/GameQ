@@ -90,7 +90,7 @@ try {
     $results = $gq->process();
 
     // Save the result into a file
-    file_put_contents(sprintf('%s/%d_result.json', $provider_dir, $index), json_encode($results[$options['server']]));
+    file_put_contents(sprintf('%s/%d_result.json', $provider_dir, $index), json_encode($results));
 
     exit(0);
 } catch (Exception $e) {

@@ -136,6 +136,7 @@ class Source extends Protocol
         foreach ($this->packets_response as $response) {
             $buffer = new Buffer($response);
 
+            // Get the type of packet(long)
             $type = $buffer->readInt32Signed();
 
             // Single packet
@@ -150,7 +151,7 @@ class Source extends Protocol
             } else {
                 // Split packet
 
-                // Pull some info
+                // Packet Id (long)
                 $packet_type = $buffer->readInt32Signed();
 
                 $packets[$packet_type][] = $buffer->getBuffer();
@@ -303,30 +304,38 @@ class Source extends Protocol
         $result->add('os', $buffer->read());
         $result->add('password', $buffer->readInt8());
         $result->add('secure', $buffer->readInt8());
-        $result->add('version', $buffer->readInt8());
+        $result->add('version', $buffer->readString());
 
         // Extra data flag
         $edf = $buffer->readInt8();
 
-        if ($edf & 0x80000000) {
-            $result->add('port', $buffer->readInt8());
+        if ($edf & 0x80) {
+            $result->add('port', $buffer->readInt16Signed());
         }
 
-        if ($edf & 0x10000000) {
-            $result->add('steam_id', $buffer->readInt16());
+        if ($edf & 0x10) {
+            $a = $buffer->readInt32();
+            $b = $buffer->readInt32();
+
+            $result->add('steam_id', ($b << 32) | $a);
+            unset($a, $b);
         }
 
-        if ($edf & 0x40000000) {
-            $result->add('sourcetv_port', $buffer->readInt8());
+        if ($edf & 0x40) {
+            $result->add('sourcetv_port', $buffer->readInt16Signed());
             $result->add('sourcetv_name', $buffer->readString());
         }
 
-        if ($edf & 0x20000000) {
+        if ($edf & 0x20) {
             $result->add('keywords', $buffer->readString());
         }
 
-        if ($edf & 0x01000000) {
-            $result->add('game_id', $buffer->readInt16());
+        if ($edf & 0x01) {
+            $a = $buffer->readInt32();
+            $b = $buffer->readInt32();
+
+            $result->add('game_id', ($b << 32) | $a);
+            unset($a, $b);
         }
 
         unset($buffer);

@@ -342,7 +342,6 @@ abstract class Protocol
 
         // We want an array of packets back
         if (is_array($type) && !empty($type)) {
-
             // Loop the packets
             foreach ($this->packets as $packet_type => $packet_data) {
                 // We want this packet
@@ -351,7 +350,6 @@ abstract class Protocol
                 }
             }
         } elseif ($type == '!challenge') {
-
             // Loop the packets
             foreach ($this->packets as $packet_type => $packet_data) {
                 // Dont want challenge packets

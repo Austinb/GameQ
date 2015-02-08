@@ -36,12 +36,15 @@ class Cs15 extends Base
     public function testResponses($responses, $result)
     {
 
+        // Pull the first key off the array this is the server ip:port
+        $server = key($result);
+
         $testResult = $this->queryTest(
-            $result['gq_address'] . ':' . $result['gq_port_query'],
+            $server,
             'cs15',
             $responses
         );
 
-        $this->assertEquals($result, $testResult);
+        $this->assertEquals($result[$server], $testResult);
     }
 }
