@@ -17,6 +17,7 @@ before_script:
 script:
   - mkdir -p build/logs
   #- vendor/bin/phpcs --report=checkstyle --report-file=build/logs/checkstyle.xml --standard=build/config/phpcs.xml --ignore=*.html.php,*.config.php,*.twig.php src
+  #- vendor/bin/phpmd src xml build/config/phpmd.xml --reportfile build/logs/pmd.xml
   - vendor/bin/phpunit -c phpunit.xml --verbose
 
 after_script:
