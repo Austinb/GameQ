@@ -135,6 +135,7 @@ class GameQ_Protocols_Mumble extends GameQ_Protocols
 	    $result->add('dedicated', TRUE);
 
 	    $result->add('maxplayers', 0);
+		$result->add('numplayers', 0);
 
 	    // Let's iterate over the response items, there are alot
 	    foreach($data AS $key => $value)
