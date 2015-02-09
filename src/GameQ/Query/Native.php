@@ -119,6 +119,8 @@ class Native extends Core
     /**
      * Pull the responses out of the stream
      *
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     *
      * @param array $sockets
      * @param       $timeout
      * @param       $stream_timeout

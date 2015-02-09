@@ -197,6 +197,8 @@ class Source extends Protocol
     /**
      * Process the split packets and decompress if necessary
      *
+     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
+     *
      * @param array $packets
      *
      * @return string
@@ -314,11 +316,11 @@ class Source extends Protocol
         }
 
         if ($edf & 0x10) {
-            $a = $buffer->readInt32();
-            $b = $buffer->readInt32();
+            $low = $buffer->readInt32();
+            $high = $buffer->readInt32();
 
-            $result->add('steam_id', ($b << 32) | $a);
-            unset($a, $b);
+            $result->add('steam_id', ($high << 32) | $low);
+            unset($low, $high);
         }
 
         if ($edf & 0x40) {
@@ -331,11 +333,11 @@ class Source extends Protocol
         }
 
         if ($edf & 0x01) {
-            $a = $buffer->readInt32();
-            $b = $buffer->readInt32();
+            $low = $buffer->readInt32();
+            $high = $buffer->readInt32();
 
-            $result->add('game_id', ($b << 32) | $a);
-            unset($a, $b);
+            $result->add('game_id', ($high << 32) | $low);
+            unset($low, $high);
         }
 
         unset($buffer);

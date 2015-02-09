@@ -408,6 +408,7 @@ abstract class Protocol
      * This should be overloaded by extending class
      *
      * @codeCoverageIgnore
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      *
      * @param \GameQ\Buffer $challenge_buffer
      *

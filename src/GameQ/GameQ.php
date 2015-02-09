@@ -101,14 +101,6 @@ class GameQ
     protected $query = 'GameQ\\Query\\Native';
 
     /**
-     * Make new class and check for requirements
-     */
-    public function __construct()
-    {
-        // @todo: Add PHP version check?
-    }
-
-    /**
      * Get an option's value
      *
      * @param $option
@@ -180,7 +172,7 @@ class GameQ
     public function addServers(Array $servers = null)
     {
 
-        // Loop thru all the servers and add them
+        // Loop through all the servers and add them
         foreach ($servers as $server_info) {
             $this->addServer($server_info);
         }
@@ -298,7 +290,7 @@ class GameQ
         $this->doQueries();
 
         // Now we should have some information to process for each server
-        foreach ($this->servers as $server_id => $server) {
+        foreach ($this->servers as $server) {
             $data[$server->id()] = $this->doParseAndFilter($server);
         }
 
@@ -413,7 +405,7 @@ class GameQ
             }
 
             // Iterate over all the packets we need to send
-            foreach ($packets as $packet_type => $packet_data) {
+            foreach ($packets as $packet_data) {
                 // Now write the packet to the socket.
                 $socket->write($packet_data);
 
@@ -489,7 +481,7 @@ class GameQ
                 // Try to do this filter
                 try {
                     // Make a new reflection class
-                    $class = new \ReflectionClass(sprintf('GameQ\\Filters\\%s', ucfirst($filterName)));
+                    $class = new \ReflectionClass(sprintf('GameQ\\Filters\\%s', ucfirst(strtolower($filterName))));
 
                     // Create a new instance of the filter class specified
                     $filter = $class->newInstanceArgs([ $options ]);
