@@ -22,7 +22,7 @@
  * @author Marcel Bößendörfer <m.boessendoerfer@marbis.net>
  * @author Austin Bischoff <austin@codebeard.com>
  */
-class GameQ_Protocols_Dayzmod extends GameQ_Protocols_Armedassault2
+class GameQ_Protocols_Dayzmod extends GameQ_Protocols_Source
 {
 	protected $name = "dayzmod";
 	protected $name_long = "DayZ Mod";
