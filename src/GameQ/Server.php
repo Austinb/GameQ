@@ -122,23 +122,57 @@ class Server
             throw new Exception("Missing server info key '" . self::SERVER_HOST . "'!");
         }
 
-        // Check for options
-        if (!array_key_exists(self::SERVER_OPTIONS, $server_info)
-            || !is_array($server_info[self::SERVER_OPTIONS])
-            || empty($server_info[self::SERVER_OPTIONS])
-        ) {
-            // Default the options to an empty array
-            $server_info[self::SERVER_OPTIONS] = [ ];
+        // IP address and port check
+        $this->checkAndSetIpPort($server_info[self::SERVER_HOST]);
+
+        // Check for server id
+        if (array_key_exists(self::SERVER_ID, $server_info) && !empty($server_info[self::SERVER_ID])) {
+            // Set the server id
+            $this->id = $server_info[self::SERVER_ID];
+        } else {
+            // Make an id so each server has an id when returned
+            $this->id = sprintf('%s:%d', $this->ip, $this->port_client);
         }
 
-        $this->options = $server_info[self::SERVER_OPTIONS];
+        // Check and set server options
+        if (array_key_exists(self::SERVER_OPTIONS, $server_info)) {
+            // Set the options
+            $this->options = $server_info[self::SERVER_OPTIONS];
+        }
 
-        // We have an IPv6 address (and maybe a port)
-        if (substr_count($server_info[self::SERVER_HOST], ':') > 1) {
+        try {
+            // Make the protocol class for this type
+            $class = new \ReflectionClass(
+                sprintf('GameQ\\Protocols\\%s', ucfirst(strtolower($server_info[self::SERVER_TYPE])))
+            );
+
+            $this->protocol = $class->newInstanceArgs([ $this->options ]);
+        } catch (\ReflectionException $e) {
+            throw new Exception("Unable to locate Protocols class for '{$server_info[self::SERVER_TYPE]}'!");
+        }
+
+        // Check and set any server options
+        $this->checkAndSetServerOptions();
+
+        unset($server_info, $class);
+    }
+
+    /**
+     * Check and set the ip address for this server
+     *
+     * @param $ip_address
+     *
+     * @throws \GameQ\Exception\Server
+     */
+    protected function checkAndSetIpPort($ip_address)
+    {
+
+        // Test for IPv6
+        if (substr_count($ip_address, ':') > 1) {
             // See if we have a port, input should be in the format [::1]:27015 or similar
-            if (strstr($server_info[self::SERVER_HOST], ']:')) {
+            if (strstr($ip_address, ']:')) {
                 // Explode to get port
-                $server_addr = explode(':', $server_info[self::SERVER_HOST]);
+                $server_addr = explode(':', $ip_address);
 
                 // Port is the last item in the array, remove it and save
                 $this->port_client = (int) array_pop($server_addr);
@@ -150,73 +184,51 @@ class Server
             } else {
                 // Just the IPv6 address, no port defined, fail
                 throw new Exception(
-                    "The host address '{$server_info[self::SERVER_HOST]}' is missing the port.  All "
+                    "The host address '{$ip_address}' is missing the port.  All "
                     . "servers must have a port defined!"
                 );
             }
 
             // Now let's validate the IPv6 value sent, remove the square brackets ([]) first
-            if (!filter_var(trim($this->ip, '[]'), FILTER_VALIDATE_IP, [
-                'flags' => FILTER_FLAG_IPV6,
-            ])
-            ) {
+            if (!filter_var(trim($this->ip, '[]'), FILTER_VALIDATE_IP, [ 'flags' => FILTER_FLAG_IPV6, ])) {
                 throw new Exception("The IPv6 address '{$this->ip}' is invalid.");
             }
         } else {
-            // We have a port defined
-            if (strstr($server_info[self::SERVER_HOST], ':')) {
-                list($this->ip, $this->port_client) = explode(':', $server_info[self::SERVER_HOST]);
+            // We have IPv4 with a port defined
+            if (strstr($ip_address, ':')) {
+                list($this->ip, $this->port_client) = explode(':', $ip_address);
             } else {
                 // No port, fail
                 throw new Exception(
-                    "The host address '{$server_info[self::SERVER_HOST]}' is missing the port. All "
+                    "The host address '{$ip_address}' is missing the port. All "
                     . "servers must have a port defined!"
                 );
             }
 
             // Validate the IPv4 value, if FALSE is not a valid IP, maybe a hostname.  Try to resolve
-            if (!filter_var($this->ip, FILTER_VALIDATE_IP, [
-                'flags' => FILTER_FLAG_IPV4,
-            ])
+            if (!filter_var($this->ip, FILTER_VALIDATE_IP, [ 'flags' => FILTER_FLAG_IPV4, ])
+                && $this->ip === gethostbyname($this->ip)
             ) {
                 // When gethostbyname() fails it returns the original string
                 // so if ip and the result from gethostbyname() are equal this failed.
-                if ($this->ip === gethostbyname($this->ip)) {
-                    throw new Exception("Unable to resolve the host '{$this->ip}' to an IP address.");
-                }
+                throw new Exception("Unable to resolve the host '{$this->ip}' to an IP address.");
             }
         }
+    }
 
-        try {
-            // Make the protocol class for this type
-            $class = new \ReflectionClass(sprintf('GameQ\\Protocols\\%s', ucfirst($server_info[self::SERVER_TYPE])));
-        } catch (\ReflectionException $e) {
-            throw new Exception("Unable to locate Protocols class for '{$server_info[self::SERVER_TYPE]}'!");
-        }
+    /**
+     * Check and set any server specific options
+     */
+    protected function checkAndSetServerOptions()
+    {
 
-        // Set the protocol
-        $this->protocol = $class->newInstanceArgs([ $this->options ]);
-
-        // There is an option for the query port, we will do this now
-        if (array_key_exists(self::SERVER_OPTIONS_QUERY_PORT, $this->options)
-            && !empty($this->options[self::SERVER_OPTIONS_QUERY_PORT])
-        ) {
+        // Specific query port defined
+        if (array_key_exists(self::SERVER_OPTIONS_QUERY_PORT, $this->options)) {
             $this->port_query = (int) $this->options[self::SERVER_OPTIONS_QUERY_PORT];
         } else {
             // Do math based on the protocol class
             $this->port_query = $this->port_client + $this->protocol->portDiff();
         }
-
-        // Check for server id
-        if (!array_key_exists(self::SERVER_ID, $server_info) || empty($server_info[self::SERVER_ID])) {
-            // Make an id so each server has an id when returned
-            $server_info[self::SERVER_ID] = sprintf('%s:%d', $this->ip, $this->port_client);
-        }
-
-        // Set the server id
-        $this->id = $server_info[self::SERVER_ID];
-
-        unset($server_info, $class);
     }
 
     /**

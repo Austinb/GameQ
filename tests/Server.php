@@ -225,6 +225,9 @@ class Server extends \PHPUnit_Framework_TestCase
         ]);
     }
 
+    /**
+     * Test for specific query port defined in server creation
+     */
     public function testSpecifiedQueryPort()
     {
 
