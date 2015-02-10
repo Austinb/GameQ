@@ -460,13 +460,15 @@ class GameQ
     {
 
         try {
-            // We want to save this server's response
+            // @codeCoverageIgnoreStart
+            // We want to save this server's response to a file (useful for unit testing)
             if (!is_null($this->capture_packets_file)) {
                 file_put_contents(
                     $this->capture_packets_file,
                     implode(PHP_EOL . '||' . PHP_EOL, $server->protocol()->packetResponse())
                 );
             }
+            // @codeCoverageIgnoreEnd
 
             // Get the server response
             $results = $server->protocol()->processResponse();
