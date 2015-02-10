@@ -18,7 +18,7 @@
  *
  */
 
-/*
+/**
  * A simple PSR-4 spec auto loader to allow GameQ to function the same as if it were loaded via Composer
  *
  * To use this just include this file in your script and the GameQ namespace will be made available
@@ -26,6 +26,8 @@
  * i.e. require_once('/path/to/src/GameQ/Autoloader.php');
  *
  * See: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader-examples.md
+ *
+ * @codeCoverageIgnore
  */
 spl_autoload_register(function ($class) {
 
