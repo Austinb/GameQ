@@ -28,6 +28,7 @@ abstract class Base extends \PHPUnit_Framework_TestCase
      */
     public function loadData()
     {
+
         // Explode the class that called to avoid strict error
         $class = explode('\\', get_called_class());
 
@@ -64,13 +65,14 @@ abstract class Base extends \PHPUnit_Framework_TestCase
     /**
      * Generic query test function to simulate testing of protocol classes
      *
-     * @param $host
-     * @param $protocol
-     * @param $responses
+     * @param      $host
+     * @param      $protocol
+     * @param      $responses
+     * @param bool $debug
      *
      * @return mixed
      */
-    protected function queryTest($host, $protocol, $responses)
+    protected function queryTest($host, $protocol, $responses, $debug = false)
     {
 
         // Create a mock server
@@ -86,6 +88,7 @@ abstract class Base extends \PHPUnit_Framework_TestCase
 
         // Create a mock GameQ
         $gq_mock = $this->getMock('\GameQ\GameQ', null, [ ]);
+        $gq_mock->setOption('debug', $debug);
 
         // Reflect on GameQ class so we can parse
         $gameq = new \ReflectionClass($gq_mock);
