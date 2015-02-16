@@ -156,7 +156,7 @@ class Source extends Protocol
         foreach ($this->packets_response as $response) {
             $buffer = new Buffer($response);
 
-            // Get the header of packet(long)
+            // Get the header of packet (long)
             $header = $buffer->readInt32Signed();
 
             // Single packet
@@ -239,7 +239,7 @@ class Source extends Protocol
 
             // Gold source
             if ($this->source_engine == self::GOLDSOURCE_ENGINE) {
-                // Grab the packet number
+                // Grab the packet number (byte)
                 $packet_number = $buffer->readInt8();
 
                 // We need to burn the extra header (\xFF\xFF\xFF\xFF) on first loop
@@ -268,10 +268,10 @@ class Source extends Protocol
                     }
 
                     // Get the length of the packet (long)
-                    $packet_length = $buffer->readInt32();
+                    $packet_length = $buffer->readInt32Signed();
 
                     // Checksum for the decompressed packet (long)
-                    $packet_checksum = $buffer->readInt32();
+                    $packet_checksum = $buffer->readInt32Signed();
 
                     // Try to decompress
                     $result = bzdecompress($buffer->getBuffer());
