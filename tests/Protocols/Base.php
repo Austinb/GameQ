@@ -89,6 +89,7 @@ abstract class Base extends \PHPUnit_Framework_TestCase
         // Create a mock GameQ
         $gq_mock = $this->getMock('\GameQ\GameQ', null, [ ]);
         $gq_mock->setOption('debug', $debug);
+        $gq_mock->removeFilter('normalize');
 
         // Reflect on GameQ class so we can parse
         $gameq = new \ReflectionClass($gq_mock);
