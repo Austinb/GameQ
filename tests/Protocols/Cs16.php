@@ -19,14 +19,14 @@
 namespace GameQ\Tests\Protocols;
 
 /**
- * Test Class for TF2
+ * Test Class for CS 1.6
  *
  * @package GameQ\Tests\Protocols
  */
-class Tf2 extends Base
+class Cs16 extends Base
 {
     /**
-     * Test responses for Tf2
+     * Test responses for Cs 1.6
      *
      * @dataProvider loadData
      *
@@ -41,7 +41,7 @@ class Tf2 extends Base
 
         $testResult = $this->queryTest(
             $server,
-            'tf2',
+            'cs16',
             $responses
         );
 
