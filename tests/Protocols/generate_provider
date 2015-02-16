@@ -25,10 +25,10 @@
  * Requires composer install in dev mode
  *
  * Usage example:
- * $ php tests/generate_provider -s 127.0.0.1:27015 -p css
+ * $ php tests/Protocols/generate_provider -s 127.0.0.1:27015 -p css
  */
 
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../../vendor/autoload.php';
 
 use GetOptionKit\OptionCollection;
 use GetOptionKit\OptionParser;
@@ -55,7 +55,7 @@ try {
     }
 
     // Build the directory where we want to store this data
-    $provider_dir = sprintf('%s/Protocols/Providers/%s', __DIR__, ucfirst(strtolower($options['protocol'])));
+    $provider_dir = sprintf('%s/Providers/%s', __DIR__, ucfirst(strtolower($options['protocol'])));
 
     // Make the directory if it does not already exist
     if (!is_dir($provider_dir)) {
