@@ -2,6 +2,7 @@ Very ALPHA - NOT FOR PRODUCTION
 
 [![Latest Unstable Version](https://poser.pugx.org/austinb/gameq/v/unstable.svg)](https://packagist.org/packages/austinb/gameq)
 [![Build Status](https://travis-ci.org/Austinb/GameQ.svg?branch=v3)](https://travis-ci.org/Austinb/GameQ)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Austinb/GameQ/badges/quality-score.png?b=v3)](https://scrutinizer-ci.com/g/Austinb/GameQ/?branch=v3)
 [![Coverage Status](https://coveralls.io/repos/Austinb/GameQ/badge.svg?branch=v3)](https://coveralls.io/r/Austinb/GameQ?branch=v3)
 [![License](https://poser.pugx.org/austinb/gameq/license.svg)](https://packagist.org/packages/austinb/gameq)
 [![Dependency Status](https://www.versioneye.com/user/projects/54d6a7d43ca0845f67000002/badge.svg?style=flat)](https://www.versioneye.com/user/projects/54d6a7d43ca0845f67000002)
