@@ -100,6 +100,27 @@ class Source extends Protocol
      */
     protected $join_link = "steam://connect/%s:%d/";
 
+    protected $normalize = [
+        // General
+        'general' => [
+            // target       => source
+            'dedicated'  => 'dedicated',
+            'gametype'   => 'game_descr',
+            'hostname'   => 'hostname',
+            'mapname'    => 'map',
+            'maxplayers' => 'max_players',
+            'mod'        => 'game_dir',
+            'numplayers' => 'num_players',
+            'password'   => 'password',
+        ],
+        // Individual
+        'player'  => [
+            'name'  => 'name',
+            'score' => 'score',
+            'time'  => 'time',
+        ],
+    ];
+
     /**
      * Parse the challenge response and apply it to all the packet types
      *

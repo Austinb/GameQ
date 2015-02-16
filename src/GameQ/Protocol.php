@@ -166,16 +166,21 @@ abstract class Protocol
         // General
         'general' => [
             // target       => source
-            'dedicated'  => [ 'listenserver', 'dedic', 'bf2dedicated', 'netserverdedicated', 'bf2142dedicated' ],
+            'dedicated'  => [
+                'listenserver',
+                'dedic',
+                'bf2dedicated',
+                'netserverdedicated',
+                'bf2142dedicated',
+                'dedicated'
+            ],
             'gametype'   => [ 'ggametype', 'sigametype', 'matchtype' ],
             'hostname'   => [ 'svhostname', 'servername', 'siname', 'name' ],
             'mapname'    => [ 'map', 'simap' ],
-            'maxplayers' => [ 'svmaxclients', 'simaxplayers', 'maxclients' ],
+            'maxplayers' => [ 'svmaxclients', 'simaxplayers', 'maxclients', 'max_players' ],
             'mod'        => [ 'game', 'gamedir', 'gamevariant' ],
-            'numplayers' => [ 'clients', 'sinumplayers' ],
+            'numplayers' => [ 'clients', 'sinumplayers', 'num_players' ],
             'password'   => [ 'protected', 'siusepass', 'sineedpass', 'pswrd', 'gneedpass', 'auth' ],
-            'players'    => [ 'players' ],
-            'teams'      => [ 'team' ],
         ],
         // Indvidual
         'player'  => [

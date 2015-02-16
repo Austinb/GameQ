@@ -20,20 +20,111 @@ namespace GameQ\Filters;
 
 use GameQ\Server;
 
+/**
+ * Class Normalize
+ *
+ * @package GameQ\Filters
+ */
 class Normalize extends Base
 {
+
+    /**
+     * Holds the protocol specific normalize information
+     *
+     * @type array
+     */
+    protected $normalize = [ ];
+
     /**
      * Apply this filter
      *
-     * @param array         $data
+     * @param array         $result
      * @param \GameQ\Server $server
      *
      * @return array
      */
-    public function apply(Array $data, Server $server)
+    public function apply(array $result, Server $server)
     {
 
-        // Currently just return what is sent, have to think more on how to revamp the old filter
-        return $data;
+        // No result passed so just return
+        if (empty($result)) {
+            return $result;
+        }
+
+        $data = [];
+        $data['raw'][$server->id()] = $result;
+
+        // Grab the normalize for this protocol for the specific server
+        $this->normalize = $server->protocol()->getNormalize();
+
+        // Do general information
+        $result = array_merge($result, $this->check('general', $result));
+
+        // Do player information
+        if (isset($result['players']) && count($result['players']) > 0) {
+            // Iterate
+            foreach ($result['players'] as $key => $player) {
+                $result['players'][$key] = array_merge($player, $this->check('player', $player));
+            }
+        } else {
+            $result['players'] = [ ];
+        }
+
+        // Do team information
+        if (isset($result['teams']) && count($result['teams']) > 0) {
+            // Iterate
+            foreach ($result['teams'] as $key => $team) {
+                $result['teams'][$key] = array_merge($team, $this->check('teams', $team));
+            }
+        } else {
+            $result['teams'] = [ ];
+        }
+
+        $data['filtered'][$server->id()] = $result;
+        file_put_contents('/home/gameqv3/css_1.json', json_encode($data));
+
+        // Return the normalized result
+        return $result;
+    }
+
+    /**
+     * Check a section for normalization
+     *
+     * @param $section
+     * @param $data
+     *
+     * @return array
+     */
+    protected function check($section, $data)
+    {
+
+        // Normalized return array
+        $normalized = [ ];
+
+        if (isset($this->normalize[$section]) && !empty($this->normalize[$section])) {
+            foreach ($this->normalize[$section] as $property => $raw) {
+                // Default the value for the new key as null
+                $value = null;
+
+                if (is_array($raw)) {
+                    // Iterate over the raw property we want to use
+                    foreach ($raw as $check) {
+                        if (array_key_exists($check, $data)) {
+                            $value = $data[$check];
+                            break;
+                        }
+                    }
+                } else {
+                    // String
+                    if (array_key_exists($raw, $data)) {
+                        $value = $data[$raw];
+                    }
+                }
+
+                $normalized['gq_' . $property] = $value;
+            }
+        }
+
+        return $normalized;
     }
 }

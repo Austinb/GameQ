@@ -54,5 +54,5 @@ abstract class Base
      *
      * @return mixed
      */
-    abstract public function apply(Array $data, Server $server);
+    abstract public function apply(array $data, Server $server);
 }
