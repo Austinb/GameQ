@@ -76,7 +76,7 @@ class GameQ
     protected $options = [
         'debug'                => false,
         'timeout'              => 3, // Seconds
-        'filters'              => [ 'normalize' ],
+        'filters'              => [ 'normalize' => [ ] ],
         // Advanced settings
         'stream_timeout'       => 200000, // See http://www.php.net/manual/en/function.stream-select.php for more info
         'write_wait'           => 500,
@@ -512,7 +512,10 @@ class GameQ
         $results['gq_port_query'] = $server->portQuery();
         $results['gq_protocol'] = $server->protocol()->protocol();
         $results['gq_type'] = (string) $server->protocol();
+        $results['gq_name'] = $server->protocol()->nameLong();
         $results['gq_transport'] = $server->protocol()->transport();
+
+        ksort($results);
 
         return $results;
     }
