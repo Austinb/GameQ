@@ -51,8 +51,8 @@ class Normalize extends Base
             return $result;
         }
 
-        $data = [];
-        $data['raw'][$server->id()] = $result;
+        //$data = [];
+        //$data['raw'][$server->id()] = $result;
 
         // Grab the normalize for this protocol for the specific server
         $this->normalize = $server->protocol()->getNormalize();
@@ -80,7 +80,8 @@ class Normalize extends Base
             $result['teams'] = [ ];
         }
 
-        $data['filtered'][$server->id()] = $result;
+        //$data['filtered'][$server->id()] = $result;
+        //file_put_contents('/home/gameqv3/css_1.json', json_encode($data));
 
         // Return the normalized result
         return $result;
