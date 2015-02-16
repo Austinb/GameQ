@@ -81,7 +81,6 @@ class Normalize extends Base
         }
 
         $data['filtered'][$server->id()] = $result;
-        file_put_contents('/home/gameqv3/css_1.json', json_encode($data));
 
         // Return the normalized result
         return $result;
