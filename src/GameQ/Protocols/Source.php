@@ -37,9 +37,8 @@ class Source extends Protocol
     /*
      * Source engine type constants
      */
-    const SOURCE_ENGINE     = 0;
-
-    const GOLDSOURCE_ENGINE = 1;
+    const SOURCE_ENGINE = 0,
+        GOLDSOURCE_ENGINE = 1;
 
     /**
      * Array of packets we want to look up.
@@ -136,11 +135,11 @@ class Source extends Protocol
         foreach ($this->packets_response as $response) {
             $buffer = new Buffer($response);
 
-            // Get the type of packet(long)
-            $type = $buffer->readInt32Signed();
+            // Get the header of packet(long)
+            $header = $buffer->readInt32Signed();
 
             // Single packet
-            if ($type == -1) {
+            if ($header == -1) {
                 // We need to peek and see what kind of engine this is for later processing
                 if ($buffer->lookAhead(1) == "\x6d") {
                     $this->source_engine = self::GOLDSOURCE_ENGINE;
@@ -152,17 +151,18 @@ class Source extends Protocol
                 // Split packet
 
                 // Packet Id (long)
-                $packet_type = $buffer->readInt32Signed();
+                $packet_id = $buffer->readInt32Signed();
 
-                $packets[$packet_type][] = $buffer->getBuffer();
+                // Add the buffer to the packet as another array
+                $packets[$packet_id][] = $buffer->getBuffer();
             }
         }
 
         // Now that we have the packets sorted we need to iterate and process them
-        foreach ($packets as $packet) {
+        foreach ($packets as $packet_id => $packet) {
             // We first need to off load split packets to combine them
             if (is_array($packet)) {
-                $buffer = new Buffer($this->processPackets($packet));
+                $buffer = new Buffer($this->processPackets($packet_id, $packet));
             } else {
                 $buffer = new Buffer($packet);
             }
@@ -199,19 +199,20 @@ class Source extends Protocol
      *
      * @SuppressWarnings(PHPMD.UnusedLocalVariable)
      *
+     * @param       $packet_id
      * @param array $packets
      *
      * @return string
      * @throws \GameQ\Exception\Protocol
      */
-    protected function processPackets(Array $packets = null)
+    protected function processPackets($packet_id, array $packets = null)
     {
 
         // Init array so we can order
         $packs = [ ];
 
         // We have multiple packets so we need to get them and order them
-        foreach ($packets as $packet) {
+        foreach ($packets as $i => $packet) {
             // Make a buffer so we can read this info
             $buffer = new Buffer($packet);
 
@@ -220,16 +221,23 @@ class Source extends Protocol
                 // Grab the packet number
                 $packet_number = $buffer->readInt8();
 
-                // Burn the header \xFF\xFF\xFF\xFF
-                $buffer->read(4);
+                // We need to burn the extra header (\xFF\xFF\xFF\xFF) on first loop
+                if ($i == 0) {
+                    $buffer->read(4);
+                }
 
                 // Now add the rest of the packet to the new array with the packet_number as the id so we can order it
                 $packs[$packet_number] = $buffer->getBuffer();
             } else {
-                $request_id = $buffer->readInt32Signed();
+                // Number of packets in this set (byte)
+                $packets_total = $buffer->readInt8();
+
+                // The current packet number (byte)
+                $packet_number = $buffer->readInt8();
 
                 // Check to see if this is compressed
-                if ($request_id & 0x80000000) {
+                // @todo: Check to make sure these decompress correctly, new changes may affect this loop.
+                if ($packet_id & 0x80000000) {
                     // Check to see if we have Bzip2 installed
                     if (!function_exists('bzdecompress')) {
                         throw new Exception(
@@ -238,10 +246,10 @@ class Source extends Protocol
                         );
                     }
 
-                    // Get some info
-                    $num_packets = $buffer->readInt8();
-                    $cur_packet = $buffer->readInt8();
+                    // Get the length of the packet (long)
                     $packet_length = $buffer->readInt32();
+
+                    // Checksum for the decompressed packet (long)
                     $packet_checksum = $buffer->readInt32();
 
                     // Try to decompress
@@ -254,16 +262,21 @@ class Source extends Protocol
                             returned: " . strlen($result)
                         );
                     }
-
-                    // Set the new packs
-                    $packs[$cur_packet] = $result;
                 } else {
-                    $packet_number = $buffer->readInt16Signed();
-                    $split_length = $buffer->readInt16Signed();
+                    // Get the packet length (short)
+                    $packet_length = $buffer->readInt16Signed();
+
+                    // We need to burn the extra header (\xFF\xFF\xFF\xFF) on first loop
+                    if ($i == 0) {
+                        $buffer->read(4);
+                    }
 
                     // Now add the rest of the packet to the new array with the packet_number as the id so we can order it
-                    $packs[$packet_number] = $buffer->getBuffer();
+                    $result = $buffer->getBuffer();
                 }
+
+                // Add this packet to the list
+                $packs[$packet_number] = $result;
             }
 
             unset($buffer);
