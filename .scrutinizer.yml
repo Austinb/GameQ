@@ -63,6 +63,7 @@ tools:
                     elseif:               true
                     eof_ending:           true
     php_code_coverage:
+        enabled: false
         config_path: phpunit.xml.dist
     php_pdepend: true
     php_loc:
@@ -72,3 +73,5 @@ tools:
         enabled: true
         excluded_dirs: [vendor, tests]
     php_sim: true
+    sensiolabs_security_checker:
+        enabled: true
