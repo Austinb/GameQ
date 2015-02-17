@@ -395,7 +395,7 @@ class Source extends Protocol
      *
      * @param \GameQ\Buffer $buffer
      *
-     * @return mixed
+     * @return array
      * @throws \GameQ\Exception\Protocol
      */
     protected function processDetailsGoldSource(Buffer $buffer)

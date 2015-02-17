@@ -143,7 +143,7 @@ class Buffer
      *
      * @param   int $length Length of data to read
      *
-     * @return  string          The data read
+     * @return  string
      */
     public function lookAhead($length = 1)
     {
