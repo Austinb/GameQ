@@ -25,6 +25,8 @@ use GameQ\Result;
  * Class Ship
  *
  * @package GameQ\Protocols
+ *
+ * @author  Nikolay Ipanyuk <rostov114@gmail.com>
  * @author  Austin Bischoff <austin@codebeard.com>
  */
 class Ship extends Source
@@ -59,22 +61,31 @@ class Ship extends Source
         // Set the result to a new result instance
         $result = new Result();
 
-        // We need to read the number of players because this response has trash at the end usually
+        // We need to read the number of players because this response has other data at the end usually
         $num_players = $buffer->readInt8();
 
         // Player count
         $result->add('num_players', $num_players);
 
-        // We keep an index of the players so we can break when needed
-        $player = 0;
+        // No players, no work
+        if ($num_players == 0) {
+            return $result->fetch();
+        }
 
         // Players list
-        while ($buffer->getLength() && $player < $num_players) {
+        for ($player = 0; $player < $num_players; $player++) {
             $result->addPlayer('id', $buffer->readInt8());
             $result->addPlayer('name', $buffer->readString());
             $result->addPlayer('score', $buffer->readInt32Signed());
             $result->addPlayer('time', $buffer->readFloat32());
-            $player++;
+        }
+
+        // Extra data
+        if ($buffer->getLength() > 0) {
+            for ($player = 0; $player < $num_players; $player++) {
+                $result->addPlayer('deaths', $buffer->readInt32Signed());
+                $result->addPlayer('money', $buffer->readInt32Signed());
+            }
         }
 
         unset($buffer);
