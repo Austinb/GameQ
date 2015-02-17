@@ -473,6 +473,9 @@ class GameQ
             // Get the server response
             $results = $server->protocol()->processResponse();
 
+            // Check for online before we do anything else
+            $results['gq_online'] = (count($results) > 0);
+
             // Process the join link
             if (!isset($results['gq_joinlink']) || empty($results['gq_joinlink'])) {
                 $results['gq_joinlink'] = $server->getJoinLink();
@@ -506,7 +509,6 @@ class GameQ
         }
 
         // Now add some default stuff
-        $results['gq_online'] = (count($results) > 0);
         $results['gq_address'] = $server->ip();
         $results['gq_port_client'] = $server->portClient();
         $results['gq_port_query'] = $server->portQuery();
