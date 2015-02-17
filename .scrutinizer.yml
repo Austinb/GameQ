@@ -5,8 +5,7 @@ filter:
 before_commands:
     - 'composer --prefer-source install'
     - 'cp phpunit.xml.dist phpunit.xml'
-tools:
-    coding_style:
+coding_style:
         php:
             indentation:
                 general:
@@ -14,6 +13,7 @@ tools:
                     size: 4
                 switch:
                     indent_case: true
+tools:
     external_code_coverage: true
     php_mess_detector:
         config:
