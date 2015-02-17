@@ -6,6 +6,14 @@ before_commands:
     - 'composer --prefer-source install'
     - 'cp phpunit.xml.dist phpunit.xml'
 tools:
+    coding_style:
+        php:
+            indentation:
+                general:
+                    use_tabs: false
+                    size: 4
+                switch:
+                    indent_case: true
     external_code_coverage: true
     php_mess_detector:
         config:
