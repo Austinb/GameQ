@@ -285,7 +285,7 @@ class Server
     /**
      * Get the client port for this server
      *
-     * @return int|null
+     * @return int
      */
     public function portClient()
     {
@@ -296,7 +296,7 @@ class Server
     /**
      * Get the query port for this server
      *
-     * @return int|null
+     * @return int
      */
     public function portQuery()
     {

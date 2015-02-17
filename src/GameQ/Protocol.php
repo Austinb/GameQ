@@ -294,15 +294,15 @@ abstract class Protocol
     /**
      * Get/set the transport type for this protocol
      *
-     * @param bool|string $type
+     * @param string $type
      *
      * @return string
      */
-    public function transport($type = false)
+    public function transport($type = null)
     {
 
         // Act as setter
-        if ($type !== false) {
+        if (!is_null($type)) {
             $this->transport = $type;
         }
 
