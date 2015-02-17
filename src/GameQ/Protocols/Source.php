@@ -226,7 +226,7 @@ class Source extends Protocol
      * @return string
      * @throws \GameQ\Exception\Protocol
      */
-    protected function processPackets($packet_id, array $packets = null)
+    protected function processPackets($packet_id, array $packets = [ ])
     {
 
         // Init array so we can order

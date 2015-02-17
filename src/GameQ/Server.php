@@ -56,7 +56,7 @@ class Server
     /**
      * The protocol class for this server
      *
-     * @type null|\GameQ\Protocol
+     * @type \GameQ\Protocol
      */
     protected $protocol = null;
 
@@ -77,14 +77,14 @@ class Server
     /**
      * The server's client port (connect port)
      *
-     * @type int|null
+     * @type int
      */
     public $port_client = null;
 
     /**
      * The server's query port
      *
-     * @type int|null
+     * @type int
      */
     public $port_query = null;
 
