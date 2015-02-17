@@ -294,9 +294,9 @@ abstract class Protocol
     /**
      * Get/set the transport type for this protocol
      *
-     * @param bool $type
+     * @param bool|string $type
      *
-     * @return bool|string
+     * @return string
      */
     public function transport($type = false)
     {

@@ -109,7 +109,7 @@ class Server
      *
      * @throws \GameQ\Exception\Server
      */
-    public function __construct(Array $server_info)
+    public function __construct(array $server_info = [ ])
     {
 
         // Check for server type

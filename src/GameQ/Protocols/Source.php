@@ -194,7 +194,6 @@ class Source extends Protocol
             // Figure out which packet response this is
             if (!array_key_exists($response_type, $this->responses)) {
                 throw new Exception(__METHOD__ . " response type '{$response_type}' is not valid");
-                continue;
             }
 
             // Now we need to call the proper method
@@ -251,7 +250,7 @@ class Source extends Protocol
                 $packs[$packet_number] = $buffer->getBuffer();
             } else {
                 // Number of packets in this set (byte)
-                $packets_total = $buffer->readInt8();
+                $buffer->readInt8();
 
                 // The current packet number (byte)
                 $packet_number = $buffer->readInt8();
@@ -271,7 +270,7 @@ class Source extends Protocol
                     $packet_length = $buffer->readInt32Signed();
 
                     // Checksum for the decompressed packet (long)
-                    $packet_checksum = $buffer->readInt32Signed();
+                    $buffer->readInt32Signed();
 
                     // Try to decompress
                     $result = bzdecompress($buffer->getBuffer());
@@ -285,7 +284,7 @@ class Source extends Protocol
                     }
                 } else {
                     // Get the packet length (short)
-                    $packet_length = $buffer->readInt16Signed();
+                    $buffer->readInt16Signed();
 
                     // We need to burn the extra header (\xFF\xFF\xFF\xFF) on first loop
                     if ($i == 0) {

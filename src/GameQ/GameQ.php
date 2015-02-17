@@ -153,7 +153,7 @@ class GameQ
      *
      * @return $this
      */
-    public function addServer(Array $server_info = null)
+    public function addServer(array $server_info = [])
     {
 
         // Add and validate the server
@@ -169,7 +169,7 @@ class GameQ
      *
      * @return $this
      */
-    public function addServers(Array $servers = null)
+    public function addServers(array $servers = [])
     {
 
         // Loop through all the servers and add them
