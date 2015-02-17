@@ -35,24 +35,21 @@ class Buffer
     /**
      * The original data
      *
-     * @var        string
-     * @access     public
+     * @type string
      */
     private $data;
 
     /**
      * The original data
      *
-     * @var        string
-     * @access     public
+     * @type int
      */
     private $length;
 
     /**
      * Position of pointer
      *
-     * @var        int
-     * @access     public
+     * @type int
      */
     private $index = 0;
 
@@ -71,7 +68,7 @@ class Buffer
     /**
      * Return all the data
      *
-     * @return  string|array    The data
+     * @return  string    The data
      */
     public function getData()
     {
@@ -82,7 +79,7 @@ class Buffer
     /**
      * Return data currently in the buffer
      *
-     * @return  string|array    The data currently in the buffer
+     * @return  string    The data currently in the buffer
      */
     public function getBuffer()
     {
@@ -282,6 +279,8 @@ class Buffer
 
     /**
      * Read a 32-bit unsigned integer
+     *
+     * @return int
      */
     public function readInt32()
     {
@@ -293,6 +292,8 @@ class Buffer
 
     /**
      * Read a 32-bit signed integer
+     *
+     * @return int
      */
     public function readInt32Signed()
     {
@@ -304,6 +305,8 @@ class Buffer
 
     /**
      * Read a 16-bit unsigned integer
+     *
+     * @return int
      */
     public function readInt16()
     {
@@ -315,6 +318,8 @@ class Buffer
 
     /**
      * Read a 16-big signed integer
+     *
+     * @return int
      */
     public function readInt16Signed()
     {
@@ -327,7 +332,7 @@ class Buffer
     /**
      * Read an int8 from the buffer
      *
-     * @return  int             The data read
+     * @return int
      */
     public function readInt8()
     {
@@ -338,7 +343,7 @@ class Buffer
     /**
      * Read an float32 from the buffer
      *
-     * @return  int             The data read
+     * @return  float
      */
     public function readFloat32()
     {
@@ -362,7 +367,7 @@ class Buffer
 
         // Check length
         if (strlen($string) !== 4) {
-            return false;
+            return 0;
         }
 
         // Convert
@@ -386,7 +391,7 @@ class Buffer
 
         // Check length
         if (strlen($string) !== ($bits / 8)) {
-            return false;
+            return 0;
         }
 
         // Convert
