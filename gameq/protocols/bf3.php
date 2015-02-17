@@ -281,7 +281,7 @@ class GameQ_Protocols_Bf3 extends GameQ_Protocols
 		$tags = array_slice($words, 2, $num_tags);
 
 		// Just incase this changed between calls.
-		$result->add('numplayers', $words[9]);
+		$result->add('numplayers', $words[$num_tags+2]);
 
 		// Loop until we run out of positions
 		for($pos=(3+$num_tags);$pos<=$words_total;$pos+=$num_tags)
