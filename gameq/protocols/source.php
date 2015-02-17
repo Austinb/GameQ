@@ -222,6 +222,16 @@ class GameQ_Protocols_Source extends GameQ_Protocols
 
         $result->add('secure', $buf->readInt8());
 
+	if ($this->source_engine == self::SOURCE_ENGINE)
+	{
+		if ($result->get('steamappid') == 2400)
+		{
+			$result->add('mode', $buf->readInt8());
+			$result->add('witnesses', $buf->readInt8());
+			$result->add('duration', $buf->readInt8());
+		}
+	}
+
         // Check engine type
         if ($this->source_engine == self::GOLDSOURCE_ENGINE)
         {
