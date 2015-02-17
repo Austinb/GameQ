@@ -71,17 +71,24 @@ class GameQ_Protocols_Ship extends GameQ_Protocols_Source
             return $result->fetch();
         }
 
-        // We keep an index of the players so we can break when needed
-        $player = 0;
-
         // Players list
-        while ($buf->getLength() && $player < $num_players) {
+		for ($player = 0; $player < $num_players; $player++)
+		{
             $result->addPlayer('id', $buf->readInt8());
             $result->addPlayer('name', $buf->readString());
             $result->addPlayer('score', $buf->readInt32Signed());
             $result->addPlayer('time', $buf->readFloat32());
-            $player++;
         }
+
+		// Addotional player info
+		if ($buf->getLength() > 0)
+		{
+			for ($player = 0; $player < $num_players; $player++)
+			{		
+				$result->addPlayer('deaths', $buf->readInt32Signed());
+				$result->addPlayer('money', $buf->readInt32Signed());
+			}
+		}
 
         unset($buf);
 
