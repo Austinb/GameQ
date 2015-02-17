@@ -291,7 +291,7 @@ class Source extends Protocol
                         $buffer->read(4);
                     }
 
-                    // Now add the rest of the packet to the new array with the packet_number as the id so we can order it
+                    // Grab the rest of the buffer as a result
                     $result = $buffer->getBuffer();
                 }
 
@@ -339,38 +339,50 @@ class Source extends Protocol
         $result->add('os', $buffer->read());
         $result->add('password', $buffer->readInt8());
         $result->add('secure', $buffer->readInt8());
+
+        // Special result for The Ship only (appid=2400)
+        if ($result->get('steamappid') == 2400) {
+            $result->add('game_mode', $buffer->readInt8());
+            $result->add('witness_count', $buffer->readInt8());
+            $result->add('witness_time', $buffer->readInt8());
+        }
+
         $result->add('version', $buffer->readString());
 
         // Extra data flag
-        $edf = $buffer->readInt8();
+        if ($buffer->lookAhead(1) !== false) {
+            $edf = $buffer->readInt8();
 
-        if ($edf & 0x80) {
-            $result->add('port', $buffer->readInt16Signed());
-        }
+            if ($edf & 0x80) {
+                $result->add('port', $buffer->readInt16Signed());
+            }
 
-        if ($edf & 0x10) {
-            $low = $buffer->readInt32();
-            $high = $buffer->readInt32();
+            if ($edf & 0x10) {
+                $low = $buffer->readInt32();
+                $high = $buffer->readInt32();
 
-            $result->add('steam_id', ($high << 32) | $low);
-            unset($low, $high);
-        }
+                $result->add('steam_id', ($high << 32) | $low);
+                unset($low, $high);
+            }
 
-        if ($edf & 0x40) {
-            $result->add('sourcetv_port', $buffer->readInt16Signed());
-            $result->add('sourcetv_name', $buffer->readString());
-        }
+            if ($edf & 0x40) {
+                $result->add('sourcetv_port', $buffer->readInt16Signed());
+                $result->add('sourcetv_name', $buffer->readString());
+            }
 
-        if ($edf & 0x20) {
-            $result->add('keywords', $buffer->readString());
-        }
+            if ($edf & 0x20) {
+                $result->add('keywords', $buffer->readString());
+            }
 
-        if ($edf & 0x01) {
-            $low = $buffer->readInt32();
-            $high = $buffer->readInt32();
+            if ($edf & 0x01) {
+                $low = $buffer->readInt32();
+                $high = $buffer->readInt32();
 
-            $result->add('game_id', ($high << 32) | $low);
-            unset($low, $high);
+                $result->add('game_id', ($high << 32) | $low);
+                unset($low, $high);
+            }
+
+            unset($edf);
         }
 
         unset($buffer);
@@ -408,7 +420,7 @@ class Source extends Protocol
         $result->add('ismod', $buffer->readInt8());
 
         // We only run these if ismod is 1 (true)
-        if ($result->get('ismod')) {
+        if ($result->get('ismod') == 1) {
             $result->add('mod_urlinfo', $buffer->readString());
             $result->add('mod_urldl', $buffer->readString());
             $buffer->skip();
