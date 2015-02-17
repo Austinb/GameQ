@@ -3,7 +3,7 @@ filter:
         - 'vendor/*'
         - 'tests/*'
 before_commands:
-    - 'composer --prefer-source --dev install'
+    - 'composer --prefer-source install'
     - 'cp phpunit.xml.dist phpunit.xml'
 tools:
     external_code_coverage: true
@@ -13,7 +13,7 @@ tools:
     php_analyzer:
         config:
             parameter_reference_check: { enabled: false }
-            checkstyle: { enabled: true, no_trailing_whitespace: true }
+            checkstyle: { enabled: false, no_trailing_whitespace: true }
             unreachable_code: { enabled: true }
             check_access_control: { enabled: false }
             typo_checks: { enabled: true }
