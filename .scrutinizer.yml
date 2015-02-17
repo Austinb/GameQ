@@ -1,7 +1,5 @@
 filter:
-    excluded_paths:
-        - 'vendor/*'
-        - 'tests/*'
+    excluded_paths: [vendor/*, examples/*, tests/*]
 before_commands:
     - 'composer --prefer-source install'
     - 'cp phpunit.xml.dist phpunit.xml'
@@ -63,15 +61,15 @@ tools:
                     elseif:               true
                     eof_ending:           true
     php_code_coverage:
-        enabled: false
+        enabled: true
         config_path: phpunit.xml.dist
     php_pdepend: true
     php_loc:
         enabled: true
-        excluded_dirs: [vendor, tests]
+        excluded_dirs: [vendor, tests, examples]
     php_cpd:
         enabled: true
-        excluded_dirs: [vendor, tests]
+        excluded_dirs: [vendor, tests, examples]
     php_sim: false
     sensiolabs_security_checker:
         enabled: true

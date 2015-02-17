@@ -29,7 +29,7 @@ abstract class Core
     /**
      * The socket used by this resource
      *
-     * @type resource
+     * @type null|resource
      */
     public $socket = null;
 
