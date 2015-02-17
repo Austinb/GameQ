@@ -43,7 +43,7 @@ tools:
         config:
             ruleset: build/config/phpcs.xml
     php_cs_fixer:
-            enabled: true
+            enabled: false
             config:
                 level: psr2
                 fixers:
@@ -72,6 +72,6 @@ tools:
     php_cpd:
         enabled: true
         excluded_dirs: [vendor, tests]
-    php_sim: true
+    php_sim: false
     sensiolabs_security_checker:
         enabled: true
