@@ -20,9 +20,71 @@
  * The Ship Protocol Class
  *
  * @author Nikolay Ipanyuk <rostov114@gmail.com>
+ * @author Austin Bischoff <austin@codebeard.com>
  */
 class GameQ_Protocols_Ship extends GameQ_Protocols_Source
 {
-	protected $name = "ship";
-	protected $name_long = "The Ship";
+
+    protected $name      = "ship";
+
+    protected $name_long = "The Ship";
+
+    /**
+     * Special player parse for The Ship
+     *
+     * @return array|mixed
+     * @throws \GameQ_ProtocolsException
+     */
+    protected function process_players()
+    {
+
+        // Make sure we have a valid response
+        if (!$this->hasValidResponse(self::PACKET_PLAYERS)) {
+            return [ ];
+        }
+
+        // Set the result to a new result instance
+        $result = new GameQ_Result();
+
+        // Let's preprocess the rules
+        $data = $this->preProcess_players($this->packets_response[self::PACKET_PLAYERS]);
+
+        // Create a new buffer
+        $buf = new GameQ_Buffer($data);
+
+        // Make sure the data is formatted properly
+        if (($header = $buf->read(5)) != "\xFF\xFF\xFF\xFF\x44") {
+            throw new GameQ_ProtocolsException("Data for " . __METHOD__
+                                               . " does not have the proper header (should be 0xFF0xFF0xFF0xFF0x44). Header: "
+                                               . bin2hex($header));
+            return [ ];
+        }
+
+        // Pull out the number of players
+        $num_players = $buf->readInt8();
+
+        // Player count
+        $result->add('num_players', $num_players);
+
+        // No players so no need to look any further
+        if ($num_players == 0) {
+            return $result->fetch();
+        }
+
+        // We keep an index of the players so we can break when needed
+        $player = 0;
+
+        // Players list
+        while ($buf->getLength() && $player < $num_players) {
+            $result->addPlayer('id', $buf->readInt8());
+            $result->addPlayer('name', $buf->readString());
+            $result->addPlayer('score', $buf->readInt32Signed());
+            $result->addPlayer('time', $buf->readFloat32());
+            $player++;
+        }
+
+        unset($buf);
+
+        return $result->fetch();
+    }
 }
