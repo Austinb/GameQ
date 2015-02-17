@@ -35,7 +35,25 @@ tools:
         config:
             ruleset: build/config/phpcs.xml
     php_cs_fixer:
-            config: { level: psr2 }
+            enabled: true
+            config:
+                level: psr2
+                fixers:
+                    indentation:          false
+                    linefeed:             true
+                    trailing_spaces:      true
+                    unused_use:           true
+                    phpdoc_params:        false
+                    visibility:           true
+                    return:               false
+                    short_tag:            true
+                    braces:               false
+                    include:              true
+                    php_closing_tag:      true
+                    extra_empty_lines:    true
+                    controls_spaces:      true
+                    elseif:               true
+                    eof_ending:           true
     php_code_coverage:
         config_path: phpunit.xml.dist
     php_pdepend: true
@@ -45,3 +63,4 @@ tools:
     php_cpd:
         enabled: true
         excluded_dirs: [vendor, tests]
+    php_sim: true
