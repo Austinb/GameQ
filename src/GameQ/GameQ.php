@@ -246,7 +246,7 @@ class GameQ
     {
 
         // Add the filter
-        $this->options['filters'][$filterName] = $options;
+        $this->options['filters'][strtolower($filterName)] = $options;
 
         return $this;
     }
@@ -260,6 +260,8 @@ class GameQ
      */
     public function removeFilter($filterName)
     {
+        // Set to all lower
+        $filterName = strtolower($filterName);
 
         // Remove this filter if it has been defined
         if (array_key_exists($filterName, $this->options['filters'])) {
@@ -477,17 +479,12 @@ class GameQ
             // Check for online before we do anything else
             $results['gq_online'] = (count($results) > 0);
 
-            // Process the join link
-            if (!isset($results['gq_joinlink']) || empty($results['gq_joinlink'])) {
-                $results['gq_joinlink'] = $server->getJoinLink();
-            }
-
             // Loop over the filters
             foreach ($this->options['filters'] as $filterName => $options) {
                 // Try to do this filter
                 try {
                     // Make a new reflection class
-                    $class = new \ReflectionClass(sprintf('GameQ\\Filters\\%s', ucfirst(strtolower($filterName))));
+                    $class = new \ReflectionClass(sprintf('GameQ\\Filters\\%s', ucfirst($filterName)));
 
                     // Create a new instance of the filter class specified
                     $filter = $class->newInstanceArgs([ $options ]);
@@ -506,7 +503,9 @@ class GameQ
             }
 
             // We ignore this server
-            $results = [ ];
+            $results = [
+                'gq_online' => false,
+            ];
         }
 
         // Now add some default stuff
@@ -517,6 +516,11 @@ class GameQ
         $results['gq_type'] = (string) $server->protocol();
         $results['gq_name'] = $server->protocol()->nameLong();
         $results['gq_transport'] = $server->protocol()->transport();
+
+        // Process the join link
+        if (!isset($results['gq_joinlink']) || empty($results['gq_joinlink'])) {
+            $results['gq_joinlink'] = $server->getJoinLink();
+        }
 
         ksort($results);
 

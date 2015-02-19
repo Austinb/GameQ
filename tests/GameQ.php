@@ -177,5 +177,17 @@ class GameQ extends \PHPUnit_Framework_TestCase
 
         $this->assertArrayNotHasKey('test_filter', \PHPUnit_Framework_Assert::readAttribute($this->stub, 'options')
         ['filters']);
+
+        // Test for lower case always
+        $this->stub->addFilter('tEst_fiLTEr');
+
+        $this->assertArrayHasKey('test_filter', \PHPUnit_Framework_Assert::readAttribute($this->stub, 'options')
+        ['filters']);
+
+        // Remove filter always lower case
+        $this->stub->removeFilter('tEst_fiLTEr');
+
+        $this->assertArrayNotHasKey('test_filter', \PHPUnit_Framework_Assert::readAttribute($this->stub, 'options')
+        ['filters']);
     }
 }
