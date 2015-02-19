@@ -24,5 +24,5 @@
 class GameQ_Protocols_Aapg extends GameQ_Protocols_Aa3
 {
 	protected $name = "aapg";
-	protected $name_long = " America's Army: Proving Grounds";
+	protected $name_long = "America's Army: Proving Grounds";
 }
