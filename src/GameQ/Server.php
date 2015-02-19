@@ -197,6 +197,9 @@ class Server
             // We have IPv4 with a port defined
             if (strstr($ip_address, ':')) {
                 list($this->ip, $this->port_client) = explode(':', $ip_address);
+
+                // Type case the port
+                $this->port_client = (int) $this->port_client;
             } else {
                 // No port, fail
                 throw new Exception(
