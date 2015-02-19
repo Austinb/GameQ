@@ -4,13 +4,27 @@ before_commands:
     - 'composer --prefer-source install'
     - 'cp phpunit.xml.dist phpunit.xml'
 coding_style:
-        php:
-            indentation:
-                general:
-                    use_tabs: false
-                    size: 4
-                switch:
-                    indent_case: true
+    php:
+        indentation:
+            general:
+                use_tabs: false
+            switch:
+                indent_case: true
+        spaces:
+            before_parentheses:
+                closure_definition: true
+                array_initializer: false
+            around_operators:
+                concatenation: true
+            within:
+                array_initializer: true
+            ternary_operator:
+                in_short_version: true
+        upper_lower_casing:
+            keywords:
+                general: lower
+            constants:
+                true_false_null: lower
 tools:
     external_code_coverage:
         enabled: true

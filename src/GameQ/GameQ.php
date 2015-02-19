@@ -153,7 +153,7 @@ class GameQ
      *
      * @return $this
      */
-    public function addServer(array $server_info = [])
+    public function addServer(array $server_info = [ ])
     {
 
         // Add and validate the server
@@ -169,7 +169,7 @@ class GameQ
      *
      * @return $this
      */
-    public function addServers(array $servers = [])
+    public function addServers(array $servers = [ ])
     {
 
         // Loop through all the servers and add them
@@ -468,6 +468,7 @@ class GameQ
                     implode(PHP_EOL . '||' . PHP_EOL, $server->protocol()->packetResponse())
                 );
             }
+
             // @codeCoverageIgnoreEnd
 
             // Get the server response

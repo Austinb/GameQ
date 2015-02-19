@@ -207,7 +207,7 @@ abstract class Protocol
     /**
      * @param array $options
      */
-    public function __construct(Array $options)
+    public function __construct(array $options = [ ])
     {
 
         // Set the options for this specific instance of the class
@@ -381,7 +381,7 @@ abstract class Protocol
      *
      * @return array
      */
-    public function packetResponse(Array $response = null)
+    public function packetResponse(array $response = null)
     {
 
         // Act as setter
@@ -428,7 +428,7 @@ abstract class Protocol
     /**
      * Apply the challenge string to all the packets that need it.
      *
-     * @param $challenge_string
+     * @param string $challenge_string
      *
      * @return bool
      */
