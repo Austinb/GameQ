@@ -615,6 +615,7 @@ abstract class GameQ_Protocols_Core
 		$results['gq_port'] = $this->port;
 		$results['gq_protocol'] = $this->protocol;
 		$results['gq_type'] = (string) $this;
+        $results['gq_name'] = $this->name_long();
 		$results['gq_transport'] = $this->transport;
 
 		// Process the join link
