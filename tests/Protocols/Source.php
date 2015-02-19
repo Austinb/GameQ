@@ -82,12 +82,30 @@ class Source extends Base
     }
 
     /**
+     * Test invalid packet type without debug
+     */
+    public function testInvalidPacketType()
+    {
+
+        // Read in a css source file
+        $source = file_get_contents(sprintf('%s/Providers/Css/1_response.txt', __DIR__));
+
+        // Change the first packet to some unknown header
+        $source = str_replace("\xFF\xFF\xFF\xFFI", "\xFF\xFF\xFF\xFFX", $source);
+
+        // Should show up as offline
+        $testResult = $this->queryTest('127.0.0.1:27015', 'css', explode(PHP_EOL . '||' . PHP_EOL, $source), false);
+
+        $this->assertFalse($testResult['gq_online']);
+    }
+
+    /**
      * Test for invalid packet type in response
      *
      * @expectedException Exception
      * @expectedExceptionMessage GameQ\Protocols\Source::processResponse response type 'X' is not valid
      */
-    public function testInvalidPacketType()
+    public function testInvalidPacketTypeDebug()
     {
 
         // Read in a css source file
