@@ -95,7 +95,7 @@ abstract class Base extends \PHPUnit_Framework_TestCase
         $gameq = new \ReflectionClass($gq_mock);
 
         // Get the parse method so we can call it
-        $method = $gameq->getMethod('doParseAndFilter');
+        $method = $gameq->getMethod('doParseResponse');
 
         // Set the method to accessible
         $method->setAccessible(true);

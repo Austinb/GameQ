@@ -260,6 +260,7 @@ class GameQ
      */
     public function removeFilter($filterName)
     {
+
         // Set to all lower
         $filterName = strtolower($filterName);
 
@@ -281,9 +282,9 @@ class GameQ
     {
 
         // Define the return in case it is empty
-        $data = [ ];
+        $results = [ ];
 
-        // @todo: Add break up loop to split large arrays into smaller chunks
+        // @todo: Add break up into loop to split large arrays into smaller chunks
 
         // Do server challenge(s) first, if any
         $this->doChallenges();
@@ -293,10 +294,20 @@ class GameQ
 
         // Now we should have some information to process for each server
         foreach ($this->servers as $server) {
-            $data[$server->id()] = $this->doParseAndFilter($server);
+            // Parse the responses for this server
+            $result = $this->doParseResponse($server);
+
+            // Apply the filters
+            $result = array_merge($result, $this->doApplyFilters($result, $server));
+
+            // Sort the keys so they are alphabetical and nicer to look at
+            ksort($result);
+
+            // Add the result to the results array
+            $results[$server->id()] = $result;
         }
 
-        return $data;
+        return $results;
     }
 
     /**
@@ -451,14 +462,14 @@ class GameQ
     }
 
     /**
-     * Parse the response and filter a specific server
+     * Parse the response for a specific server
      *
      * @param \GameQ\Server $server
      *
      * @return array|mixed
      * @throws \Exception
      */
-    protected function doParseAndFilter(Server $server)
+    protected function doParseResponse(Server $server)
     {
 
         try {
@@ -470,7 +481,6 @@ class GameQ
                     implode(PHP_EOL . '||' . PHP_EOL, $server->protocol()->packetResponse())
                 );
             }
-
             // @codeCoverageIgnoreEnd
 
             // Get the server response
@@ -478,24 +488,6 @@ class GameQ
 
             // Check for online before we do anything else
             $results['gq_online'] = (count($results) > 0);
-
-            // Loop over the filters
-            foreach ($this->options['filters'] as $filterName => $options) {
-                // Try to do this filter
-                try {
-                    // Make a new reflection class
-                    $class = new \ReflectionClass(sprintf('GameQ\\Filters\\%s', ucfirst($filterName)));
-
-                    // Create a new instance of the filter class specified
-                    $filter = $class->newInstanceArgs([ $options ]);
-
-                    // Apply the filter to the data
-                    $results = $filter->apply($results, $server);
-                } catch (\ReflectionException $e) {
-                    // Invalid, skip it
-                    continue;
-                }
-            }
         } catch (ProtocolException $e) {
             // Check to see if we are in debug, if so bubble up the exception
             if ($this->debug) {
@@ -522,7 +514,37 @@ class GameQ
             $results['gq_joinlink'] = $server->getJoinLink();
         }
 
-        ksort($results);
+        return $results;
+    }
+
+    /**
+     * Apply any filters to the results
+     *
+     * @param array         $results
+     * @param \GameQ\Server $server
+     *
+     * @return array
+     */
+    protected function doApplyFilters(array $results, Server $server)
+    {
+
+        // Loop over the filters
+        foreach ($this->options['filters'] as $filterName => $options) {
+            // Try to do this filter
+            try {
+                // Make a new reflection class
+                $class = new \ReflectionClass(sprintf('GameQ\\Filters\\%s', ucfirst($filterName)));
+
+                // Create a new instance of the filter class specified
+                $filter = $class->newInstanceArgs([ $options ]);
+
+                // Apply the filter to the data
+                $results = $filter->apply($results, $server);
+            } catch (\ReflectionException $e) {
+                // Invalid, skip it
+                continue;
+            }
+        }
 
         return $results;
     }

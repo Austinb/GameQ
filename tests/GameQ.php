@@ -47,6 +47,7 @@ class GameQ extends \PHPUnit_Framework_TestCase
      */
     public function testFactory()
     {
+
         $this->assertInstanceOf('\GameQ\GameQ', \GameQ\GameQ::factory());
     }
 
@@ -163,7 +164,7 @@ class GameQ extends \PHPUnit_Framework_TestCase
     /**
      * Test adding/removing filters
      */
-    public function testFilters()
+    public function testFiltersAddRemove()
     {
 
         // Add filter
