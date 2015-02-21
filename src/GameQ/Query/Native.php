@@ -30,7 +30,7 @@ class Native extends Core
     /**
      * Get the current socket or create one and return
      *
-     * @return resource
+     * @return null|resource
      * @throws \GameQ\Exception\Query
      */
     public function get()

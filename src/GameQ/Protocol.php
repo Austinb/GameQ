@@ -285,7 +285,7 @@ abstract class Protocol
      *
      * @return string
      */
-    public function protocol()
+    public function getProtocol()
     {
 
         return $this->protocol;
@@ -294,7 +294,7 @@ abstract class Protocol
     /**
      * Get/set the transport type for this protocol
      *
-     * @param string $type
+     * @param string|null $type
      *
      * @return string
      */
@@ -377,7 +377,7 @@ abstract class Protocol
     /**
      * Get/set the packet response
      *
-     * @param array $response
+     * @param array|null $response
      *
      * @return array
      */

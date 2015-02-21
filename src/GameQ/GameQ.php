@@ -504,7 +504,7 @@ class GameQ
         $results['gq_address'] = $server->ip();
         $results['gq_port_client'] = $server->portClient();
         $results['gq_port_query'] = $server->portQuery();
-        $results['gq_protocol'] = $server->protocol()->protocol();
+        $results['gq_protocol'] = $server->protocol()->getProtocol();
         $results['gq_type'] = (string) $server->protocol();
         $results['gq_name'] = $server->protocol()->nameLong();
         $results['gq_transport'] = $server->protocol()->transport();
