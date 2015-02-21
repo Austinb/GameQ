@@ -30,6 +30,9 @@ use GameQ\Exception\Protocol as ProtocolException;
  *    * Bzip2 - http://www.php.net/manual/en/book.bzip2.php
  *
  * @author Austin Bischoff <austin@codebeard.com>
+ *
+ * @property bool $debug
+ * @property string $capture_packets_file
  */
 class GameQ
 {
