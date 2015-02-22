@@ -352,27 +352,4 @@ class Buffer
 
         return $float['float'];
     }
-
-    /**
-     * Conversion to float
-     *
-     * @access     public
-     *
-     * @param      string $string String to convert
-     *
-     * @return     float     32 bit float
-     */
-    public function toFloat($string)
-    {
-
-        // Check length
-        if (strlen($string) !== 4) {
-            return 0;
-        }
-
-        // Convert
-        $float = unpack('ffloat', $string);
-
-        return $float['float'];
-    }
 }
