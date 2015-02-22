@@ -125,7 +125,7 @@ class Buffer
      * Unlike the other read functions, this function actually removes
      * the character from the buffer.
      *
-     * @return  string          The data read
+     * @return string
      */
     public function readLast()
     {
@@ -141,24 +141,20 @@ class Buffer
     /**
      * Look at the buffer, but don't remove
      *
-     * @param   int $length Length of data to read
+     * @param int $length
      *
-     * @return  string
+     * @return string
      */
     public function lookAhead($length = 1)
     {
 
-        $string = substr($this->data, $this->index, $length);
-
-        return $string;
+        return substr($this->data, $this->index, $length);
     }
 
     /**
      * Skip forward in the buffer
      *
-     * @param   int $length Length of data to skip
-     *
-     * @return  void
+     * @param int $length
      */
     public function skip($length = 1)
     {
@@ -170,9 +166,7 @@ class Buffer
      * Jump to a specific position in the buffer,
      * will not jump past end of buffer
      *
-     * @param   int $index Position to go to
-     *
-     * @return  void
+     * @param $index
      */
     public function jumpto($index)
     {
@@ -183,7 +177,7 @@ class Buffer
     /**
      * Get the current pointer position
      *
-     * @return  int  The current pointer position
+     * @return int
      */
     public function getPosition()
     {
@@ -196,9 +190,10 @@ class Buffer
      *
      * If not found, return everything
      *
-     * @param   string $delim Read until this character is reached
+     * @param string $delim
      *
-     * @return  string          The data read
+     * @return string
+     * @throws \GameQ\Exception\Protocol
      */
     public function readString($delim = "\x00")
     {
@@ -281,6 +276,7 @@ class Buffer
      * Read a 32-bit unsigned integer
      *
      * @return int
+     * @throws \GameQ\Exception\Protocol
      */
     public function readInt32()
     {
@@ -294,6 +290,7 @@ class Buffer
      * Read a 32-bit signed integer
      *
      * @return int
+     * @throws \GameQ\Exception\Protocol
      */
     public function readInt32Signed()
     {
@@ -307,6 +304,7 @@ class Buffer
      * Read a 16-bit unsigned integer
      *
      * @return int
+     * @throws \GameQ\Exception\Protocol
      */
     public function readInt16()
     {
@@ -320,6 +318,7 @@ class Buffer
      * Read a 16-big signed integer
      *
      * @return int
+     * @throws \GameQ\Exception\Protocol
      */
     public function readInt16Signed()
     {
@@ -333,6 +332,7 @@ class Buffer
      * Read an int8 from the buffer
      *
      * @return int
+     * @throws \GameQ\Exception\Protocol
      */
     public function readInt8()
     {
@@ -343,7 +343,8 @@ class Buffer
     /**
      * Read an float32 from the buffer
      *
-     * @return  float
+     * @return float
+     * @throws \GameQ\Exception\Protocol
      */
     public function readFloat32()
     {
