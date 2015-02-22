@@ -31,7 +31,7 @@ use GameQ\Exception\Protocol as ProtocolException;
  *
  * @author Austin Bischoff <austin@codebeard.com>
  *
- * @property bool $debug
+ * @property bool   $debug
  * @property string $capture_packets_file
  */
 class GameQ
@@ -85,7 +85,7 @@ class GameQ
         'write_wait'           => 500,
         // How long (in micro-seconds) to pause between writing to server sockets, helps cpu usage
 
-        // Used for generating protocol tests
+        // Used for generating protocol test data
         'capture_packets_file' => null,
     ];
 
@@ -532,14 +532,14 @@ class GameQ
     {
 
         // Loop over the filters
-        foreach ($this->options['filters'] as $filterName => $options) {
+        foreach ($this->options['filters'] as $filterName => $filterOptions) {
             // Try to do this filter
             try {
                 // Make a new reflection class
                 $class = new \ReflectionClass(sprintf('GameQ\\Filters\\%s', ucfirst($filterName)));
 
                 // Create a new instance of the filter class specified
-                $filter = $class->newInstanceArgs([ $options ]);
+                $filter = $class->newInstanceArgs([ $filterOptions ]);
 
                 // Apply the filter to the data
                 $results = $filter->apply($results, $server);
