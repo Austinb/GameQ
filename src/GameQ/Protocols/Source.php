@@ -358,11 +358,7 @@ class Source extends Protocol
             }
 
             if ($edf & 0x10) {
-                $low = $buffer->readInt32();
-                $high = $buffer->readInt32();
-
-                $result->add('steam_id', ($high << 32) | $low);
-                unset($low, $high);
+                $result->add('steam_id', $buffer->readInt64());
             }
 
             if ($edf & 0x40) {
@@ -375,11 +371,7 @@ class Source extends Protocol
             }
 
             if ($edf & 0x01) {
-                $low = $buffer->readInt32();
-                $high = $buffer->readInt32();
-
-                $result->add('game_id', ($high << 32) | $low);
-                unset($low, $high);
+                $result->add('game_id', $buffer->readInt64());
             }
 
             unset($edf);
