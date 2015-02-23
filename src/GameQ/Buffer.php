@@ -287,7 +287,9 @@ class Buffer
     public function readInt8()
     {
 
-        return ord($this->read(1));
+        $int = unpack('Cint', $this->read(1));
+
+        return $int['int'];
     }
 
     /**
