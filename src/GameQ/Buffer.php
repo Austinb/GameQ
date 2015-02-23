@@ -275,7 +275,7 @@ class Buffer
     }
 
     /**
-     * Read an int8 from the buffer (unsigned)
+     * Read an 8-bit unsigned integer
      *
      * @return int
      * @throws \GameQ\Exception\Protocol
@@ -343,7 +343,36 @@ class Buffer
     }
 
     /**
-     * Read an float32 from the buffer
+     * Read a 64-bit unsigned integer
+     *
+     * @return int
+     * @throws \GameQ\Exception\Protocol
+     */
+    public function readInt64()
+    {
+
+        // We have the pack "q" code available. See: http://php.net/manual/en/function.pack.php
+        if (version_compare(PHP_VERSION, '5.6.3') >= 0) {
+            $int64 = unpack('qint', $this->read(8));
+
+            $int = $int64['int'];
+
+            unset($int64);
+        } else {
+            // We have to do the number via bitwise
+            $low = $this->readInt32();
+            $high = $this->readInt32();
+
+            $int = ($high << 32) | $low;
+
+            unset($low, $high);
+        }
+
+        return $int;
+    }
+
+    /**
+     * Read a 32-bit float
      *
      * @return float
      * @throws \GameQ\Exception\Protocol
