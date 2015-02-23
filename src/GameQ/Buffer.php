@@ -37,6 +37,20 @@ class Buffer
 {
 
     /**
+     * Constants for the byte code types we need to read as
+     */
+    const NUMBER_TYPE_BIGENDIAN = 'be',
+        NUMBER_TYPE_LITTLEENDIAN = 'le',
+        NUMBER_TYPE_MACHINE = 'm';
+
+    /**
+     * The number type we use for reading integers.  Defaults to little endian
+     *
+     * @type string
+     */
+    private $number_type = self::NUMBER_TYPE_LITTLEENDIAN;
+
+    /**
      * The original data
      *
      * @type string
@@ -60,11 +74,13 @@ class Buffer
     /**
      * Constructor
      *
-     * @param $data
+     * @param string $data
+     * @param string $number_type
      */
-    public function __construct($data)
+    public function __construct($data, $number_type = self::NUMBER_TYPE_LITTLEENDIAN)
     {
 
+        $this->number_type = $number_type;
         $this->data = $data;
         $this->length = strlen($data);
     }
@@ -293,6 +309,20 @@ class Buffer
     }
 
     /**
+     * Read and 8-bit signed integer
+     *
+     * @return int
+     * @throws \GameQ\Exception\Protocol
+     */
+    public function readInt8Signed()
+    {
+
+        $int = unpack('cint', $this->read(1));
+
+        return $int['int'];
+    }
+
+    /**
      * Read a 16-bit unsigned integer
      *
      * @return int
@@ -301,7 +331,21 @@ class Buffer
     public function readInt16()
     {
 
-        $int = unpack('Sint', $this->read(2));
+        // Change the integer type we are looking up
+        switch ($this->number_type) {
+            case self::NUMBER_TYPE_BIGENDIAN:
+                $type = 'nint';
+                break;
+
+            case self::NUMBER_TYPE_LITTLEENDIAN:
+                $type = 'vint';
+                break;
+
+            default:
+                $type = 'Sint';
+        }
+
+        $int = unpack($type, $this->read(2));
 
         return $int['int'];
     }
@@ -315,7 +359,17 @@ class Buffer
     public function readInt16Signed()
     {
 
-        $int = unpack('sint', $this->read(2));
+        // Read the data into a string
+        $string = $this->read(2);
+
+        // For big endian we need to reverse the bytes
+        if ($this->number_type == SELF::NUMBER_TYPE_BIGENDIAN) {
+            $string = strrev($string);
+        }
+
+        $int = unpack('sint', $string);
+
+        unset($string);
 
         return $int['int'];
     }
@@ -329,7 +383,22 @@ class Buffer
     public function readInt32()
     {
 
-        $int = unpack('Lint', $this->read(4));
+        // Change the integer type we are looking up
+        switch ($this->number_type) {
+            case self::NUMBER_TYPE_BIGENDIAN:
+                $type = 'Nint';
+                break;
+
+            case self::NUMBER_TYPE_LITTLEENDIAN:
+                $type = 'Vint';
+                break;
+
+            default:
+                $type = 'Lint';
+        }
+
+        // Unpack the number
+        $int = unpack($type, $this->read(4));
 
         return $int['int'];
     }
@@ -343,7 +412,17 @@ class Buffer
     public function readInt32Signed()
     {
 
-        $int = unpack('lint', $this->read(4));
+        // Read the data into a string
+        $string = $this->read(4);
+
+        // For big endian we need to reverse the bytes
+        if ($this->number_type == SELF::NUMBER_TYPE_BIGENDIAN) {
+            $string = strrev($string);
+        }
+
+        $int = unpack('lint', $string);
+
+        unset($string);
 
         return $int['int'];
     }
@@ -357,18 +436,37 @@ class Buffer
     public function readInt64()
     {
 
-        // We have the pack "q" code available. See: http://php.net/manual/en/function.pack.php
+        // We have the pack 64-bit codes available. See: http://php.net/manual/en/function.pack.php
         if (version_compare(PHP_VERSION, '5.6.3') >= 0) {
-            $int64 = unpack('qint', $this->read(8));
+            // Change the integer type we are looking up
+            switch ($this->number_type) {
+                case self::NUMBER_TYPE_BIGENDIAN:
+                    $type = 'Jint';
+                    break;
+
+                case self::NUMBER_TYPE_LITTLEENDIAN:
+                    $type = 'Pint';
+                    break;
+
+                default:
+                    $type = 'qint';
+            }
+
+            $int64 = unpack($type, $this->read(8));
 
             $int = $int64['int'];
 
             unset($int64);
         } else {
-            // We have to do the number via bitwise
-            $low = $this->readInt32();
-            $high = $this->readInt32();
+            if ($this->number_type == self::NUMBER_TYPE_BIGENDIAN) {
+                $high = $this->readInt32();
+                $low = $this->readInt32();
+            } else {
+                $low = $this->readInt32();
+                $high = $this->readInt32();
+            }
 
+            // We have to determine the number via bitwise
             $int = ($high << 32) | $low;
 
             unset($low, $high);
@@ -386,7 +484,17 @@ class Buffer
     public function readFloat32()
     {
 
-        $float = unpack('ffloat', $this->read(4));
+        // Read the data into a string
+        $string = $this->read(4);
+
+        // For big endian we need to reverse the bytes
+        if ($this->number_type == SELF::NUMBER_TYPE_BIGENDIAN) {
+            $string = strrev($string);
+        }
+
+        $float = unpack('ffloat', $string);
+
+        unset($string);
 
         return $float['float'];
     }
