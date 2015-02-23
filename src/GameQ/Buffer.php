@@ -23,11 +23,15 @@ namespace GameQ;
 use GameQ\Exception\Protocol as Exception;
 
 /**
- * Provide an interface for easy manipulation of a server response
+ * Class Buffer
  *
- * @author         Aidan Lister <aidan@php.net>
- * @author         Tom Buskens <t.buskens@deviation.nl>
- * @version        $Revision: 1.4 $
+ * Read specific byte sequences from a provided string or Buffer
+ *
+ * @package GameQ
+ *
+ * @author  Austin Bischoff <austin@codebeard.com>
+ * @author  Aidan Lister <aidan@php.net>
+ * @author  Tom Buskens <t.buskens@deviation.nl>
  */
 class Buffer
 {
@@ -301,7 +305,7 @@ class Buffer
     }
 
     /**
-     * Read a 16-big signed integer
+     * Read a 16-bit signed integer
      *
      * @return int
      * @throws \GameQ\Exception\Protocol

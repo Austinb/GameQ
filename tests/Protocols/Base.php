@@ -18,6 +18,11 @@
 
 namespace GameQ\Tests\Protocols;
 
+/**
+ * Class Base for protocol tests
+ *
+ * @package GameQ\Tests\Protocols
+ */
 abstract class Base extends \PHPUnit_Framework_TestCase
 {
 
