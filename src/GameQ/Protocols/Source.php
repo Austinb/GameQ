@@ -100,6 +100,11 @@ class Source extends Protocol
      */
     protected $join_link = "steam://connect/%s:%d/";
 
+    /**
+     * Normalize settings for this protocol
+     *
+     * @type array
+     */
     protected $normalize = [
         // General
         'general' => [
