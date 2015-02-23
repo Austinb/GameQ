@@ -35,7 +35,7 @@ class Buffer extends \PHPUnit_Framework_TestCase
     protected function buildBuffer($data)
     {
 
-        return $this->getMock('GameQ\Buffer', null, [ $data ]);
+        return new \GameQ\Buffer($data);
     }
 
     /**
