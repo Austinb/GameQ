@@ -41,5 +41,4 @@ class Dayzmod extends Armedassault2oa
      * @type string
      */
     protected $name_long = "DayZ Mod";
-
 }
