@@ -33,6 +33,9 @@ use GameQ\Exception\Protocol as ProtocolException;
  *
  * @property bool   $debug
  * @property string $capture_packets_file
+ * @property int    $stream_timeout
+ * @property int    $timeout
+ * @property int    $write_wait
  */
 class GameQ
 {
