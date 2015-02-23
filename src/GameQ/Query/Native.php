@@ -110,7 +110,7 @@ class Native extends Core
             stream_set_blocking($this->socket, $this->blocking);
         } else {
             throw new Exception(
-                __METHOD__ . " Error creating socket to server {$this->ip}:{$this->port}. Error: ". $errstr,
+                __METHOD__ . " Error creating socket to server {$this->ip}:{$this->port}. Error: " . $errstr,
                 $errno
             );
         }
@@ -159,6 +159,12 @@ class Native extends Core
 
         // Let's loop until we break something.
         while ($loop_active && microtime(true) < $time_stop) {
+            // Check to make sure $read is not empty, if so we are done
+            if (empty($read)) {
+                $loop_active = false;
+                break;
+            }
+
             // Now lets listen for some streams, but do not cross the streams!
             $streams = stream_select($read, $write, $except, 0, $stream_timeout);
 
