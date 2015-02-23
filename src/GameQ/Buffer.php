@@ -247,6 +247,8 @@ class Buffer
      *
      * @return string
      * @throws \GameQ\Exception\Protocol
+     *
+     * @todo: Check to see if this is even used anymore
      */
     public function readStringMulti($delims, &$delimfound = null)
     {
@@ -273,31 +275,15 @@ class Buffer
     }
 
     /**
-     * Read a 32-bit unsigned integer
+     * Read an int8 from the buffer (unsigned)
      *
      * @return int
      * @throws \GameQ\Exception\Protocol
      */
-    public function readInt32()
+    public function readInt8()
     {
 
-        $int = unpack('Lint', $this->read(4));
-
-        return $int['int'];
-    }
-
-    /**
-     * Read a 32-bit signed integer
-     *
-     * @return int
-     * @throws \GameQ\Exception\Protocol
-     */
-    public function readInt32Signed()
-    {
-
-        $int = unpack('lint', $this->read(4));
-
-        return $int['int'];
+        return ord($this->read(1));
     }
 
     /**
@@ -329,15 +315,31 @@ class Buffer
     }
 
     /**
-     * Read an int8 from the buffer
+     * Read a 32-bit unsigned integer
      *
      * @return int
      * @throws \GameQ\Exception\Protocol
      */
-    public function readInt8()
+    public function readInt32()
     {
 
-        return ord($this->read(1));
+        $int = unpack('Lint', $this->read(4));
+
+        return $int['int'];
+    }
+
+    /**
+     * Read a 32-bit signed integer
+     *
+     * @return int
+     * @throws \GameQ\Exception\Protocol
+     */
+    public function readInt32Signed()
+    {
+
+        $int = unpack('lint', $this->read(4));
+
+        return $int['int'];
     }
 
     /**
