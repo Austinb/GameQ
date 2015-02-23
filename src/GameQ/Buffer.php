@@ -363,7 +363,7 @@ class Buffer
         $string = $this->read(2);
 
         // For big endian we need to reverse the bytes
-        if ($this->number_type == SELF::NUMBER_TYPE_BIGENDIAN) {
+        if ($this->number_type == self::NUMBER_TYPE_BIGENDIAN) {
             $string = strrev($string);
         }
 
@@ -416,7 +416,7 @@ class Buffer
         $string = $this->read(4);
 
         // For big endian we need to reverse the bytes
-        if ($this->number_type == SELF::NUMBER_TYPE_BIGENDIAN) {
+        if ($this->number_type == self::NUMBER_TYPE_BIGENDIAN) {
             $string = strrev($string);
         }
 
@@ -488,7 +488,7 @@ class Buffer
         $string = $this->read(4);
 
         // For big endian we need to reverse the bytes
-        if ($this->number_type == SELF::NUMBER_TYPE_BIGENDIAN) {
+        if ($this->number_type == self::NUMBER_TYPE_BIGENDIAN) {
             $string = strrev($string);
         }
 
