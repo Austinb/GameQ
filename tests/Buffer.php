@@ -29,13 +29,14 @@ class Buffer extends \PHPUnit_Framework_TestCase
      * Build a mock Buffer
      *
      * @param string $data
+     * @param string $number_type
      *
-     * @return \PHPUnit_Framework_MockObject_MockObject
+     * @return \GameQ\Buffer
      */
-    protected function buildBuffer($data)
+    protected function buildBuffer($data, $number_type = 'm')
     {
 
-        return new \GameQ\Buffer($data);
+        return new \GameQ\Buffer($data, $number_type);
     }
 
     /**
@@ -52,23 +53,55 @@ class Buffer extends \PHPUnit_Framework_TestCase
 
         // Build the result array
         $dataSet = [
-            [ 'readInt8', sprintf('%s/8bit_1.txt', $basePath), 214 ],
-            [ 'readInt8', sprintf('%s/8bit_2.txt', $basePath), 14 ],
-            [ 'readInt16', sprintf('%s/16bitunsigned_1.txt', $basePath), 54844 ],
-            [ 'readInt16', sprintf('%s/16bitunsigned_2.txt', $basePath), 1474 ],
-            [ 'readInt16Signed', sprintf('%s/16bitsigned_1.txt', $basePath), 24574 ],
-            [ 'readInt16Signed', sprintf('%s/16bitsigned_2.txt', $basePath), -5478 ],
-            [ 'readInt32', sprintf('%s/32bitunsigned_1.txt', $basePath), 3248547147 ],
-            [ 'readInt32', sprintf('%s/32bitunsigned_2.txt', $basePath), 1247612474 ],
-            [ 'readInt32Signed', sprintf('%s/32bitsigned_1.txt', $basePath), 1247965816 ],
-            [ 'readInt32Signed', sprintf('%s/32bitsigned_2.txt', $basePath), -1547872147 ],
+            [ 'readInt8', 'm', sprintf('%s/8bitunsigned_1.txt', $basePath), 214 ],
+            [ 'readInt8', 'm', sprintf('%s/8bitunsigned_2.txt', $basePath), 14 ],
+            [ 'readInt8', 'le', sprintf('%s/8bitunsigned_1.txt', $basePath), 214 ],
+            [ 'readInt8', 'le', sprintf('%s/8bitunsigned_2.txt', $basePath), 14 ],
+            [ 'readInt8Signed', 'm', sprintf('%s/8bitsigned_1.txt', $basePath), 56 ],
+            [ 'readInt8Signed', 'm', sprintf('%s/8bitsigned_2.txt', $basePath), -47 ],
+            [ 'readInt8Signed', 'le', sprintf('%s/8bitsigned_1.txt', $basePath), 56 ],
+            [ 'readInt8Signed', 'le', sprintf('%s/8bitsigned_2.txt', $basePath), -47 ],
+            [ 'readInt16', 'm', sprintf('%s/16bitunsigned_1.txt', $basePath), 54844 ],
+            [ 'readInt16', 'm', sprintf('%s/16bitunsigned_2.txt', $basePath), 1474 ],
+            [ 'readInt16', 'le', sprintf('%s/16bitunsigned_1.txt', $basePath), 54844 ],
+            [ 'readInt16', 'le', sprintf('%s/16bitunsigned_2.txt', $basePath), 1474 ],
+            [ 'readInt16', 'be', sprintf('%s/16bitunsigned_be_1.txt', $basePath), 54844 ],
+            [ 'readInt16', 'be', sprintf('%s/16bitunsigned_be_2.txt', $basePath), 1474 ],
+            [ 'readInt16Signed', 'm', sprintf('%s/16bitsigned_1.txt', $basePath), 24574 ],
+            [ 'readInt16Signed', 'm', sprintf('%s/16bitsigned_2.txt', $basePath), -5478 ],
+            [ 'readInt16Signed', 'le', sprintf('%s/16bitsigned_1.txt', $basePath), 24574 ],
+            [ 'readInt16Signed', 'le', sprintf('%s/16bitsigned_2.txt', $basePath), -5478 ],
+            [ 'readInt16Signed', 'be', sprintf('%s/16bitsigned_be_1.txt', $basePath), 24574 ],
+            [ 'readInt16Signed', 'be', sprintf('%s/16bitsigned_be_2.txt', $basePath), -5478 ],
+            [ 'readInt32', 'm', sprintf('%s/32bitunsigned_1.txt', $basePath), 3248547147 ],
+            [ 'readInt32', 'm', sprintf('%s/32bitunsigned_2.txt', $basePath), 1247612474 ],
+            [ 'readInt32', 'le', sprintf('%s/32bitunsigned_1.txt', $basePath), 3248547147 ],
+            [ 'readInt32', 'le', sprintf('%s/32bitunsigned_2.txt', $basePath), 1247612474 ],
+            [ 'readInt32', 'be', sprintf('%s/32bitunsigned_be_1.txt', $basePath), 3248547147 ],
+            [ 'readInt32', 'be', sprintf('%s/32bitunsigned_be_2.txt', $basePath), 1247612474 ],
+            [ 'readInt32Signed', 'm', sprintf('%s/32bitsigned_1.txt', $basePath), 1247965816 ],
+            [ 'readInt32Signed', 'm', sprintf('%s/32bitsigned_2.txt', $basePath), -1547872147 ],
+            [ 'readInt32Signed', 'le', sprintf('%s/32bitsigned_1.txt', $basePath), 1247965816 ],
+            [ 'readInt32Signed', 'le', sprintf('%s/32bitsigned_2.txt', $basePath), -1547872147 ],
+            [ 'readInt32Signed', 'be', sprintf('%s/32bitsigned_be_1.txt', $basePath), 1247965816 ],
+            [ 'readInt32Signed', 'be', sprintf('%s/32bitsigned_be_2.txt', $basePath), -1547872147 ],
+            [ 'readFloat32', 'm', sprintf('%s/32float_1.txt', $basePath), 0.15474000573158264 ],
+            [ 'readFloat32', 'm', sprintf('%s/32float_2.txt', $basePath), -254.01409912109375 ],
+            [ 'readFloat32', 'le', sprintf('%s/32float_1.txt', $basePath), 0.15474000573158264 ],
+            [ 'readFloat32', 'le', sprintf('%s/32float_2.txt', $basePath), -254.01409912109375 ],
+            [ 'readFloat32', 'be', sprintf('%s/32float_be_1.txt', $basePath), 0.15474000573158264 ],
+            [ 'readFloat32', 'be', sprintf('%s/32float_be_2.txt', $basePath), -254.01409912109375 ],
         ];
 
         // We are on 64-bit os
         if (PHP_INT_SIZE == 8) {
             // Add 64-bit tests
-            $dataSet[] = [ 'readInt64', sprintf('%s/64bitunsigned_1.txt', $basePath), 90094348778156039 ];
-            $dataSet[] = [ 'readInt64', sprintf('%s/64bitunsigned_2.txt', $basePath), 240 ];
+            $dataSet[] = [ 'readInt64', 'm', sprintf('%s/64bitunsigned_1.txt', $basePath), 90094348778156039 ];
+            $dataSet[] = [ 'readInt64', 'm', sprintf('%s/64bitunsigned_2.txt', $basePath), 240 ];
+            $dataSet[] = [ 'readInt64', 'le', sprintf('%s/64bitunsigned_1.txt', $basePath), 90094348778156039 ];
+            $dataSet[] = [ 'readInt64', 'le', sprintf('%s/64bitunsigned_2.txt', $basePath), 240 ];
+            $dataSet[] = [ 'readInt64', 'be', sprintf('%s/64bitunsigned_be_1.txt', $basePath), 90094348778156039 ];
+            $dataSet[] = [ 'readInt64', 'be', sprintf('%s/64bitunsigned_be_2.txt', $basePath), 240 ];
         }
 
         return $dataSet;
@@ -142,6 +175,19 @@ class Buffer extends \PHPUnit_Framework_TestCase
 
         // Make sure the index is correct returned
         $this->assertEquals(8, $buffer->getPosition());
+
+        // Reset
+        $buffer->jumpto(0);
+
+        // Test skip default
+        $buffer->skip();
+
+        $this->assertEquals(substr($data, 1), $buffer->getBuffer());
+
+        // Skip multiple
+        $buffer->skip(3);
+
+        $this->assertEquals(substr($data, 4), $buffer->getBuffer());
     }
 
     /**
@@ -193,14 +239,15 @@ class Buffer extends \PHPUnit_Framework_TestCase
      * @dataProvider integerDataProvider
      *
      * @param $method
+     * @param $number_type
      * @param $file
      * @param $expected
      */
-    public function testNumberReads($method, $file, $expected)
+    public function testNumberReads($method, $number_type, $file, $expected)
     {
 
         // Make the buffer
-        $buffer = $this->buildBuffer(file_get_contents($file));
+        $buffer = $this->buildBuffer(file_get_contents($file), $number_type);
 
         // Run the test
         $this->assertEquals($expected, call_user_func_array([ $buffer, $method ], [ ]));

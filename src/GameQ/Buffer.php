@@ -449,7 +449,7 @@ class Buffer
                     break;
 
                 default:
-                    $type = 'qint';
+                    $type = 'Qint';
             }
 
             $int64 = unpack($type, $this->read(8));
