@@ -90,11 +90,13 @@ try {
     $results = $gq->process();
 
     // Save the result into a file
-    $result = file_put_contents(sprintf('%s/%d_result.json', $provider_dir, $index), json_encode($results, JSON_UNESCAPED_UNICODE));
+    $result = file_put_contents(sprintf('%s/%d_result.json', $provider_dir, $index), json_encode(
+        $results,
+        JSON_UNESCAPED_UNICODE
+    ));
 
     exit(0);
 } catch (Exception $e) {
-
     echo $e->getMessage() . PHP_EOL;
 
     $printer = new GetOptionKit\OptionPrinter\ConsoleOptionPrinter;

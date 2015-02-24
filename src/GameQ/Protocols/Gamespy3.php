@@ -25,6 +25,10 @@ use GameQ\Result;
 /**
  * GameSpy3 Protocol class
  *
+ * Given the ability for non utf-8 characters to be used as hostnames, player names, etc... this
+ * version returns all strings utf-8 encoded (utf8_encode).  To access the proper version of a
+ * string response you must use utf8_decode() on the specific response.
+ *
  * @author Austin Bischoff <austin@codebeard.com>
  */
 class Gamespy3 extends Protocol
