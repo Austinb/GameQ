@@ -30,7 +30,7 @@ class Native extends Core
     /**
      * Get the current socket or create one and return
      *
-     * @return null|resource
+     * @return resource|null
      * @throws \GameQ\Exception\Query
      */
     public function get()
@@ -47,9 +47,9 @@ class Native extends Core
     /**
      * Write data to the socket
      *
-     * @param mixed $data
+     * @param string $data
      *
-     * @return int
+     * @return int The number of bytes written
      * @throws \GameQ\Exception\Query
      */
     public function write($data)
@@ -122,17 +122,18 @@ class Native extends Core
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      *
      * @param array $sockets
-     * @param       $timeout
-     * @param       $stream_timeout
+     * @param int   $timeout
+     * @param int   $stream_timeout
      *
-     * @return array
+     * @return array Raw responses
      */
-    public static function getResponses(array $sockets, $timeout, $stream_timeout)
+    public function getResponses(array $sockets, $timeout, $stream_timeout)
     {
 
         // Set the loop to active
         $loop_active = true;
 
+        // Will hold the responses read from the sockets
         $responses = [ ];
 
         // To store the sockets
@@ -140,8 +141,14 @@ class Native extends Core
 
         // Loop and pull out all the actual sockets we need to listen on
         foreach ($sockets as $socket_id => $socket_data) {
+            // Get the socket
+            /* @var $socket \GameQ\Query\Core */
+            $socket = $socket_data['socket'];
+
             // Append the actual socket we are listening to
-            $sockets_tmp[$socket_id] = $socket_data['socket']->get();
+            $sockets_tmp[$socket_id] = $socket->get();
+
+            unset($socket);
         }
 
         // Init some variables
@@ -161,7 +168,6 @@ class Native extends Core
         while ($loop_active && microtime(true) < $time_stop) {
             // Check to make sure $read is not empty, if so we are done
             if (empty($read)) {
-                $loop_active = false;
                 break;
             }
 
@@ -170,12 +176,13 @@ class Native extends Core
 
             // We had error or no streams left, kill the loop
             if ($streams === false || ($streams <= 0)) {
-                $loop_active = false;
                 break;
             }
 
             // Loop the sockets that received data back
             foreach ($read as $socket) {
+                /* @var $socket resource */
+
                 // See if we have a response
                 if (($response = stream_socket_recvfrom($socket, 8192)) === false) {
                     continue; // No response yet so lets continue.
@@ -183,7 +190,7 @@ class Native extends Core
 
                 // Check to see if the response is empty, if so we are done with this server
                 if (strlen($response) == 0) {
-                    // Testing these changes to see if they provide more reliable responses.
+                    // Remove this server from any future read loops
                     unset($sockets_tmp[(int) $socket]);
                     continue;
                 }
@@ -199,6 +206,7 @@ class Native extends Core
         // Free up some memory
         unset($streams, $read, $write, $except, $sockets_tmp, $time_stop, $response);
 
+        // Return all of the responses, may be empty if something went wrong
         return $responses;
     }
 }

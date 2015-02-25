@@ -375,6 +375,7 @@ class Server
 
         // Close all of the sockets available
         foreach ($this->sockets as $socket) {
+            /* @var $socket \GameQ\Query\Core */
             $socket->close();
         }
 

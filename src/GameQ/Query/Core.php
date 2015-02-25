@@ -70,15 +70,25 @@ abstract class Core
     protected $blocking = false;
 
     /**
-     * Create a new protocol class
-     *
-     * @param      $transport
-     * @param      $ip
-     * @param      $port
-     * @param int  $timeout
-     * @param bool $blocking
+     * Called when the class is cloned
      */
-    public function __construct($transport, $ip, $port, $timeout = 3, $blocking = false)
+    public function __clone()
+    {
+
+        // Reset the properties for this class when cloned
+        $this->reset();
+    }
+
+    /**
+     * Set the connection information for the socket
+     *
+     * @param string $transport
+     * @param string $ip
+     * @param int    $port
+     * @param int    $timeout seconds
+     * @param bool   $blocking
+     */
+    public function set($transport, $ip, $port, $timeout = 3, $blocking = false)
     {
 
         $this->transport = $transport;
@@ -93,9 +103,24 @@ abstract class Core
     }
 
     /**
+     * Reset this instance's properties
+     */
+    public function reset()
+    {
+
+        $this->transport = null;
+
+        $this->ip = null;
+
+        $this->port = null;
+
+        $this->timeout = 3;
+
+        $this->blocking = false;
+    }
+
+    /**
      * Create a new socket
-     *
-     * @return mixed
      */
     abstract protected function create();
 
@@ -109,16 +134,14 @@ abstract class Core
     /**
      * Write data to the socket
      *
-     * @param $data
+     * @param string $data
      *
-     * @return mixed
+     * @return int The number of bytes written
      */
     abstract public function write($data);
 
     /**
      * Close the socket
-     *
-     * @return mixed
      */
     abstract public function close();
 
@@ -128,12 +151,10 @@ abstract class Core
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      *
      * @param array $sockets
-     * @param       $timeout
-     * @param       $stream_timeout
+     * @param int   $timeout
+     * @param int   $stream_timeout
      *
-     * @return mixed
+     * @return array
      */
-    public static function getResponses(array $sockets, $timeout, $stream_timeout)
-    {
-    }
+    abstract public function getResponses(array $sockets, $timeout, $stream_timeout);
 }

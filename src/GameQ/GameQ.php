@@ -100,16 +100,23 @@ class GameQ
     protected $servers = [ ];
 
     /**
-     * The query method to use.  Default is Native
+     * The query library to use.  Default is Native
      *
      * @type string
      */
-    protected $query = 'GameQ\\Query\\Native';
+    protected $queryLibrary = 'GameQ\\Query\\Native';
+
+    /**
+     * Holds the instance of the queryLibrary
+     *
+     * @type \GameQ\Query\Core|null
+     */
+    protected $query = null;
 
     /**
      * Get an option's value
      *
-     * @param $option
+     * @param mixed $option
      *
      * @return mixed|null
      */
@@ -122,8 +129,8 @@ class GameQ
     /**
      * Set an option's value
      *
-     * @param $option
-     * @param $value
+     * @param mixed $option
+     * @param mixed $value
      *
      * @return bool
      */
@@ -138,8 +145,8 @@ class GameQ
     /**
      * Chainable call to __set, uses set as the actual setter
      *
-     * @param $var
-     * @param $value
+     * @param mixed $var
+     * @param mixed $value
      *
      * @return $this
      */
@@ -243,8 +250,8 @@ class GameQ
     /**
      * Add a filter to the processing list
      *
-     * @param $filterName
-     * @param $options
+     * @param string $filterName
+     * @param array  $options
      *
      * @return $this
      */
@@ -260,7 +267,7 @@ class GameQ
     /**
      * Remove a filter from processing
      *
-     * @param $filterName
+     * @param string $filterName
      *
      * @return $this
      */
@@ -287,7 +294,15 @@ class GameQ
     public function process()
     {
 
-        // Define the return in case it is empty
+        // Initialize the query library we are using
+        $class = new \ReflectionClass($this->queryLibrary);
+
+        // Set the query pointer to the new instance of the library
+        $this->query = $class->newInstance();
+
+        unset($class);
+
+        // Define the return
         $results = [ ];
 
         // @todo: Add break up into loop to split large arrays into smaller chunks
@@ -300,6 +315,8 @@ class GameQ
 
         // Now we should have some information to process for each server
         foreach ($this->servers as $server) {
+            /* @var $server \GameQ\Server */
+
             // Parse the responses for this server
             $result = $this->doParseResponse($server);
 
@@ -322,26 +339,31 @@ class GameQ
     protected function doChallenges()
     {
 
+        // Initialize the sockets for reading
         $sockets = [ ];
 
-        // We have at least once challenge
+        // By default we don't have any challenges to process
         $server_challenge = false;
 
         // Do challenge packets
         foreach ($this->servers as $server_id => $server) {
+            /* @var $server \GameQ\Server */
+
+            // This protocol has a challenge packet that needs to be sent
             if ($server->protocol()->hasChallenge()) {
+                // We have a challenge, set the flag
                 $server_challenge = true;
 
-                // Make a new class for this query type
-                $class = new \ReflectionClass($this->query);
+                // Let's make a clone of the query class
+                $socket = clone $this->query;
 
-                // Make the socket class
-                $socket = $class->newInstanceArgs([
+                // Set the information for this query socket
+                $socket->set(
                     $server->protocol()->transport(),
                     $server->ip,
                     $server->port_query,
-                    $this->timeout,
-                ]);
+                    $this->timeout
+                );
 
                 // Now write the challenge packet to the socket.
                 $socket->write($server->protocol()->getPacket(Protocol::PACKET_CHALLENGE));
@@ -352,7 +374,7 @@ class GameQ
                     'socket'    => $socket,
                 ];
 
-                unset($socket, $class);
+                unset($socket);
 
                 // Let's sleep shortly so we are not hammering out calls rapid fire style hogging cpu
                 usleep($this->write_wait);
@@ -375,11 +397,18 @@ class GameQ
                 // Make this into a buffer so it is easier to manipulate
                 $challenge = new Buffer(implode('', $response));
 
+                // Grab the server instance
+                /* @var $server \GameQ\Server */
+                $server = $this->servers[$server_id];
+
                 // Apply the challenge
-                $this->servers[$server_id]->protocol()->challengeParseAndApply($challenge);
+                $server->protocol()->challengeParseAndApply($challenge);
 
                 // Add this socket to be reused, has to be reused in GameSpy3 for example
-                $this->servers[$server_id]->socketAdd($sockets[$socket_id]['socket']);
+                $server->socketAdd($sockets[$socket_id]['socket']);
+
+                // Clear
+                unset($server);
             }
         }
     }
@@ -390,10 +419,13 @@ class GameQ
     protected function doQueries()
     {
 
+        // Initialize the array of sockets
         $sockets = [ ];
 
         // Iterate over the server list
         foreach ($this->servers as $server_id => $server) {
+            /* @var $server \GameQ\Server */
+
             // Invoke the beforeSend method
             $server->protocol()->beforeSend();
 
@@ -407,20 +439,16 @@ class GameQ
 
             // Try to use an existing socket
             if (($socket = $server->socketGet()) === null) {
-                // We need to make a new socket
+                // Let's make a clone of the query class
+                $socket = clone $this->query;
 
-                // Make a new class for this query type
-                $class = new \ReflectionClass($this->query);
-
-                // Make the socket class
-                $socket = $class->newInstanceArgs([
+                // Set the information for this query socket
+                $socket->set(
                     $server->protocol()->transport(),
                     $server->ip,
                     $server->port_query,
-                    $this->timeout,
-                ]);
-
-                unset($class);
+                    $this->timeout
+                );
             }
 
             // Iterate over all the packets we need to send
@@ -455,16 +483,28 @@ class GameQ
             // Back out the server_id
             $server_id = $sockets[$socket_id]['server_id'];
 
+            // Grab the server instance
+            /* @var $server \GameQ\Server */
+            $server = $this->servers[$server_id];
+
             // Save the response from this packet
-            $this->servers[$server_id]->protocol()->packetResponse($response);
+            $server->protocol()->packetResponse($response);
+
+            unset($server);
         }
 
         // Now we need to close all of the sockets
-        foreach ($sockets as $socket) {
-            $socket['socket']->close();
+        foreach ($sockets as $socketInfo) {
+            /* @var $socket \GameQ\Query\Core */
+            $socket = $socketInfo['socket'];
+
+            // Close the socket
+            $socket->close();
+
+            unset($socket);
         }
 
-        unset($sockets, $socket);
+        unset($sockets);
     }
 
     /**
@@ -472,7 +512,7 @@ class GameQ
      *
      * @param \GameQ\Server $server
      *
-     * @return array|mixed
+     * @return array
      * @throws \Exception
      */
     protected function doParseResponse(Server $server)
