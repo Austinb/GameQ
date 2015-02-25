@@ -185,10 +185,13 @@ class Gamespy3 extends Protocol
     protected function cleanPackets(array $packets = [ ])
     {
 
+        // Get the number of packets
+        $packetCount = count($packets);
+
         // Compare last var of current packet with first var of next packet
         // On a partial match, remove last var from current packet,
         // variable header from next packet
-        for ($i = 0, $x = count($packets); $i < $x - 1; $i++) {
+        for ($i = 0, $x = $packetCount; $i < $x - 1; $i++) {
             // First packet
             $fst = substr($packets[$i], 0, -1);
             // Second packet
@@ -206,7 +209,7 @@ class Gamespy3 extends Protocol
         }
 
         // Now let's loop the return and remove any dupe prefixes
-        for ($x = 1; $x < count($packets); $x++) {
+        for ($x = 1; $x < $packetCount; $x++) {
             $buffer = new Buffer($packets[$x], Buffer::NUMBER_TYPE_BIGENDIAN);
 
             $prefix = $buffer->readString();

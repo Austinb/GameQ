@@ -121,6 +121,8 @@ abstract class Core
 
     /**
      * Create a new socket
+     *
+     * @return void
      */
     abstract protected function create();
 
@@ -142,6 +144,8 @@ abstract class Core
 
     /**
      * Close the socket
+     *
+     * @return void
      */
     abstract public function close();
 

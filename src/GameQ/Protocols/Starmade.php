@@ -223,7 +223,6 @@ class Starmade extends Protocol
                 case 8:
                     // Not implemented
                     throw new Exception("StarMade array parsing is not implemented!");
-                    break;
             }
         }
 

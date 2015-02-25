@@ -88,7 +88,7 @@ class Minecraft extends Gamespy3
     /**
      * Intercept the processResponse so we can add some extra fields
      *
-     * @return array
+     * @return array<string,integer>
      */
     public function processResponse()
     {
