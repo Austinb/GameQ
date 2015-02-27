@@ -27,7 +27,7 @@ use GameQ\Exception\Protocol as Exception;
  * Valve Source Engine Protocol Class (A2S)
  *
  * This class is used as the basis for all other source based servers
- * that rely on the source protocol for game querying
+ * that rely on the source protocol for game querying.
  *
  * @author Austin Bischoff <austin@codebeard.com>
  */
