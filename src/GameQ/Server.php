@@ -230,7 +230,7 @@ class Server
             $this->port_query = (int) $this->options[self::SERVER_OPTIONS_QUERY_PORT];
         } else {
             // Do math based on the protocol class
-            $this->port_query = $this->port_client + $this->protocol->portDiff();
+            $this->port_query = $this->protocol->findQueryPort($this->port_client);
         }
     }
 

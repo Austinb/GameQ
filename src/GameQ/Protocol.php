@@ -237,6 +237,21 @@ abstract class Protocol
     }
 
     /**
+     * "Find" the query port based off of the client port and port_diff
+     *
+     * This method is meant to be overloaded for more complex maths or lookup tables
+     *
+     * @param int $clientPort
+     *
+     * @return int
+     */
+    public function findQueryPort($clientPort)
+    {
+
+        return $clientPort + $this->port_diff;
+    }
+
+    /**
      * Return the join_link as defined by the protocol class
      *
      * @return string
