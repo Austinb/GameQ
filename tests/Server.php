@@ -19,7 +19,7 @@
 namespace GameQ\Tests;
 
 /**
- * Server tests class
+ * Server testing class
  *
  * @package GameQ\Tests
  */

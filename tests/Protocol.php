@@ -56,6 +56,7 @@ class Protocol extends \PHPUnit_Framework_TestCase
      */
     public function testGeneral()
     {
+
         $name = 'Test name';
         $nameLong = 'Test name bigger, longer';
 
@@ -90,6 +91,7 @@ class Protocol extends \PHPUnit_Framework_TestCase
      */
     public function testPackets()
     {
+
         $packets = [
             \GameQ\Protocol::PACKET_CHALLENGE => 'Do you even lift?',
             \GameQ\Protocol::PACKET_RULES     => 'There are no rules!!',
@@ -111,8 +113,10 @@ class Protocol extends \PHPUnit_Framework_TestCase
         ]));
 
         // Test single selected
-        $this->assertEquals($packets[\GameQ\Protocol::PACKET_CHALLENGE],
-            $this->stub->getPacket(\GameQ\Protocol::PACKET_CHALLENGE));
+        $this->assertEquals(
+            $packets[\GameQ\Protocol::PACKET_CHALLENGE],
+            $this->stub->getPacket(\GameQ\Protocol::PACKET_CHALLENGE)
+        );
 
         // Drop challenge and test for !challenge
         unset($packets[\GameQ\Protocol::PACKET_CHALLENGE]);
