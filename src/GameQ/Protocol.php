@@ -180,7 +180,7 @@ abstract class Protocol
             'maxplayers' => [ 'svmaxclients', 'simaxplayers', 'maxclients', 'max_players' ],
             'mod'        => [ 'game', 'gamedir', 'gamevariant' ],
             'numplayers' => [ 'clients', 'sinumplayers', 'num_players' ],
-            'password'   => [ 'protected', 'siusepass', 'sineedpass', 'pswrd', 'gneedpass', 'auth' ],
+            'password'   => [ 'protected', 'siusepass', 'sineedpass', 'pswrd', 'gneedpass', 'auth', 'passsord' ],
         ],
         // Indvidual
         'player'  => [
