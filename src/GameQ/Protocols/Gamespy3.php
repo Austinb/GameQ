@@ -46,18 +46,6 @@ class Gamespy3 extends Protocol
     ];
 
     /**
-     * Use the response flag to figure out what method to run
-     *
-     * @type array
-     */
-    protected $responses = [
-        "\x49" => "processDetails", // I
-        "\x6d" => "processDetailsGoldSource", // m, goldsource
-        "\x44" => "processPlayers", // D
-        "\x45" => "processRules", // E
-    ];
-
-    /**
      * The query protocol used to make the call
      *
      * @type string
@@ -114,7 +102,6 @@ class Gamespy3 extends Protocol
      * Process the response
      *
      * @return array
-     * @throws \GameQ\Exception\Protocol
      */
     public function processResponse()
     {
