@@ -1,57 +1,50 @@
-Very ALPHA - NOT FOR PRODUCTION
+#GameQ Version 3
+[![Build Status](https://travis-ci.org/Austinb/GameQ.svg?branch=v3&style=flat-square)](https://travis-ci.org/Austinb/GameQ)
+[![Coverage Status](https://coveralls.io/repos/Austinb/GameQ/badge.svg?branch=v3&style=flat-square)](https://coveralls.io/r/Austinb/GameQ?branch=v3)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Austinb/GameQ/badges/quality-score.png?b=v3&style=flat-square)](https://scrutinizer-ci.com/g/Austinb/GameQ/?branch=v3)
+[![License](https://img.shields.io/badge/license-LGPL-blue.svg?style=flat-square)](https://packagist.org/packages/austinb/gameq)
+[![Dependency Status](https://www.versioneye.com/user/projects/54d6a7d43ca0845f67000002/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/54d6a7d43ca0845f67000002)
 
-[![Latest Unstable Version](https://poser.pugx.org/austinb/gameq/v/unstable.svg)](https://packagist.org/packages/austinb/gameq)
-[![Build Status](https://travis-ci.org/Austinb/GameQ.svg?branch=v3)](https://travis-ci.org/Austinb/GameQ)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Austinb/GameQ/badges/quality-score.png?b=v3)](https://scrutinizer-ci.com/g/Austinb/GameQ/?branch=v3)
-[![Coverage Status](https://coveralls.io/repos/Austinb/GameQ/badge.svg?branch=v3)](https://coveralls.io/r/Austinb/GameQ?branch=v3)
-[![License](https://poser.pugx.org/austinb/gameq/license.svg)](https://packagist.org/packages/austinb/gameq)
-[![Dependency Status](https://www.versioneye.com/user/projects/54d6a7d43ca0845f67000002/badge.svg?style=flat)](https://www.versioneye.com/user/projects/54d6a7d43ca0845f67000002)
+GameQ is a PHP library that allows you to query multiple types of multiplayer game & voice servers at the same time.
 
+## Requirements
+* PHP 5.4.14+ - [Tested](https://travis-ci.org/Austinb/GameQ) in PHP 5.4, 5.5, 5.6 & [HHVM](http://hhvm.com/)
+* [Bzip2](http://www.php.net/manual/en/book.bzip2.php) - Used for A2S Compressed responses
 
-Information
-===========
-GameQ is a PHP program that allows you to query multiple types of multiplayer game & voice servers at the same time.
-
-GameQ v3 is based off GameQ v2 but updated to use new features of PHP 5.4+ as well as address speed and other issues in v2.
-
-Requirements
-============
-* PHP 5.4.14+
-* Bzip2 - Used for A2S compressed responses (http://www.php.net/manual/en/book.bzip2.php)
-
-Installation
-=======
-Add `austinb/gameq` as a requirement to composer.json by using `composer require austinb/gameq:3.*@dev` or by 
-manually adding the following to the composer.json file:
+## Installation
+#### Composer (recommended) - https://getcomposer.org/
+This method assumes you already have composer [installed](https://getcomposer.org/doc/00-intro.md) and working properly. Add `austinb/gameq` as a requirement to composer.json by using `composer require austinb/gameq:3.*@stable` or by manually adding the following to the *composer.json* file in the **require** section:
 
 ```javascript
-{
-    "require": {
-        "austinb/gameq": "3.*@dev"
-    }
-}
+"austinb/gameq": "3.*@stable"
 ```
 
 Update your packages with `composer update` or install with `composer install`.
 
-Or if you are not using composer download the latest version, unpack into your project and add the following to your 
-autoloader.php to make the GameQ namespace available:
-
+#### Standalone Library
+Download the [latest version](https://github.com/Austinb/GameQ/releases) of the library and unpack it into your project.  Add the following to your bootstrap file:
 ```php
 require_once('/path/to/src/GameQ/Autoloader.php');
 ```
+The Autoloader.php file provides the same auto loading functionality as the Composer install.
 
-Usage
-=======
-Coming soon
+## Example
+```php
+$GameQ = new \GameQ\GameQ();
+$GameQ->addServer([
+    'type' => 'css',
+    'host' => '127.0.0.1:27015',
+]);
+$results = $GameQ->process();
+```
+Need more?  See [Usage & Examples](https://github.com/Austinb/GameQ/wiki/Usage-&-Examples-v3).
 
-ChangeLog
-=========
-See https://github.com/Austinb/GameQ/commits/v3 for an incremental list of changes
+## Contributing 
+ 
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
-License
-=======
-See LICENSE.lgpl for more information
+## License
+See [LICENSE](LICENSE.lgpl) for more information
 
 Donations
 =========
