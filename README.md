@@ -37,7 +37,7 @@ $GameQ->addServer([
 ]);
 $results = $GameQ->process();
 ```
-Need more?  See [Usage & Examples](https://github.com/Austinb/GameQ/wiki/Usage-&-Examples-v3).
+Need more?  See [Examples](https://github.com/Austinb/GameQ/wiki/Examples-v3).
 
 ## Contributing 
  
