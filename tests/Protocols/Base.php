@@ -21,6 +21,8 @@ namespace GameQ\Tests\Protocols;
 /**
  * Class Base for protocol tests
  *
+ * @SuppressWarnings(PHPMD.NumberOfChildren)
+ *
  * @package GameQ\Tests\Protocols
  */
 abstract class Base extends \PHPUnit_Framework_TestCase
@@ -53,6 +55,8 @@ abstract class Base extends \PHPUnit_Framework_TestCase
             }
 
             list($index, $type) = explode('_', $fileinfo->getFilename());
+
+            unset($type);
 
             // Append this data to the providers return
             $providers[] = [

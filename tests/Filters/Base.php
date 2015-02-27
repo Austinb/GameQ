@@ -56,6 +56,8 @@ class Base extends \PHPUnit_Framework_TestCase
             // Split the filename
             list($protocol, $index) = explode('_', $fileinfo->getFilename());
 
+            unset($index);
+
             // Get the data
             if (($data = json_decode(file_get_contents($fileinfo->getRealPath()), true)) === null
                 && json_last_error() !== JSON_ERROR_NONE
