@@ -29,6 +29,8 @@ use GameQ\Exception\Protocol as Exception;
  * This class is used as the basis for all other source based servers
  * that rely on the source protocol for game querying.
  *
+ * @SuppressWarnings(PHPMD.NumberOfChildren)
+ *
  * @author Austin Bischoff <austin@codebeard.com>
  */
 class Source extends Protocol
