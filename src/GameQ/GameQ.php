@@ -46,7 +46,7 @@ class GameQ
     /**
      * Current version
      */
-    const VERSION = '3.0-alpha';
+    const VERSION = '3.0.0-alpha';
 
     /* Static Section */
 
