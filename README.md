@@ -12,7 +12,7 @@ GameQ is a PHP library that allows you to query multiple types of multiplayer ga
 * [Bzip2](http://www.php.net/manual/en/book.bzip2.php) - Used for A2S Compressed responses
 
 ## Installation
-#### Composer (recommended) - https://getcomposer.org/
+#### [Composer](https://getcomposer.org/)
 This method assumes you already have composer [installed](https://getcomposer.org/doc/00-intro.md) and working properly. Add `austinb/gameq` as a requirement to composer.json by using `composer require austinb/gameq:3.*@stable` or by manually adding the following to the *composer.json* file in the **require** section:
 
 ```javascript
