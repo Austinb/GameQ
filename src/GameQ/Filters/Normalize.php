@@ -51,7 +51,7 @@ class Normalize extends Base
             return $result;
         }
 
-        //$data = [];
+        //$data = [ ];
         //$data['raw'][$server->id()] = $result;
 
         // Grab the normalize for this protocol for the specific server
@@ -81,7 +81,10 @@ class Normalize extends Base
         }
 
         //$data['filtered'][$server->id()] = $result;
-        //file_put_contents('/home/gameqv3/css_1.json', json_encode($data));
+        /*file_put_contents(
+            sprintf('%s\..\..\tests\Filters\Providers\Normalize\mumble_1.json', __DIR__),
+            json_encode($data)
+        );*/
 
         // Return the normalized result
         return $result;
