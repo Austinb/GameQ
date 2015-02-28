@@ -59,6 +59,7 @@ class Protocol extends \PHPUnit_Framework_TestCase
 
         $name = 'Test name';
         $nameLong = 'Test name bigger, longer';
+        $portDiff = 5454;
 
         $reflection = new \ReflectionClass($this->stub);
         $reflection_property_name = $reflection->getProperty('name');
@@ -84,6 +85,14 @@ class Protocol extends \PHPUnit_Framework_TestCase
 
         // Test protocol state
         $this->assertEquals(\GameQ\Protocol::STATE_STABLE, $this->stub->state());
+
+        // Test port diff
+        $reflection_property_portdiff = $reflection->getProperty('port_diff');
+        $reflection_property_portdiff->setAccessible(true);
+
+        $reflection_property_portdiff->setValue($this->stub, $portDiff);
+
+        $this->assertEquals($portDiff, $this->stub->portDiff());
     }
 
     /**
