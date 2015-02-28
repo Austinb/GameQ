@@ -29,7 +29,7 @@ class Mumble extends Base
     /**
      * Holds stub on setup
      *
-     * @type \GameQ\Protocols\Source
+     * @type \GameQ\Protocols\Mumble
      */
     protected $stub;
 

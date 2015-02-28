@@ -26,6 +26,42 @@ namespace GameQ\Tests\Protocols;
 class Starmade extends Base
 {
     /**
+     * Holds stub on setup
+     *
+     * @type \GameQ\Protocols\Starmade
+     */
+    protected $stub;
+
+    /**
+     * Holds the expected packets for this protocol class
+     *
+     * @type array
+     */
+    protected $packets = [
+        \GameQ\Protocol::PACKET_STATUS => "\x00\x00\x00\x09\x2a\xff\xff\x01\x6f\x00\x00\x00\x00",
+    ];
+
+    /**
+     * Setup
+     */
+    public function setUp()
+    {
+
+        // Create the stub class
+        $this->stub = $this->getMock('\GameQ\Protocols\Starmade', null, [ [ ] ]);
+    }
+
+    /**
+     * Test the packets to make sure they are correct for source
+     */
+    public function testPackets()
+    {
+
+        // Test to make sure packets are defined properly
+        $this->assertEquals($this->packets, \PHPUnit_Framework_Assert::readAttribute($this->stub, 'packets'));
+    }
+
+    /**
      * Test responses for Starmade
      *
      * @dataProvider loadData

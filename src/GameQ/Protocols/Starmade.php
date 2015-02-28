@@ -109,15 +109,10 @@ class Starmade extends Protocol
         $buffer = new Buffer(implode('', $this->packets_response), Buffer::NUMBER_TYPE_BIGENDIAN);
 
         // Get the passed length in the data side of the packet
-        $packetLength = $buffer->readInt32Signed();
+        $buffer->readInt32Signed();
 
         // Read off the timestamp (in milliseconds)
         $buffer->readInt64();
-
-        // Verify the packet length with the buffer length
-        if ($buffer->getLength() != $packetLength) {
-            return [ ];
-        }
 
         // Burn the check id == 42
         $buffer->readInt8();
