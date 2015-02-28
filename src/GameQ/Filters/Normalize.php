@@ -74,7 +74,7 @@ class Normalize extends Base
         if (isset($result['teams']) && count($result['teams']) > 0) {
             // Iterate
             foreach ($result['teams'] as $key => $team) {
-                $result['teams'][$key] = array_merge($team, $this->check('teams', $team));
+                $result['teams'][$key] = array_merge($team, $this->check('team', $team));
             }
         } else {
             $result['teams'] = [ ];
