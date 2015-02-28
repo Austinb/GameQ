@@ -25,6 +25,7 @@ use GameQ\Result;
 /**
  * All-Seeing Eye Protocol class
  *
+ * @author Marcel Bößendörfer <m.boessendoerfer@marbis.net>
  * @author Austin Bischoff <austin@codebeard.com>
  */
 class Ase extends Protocol

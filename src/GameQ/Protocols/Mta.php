@@ -22,6 +22,8 @@ namespace GameQ\Protocols;
  * Class Multi Theft Auto
  *
  * @package GameQ\Protocols
+ *
+ * @author  Marcel Bößendörfer <m.boessendoerfer@marbis.net>
  * @author  Austin Bischoff <austin@codebeard.com>
  */
 class Mta extends Ase
