@@ -477,8 +477,11 @@ abstract class Protocol
      * Generic method to allow protocol classes to do work right before the query is sent
      *
      * @codeCoverageIgnore
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     *
+     * @param \GameQ\Server $server
      */
-    public function beforeSend()
+    public function beforeSend(Server $server)
     {
     }
 

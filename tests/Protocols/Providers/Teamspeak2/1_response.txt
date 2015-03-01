@@ -1,0 +1,77 @@
+[TS]
+
+||
+OK
+server_id=1
+server_name=Hamburg-Funk
+server_platform=Win32
+server_welcomemessage=Willkommen auf dem Hamburg-Funk Teamspeak Server
+server_webpost_linkurl=
+server_webpost_posturl=hamburg-funk.all4funradio.eu
+server_password=0
+server_clan_server=1
+server_udpport=8767
+server_maxusers=250
+server_allow_codec_celp51=-1
+server_allow_codec_celp63=-1
+server_allow_codec_gsm148=-1
+server_allow_codec_gsm164=-1
+server_allow_codec_windowscelp52=-1
+server_allow_codec_speex2150=-1
+server_allow_codec_speex3950=-1
+server_allow_codec_speex5950=-1
+server_allow_codec_speex8000=-1
+server_allow_codec_speex11000=-1
+server_allow_codec_speex15000=-1
+server_allow_codec_speex18200=-1
+server_allow_codec_speex24600=-1
+server_packetssend=1563401
+server_bytessend=216581381
+server_packetsreceived=1683583
+server_bytesreceived=138154385
+server_uptime=497728
+server_currentusers=3
+server_currentchannels=25
+server_bwinlastsec=3290
+server_bwoutlastsec=157
+server_bwinlastmin=137
+server_bwoutlastmin=3358
+OK
+
+||
+OK
+
+||
+id	codec	parent	order	maxusers	name	flags	password	topic
+1	12	-1	1100	200	"Funkraum"	2	0	"Funkverbindungen in die ganze Welt!"
+2	12	-1	1000	200	"Plauderraum"	0	0	"Hier kann ungestört geplaudert werden."
+3	12	-1	23352	10	"Admins"	4	1	""
+4	12	-1	1	200	"TESTRAUM"	0	0	""
+5	12	-1	1400	200	"Digimodes"	10	0	""
+6	0	-1	1300	200	"Gateway-Test"	0	0	""
+7	0	-1	34463	200	"ZXSTICKY"	0	0	""
+8	0	-1	34463	200	"AFK"	2	0	""
+9	12	-1	1200	50	"DX Funk"	2	0	"Funkraum für Gateway- / HF-DX Verbindungen"
+10	12	-1	5000	200	"US-CARS & Treffen"	10	0	""
+11	12	-1	3200	200	"Webradio und Musik"	10	0	""
+12	9	-1	6500	200	"GAMERBEREICH"	10	0	"Bereich für Gamer"
+13	9	-1	6000	200	"Funkspiele"	10	0	""
+14	9	-1	1250	200	"Fuchsjagt"	10	0	""
+15	11	-1	1101	200	"Funkraum 2"	2	0	"Funkverbindungen in die ganze Welt!"
+16	12	-1	0	250	"***WILLKOMMEN***"	16	0	"Begrüssungsraum"
+17	12	-1	7000	200	"Operator"	4	1	""
+18	12	5	3200	200	"RTTY50"	2	0	""
+19	12	5	3200	200	"SSTV Analog"	2	0	""
+20	12	5	3200	200	"PACKET"	2	0	""
+21	12	5	3200	200	"BPSK31"	2	0	""
+22	12	5	3200	200	"HELL FM"	2	0	""
+23	12	5	3200	200	"FAX"	2	0	""
+24	12	5	3200	200	"CW"	2	0	""
+25	12	11	3200	200	"Mainstream"	2	0	"All4Fun Radio Mainstream"
+OK
+OK
+p_id	c_id	ps	bs	pr	br	pl	ping	logintime	idletime	cprivs	pprivs	pflags	ip	nick	loginname
+6	16	40450	1924469	60903	1845286	0	2	497623	197	0	5	1	"0.0.0.0"	"Flauschis-Freundin 110"	"Flauschis-Freundin"	
+105	1	13823	381753	17873	5784359	2	61	14358	0	20	4	4	"0.0.0.0"	"VL CB-FUNK-BERLIN Original"	"vlcbfunkberlin"	
+106	1	3261	535080	65	14864	441	45	1860	984	21	4	4	"0.0.0.0"	"CrosslinkCL5 FRN_hamburg-funk"	"CL4"	
+OK

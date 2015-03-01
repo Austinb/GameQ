@@ -427,7 +427,7 @@ class GameQ
             /* @var $server \GameQ\Server */
 
             // Invoke the beforeSend method
-            $server->protocol()->beforeSend();
+            $server->protocol()->beforeSend($server);
 
             // Get all the non-challenge packets we need to send
             $packets = $server->protocol()->getPacket('!' . Protocol::PACKET_CHALLENGE);

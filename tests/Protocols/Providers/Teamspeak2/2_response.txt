@@ -1,0 +1,91 @@
+[TS]
+
+||
+OK
+server_id=1
+server_name=Universal Br Hosting
+server_platform=Win32
+server_welcomemessage=Bem-vindo ao UBH Teamspeak Server. Fórum link www.universalbrhosting.com
+server_webpost_linkurl=
+server_webpost_posturl=
+server_password=0
+server_clan_server=0
+server_udpport=8767
+server_maxusers=950
+server_allow_codec_celp51=0
+server_allow_codec_celp63=0
+server_allow_codec_gsm148=0
+server_allow_codec_gsm164=0
+server_allow_codec_windowscelp52=0
+server_allow_codec_speex2150=0
+server_allow_codec_speex3950=0
+server_allow_codec_speex5950=0
+server_allow_codec_speex8000=0
+server_allow_codec_speex11000=0
+server_allow_codec_speex15000=0
+server_allow_codec_speex18200=0
+server_allow_codec_speex24600=-1
+server_packetssend=39364132
+server_bytessend=6868488813
+server_packetsreceived=30846905
+server_bytesreceived=3729093720
+server_uptime=1867850
+server_currentusers=20
+server_currentchannels=20
+server_bwinlastsec=6840
+server_bwoutlastsec=2305
+server_bwinlastmin=3975
+server_bwoutlastmin=3742
+OK
+
+||
+OK
+
+||
+id	codec	parent	order	maxusers	name	flags	password	topic
+1	12	-1	1	950	"       _ -Bem-Vindo- _"	26	0	"Bem-Vindo"
+2	12	-1	3199	950	"---------Tempo Salas---------"	2	0	""
+3	12	-1	2	950	"Red"	12	1	""
+4	12	-1	2	950	"The Five"	12	1	""
+5	12	3	3200	950	"AFK"	0	0	""
+6	12	4	3200	950	"AFK"	0	0	""
+7	12	4	3200	950	"Reunião"	0	0	""
+8	12	4	3200	950	"Musica / Videos"	0	0	""
+9	12	4	3200	950	"Lineage Exilium"	0	0	""
+10	12	1	3199	950	"UBH TS3 IP: 208.99.194.178"	2	0	""
+105	12	-1	2	950	"K.D.M. [Official Channel]*"	12	1	""
+106	12	105	3200	950	"A.F.K."	4	0	""
+107	12	105	3200	950	"Estratégias"	4	0	""
+108	12	105	3200	950	"Eventos"	4	0	""
+196	12	-1	3200	950	"Sayajins"	5	1	""
+203	12	-1	3200	9	"FT"	5	1	""
+208	12	-1	3200	950	"lol*-*"	5	1	""
+218	12	-1	3200	950	"*+*+*G*+*+*A*+*+*L*+*+*"	5	1	""
+219	12	-1	3200	950	"zzzzzzzz"	5	1	""
+220	12	-1	3200	950	"blg"	5	1	""
+OK
+OK
+p_id	c_id	ps	bs	pr	br	pl	ping	logintime	idletime	cprivs	pprivs	pflags	ip	nick	loginname
+1	1	106487	2745949	35291	1550524	0	18	1867846	222	0	5	1	"0.0.0.0"	"TS Security System TS"	"bot"	
+1227	3	277643	11354095	90	1648	722	110	273028	273027	0	0	0	"0.0.0.0"	"Ron"	""	
+1261	3	241250	9143379	3038	963765	30	68	241666	63689	0	0	0	"0.0.0.0"	"Arc"	""	
+1292	3	163569	5672910	2856	912031	4	80	165256	8747	1	5	0	"0.0.0.0"	"Red"	"RedEyez"	
+1294	203	167660	7901648	12371	3998398	2	170	162004	157544	1	0	0	"0.0.0.0"	"W"	""	
+1314	208	169008	14939344	105891	34389400	130	225	142257	0	1
+||
+	0	0	"0.0.0.0"	"Kim"	""	
+1355	3	71006	2659024	498	154024	3015	85	72212	60656	0	0	0	"0.0.0.0"	"Ed"	""	
+1358	196	114734	17373848	5765	1842798	59	218	70207	14102	0	4	48	"0.0.0.0"	"Heverson"	"Heverson"	
+1389	218	32071	3898794	3401	1091228	35	152	22812	1847	1	0	0	"0.0.0.0"	"matias"	""	
+1390	218	25135	2703705	5409	1745363	0	139	19105	8104	0	0	32	"0.0.0.0"	"Arca"	""	
+1394	4	15789	422299	525	163521	132	151	16279	57	0	0	0	"0.0.0.0"	"sousa"	""	
+1396	218	20856	2585751	792	239627	0	250	14733	6486	0	0	32	"0.0.0.0"	"Agaponi"	""	
+1402	218	10940	501650	1101	341330	9	269	10601	444	0	0	0	"0.0.0.0"	"oscarpiojo"	""	
+1403	219	20111	4040443	11647	3753353	3	232	9337	12	1	0	0	"0.0.0.0"	"DeN"	""	
+1405	219	16845	3367106	9694	3134448	27	236	7876	0	0	0	0	"0.0.0.0"	"vladii"	""	
+1406	196	11105	1537717	1970	628410	0	241	7364	1296	0	4	8	"0.0.0.0"	"Silvao"	"Silvao"	
+1407	218	6710	305680	240	65109	41	211	6508	1775	0	0	0	"0.0.0.0"	"KKRASS"	""	
+1410	196	1333	39201	257	72488	0	213	1294	608	0	0	0	"0.0.0.0"	"Charles"	""	
+1411	220	473	58695	177	45346	0	237	322	102	1	0	0	"0.0.0.0"	"jackson"	""	
+1412	220	342	48424	165	43661	0	184	222	131	0	0	0	"0.0.0.0"	"G10 # THE MYTH"	""	
+OK
