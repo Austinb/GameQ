@@ -48,11 +48,6 @@ class Server
      */
     const SERVER_OPTIONS_QUERY_PORT = 'query_port';
 
-    /*
-     * Used only for Teamspeak servers
-     */
-    const SERVER_OPTIONS_MASTER_SERVER_PORT = 'master_server_port';
-
     /**
      * The protocol class for this server
      *
