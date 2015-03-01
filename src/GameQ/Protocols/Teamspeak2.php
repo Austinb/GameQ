@@ -202,7 +202,7 @@ class Teamspeak2 extends Protocol
         $buffer = new Buffer($data);
 
         // Always dedicated
-        $result->add('dedicated', true);
+        $result->add('dedicated', 1);
 
         // Let's loop until we run out of data
         while ($buffer->getLength()) {
