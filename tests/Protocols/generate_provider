@@ -24,8 +24,9 @@
  *
  * Requires composer install in dev mode
  *
- * Usage example:
+ * Usage examples:
  * $ php tests/Protocols/generate_provider -s 127.0.0.1:27015 -p css
+ * $ php tests/Protocols/generate_provider -s 127.0.0.1:27015 -p css -o '{"query_port":27018}'
  */
 
 require __DIR__ . '/../../vendor/autoload.php';
@@ -40,6 +41,9 @@ $specs->add('s|server:', 'Server to contact ip|hostname:port')
 $specs->add('p|protocol:', 'Protocol of the server')
       ->isa('String');
 
+$specs->add('o|options:', 'Optional: Server options such as query port')
+      ->isa('String');
+
 $parser = new OptionParser($specs);
 
 try {
@@ -52,6 +56,15 @@ try {
     // Make sure options exist
     if (!array_key_exists('server', $options) || !array_key_exists('protocol', $options)) {
         throw new Exception('Missing arguments');
+    }
+
+    // Check the options
+    if (array_key_exists('options', $options)) {
+        if (($server_options = json_decode($options['options'], true)) === null) {
+            throw new Exception('The options setting must be a JSON string');
+        }
+    } else {
+        $server_options = [ ];
     }
 
     // Build the directory where we want to store this data
@@ -83,7 +96,7 @@ try {
         \GameQ\Server::SERVER_ID      => $options['server'],
         \GameQ\Server::SERVER_TYPE    => $options['protocol'],
         \GameQ\Server::SERVER_HOST    => $options['server'],
-        \GameQ\Server::SERVER_OPTIONS => [ ],
+        \GameQ\Server::SERVER_OPTIONS => $server_options,
     ]);
 
     // Process

@@ -74,21 +74,23 @@ abstract class Base extends \PHPUnit_Framework_TestCase
     /**
      * Generic query test function to simulate testing of protocol classes
      *
-     * @param      $host
-     * @param      $protocol
-     * @param      $responses
-     * @param bool $debug
+     * @param string $host
+     * @param string $protocol
+     * @param array  $responses
+     * @param bool   $debug
+     * @param array  $server_options
      *
      * @return mixed
      */
-    protected function queryTest($host, $protocol, $responses, $debug = false)
+    protected function queryTest($host, $protocol, $responses, $debug = false, $server_options = [ ])
     {
 
         // Create a mock server
         $server = $this->getMock('\GameQ\Server', null, [
             [
-                \GameQ\Server::SERVER_HOST => $host,
-                \GameQ\Server::SERVER_TYPE => $protocol,
+                \GameQ\Server::SERVER_HOST    => $host,
+                \GameQ\Server::SERVER_TYPE    => $protocol,
+                \GameQ\Server::SERVER_OPTIONS => $server_options,
             ]
         ]);
 
