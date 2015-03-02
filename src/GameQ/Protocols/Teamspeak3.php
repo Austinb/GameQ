@@ -25,7 +25,7 @@ use GameQ\Server;
 use GameQ\Exception\Protocol as Exception;
 
 /**
- * Teamspeak 2 Protocol Class
+ * Teamspeak 3 Protocol Class
  *
  * All values are utf8 encoded upon processing
  *
@@ -34,7 +34,7 @@ use GameQ\Exception\Protocol as Exception;
  *
  * @author Austin Bischoff <austin@codebeard.com>
  */
-class Teamspeak2 extends Protocol
+class Teamspeak3 extends Protocol
 {
 
     /**
@@ -44,9 +44,9 @@ class Teamspeak2 extends Protocol
      * @type array
      */
     protected $packets = [
-        self::PACKET_DETAILS  => "sel %d\x0asi\x0a",
-        self::PACKET_CHANNELS => "sel %d\x0acl\x0a",
-        self::PACKET_PLAYERS  => "sel %d\x0apl\x0a",
+        self::PACKET_DETAILS  => "use port=%d\x0Aserverinfo\x0A",
+        self::PACKET_PLAYERS  => "use port=%d\x0Aclientlist\x0A",
+        self::PACKET_CHANNELS => "use port=%d\x0Achannellist -topic\x0A",
     ];
 
     /**
@@ -61,28 +61,28 @@ class Teamspeak2 extends Protocol
      *
      * @type string
      */
-    protected $protocol = 'teamspeak2';
+    protected $protocol = 'teamspeak3';
 
     /**
      * String name of this protocol class
      *
      * @type string
      */
-    protected $name = 'teamspeak2';
+    protected $name = 'teamspeak3';
 
     /**
      * Longer string name of this protocol class
      *
      * @type string
      */
-    protected $name_long = "Teamspeak 2";
+    protected $name_long = "Teamspeak 3";
 
     /**
      * The client join link
      *
      * @type string
      */
-    protected $join_link = "teamspeak://%s:%d/";
+    protected $join_link = "ts3server://%s?port=%d";
 
     /**
      * Normalize settings for this protocol
@@ -93,21 +93,21 @@ class Teamspeak2 extends Protocol
         // General
         'general' => [
             'dedicated'  => 'dedicated',
-            'hostname'   => 'server_name',
-            'password'   => 'server_password',
-            'numplayers' => 'server_currentusers',
-            'maxplayers' => 'server_maxusers',
+            'hostname'   => 'virtualserver_name',
+            'password'   => 'virtualserver_flag_password',
+            'numplayers' => 'numplayers',
+            'maxplayers' => 'virtualserver_maxclients',
         ],
         // Player
         'player'  => [
-            'id'   => 'p_id',
-            'team' => 'c_id',
-            'name' => 'nick',
+            'id'   => 'clid',
+            'team' => 'cid',
+            'name' => 'client_nickname',
         ],
         // Team
         'team'    => [
-            'id'   => 'id',
-            'name' => 'name',
+            'id'   => 'cid',
+            'name' => 'channel_name',
         ],
     ];
 
@@ -147,17 +147,31 @@ class Teamspeak2 extends Protocol
         // Make a new buffer out of all of the packets
         $buffer = new Buffer(implode('', $this->packets_response));
 
-        // Check the header [TS]
-        if (($header = trim($buffer->readString("\n"))) !== '[TS]') {
-            throw new Exception(__METHOD__ . " Expected header '{$header}' does not match expected '[TS]'.");
+        // Check the header TS3
+        if (($header = trim($buffer->readString("\n"))) !== 'TS3') {
+            throw new Exception(__METHOD__ . " Expected header '{$header}' does not match expected 'TS3'.");
         }
 
-        // Split this buffer as the data blocks are bound by "OK" and drop any empty values
-        $sections = array_filter(explode("OK", $buffer->getBuffer()), function ($value) {
+        // Convert all the escaped characters
+        $raw = str_replace(
+            [
+                '\\\\', // Translate escaped \
+                '\\/', // Translate escaped /
+            ],
+            [
+                '\\',
+                '/',
+            ],
+            $buffer->getBuffer()
+        );
+
+        // Explode the sections and filter to remove empty, junk ones
+        $sections = array_filter(explode("\n", $raw), function ($value) {
 
             $value = trim($value);
 
-            return !empty($value);
+            // Not empty string or a message response for "error id=\d"
+            return !empty($value) && substr($value, 0, 5) !== 'error';
         });
 
         // Trim up the values to remove extra whitespace
@@ -166,20 +180,20 @@ class Teamspeak2 extends Protocol
         // Set the result to a new result instance
         $result = new Result();
 
-        // Now we need to iterate over the sections and off load the processing
+        // Iterate over the sections and offload the parsing
         foreach ($sections as $section) {
             // Grab a snip of the data so we can figure out what it is
-            $check = substr($section, 0, 7);
+            $check = substr(trim($section), 0, 4);
 
-            // Offload to the proper method
-            if ($check == 'server_') {
-                // Server settings and info
+            // Use the first part of the response to figure out where we need to go
+            if ($check == 'virt') {
+                // Server info
                 $this->processDetails($section, $result);
-            } elseif ($check == "id\tcode") {
-                // Channel info
+            } elseif ($check == 'cid=') {
+                // Channels
                 $this->processChannels($section, $result);
-            } elseif ($check == "p_id\tc_") {
-                // Player info
+            } elseif ($check == 'clid') {
+                // Clients (players)
                 $this->processPlayers($section, $result);
             }
         }
@@ -193,6 +207,43 @@ class Teamspeak2 extends Protocol
      * Internal methods
      */
 
+    /**
+     * Process the properties of the data.
+     *
+     * Takes data in "key1=value1 key2=value2 ..." and processes it into a usable format
+     *
+     * @param $data
+     *
+     * @return array
+     */
+    protected function processProperties($data)
+    {
+
+        // Will hold the properties we are sending back
+        $properties = [ ];
+
+        // All of these are split on space
+        $items = explode(' ', $data);
+
+        // Iterate over the items
+        foreach ($items as $item) {
+            // Explode and make sure we always have 2 items in the array
+            list($key, $value) = array_pad(explode('=', $item, 2), 2, '');
+
+            // Convert spaces and other character changes
+            $properties[$key] = utf8_encode(str_replace(
+                [
+                    '\\s', // Translate spaces
+                ],
+                [
+                    ' ',
+                ],
+                $value
+            ));
+        }
+
+        return $properties;
+    }
 
     /**
      * Handles processing the details data into a usable format
@@ -203,25 +254,24 @@ class Teamspeak2 extends Protocol
     protected function processDetails($data, Result &$result)
     {
 
-        // Create a buffer
-        $buffer = new Buffer($data);
+        // Offload the parsing for these values
+        $properties = $this->processProperties($data);
 
         // Always dedicated
         $result->add('dedicated', 1);
 
-        // Let's loop until we run out of data
-        while ($buffer->getLength()) {
-            // Grab the row, which is an item
-            $row = trim($buffer->readString("\n"));
-
-            // Split out the information
-            list($key, $value) = explode('=', $row, 2);
-
-            // Add this to the result
-            $result->add($key, utf8_encode($value));
+        // Iterate over the properties
+        foreach ($properties as $key => $value) {
+            $result->add($key, $value);
         }
 
-        unset($data, $buffer, $row, $key, $value);
+        // We need to manually figure out the number of players
+        $result->add(
+            'numplayers',
+            ($properties['virtualserver_clientsonline'] - $properties['virtualserver_queryclientsonline'])
+        );
+
+        unset($data, $properties, $key, $value);
     }
 
     /**
@@ -233,27 +283,21 @@ class Teamspeak2 extends Protocol
     protected function processChannels($data, Result &$result)
     {
 
-        // Create a buffer
-        $buffer = new Buffer($data);
+        // We need to split the data at the pipe
+        $channels = explode('|', $data);
 
-        // The first line holds the column names, data returned is in column/row format
-        $columns = explode("\t", trim($buffer->readString("\n")), 9);
+        // Iterate over the channels
+        foreach ($channels as $channel) {
+            // Offload the parsing for these values
+            $properties = $this->processProperties($channel);
 
-        // Loop through the rows until we run out of information
-        while ($buffer->getLength()) {
-            // Grab the row, which is a tabbed list of items
-            $row = trim($buffer->readString("\n"));
-
-            // Explode and merge the data with the columns, then parse
-            $data = array_combine($columns, explode("\t", $row, 9));
-
-            foreach ($data as $key => $value) {
-                // Now add the data to the result
-                $result->addTeam($key, utf8_encode($value));
+            // Iterate over the properties
+            foreach ($properties as $key => $value) {
+                $result->addTeam($key, $value);
             }
         }
 
-        unset($data, $buffer, $row, $columns, $key, $value);
+        unset($data, $channel, $channels, $properties, $key, $value);
     }
 
     /**
@@ -265,26 +309,20 @@ class Teamspeak2 extends Protocol
     protected function processPlayers($data, Result &$result)
     {
 
-        // Create a buffer
-        $buffer = new Buffer($data);
+        // We need to split the data at the pipe
+        $players = explode('|', $data);
 
-        // The first line holds the column names, data returned is in column/row format
-        $columns = explode("\t", trim($buffer->readString("\n")), 16);
+        // Iterate over the channels
+        foreach ($players as $player) {
+            // Offload the parsing for these values
+            $properties = $this->processProperties($player);
 
-        // Loop through the rows until we run out of information
-        while ($buffer->getLength()) {
-            // Grab the row, which is a tabbed list of items
-            $row = trim($buffer->readString("\n"));
-
-            // Explode and merge the data with the columns, then parse
-            $data = array_combine($columns, explode("\t", $row, 16));
-
-            foreach ($data as $key => $value) {
-                // Now add the data to the result
-                $result->addPlayer($key, utf8_encode($value));
+            // Iterate over the properties
+            foreach ($properties as $key => $value) {
+                $result->addPlayer($key, $value);
             }
         }
 
-        unset($data, $buffer, $row, $columns, $key, $value);
+        unset($data, $player, $players, $properties, $key, $value);
     }
 }
