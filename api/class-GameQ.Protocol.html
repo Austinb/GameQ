@@ -1,0 +1,1735 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class GameQ\Protocol</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-GameQ.html">
+						GameQ<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-GameQ.Exception.html">
+						Exception					</a>
+
+						</li>
+				<li>
+					<a href="namespace-GameQ.Filters.html">
+						Filters					</a>
+
+						</li>
+				<li>
+					<a href="namespace-GameQ.Protocols.html">
+						Protocols					</a>
+
+						</li>
+				<li>
+					<a href="namespace-GameQ.Query.html">
+						Query					</a>
+
+						</li>
+							</ul></li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-GameQ.Buffer.html">Buffer</a></li>
+				<li><a href="class-GameQ.GameQ.html">GameQ</a></li>
+				<li class="active"><a href="class-GameQ.Protocol.html">Protocol</a></li>
+				<li><a href="class-GameQ.Result.html">Result</a></li>
+				<li><a href="class-GameQ.Server.html">Server</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-GameQ.html" title="Summary of GameQ"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class Protocol</h1>
+
+
+	<div class="description">
+	<p>Handles the core functionality for the protocols</p>
+	</div>
+
+
+
+	<div>
+		<h4>Direct known subclasses</h4>
+			<a href="class-GameQ.Protocols.Ase.html">GameQ\Protocols\Ase</a>, 
+			<a href="class-GameQ.Protocols.Gamespy3.html">GameQ\Protocols\Gamespy3</a>, 
+			<a href="class-GameQ.Protocols.Mumble.html">GameQ\Protocols\Mumble</a>, 
+			<a href="class-GameQ.Protocols.Source.html">GameQ\Protocols\Source</a>, 
+			<a href="class-GameQ.Protocols.Starmade.html">GameQ\Protocols\Starmade</a>, 
+			<a href="class-GameQ.Protocols.Teamspeak2.html">GameQ\Protocols\Teamspeak2</a>, 
+			<a href="class-GameQ.Protocols.Teamspeak3.html">GameQ\Protocols\Teamspeak3</a>, 
+			<a href="class-GameQ.Protocols.Ventrilo.html">GameQ\Protocols\Ventrilo</a>
+	</div>
+
+	<div>
+		<h4>Indirect known subclasses</h4>
+			<a href="class-GameQ.Protocols.Aa3.html">GameQ\Protocols\Aa3</a>, 
+			<a href="class-GameQ.Protocols.Aapg.html">GameQ\Protocols\Aapg</a>, 
+			<a href="class-GameQ.Protocols.Dayzmod.html">GameQ\Protocols\Dayzmod</a>, 
+			<a href="class-GameQ.Protocols.Dod.html">GameQ\Protocols\Dod</a>, 
+			<a href="class-GameQ.Protocols.Dods.html">GameQ\Protocols\Dods</a>, 
+			<a href="class-GameQ.Protocols.Gmod.html">GameQ\Protocols\Gmod</a>, 
+			<a href="class-GameQ.Protocols.Hl2dm.html">GameQ\Protocols\Hl2dm</a>, 
+			<a href="class-GameQ.Protocols.L4d.html">GameQ\Protocols\L4d</a>, 
+			<a href="class-GameQ.Protocols.L4d2.html">GameQ\Protocols\L4d2</a>, 
+			<a href="class-GameQ.Protocols.Minecraft.html">GameQ\Protocols\Minecraft</a>, 
+			<a href="class-GameQ.Protocols.Mta.html">GameQ\Protocols\Mta</a>, 
+			<a href="class-GameQ.Protocols.Ns2.html">GameQ\Protocols\Ns2</a>, 
+			<a href="class-GameQ.Protocols.Armedassault2oa.html">GameQ\Protocols\Armedassault2oa</a>, 
+			<a href="class-GameQ.Protocols.Redorchestra2.html">GameQ\Protocols\Redorchestra2</a>, 
+			<a href="class-GameQ.Protocols.Rust.html">GameQ\Protocols\Rust</a>, 
+			<a href="class-GameQ.Protocols.Ship.html">GameQ\Protocols\Ship</a>, 
+			<a href="class-GameQ.Protocols.Tf2.html">GameQ\Protocols\Tf2</a>, 
+			<a href="class-GameQ.Protocols.Won.html">GameQ\Protocols\Won</a>, 
+			<a href="class-GameQ.Protocols.Armedassault3.html">GameQ\Protocols\Armedassault3</a>, 
+			<a href="class-GameQ.Protocols.Cs15.html">GameQ\Protocols\Cs15</a>, 
+			<a href="class-GameQ.Protocols.Cs16.html">GameQ\Protocols\Cs16</a>, 
+			<a href="class-GameQ.Protocols.Cscz.html">GameQ\Protocols\Cscz</a>, 
+			<a href="class-GameQ.Protocols.Csgo.html">GameQ\Protocols\Csgo</a>, 
+			<a href="class-GameQ.Protocols.Css.html">GameQ\Protocols\Css</a>, 
+			<a href="class-GameQ.Protocols.Dayz.html">GameQ\Protocols\Dayz</a>
+	</div>
+
+
+
+
+
+	<div class="info">
+		<b>Abstract</b><br>
+		
+		<b>Namespace:</b> <a href="namespace-GameQ.html">GameQ</a><br>
+		
+
+				<b>Author:</b>
+				Austin Bischoff <a href="&#109;&#x61;&#105;&#x6c;t&#111;&#x3a;&#97;&#x75;&#115;&#116;&#x69;&#110;&#x40;&#99;&#x6f;&#x64;&#101;&#x62;&#101;&#x61;r&#100;&#x2e;&#99;&#x6f;m">&#97;&#x75;&#115;&#116;&#x69;&#110;&#x40;&#99;&#x6f;&#x64;&#101;&#x62;&#101;&#x61;r&#100;&#x2e;&#99;&#x6f;m</a><br>
+			<b>Located at</b> <a href="source-class-GameQ.Protocol.html#23-494" title="Go to source code">GameQ/Protocol.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-GameQ.Protocol.html#207-215" title="Go to source code">__construct</a>( <span>array <var>$options</var> = [ ]</span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$options</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__toString" id="___toString">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___toString">#</a>
+		<code><a href="source-class-GameQ.Protocol.html#217-226" title="Go to source code">__toString</a>( )</code>
+
+		<div class="description short">
+			<p>String name of this class</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>String name of this class</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="portDiff" id="_portDiff">
+
+		<td class="attributes"><code>
+			 public 
+
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_portDiff">#</a>
+		<code><a href="source-class-GameQ.Protocol.html#228-237" title="Go to source code">portDiff</a>( )</code>
+
+		<div class="description short">
+			<p>Get the port difference between the server's client (game) and query ports</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get the port difference between the server's client (game) and query ports</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					integer
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="findQueryPort" id="_findQueryPort">
+
+		<td class="attributes"><code>
+			 public 
+
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_findQueryPort">#</a>
+		<code><a href="source-class-GameQ.Protocol.html#239-252" title="Go to source code">findQueryPort</a>( <span>integer <var>$clientPort</var></span> )</code>
+
+		<div class="description short">
+			<p>"Find" the query port based off of the client port and port_diff</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>"Find" the query port based off of the client port and port_diff</p>
+
+<p>This method is meant to be overloaded for more complex maths or lookup tables</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$clientPort</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					integer
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="joinLink" id="_joinLink">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_joinLink">#</a>
+		<code><a href="source-class-GameQ.Protocol.html#254-263" title="Go to source code">joinLink</a>( )</code>
+
+		<div class="description short">
+			<p>Return the join_link as defined by the protocol class</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Return the join_link as defined by the protocol class</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="name" id="_name">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_name">#</a>
+		<code><a href="source-class-GameQ.Protocol.html#265-274" title="Go to source code">name</a>( )</code>
+
+		<div class="description short">
+			<p>Short (callable) name of this class</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Short (callable) name of this class</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="nameLong" id="_nameLong">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_nameLong">#</a>
+		<code><a href="source-class-GameQ.Protocol.html#276-285" title="Go to source code">nameLong</a>( )</code>
+
+		<div class="description short">
+			<p>Long name of this class</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Long name of this class</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="state" id="_state">
+
+		<td class="attributes"><code>
+			 public 
+
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_state">#</a>
+		<code><a href="source-class-GameQ.Protocol.html#287-296" title="Go to source code">state</a>( )</code>
+
+		<div class="description short">
+			<p>Return the status of this Protocol Class</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Return the status of this Protocol Class</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					integer
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getProtocol" id="_getProtocol">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getProtocol">#</a>
+		<code><a href="source-class-GameQ.Protocol.html#298-307" title="Go to source code">getProtocol</a>( )</code>
+
+		<div class="description short">
+			<p>Return the protocol property</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Return the protocol property</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="transport" id="_transport">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_transport">#</a>
+		<code><a href="source-class-GameQ.Protocol.html#309-325" title="Go to source code">transport</a>( <span>string|null <var>$type</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			<p>Get/set the transport type for this protocol</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get/set the transport type for this protocol</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$type</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="options" id="_options">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_options">#</a>
+		<code><a href="source-class-GameQ.Protocol.html#327-343" title="Go to source code">options</a>( <span>array <var>$options</var> = [ ]</span> )</code>
+
+		<div class="description short">
+			<p>Set the options for the protocol call</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set the options for the protocol call</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$options</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					array
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getPacket" id="_getPacket">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getPacket">#</a>
+		<code><a href="source-class-GameQ.Protocol.html#350-390" title="Go to source code">getPacket</a>( <span>array <var>$type</var> = [ ]</span> )</code>
+
+		<div class="description short">
+			<p>Return specific packet(s)</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Return specific packet(s)</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$type</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					array
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="packetResponse" id="_packetResponse">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_packetResponse">#</a>
+		<code><a href="source-class-GameQ.Protocol.html#392-408" title="Go to source code">packetResponse</a>( <span>array <var>$response</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			<p>Get/set the packet response</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get/set the packet response</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$response</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					array
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="hasChallenge" id="_hasChallenge">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_hasChallenge">#</a>
+		<code><a href="source-class-GameQ.Protocol.html#415-424" title="Go to source code">hasChallenge</a>( )</code>
+
+		<div class="description short">
+			<p>Determine whether or not this protocol has a challenge needed before querying</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Determine whether or not this protocol has a challenge needed before querying</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="challengeParseAndApply" id="_challengeParseAndApply">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_challengeParseAndApply">#</a>
+		<code><a href="source-class-GameQ.Protocol.html#426-441" title="Go to source code">challengeParseAndApply</a>( <span><code><a href="class-GameQ.Buffer.html">GameQ\Buffer</a></code> <var>$challenge_buffer</var></span> )</code>
+
+		<div class="description short">
+			<p>Parse the challenge response and add it to the buffer items that need it.
+This should be overloaded by extending class</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Parse the challenge response and add it to the buffer items that need it.
+This should be overloaded by extending class</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$challenge_buffer</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+				<h4>Codecoverageignore</h4>
+				<div class="list">
+				</div>
+				<h4>Suppresswarnings(phpmd.unusedformalparameter)</h4>
+				<div class="list">
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="challengeApply" id="_challengeApply">
+
+		<td class="attributes"><code>
+			 protected 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_challengeApply">#</a>
+		<code><a href="source-class-GameQ.Protocol.html#443-459" title="Go to source code">challengeApply</a>( <span>string <var>$challenge_string</var></span> )</code>
+
+		<div class="description short">
+			<p>Apply the challenge string to all the packets that need it.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Apply the challenge string to all the packets that need it.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$challenge_string</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getNormalize" id="_getNormalize">
+
+		<td class="attributes"><code>
+			 public 
+
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getNormalize">#</a>
+		<code><a href="source-class-GameQ.Protocol.html#461-470" title="Go to source code">getNormalize</a>( )</code>
+
+		<div class="description short">
+			<p>Get the normalize settings for the protocol</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get the normalize settings for the protocol</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					array
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="beforeSend" id="_beforeSend">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_beforeSend">#</a>
+		<code><a href="source-class-GameQ.Protocol.html#476-486" title="Go to source code">beforeSend</a>( <span><code><a href="class-GameQ.Server.html">GameQ\Server</a></code> <var>$server</var></span> )</code>
+
+		<div class="description short">
+			<p>Generic method to allow protocol classes to do work right before the query is sent</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Generic method to allow protocol classes to do work right before the query is sent</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$server</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+				<h4>Codecoverageignore</h4>
+				<div class="list">
+				</div>
+				<h4>Suppresswarnings(phpmd.unusedformalparameter)</h4>
+				<div class="list">
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="processResponse" id="_processResponse">
+
+		<td class="attributes"><code>
+			abstract public 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_processResponse">#</a>
+		<code><a href="source-class-GameQ.Protocol.html#488-493" title="Go to source code">processResponse</a>( )</code>
+
+		<div class="description short">
+			<p>Method called to process query response data.  Each extending class has to have one of these functions.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Method called to process query response data.  Each extending class has to have one of these functions.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+	<table class="summary constants" id="constants">
+	<caption>Constants summary</caption>
+	<tr data-order="STATE_TESTING" id="STATE_TESTING">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-GameQ.Protocol.html#31-34" title="Go to source code"><b>STATE_TESTING</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Constants for class states</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Constants for class states</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#STATE_TESTING" class="anchor">#</a>
+				<code><span class="php-num">1</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="STATE_BETA" id="STATE_BETA">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-GameQ.Protocol.html#36" title="Go to source code"><b>STATE_BETA</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#STATE_BETA" class="anchor">#</a>
+				<code><span class="php-num">2</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="STATE_STABLE" id="STATE_STABLE">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-GameQ.Protocol.html#38" title="Go to source code"><b>STATE_STABLE</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#STATE_STABLE" class="anchor">#</a>
+				<code><span class="php-num">3</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="STATE_DEPRECATED" id="STATE_DEPRECATED">
+
+		<td class="attributes"><code>integer</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-GameQ.Protocol.html#40" title="Go to source code"><b>STATE_DEPRECATED</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#STATE_DEPRECATED" class="anchor">#</a>
+				<code><span class="php-num">4</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="PACKET_ALL" id="PACKET_ALL">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-GameQ.Protocol.html#42-45" title="Go to source code"><b>PACKET_ALL</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Constants for packet keys</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Constants for packet keys</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#PACKET_ALL" class="anchor">#</a>
+				<code><span class="php-quote">'all'</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="PACKET_BASIC" id="PACKET_BASIC">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-GameQ.Protocol.html#47" title="Go to source code"><b>PACKET_BASIC</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#PACKET_BASIC" class="anchor">#</a>
+				<code><span class="php-quote">'basic'</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="PACKET_CHALLENGE" id="PACKET_CHALLENGE">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-GameQ.Protocol.html#49" title="Go to source code"><b>PACKET_CHALLENGE</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#PACKET_CHALLENGE" class="anchor">#</a>
+				<code><span class="php-quote">'challenge'</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="PACKET_CHANNELS" id="PACKET_CHANNELS">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-GameQ.Protocol.html#51" title="Go to source code"><b>PACKET_CHANNELS</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#PACKET_CHANNELS" class="anchor">#</a>
+				<code><span class="php-quote">'channels'</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="PACKET_DETAILS" id="PACKET_DETAILS">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-GameQ.Protocol.html#53" title="Go to source code"><b>PACKET_DETAILS</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#PACKET_DETAILS" class="anchor">#</a>
+				<code><span class="php-quote">'details'</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="PACKET_INFO" id="PACKET_INFO">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-GameQ.Protocol.html#55" title="Go to source code"><b>PACKET_INFO</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#PACKET_INFO" class="anchor">#</a>
+				<code><span class="php-quote">'info'</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="PACKET_PLAYERS" id="PACKET_PLAYERS">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-GameQ.Protocol.html#57" title="Go to source code"><b>PACKET_PLAYERS</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#PACKET_PLAYERS" class="anchor">#</a>
+				<code><span class="php-quote">'players'</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="PACKET_STATUS" id="PACKET_STATUS">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-GameQ.Protocol.html#59" title="Go to source code"><b>PACKET_STATUS</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#PACKET_STATUS" class="anchor">#</a>
+				<code><span class="php-quote">'status'</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="PACKET_RULES" id="PACKET_RULES">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-GameQ.Protocol.html#61" title="Go to source code"><b>PACKET_RULES</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#PACKET_RULES" class="anchor">#</a>
+				<code><span class="php-quote">'rules'</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="PACKET_VERSION" id="PACKET_VERSION">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-GameQ.Protocol.html#63" title="Go to source code"><b>PACKET_VERSION</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#PACKET_VERSION" class="anchor">#</a>
+				<code><span class="php-quote">'version'</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TRANSPORT_UDP" id="TRANSPORT_UDP">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-GameQ.Protocol.html#65-68" title="Go to source code"><b>TRANSPORT_UDP</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Transport constants</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Transport constants</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TRANSPORT_UDP" class="anchor">#</a>
+				<code><span class="php-quote">'udp'</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TRANSPORT_TCP" id="TRANSPORT_TCP">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-GameQ.Protocol.html#70" title="Go to source code"><b>TRANSPORT_TCP</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TRANSPORT_TCP" class="anchor">#</a>
+				<code><span class="php-quote">'tcp'</span></code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="name" id="$name">
+		<td class="attributes"><code>
+			protected  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-GameQ.Protocol.html#72-77" title="Go to source code"><var>$name</var></a>
+
+			<div class="description short">
+				<p>Short name of the protocol</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Short name of the protocol</p>
+
+					<h4>Type</h4>
+					<div class="list">
+							string<br>
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$name" class="anchor">#</a>
+				<code><span class="php-quote">'unknown'</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="name_long" id="$name_long">
+		<td class="attributes"><code>
+			protected  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-GameQ.Protocol.html#79-84" title="Go to source code"><var>$name_long</var></a>
+
+			<div class="description short">
+				<p>The longer, fancier name for the protocol</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>The longer, fancier name for the protocol</p>
+
+					<h4>Type</h4>
+					<div class="list">
+							string<br>
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$name_long" class="anchor">#</a>
+				<code><span class="php-quote">'unknown'</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="port_diff" id="$port_diff">
+		<td class="attributes"><code>
+			protected  
+			integer
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-GameQ.Protocol.html#86-91" title="Go to source code"><var>$port_diff</var></a>
+
+			<div class="description short">
+				<p>The difference between the client port and query port</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>The difference between the client port and query port</p>
+
+					<h4>Type</h4>
+					<div class="list">
+							int<br>
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$port_diff" class="anchor">#</a>
+				<code><span class="php-num">0</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="transport" id="$transport">
+		<td class="attributes"><code>
+			protected  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-GameQ.Protocol.html#93-99" title="Go to source code"><var>$transport</var></a>
+
+			<div class="description short">
+				<p>The transport method to use to actually send the data
+Default is UDP</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>The transport method to use to actually send the data
+Default is UDP</p>
+
+					<h4>Type</h4>
+					<div class="list">
+							string<br>
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$transport" class="anchor">#</a>
+				<code><code><a href="class-GameQ.Protocol.html#TRANSPORT_UDP">GameQ\Protocol::<b>TRANSPORT_UDP</b></a></code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="protocol" id="$protocol">
+		<td class="attributes"><code>
+			protected  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-GameQ.Protocol.html#101-106" title="Go to source code"><var>$protocol</var></a>
+
+			<div class="description short">
+				<p>The protocol type used when querying the server</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>The protocol type used when querying the server</p>
+
+					<h4>Type</h4>
+					<div class="list">
+							string<br>
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$protocol" class="anchor">#</a>
+				<code><span class="php-quote">'unknown'</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="packets" id="$packets">
+		<td class="attributes"><code>
+			protected  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-GameQ.Protocol.html#108-113" title="Go to source code"><var>$packets</var></a>
+
+			<div class="description short">
+				<p>Holds the valid packet types this protocol has available.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Holds the valid packet types this protocol has available.</p>
+
+					<h4>Type</h4>
+					<div class="list">
+							array<br>
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$packets" class="anchor">#</a>
+				<code>[ ]</code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="responses" id="$responses">
+		<td class="attributes"><code>
+			protected  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-GameQ.Protocol.html#115-120" title="Go to source code"><var>$responses</var></a>
+
+			<div class="description short">
+				<p>Holds the response headers and the method to use to process them.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Holds the response headers and the method to use to process them.</p>
+
+					<h4>Type</h4>
+					<div class="list">
+							array<br>
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$responses" class="anchor">#</a>
+				<code>[ ]</code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="process_methods" id="$process_methods">
+		<td class="attributes"><code>
+			protected  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-GameQ.Protocol.html#122-128" title="Go to source code"><var>$process_methods</var></a>
+
+			<div class="description short">
+				<p>Holds the list of methods to run when parsing the packet response(s) data. These
+methods should provide all the return information.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Holds the list of methods to run when parsing the packet response(s) data. These
+methods should provide all the return information.</p>
+
+					<h4>Type</h4>
+					<div class="list">
+							array<br>
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$process_methods" class="anchor">#</a>
+				<code>[ ]</code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="packets_response" id="$packets_response">
+		<td class="attributes"><code>
+			protected  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-GameQ.Protocol.html#130-135" title="Go to source code"><var>$packets_response</var></a>
+
+			<div class="description short">
+				<p>The packet responses received</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>The packet responses received</p>
+
+					<h4>Type</h4>
+					<div class="list">
+							array<br>
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$packets_response" class="anchor">#</a>
+				<code>[ ]</code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="result" id="$result">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-GameQ.Protocol.html#137-142" title="Go to source code"><var>$result</var></a>
+
+			<div class="description short">
+				<p>Holds the instance of the result class</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Holds the instance of the result class</p>
+
+					<h4>Type</h4>
+					<div class="list">
+							null<br>
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$result" class="anchor">#</a>
+				<code><span class="php-keyword1">null</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="options" id="$options">
+		<td class="attributes"><code>
+			protected  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-GameQ.Protocol.html#144-149" title="Go to source code"><var>$options</var></a>
+
+			<div class="description short">
+				<p>Options for this protocol</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Options for this protocol</p>
+
+					<h4>Type</h4>
+					<div class="list">
+							array<br>
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$options" class="anchor">#</a>
+				<code>[ ]</code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="state" id="$state">
+		<td class="attributes"><code>
+			protected  
+			integer
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-GameQ.Protocol.html#151-156" title="Go to source code"><var>$state</var></a>
+
+			<div class="description short">
+				<p>Define the state of this class</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Define the state of this class</p>
+
+					<h4>Type</h4>
+					<div class="list">
+							int<br>
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$state" class="anchor">#</a>
+				<code><code><a href="class-GameQ.Protocol.html#STATE_STABLE">GameQ\Protocol::<b>STATE_STABLE</b></a></code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="normalize" id="$normalize">
+		<td class="attributes"><code>
+			protected  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-GameQ.Protocol.html#158-198" title="Go to source code"><var>$normalize</var></a>
+
+			<div class="description short">
+				<p>Holds specific normalize settings</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Holds specific normalize settings</p>
+
+					<h4>Todo:</h4>
+					<div class="list">
+							Remove this ugly bulk by moving specific ones to their specific game(s)<br>
+					</div>
+					<h4>Type</h4>
+					<div class="list">
+							array<br>
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$normalize" class="anchor">#</a>
+				<code>[
+    <span class="php-comment">// General</span>
+    <span class="php-quote">'general'</span> =&gt; [
+        <span class="php-comment">// target       =&gt; source</span>
+        <span class="php-quote">'dedicated'</span>  =&gt; [
+            <span class="php-quote">'listenserver'</span>,
+            <span class="php-quote">'dedic'</span>,
+            <span class="php-quote">'bf2dedicated'</span>,
+            <span class="php-quote">'netserverdedicated'</span>,
+            <span class="php-quote">'bf2142dedicated'</span>,
+            <span class="php-quote">'dedicated'</span>
+        ],
+        <span class="php-quote">'gametype'</span>   =&gt; [ <span class="php-quote">'ggametype'</span>, <span class="php-quote">'sigametype'</span>, <span class="php-quote">'matchtype'</span> ],
+        <span class="php-quote">'hostname'</span>   =&gt; [ <span class="php-quote">'svhostname'</span>, <span class="php-quote">'servername'</span>, <span class="php-quote">'siname'</span>, <span class="php-quote">'name'</span> ],
+        <span class="php-quote">'mapname'</span>    =&gt; [ <span class="php-quote">'map'</span>, <span class="php-quote">'simap'</span> ],
+        <span class="php-quote">'maxplayers'</span> =&gt; [ <span class="php-quote">'svmaxclients'</span>, <span class="php-quote">'simaxplayers'</span>, <span class="php-quote">'maxclients'</span>, <span class="php-quote">'max_players'</span> ],
+        <span class="php-quote">'mod'</span>        =&gt; [ <span class="php-quote">'game'</span>, <span class="php-quote">'gamedir'</span>, <span class="php-quote">'gamevariant'</span> ],
+        <span class="php-quote">'numplayers'</span> =&gt; [ <span class="php-quote">'clients'</span>, <span class="php-quote">'sinumplayers'</span>, <span class="php-quote">'num_players'</span> ],
+        <span class="php-quote">'password'</span>   =&gt; [ <span class="php-quote">'protected'</span>, <span class="php-quote">'siusepass'</span>, <span class="php-quote">'sineedpass'</span>, <span class="php-quote">'pswrd'</span>, <span class="php-quote">'gneedpass'</span>, <span class="php-quote">'auth'</span>, <span class="php-quote">'passsord'</span> ],
+    ],
+    <span class="php-comment">// Indvidual</span>
+    <span class="php-quote">'player'</span>  =&gt; [
+        <span class="php-quote">'name'</span>   =&gt; [ <span class="php-quote">'nick'</span>, <span class="php-quote">'player'</span>, <span class="php-quote">'playername'</span>, <span class="php-quote">'name'</span> ],
+        <span class="php-quote">'kills'</span>  =&gt; [ <span class="php-quote">'kills'</span> ],
+        <span class="php-quote">'deaths'</span> =&gt; [ <span class="php-quote">'deaths'</span> ],
+        <span class="php-quote">'score'</span>  =&gt; [ <span class="php-quote">'kills'</span>, <span class="php-quote">'frags'</span>, <span class="php-quote">'skill'</span>, <span class="php-quote">'score'</span> ],
+        <span class="php-quote">'ping'</span>   =&gt; [ <span class="php-quote">'ping'</span> ],
+    ],
+    <span class="php-comment">// Team</span>
+    <span class="php-quote">'team'</span>    =&gt; [
+        <span class="php-quote">'name'</span>  =&gt; [ <span class="php-quote">'name'</span>, <span class="php-quote">'teamname'</span>, <span class="php-quote">'team_t'</span> ],
+        <span class="php-quote">'score'</span> =&gt; [ <span class="php-quote">'score'</span>, <span class="php-quote">'score_t'</span> ],
+    ],
+]</code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="join_link" id="$join_link">
+		<td class="attributes"><code>
+			protected  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-GameQ.Protocol.html#200-205" title="Go to source code"><var>$join_link</var></a>
+
+			<div class="description short">
+				<p>Quick join link</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Quick join link</p>
+
+					<h4>Type</h4>
+					<div class="list">
+							string<br>
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$join_link" class="anchor">#</a>
+				<code><span class="php-quote">''</span></code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

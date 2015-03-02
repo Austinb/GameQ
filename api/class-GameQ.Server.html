@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class GameQ\Server</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-GameQ.html">
+						GameQ<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-GameQ.Exception.html">
+						Exception					</a>
+
+						</li>
+				<li>
+					<a href="namespace-GameQ.Filters.html">
+						Filters					</a>
+
+						</li>
+				<li>
+					<a href="namespace-GameQ.Protocols.html">
+						Protocols					</a>
+
+						</li>
+				<li>
+					<a href="namespace-GameQ.Query.html">
+						Query					</a>
+
+						</li>
+							</ul></li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-GameQ.Buffer.html">Buffer</a></li>
+				<li><a href="class-GameQ.GameQ.html">GameQ</a></li>
+				<li><a href="class-GameQ.Protocol.html">Protocol</a></li>
+				<li><a href="class-GameQ.Result.html">Result</a></li>
+				<li class="active"><a href="class-GameQ.Server.html">Server</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-GameQ.html" title="Summary of GameQ"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class Server</h1>
+
+
+	<div class="description">
+	<p>Server class to represent each server entity</p>
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-GameQ.html">GameQ</a><br>
+		
+
+				<b>Author:</b>
+				Austin Bischoff <a href="&#109;&#x61;&#105;&#x6c;t&#111;&#x3a;&#97;&#x75;&#115;&#116;&#x69;&#110;&#x40;&#99;&#x6f;&#x64;&#101;&#x62;&#101;&#x61;r&#100;&#x2e;&#99;&#x6f;m">&#97;&#x75;&#115;&#116;&#x69;&#110;&#x40;&#99;&#x6f;&#x64;&#101;&#x62;&#101;&#x61;r&#100;&#x2e;&#99;&#x6f;m</a><br>
+			<b>Located at</b> <a href="source-class-GameQ.Server.html#23-380" title="Go to source code">GameQ/Server.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-GameQ.Server.html#100-153" title="Go to source code">__construct</a>( <span>array <var>$server_info</var> = [ ]</span> )</code>
+
+		<div class="description short">
+			<p>Construct the class with the passed options</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Construct the class with the passed options</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$server_info</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-GameQ.Exception.Server.html">GameQ\Exception\Server</a></code>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="checkAndSetIpPort" id="_checkAndSetIpPort">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_checkAndSetIpPort">#</a>
+		<code><a href="source-class-GameQ.Server.html#155-215" title="Go to source code">checkAndSetIpPort</a>( <span> <var>$ip_address</var></span> )</code>
+
+		<div class="description short">
+			<p>Check and set the ip address for this server</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Check and set the ip address for this server</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$ip_address</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-GameQ.Exception.Server.html">GameQ\Exception\Server</a></code>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="checkAndSetServerOptions" id="_checkAndSetServerOptions">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_checkAndSetServerOptions">#</a>
+		<code><a href="source-class-GameQ.Server.html#217-230" title="Go to source code">checkAndSetServerOptions</a>( )</code>
+
+		<div class="description short">
+			<p>Check and set any server specific options</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Check and set any server specific options</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setOption" id="_setOption">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setOption">#</a>
+		<code><a href="source-class-GameQ.Server.html#232-246" title="Go to source code">setOption</a>( <span> <var>$key</var></span>, <span> <var>$value</var></span> )</code>
+
+		<div class="description short">
+			<p>Set an option for this server</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set an option for this server</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$key</var></dt>
+					<dd></dd>
+					<dt><var>$value</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<br>$this
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getOption" id="_getOption">
+
+		<td class="attributes"><code>
+			 public 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getOption">#</a>
+		<code><a href="source-class-GameQ.Server.html#248-259" title="Go to source code">getOption</a>( <span>mixed <var>$key</var></span> )</code>
+
+		<div class="description short">
+			<p>Return set option value</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Return set option value</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$key</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="id" id="_id">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_id">#</a>
+		<code><a href="source-class-GameQ.Server.html#261-270" title="Go to source code">id</a>( )</code>
+
+		<div class="description short">
+			<p>Get the ID for this server</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get the ID for this server</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="ip" id="_ip">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_ip">#</a>
+		<code><a href="source-class-GameQ.Server.html#272-281" title="Go to source code">ip</a>( )</code>
+
+		<div class="description short">
+			<p>Get the IP address for this server</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get the IP address for this server</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="portClient" id="_portClient">
+
+		<td class="attributes"><code>
+			 public 
+
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_portClient">#</a>
+		<code><a href="source-class-GameQ.Server.html#283-292" title="Go to source code">portClient</a>( )</code>
+
+		<div class="description short">
+			<p>Get the client port for this server</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get the client port for this server</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					integer
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="portQuery" id="_portQuery">
+
+		<td class="attributes"><code>
+			 public 
+
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_portQuery">#</a>
+		<code><a href="source-class-GameQ.Server.html#294-303" title="Go to source code">portQuery</a>( )</code>
+
+		<div class="description short">
+			<p>Get the query port for this server</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get the query port for this server</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					integer
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="protocol" id="_protocol">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-GameQ.Protocol.html">GameQ\Protocol</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_protocol">#</a>
+		<code><a href="source-class-GameQ.Server.html#305-314" title="Go to source code">protocol</a>( )</code>
+
+		<div class="description short">
+			<p>Return the protocol class for this server</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Return the protocol class for this server</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-GameQ.Protocol.html">GameQ\Protocol</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getJoinLink" id="_getJoinLink">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getJoinLink">#</a>
+		<code><a href="source-class-GameQ.Server.html#316-325" title="Go to source code">getJoinLink</a>( )</code>
+
+		<div class="description short">
+			<p>Get the join link for this server</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get the join link for this server</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="socketAdd" id="_socketAdd">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_socketAdd">#</a>
+		<code><a href="source-class-GameQ.Server.html#331-342" title="Go to source code">socketAdd</a>( <span><code><a href="class-GameQ.Query.Core.html">GameQ\Query\Core</a></code> <var>$socket</var></span> )</code>
+
+		<div class="description short">
+			<p>Add a socket for this server to be reused</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Add a socket for this server to be reused</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$socket</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+				<h4>Codecoverageignore</h4>
+				<div class="list">
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="socketGet" id="_socketGet">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-GameQ.Query.Core.html">GameQ\Query\Core</a></code>|null
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_socketGet">#</a>
+		<code><a href="source-class-GameQ.Server.html#344-361" title="Go to source code">socketGet</a>( )</code>
+
+		<div class="description short">
+			<p>Get a socket from the list to reuse, if any are available</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get a socket from the list to reuse, if any are available</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-GameQ.Query.Core.html">GameQ\Query\Core</a></code>|null
+				</div>
+
+
+				<h4>Codecoverageignore</h4>
+				<div class="list">
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="socketCleanse" id="_socketCleanse">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_socketCleanse">#</a>
+		<code><a href="source-class-GameQ.Server.html#363-379" title="Go to source code">socketCleanse</a>( )</code>
+
+		<div class="description short">
+			<p>Clear any sockets still listed and attempt to close them</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Clear any sockets still listed and attempt to close them</p>
+
+
+
+
+
+				<h4>Codecoverageignore</h4>
+				<div class="list">
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+	<table class="summary constants" id="constants">
+	<caption>Constants summary</caption>
+	<tr data-order="SERVER_TYPE" id="SERVER_TYPE">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-GameQ.Server.html#34" title="Go to source code"><b>SERVER_TYPE</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#SERVER_TYPE" class="anchor">#</a>
+				<code><span class="php-quote">'type'</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="SERVER_HOST" id="SERVER_HOST">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-GameQ.Server.html#36" title="Go to source code"><b>SERVER_HOST</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#SERVER_HOST" class="anchor">#</a>
+				<code><span class="php-quote">'host'</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="SERVER_ID" id="SERVER_ID">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-GameQ.Server.html#38" title="Go to source code"><b>SERVER_ID</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#SERVER_ID" class="anchor">#</a>
+				<code><span class="php-quote">'id'</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="SERVER_OPTIONS" id="SERVER_OPTIONS">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-GameQ.Server.html#40" title="Go to source code"><b>SERVER_OPTIONS</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#SERVER_OPTIONS" class="anchor">#</a>
+				<code><span class="php-quote">'options'</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="SERVER_OPTIONS_QUERY_PORT" id="SERVER_OPTIONS_QUERY_PORT">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-GameQ.Server.html#49" title="Go to source code"><b>SERVER_OPTIONS_QUERY_PORT</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#SERVER_OPTIONS_QUERY_PORT" class="anchor">#</a>
+				<code><span class="php-quote">'query_port'</span></code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="protocol" id="$protocol">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-GameQ.Server.html#51-56" title="Go to source code"><var>$protocol</var></a>
+
+			<div class="description short">
+				<p>The protocol class for this server</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>The protocol class for this server</p>
+
+					<h4>Type</h4>
+					<div class="list">
+							\GameQ\Protocol<br>
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$protocol" class="anchor">#</a>
+				<code><span class="php-keyword1">null</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="id" id="$id">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-GameQ.Server.html#58-63" title="Go to source code"><var>$id</var></a>
+
+			<div class="description short">
+				<p>Id of this server</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Id of this server</p>
+
+					<h4>Type</h4>
+					<div class="list">
+							string<br>
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$id" class="anchor">#</a>
+				<code><span class="php-keyword1">null</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="ip" id="$ip">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-GameQ.Server.html#65-70" title="Go to source code"><var>$ip</var></a>
+
+			<div class="description short">
+				<p>IP Address of this server</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>IP Address of this server</p>
+
+					<h4>Type</h4>
+					<div class="list">
+							string<br>
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$ip" class="anchor">#</a>
+				<code><span class="php-keyword1">null</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="port_client" id="$port_client">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-GameQ.Server.html#72-77" title="Go to source code"><var>$port_client</var></a>
+
+			<div class="description short">
+				<p>The server's client port (connect port)</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>The server's client port (connect port)</p>
+
+					<h4>Type</h4>
+					<div class="list">
+							int<br>
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$port_client" class="anchor">#</a>
+				<code><span class="php-keyword1">null</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="port_query" id="$port_query">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-GameQ.Server.html#79-84" title="Go to source code"><var>$port_query</var></a>
+
+			<div class="description short">
+				<p>The server's query port</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>The server's query port</p>
+
+					<h4>Type</h4>
+					<div class="list">
+							int<br>
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$port_query" class="anchor">#</a>
+				<code><span class="php-keyword1">null</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="options" id="$options">
+		<td class="attributes"><code>
+			protected  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-GameQ.Server.html#86-91" title="Go to source code"><var>$options</var></a>
+
+			<div class="description short">
+				<p>Holds other server specific options</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Holds other server specific options</p>
+
+					<h4>Type</h4>
+					<div class="list">
+							array<br>
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$options" class="anchor">#</a>
+				<code>[ ]</code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="sockets" id="$sockets">
+		<td class="attributes"><code>
+			protected  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-GameQ.Server.html#93-98" title="Go to source code"><var>$sockets</var></a>
+
+			<div class="description short">
+				<p>Holds the sockets already open for this server</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Holds the sockets already open for this server</p>
+
+					<h4>Type</h4>
+					<div class="list">
+							array<br>
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$sockets" class="anchor">#</a>
+				<code>[ ]</code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>
