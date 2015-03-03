@@ -28,7 +28,8 @@ use GameQ\Exception\Protocol as Exception;
  *
  * Good place for doc status and info is http://www.fpsadmin.com/forum/showthread.php?t=24134
  *
- * @author Austin Bischoff <austin@codebeard.com>
+ * @package GameQ\Protocols
+ * @author  Austin Bischoff <austin@codebeard.com>
  */
 class Bf3 extends Protocol
 {
@@ -117,6 +118,7 @@ class Bf3 extends Protocol
         'player'  => [
             'name'  => 'name',
             'score' => 'score',
+            'ping' => 'ping',
         ],
         'team'    => [
             'score' => 'tickets',
