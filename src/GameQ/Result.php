@@ -104,7 +104,7 @@ class Result
     /**
      * Return all stored results
      *
-     * @return  mixed  All results
+     * @return  array  All results
      */
     public function fetch()
     {
