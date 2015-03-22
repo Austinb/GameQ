@@ -127,7 +127,7 @@ abstract class GameQ_Protocols_Unreal2 extends GameQ_Protocols
 		$result->add('gametype',    $buf->readPascalString(1));
 		$result->add('playercount', $buf->readInt32());
 		$result->add('maxplayers',  $buf->readInt32());
-		$result->add('CurrentWave', $buf->readInt32());
+		$result->add('currentwave', $buf->readInt32());
 
 		unset($buf);
 
