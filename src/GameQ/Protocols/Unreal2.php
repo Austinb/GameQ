@@ -255,7 +255,7 @@ abstract class Unreal2 extends Protocol
                 $key .= ++$inc;
             }
 
-            $result->add($key, utf8_encode($buffer->readPascalString(1)));
+            $result->add(strtolower($key), utf8_encode($buffer->readPascalString(1)));
         }
 
         unset($buffer);
