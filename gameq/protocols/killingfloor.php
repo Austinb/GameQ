@@ -66,7 +66,7 @@ class GameQ_Protocols_Killingfloor extends GameQ_Protocols_Unreal2
 	    $result->add('gametype',    $buf->readPascalString(1));
 	    $result->add('playercount', $buf->readInt32());
 	    $result->add('maxplayers',  $buf->readInt32());
-	    $result->add('ping',        $buf->readInt32());          // 0
+	    $result->add('currentwave', $buf->readInt32());
 
 	    // @todo: There is extra data after this point (~9 bytes), cant find any reference on what it is
 
