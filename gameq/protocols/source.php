@@ -40,23 +40,23 @@ class GameQ_Protocols_Source extends GameQ_Protocols
      *
      * @var array
      */
-    protected $packets = [
+    protected $packets = array(
         self::PACKET_CHALLENGE => "\xFF\xFF\xFF\xFF\x56\x00\x00\x00\x00",
         self::PACKET_DETAILS   => "\xFF\xFF\xFF\xFFTSource Engine Query\x00",
         self::PACKET_PLAYERS   => "\xFF\xFF\xFF\xFF\x55%s",
         self::PACKET_RULES     => "\xFF\xFF\xFF\xFF\x56%s",
-    ];
+    );
 
     /**
      * Methods to be run when processing the response(s)
      *
      * @var array
      */
-    protected $process_methods = [
+    protected $process_methods = array(
         "process_details",
         "process_players",
         "process_rules",
-    ];
+    );
 
     /**
      * Default port for this server type
@@ -137,7 +137,7 @@ class GameQ_Protocols_Source extends GameQ_Protocols
 
         // Make sure we have a valid response
         if (!$this->hasValidResponse(self::PACKET_DETAILS)) {
-            return [ ];
+            return array();
         }
 
         // Set the result to a new result instance
@@ -157,11 +157,11 @@ class GameQ_Protocols_Source extends GameQ_Protocols
 
         // Make sure the data is formatted properly
         // Source is 0x49, Goldsource is 0x6d, 0x44 I am not sure about
-        if (!in_array($type, [ "\x49", "\x44", "\x6d" ])) {
+        if (!in_array($type, array( "\x49", "\x44", "\x6d" ))) {
             throw new GameQ_ProtocolsException("Data for " . __METHOD__
                                                . " does not have the proper header type (should be 0x49|0x44|0x6d). Header type: 0x"
                                                . bin2hex($type));
-            return [ ];
+            return array();
         }
 
         // Update the engine type for other calls and other methods, if necessary
@@ -296,7 +296,7 @@ class GameQ_Protocols_Source extends GameQ_Protocols
 
         // Make sure we have a valid response
         if (!$this->hasValidResponse(self::PACKET_PLAYERS)) {
-            return [ ];
+            return array();
         }
 
         // Set the result to a new result instance
@@ -313,7 +313,7 @@ class GameQ_Protocols_Source extends GameQ_Protocols
             throw new GameQ_ProtocolsException("Data for " . __METHOD__
                                                . " does not have the proper header (should be 0xFF0xFF0xFF0xFF0x44). Header: "
                                                . bin2hex($header));
-            return [ ];
+            return array();
         }
 
         // Pull out the number of players
@@ -363,7 +363,7 @@ class GameQ_Protocols_Source extends GameQ_Protocols
 
         // Make sure we have a valid response
         if (!$this->hasValidResponse(self::PACKET_RULES)) {
-            return [ ];
+            return array();
         }
 
         // Set the result to a new result instance
@@ -379,7 +379,7 @@ class GameQ_Protocols_Source extends GameQ_Protocols
             throw new GameQ_ProtocolsException("Data for " . __METHOD__
                                                . " does not have the proper header (should be 0xFF0xFF0xFF0xFF0x45). Header: "
                                                . bin2hex($header));
-            return [ ];
+            return array();
         }
 
         // Count the number of rules
@@ -430,7 +430,7 @@ class GameQ_Protocols_Source extends GameQ_Protocols
         unset($buffer);
 
         // Init array so we can order
-        $packs = [ ];
+        $packs = array();
 
         // We have multiple packets so we need to get them and order them
         foreach ($packets AS $packet) {

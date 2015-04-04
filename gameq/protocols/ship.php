@@ -40,7 +40,7 @@ class GameQ_Protocols_Ship extends GameQ_Protocols_Source
 
         // Make sure we have a valid response
         if (!$this->hasValidResponse(self::PACKET_PLAYERS)) {
-            return [ ];
+            return array();
         }
 
         // Set the result to a new result instance
@@ -57,7 +57,7 @@ class GameQ_Protocols_Ship extends GameQ_Protocols_Source
             throw new GameQ_ProtocolsException("Data for " . __METHOD__
                                                . " does not have the proper header (should be 0xFF0xFF0xFF0xFF0x44). Header: "
                                                . bin2hex($header));
-            return [ ];
+            return array();
         }
 
         // Pull out the number of players
@@ -72,23 +72,20 @@ class GameQ_Protocols_Ship extends GameQ_Protocols_Source
         }
 
         // Players list
-		for ($player = 0; $player < $num_players; $player++)
-		{
+        for ($player = 0; $player < $num_players; $player++) {
             $result->addPlayer('id', $buf->readInt8());
             $result->addPlayer('name', $buf->readString());
             $result->addPlayer('score', $buf->readInt32Signed());
             $result->addPlayer('time', $buf->readFloat32());
         }
 
-		// Addotional player info
-		if ($buf->getLength() > 0)
-		{
-			for ($player = 0; $player < $num_players; $player++)
-			{		
-				$result->addPlayer('deaths', $buf->readInt32Signed());
-				$result->addPlayer('money', $buf->readInt32Signed());
-			}
-		}
+        // Addotional player info
+        if ($buf->getLength() > 0) {
+            for ($player = 0; $player < $num_players; $player++) {
+                $result->addPlayer('deaths', $buf->readInt32Signed());
+                $result->addPlayer('money', $buf->readInt32Signed());
+            }
+        }
 
         unset($buf);
 
