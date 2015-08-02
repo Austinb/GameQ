@@ -8,3 +8,4 @@ composer.lock
 composer.phar
 coverage/
 build/logs/
+test.php

@@ -48,11 +48,4 @@ class Killingfloor2 extends Source
      * @type int
      */
     protected $port_diff = 19238;
-
-    /**
-     * The client join link
-     *
-     * @type string
-     */
-    protected $join_link = "steam://connect/%s:%d/";
 }
