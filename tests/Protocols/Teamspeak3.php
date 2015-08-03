@@ -143,6 +143,9 @@ class Teamspeak3 extends Base
     public function testInvalidHeader()
     {
 
+        $client_port = 9987;
+        $query_port = 10011;
+
         // Read in a css source file
         $source = file_get_contents(sprintf('%s/Providers/Teamspeak3/1_response.txt', __DIR__));
 
@@ -151,11 +154,13 @@ class Teamspeak3 extends Base
 
         // Should throw an exception
         $this->queryTest(
-            '127.0.0.1:9987',
+            '127.0.0.1:' . $client_port,
             'teamspeak3',
             explode(PHP_EOL . '||' . PHP_EOL, $source, true),
             true,
-            [ ]
+            [
+                \GameQ\Server::SERVER_OPTIONS_QUERY_PORT => $query_port,
+            ]
         );
     }
 

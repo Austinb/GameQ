@@ -137,10 +137,14 @@ class Teamspeak2 extends Base
      * Test for invalid header
      *
      * @expectedException Exception
-     * @expectedExceptionMessage GameQ\Protocols\Teamspeak2::processResponse Expected header 'BadH' does not match expected '[TS]'.
+     * @expectedExceptionMessage GameQ\Protocols\Teamspeak2::processResponse Expected header 'BadH' does not match
+     *                           expected '[TS]'.
      */
     public function testInvalidHeader()
     {
+
+        $client_port = 8767;
+        $query_port = 51234;
 
         // Read in a css source file
         $source = file_get_contents(sprintf('%s/Providers/Teamspeak2/1_response.txt', __DIR__));
@@ -150,11 +154,13 @@ class Teamspeak2 extends Base
 
         // Should throw an exception
         $this->queryTest(
-            '127.0.0.1:8767',
+            '127.0.0.1:' . $client_port,
             'teamspeak2',
             explode(PHP_EOL . '||' . PHP_EOL, $source, true),
             true,
-            [ ]
+            [
+                \GameQ\Server::SERVER_OPTIONS_QUERY_PORT => $query_port,
+            ]
         );
     }
 

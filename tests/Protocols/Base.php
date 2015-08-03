@@ -94,6 +94,9 @@ abstract class Base extends \PHPUnit_Framework_TestCase
             ]
         ]);
 
+        // Invoke beforeSend function
+        $server->protocol()->beforeSend($server);
+
         // Set the packet response as if we have really queried it
         $server->protocol()->packetResponse($responses);
 
