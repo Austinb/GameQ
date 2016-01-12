@@ -274,7 +274,7 @@ class Buffer
     {
 
         // Get position of delimiters
-        $pos = [ ];
+        $pos = [];
         foreach ($delims as $delim) {
             if ($p = strpos($this->data, $delim, min($this->index, $this->length))) {
                 $pos[] = $p;

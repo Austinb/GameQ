@@ -31,11 +31,11 @@ class Server
     /*
      * Server array keys
      */
-    const SERVER_TYPE    = 'type';
+    const SERVER_TYPE = 'type';
 
-    const SERVER_HOST    = 'host';
+    const SERVER_HOST = 'host';
 
-    const SERVER_ID      = 'id';
+    const SERVER_ID = 'id';
 
     const SERVER_OPTIONS = 'options';
 
@@ -88,14 +88,14 @@ class Server
      *
      * @type array
      */
-    protected $options = [ ];
+    protected $options = [];
 
     /**
      * Holds the sockets already open for this server
      *
      * @type array
      */
-    protected $sockets = [ ];
+    protected $sockets = [];
 
     /**
      * Construct the class with the passed options
@@ -104,7 +104,7 @@ class Server
      *
      * @throws \GameQ\Exception\Server
      */
-    public function __construct(array $server_info = [ ])
+    public function __construct(array $server_info = [])
     {
 
         // Check for server type
@@ -141,7 +141,7 @@ class Server
                 sprintf('GameQ\\Protocols\\%s', ucfirst(strtolower($server_info[self::SERVER_TYPE])))
             );
 
-            $this->protocol = $class->newInstanceArgs([ $this->options ]);
+            $this->protocol = $class->newInstanceArgs([$this->options]);
         } catch (\ReflectionException $e) {
             throw new Exception("Unable to locate Protocols class for '{$server_info[self::SERVER_TYPE]}'!");
         }
@@ -170,7 +170,7 @@ class Server
                 $server_addr = explode(':', $ip_address);
 
                 // Port is the last item in the array, remove it and save
-                $this->port_client = (int) array_pop($server_addr);
+                $this->port_client = (int)array_pop($server_addr);
 
                 // The rest is the address, recombine
                 $this->ip = implode(':', $server_addr);
@@ -185,7 +185,7 @@ class Server
             }
 
             // Now let's validate the IPv6 value sent, remove the square brackets ([]) first
-            if (!filter_var(trim($this->ip, '[]'), FILTER_VALIDATE_IP, [ 'flags' => FILTER_FLAG_IPV6, ])) {
+            if (!filter_var(trim($this->ip, '[]'), FILTER_VALIDATE_IP, ['flags' => FILTER_FLAG_IPV6,])) {
                 throw new Exception("The IPv6 address '{$this->ip}' is invalid.");
             }
         } else {
@@ -194,7 +194,7 @@ class Server
                 list($this->ip, $this->port_client) = explode(':', $ip_address);
 
                 // Type case the port
-                $this->port_client = (int) $this->port_client;
+                $this->port_client = (int)$this->port_client;
             } else {
                 // No port, fail
                 throw new Exception(
@@ -204,7 +204,7 @@ class Server
             }
 
             // Validate the IPv4 value, if FALSE is not a valid IP, maybe a hostname.  Try to resolve
-            if (!filter_var($this->ip, FILTER_VALIDATE_IP, [ 'flags' => FILTER_FLAG_IPV4, ])
+            if (!filter_var($this->ip, FILTER_VALIDATE_IP, ['flags' => FILTER_FLAG_IPV4,])
                 && $this->ip === gethostbyname($this->ip)
             ) {
                 // When gethostbyname() fails it returns the original string
@@ -222,7 +222,7 @@ class Server
 
         // Specific query port defined
         if (array_key_exists(self::SERVER_OPTIONS_QUERY_PORT, $this->options)) {
-            $this->port_query = (int) $this->options[self::SERVER_OPTIONS_QUERY_PORT];
+            $this->port_query = (int)$this->options[self::SERVER_OPTIONS_QUERY_PORT];
         } else {
             // Do math based on the protocol class
             $this->port_query = $this->protocol->findQueryPort($this->port_client);
@@ -375,6 +375,6 @@ class Server
         }
 
         // Reset the sockets list
-        $this->sockets = [ ];
+        $this->sockets = [];
     }
 }

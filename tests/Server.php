@@ -35,7 +35,7 @@ class Server extends \PHPUnit_Framework_TestCase
     {
 
         // Create a mock server should throw exception
-        $this->getMock('\GameQ\Server', null, [ [ ] ]);
+        $this->getMock('\GameQ\Server', null, [[]]);
     }
 
     /**
@@ -51,7 +51,7 @@ class Server extends \PHPUnit_Framework_TestCase
         $this->getMock('\GameQ\Server', null, [
             [
                 \GameQ\Server::SERVER_TYPE => 'source',
-            ]
+            ],
         ]);
     }
 
@@ -72,7 +72,7 @@ class Server extends \PHPUnit_Framework_TestCase
                 \GameQ\Server::SERVER_HOST    => '127.0.0.1:27015',
                 \GameQ\Server::SERVER_TYPE    => 'source',
                 \GameQ\Server::SERVER_OPTIONS => $options,
-            ]
+            ],
         ]);
 
         $this->assertEquals($options, \PHPUnit_Framework_Assert::readAttribute($server, 'options'));
@@ -102,7 +102,7 @@ class Server extends \PHPUnit_Framework_TestCase
             [
                 \GameQ\Server::SERVER_HOST => $id,
                 \GameQ\Server::SERVER_TYPE => 'source',
-            ]
+            ],
         ]);
 
         $this->assertEquals($id, \PHPUnit_Framework_Assert::readAttribute($server, 'id'));
@@ -115,7 +115,7 @@ class Server extends \PHPUnit_Framework_TestCase
                 \GameQ\Server::SERVER_HOST => '127.0.0.1:27015',
                 \GameQ\Server::SERVER_TYPE => 'source',
                 \GameQ\Server::SERVER_ID   => $id,
-            ]
+            ],
         ]);
 
         $this->assertEquals($id, \PHPUnit_Framework_Assert::readAttribute($server, 'id'));
@@ -138,7 +138,7 @@ class Server extends \PHPUnit_Framework_TestCase
             [
                 \GameQ\Server::SERVER_HOST => '127.0.0.1',
                 \GameQ\Server::SERVER_TYPE => 'source',
-            ]
+            ],
         ]);
     }
 
@@ -156,7 +156,7 @@ class Server extends \PHPUnit_Framework_TestCase
             [
                 \GameQ\Server::SERVER_HOST => 'some.unresolable.domain:27015',
                 \GameQ\Server::SERVER_TYPE => 'source',
-            ]
+            ],
         ]);
     }
 
@@ -170,7 +170,7 @@ class Server extends \PHPUnit_Framework_TestCase
             [
                 \GameQ\Server::SERVER_HOST => '[::1]:27015',
                 \GameQ\Server::SERVER_TYPE => 'source',
-            ]
+            ],
         ]);
     }
 
@@ -187,7 +187,7 @@ class Server extends \PHPUnit_Framework_TestCase
             [
                 \GameQ\Server::SERVER_HOST => '[::1]',
                 \GameQ\Server::SERVER_TYPE => 'source',
-            ]
+            ],
         ]);
     }
 
@@ -204,7 +204,7 @@ class Server extends \PHPUnit_Framework_TestCase
             [
                 \GameQ\Server::SERVER_HOST => '[:0:1]:27015',
                 \GameQ\Server::SERVER_TYPE => 'source',
-            ]
+            ],
         ]);
     }
 
@@ -221,7 +221,7 @@ class Server extends \PHPUnit_Framework_TestCase
             [
                 \GameQ\Server::SERVER_HOST => '127.0.0.1:27015',
                 \GameQ\Server::SERVER_TYPE => 'doesnotexist',
-            ]
+            ],
         ]);
     }
 
@@ -240,7 +240,7 @@ class Server extends \PHPUnit_Framework_TestCase
                 \GameQ\Server::SERVER_OPTIONS => [
                     \GameQ\Server::SERVER_OPTIONS_QUERY_PORT => $query_port,
                 ],
-            ]
+            ],
         ]);
 
         $this->assertEquals($query_port, \PHPUnit_Framework_Assert::readAttribute($server, 'port_query'));

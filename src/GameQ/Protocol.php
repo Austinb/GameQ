@@ -31,36 +31,36 @@ abstract class Protocol
     /**
      * Constants for class states
      */
-    const STATE_TESTING    = 1;
+    const STATE_TESTING = 1;
 
-    const STATE_BETA       = 2;
+    const STATE_BETA = 2;
 
-    const STATE_STABLE     = 3;
+    const STATE_STABLE = 3;
 
     const STATE_DEPRECATED = 4;
 
     /**
      * Constants for packet keys
      */
-    const PACKET_ALL       = 'all'; // Some protocols allow all data to be sent back in one call.
+    const PACKET_ALL = 'all'; // Some protocols allow all data to be sent back in one call.
 
-    const PACKET_BASIC     = 'basic';
+    const PACKET_BASIC = 'basic';
 
     const PACKET_CHALLENGE = 'challenge';
 
-    const PACKET_CHANNELS  = 'channels'; // Voice servers
+    const PACKET_CHANNELS = 'channels'; // Voice servers
 
-    const PACKET_DETAILS   = 'details';
+    const PACKET_DETAILS = 'details';
 
-    const PACKET_INFO      = 'info';
+    const PACKET_INFO = 'info';
 
-    const PACKET_PLAYERS   = 'players';
+    const PACKET_PLAYERS = 'players';
 
-    const PACKET_STATUS    = 'status';
+    const PACKET_STATUS = 'status';
 
-    const PACKET_RULES     = 'rules';
+    const PACKET_RULES = 'rules';
 
-    const PACKET_VERSION   = 'version';
+    const PACKET_VERSION = 'version';
 
     /**
      * Transport constants
@@ -110,14 +110,14 @@ abstract class Protocol
      *
      * @type array
      */
-    protected $packets = [ ];
+    protected $packets = [];
 
     /**
      * Holds the response headers and the method to use to process them.
      *
      * @type array
      */
-    protected $responses = [ ];
+    protected $responses = [];
 
     /**
      * Holds the list of methods to run when parsing the packet response(s) data. These
@@ -125,14 +125,14 @@ abstract class Protocol
      *
      * @type array
      */
-    protected $process_methods = [ ];
+    protected $process_methods = [];
 
     /**
      * The packet responses received
      *
      * @type array
      */
-    protected $packets_response = [ ];
+    protected $packets_response = [];
 
     /**
      * Holds the instance of the result class
@@ -146,7 +146,7 @@ abstract class Protocol
      *
      * @type array
      */
-    protected $options = [ ];
+    protected $options = [];
 
     /**
      * Define the state of this class
@@ -172,28 +172,28 @@ abstract class Protocol
                 'bf2dedicated',
                 'netserverdedicated',
                 'bf2142dedicated',
-                'dedicated'
+                'dedicated',
             ],
-            'gametype'   => [ 'ggametype', 'sigametype', 'matchtype' ],
-            'hostname'   => [ 'svhostname', 'servername', 'siname', 'name' ],
-            'mapname'    => [ 'map', 'simap' ],
-            'maxplayers' => [ 'svmaxclients', 'simaxplayers', 'maxclients', 'max_players' ],
-            'mod'        => [ 'game', 'gamedir', 'gamevariant' ],
-            'numplayers' => [ 'clients', 'sinumplayers', 'num_players' ],
-            'password'   => [ 'protected', 'siusepass', 'sineedpass', 'pswrd', 'gneedpass', 'auth', 'passsord' ],
+            'gametype'   => ['ggametype', 'sigametype', 'matchtype'],
+            'hostname'   => ['svhostname', 'servername', 'siname', 'name'],
+            'mapname'    => ['map', 'simap'],
+            'maxplayers' => ['svmaxclients', 'simaxplayers', 'maxclients', 'max_players'],
+            'mod'        => ['game', 'gamedir', 'gamevariant'],
+            'numplayers' => ['clients', 'sinumplayers', 'num_players'],
+            'password'   => ['protected', 'siusepass', 'sineedpass', 'pswrd', 'gneedpass', 'auth', 'passsord'],
         ],
         // Indvidual
         'player'  => [
-            'name'   => [ 'nick', 'player', 'playername', 'name' ],
-            'kills'  => [ 'kills' ],
-            'deaths' => [ 'deaths' ],
-            'score'  => [ 'kills', 'frags', 'skill', 'score' ],
-            'ping'   => [ 'ping' ],
+            'name'   => ['nick', 'player', 'playername', 'name'],
+            'kills'  => ['kills'],
+            'deaths' => ['deaths'],
+            'score'  => ['kills', 'frags', 'skill', 'score'],
+            'ping'   => ['ping'],
         ],
         // Team
         'team'    => [
-            'name'  => [ 'name', 'teamname', 'team_t' ],
-            'score' => [ 'score', 'score_t' ],
+            'name'  => ['name', 'teamname', 'team_t'],
+            'score' => ['score', 'score_t'],
         ],
     ];
 
@@ -207,7 +207,7 @@ abstract class Protocol
     /**
      * @param array $options
      */
-    public function __construct(array $options = [ ])
+    public function __construct(array $options = [])
     {
 
         // Set the options for this specific instance of the class
@@ -331,7 +331,7 @@ abstract class Protocol
      *
      * @return array
      */
-    public function options($options = [ ])
+    public function options($options = [])
     {
 
         // Act as setter
@@ -354,10 +354,10 @@ abstract class Protocol
      *
      * @return array
      */
-    public function getPacket($type = [ ])
+    public function getPacket($type = [])
     {
 
-        $packets = [ ];
+        $packets = [];
 
 
         // We want an array of packets back
