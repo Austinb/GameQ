@@ -105,7 +105,7 @@ try {
     // Save the result into a file
     $result = file_put_contents(sprintf('%s/%d_result.json', $provider_dir, $index), json_encode(
         $results,
-        JSON_UNESCAPED_UNICODE
+        JSON_UNESCAPED_UNICODE | JSON_PARTIAL_OUTPUT_ON_ERROR
     ));
 
     exit(0);
