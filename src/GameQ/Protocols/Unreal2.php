@@ -28,7 +28,7 @@ use GameQ\Exception\Protocol as Exception;
  *
  * @author Austin Bischoff <austin@codebeard.com>
  */
-abstract class Unreal2 extends Protocol
+class Unreal2 extends Protocol
 {
 
     /**
@@ -100,24 +100,6 @@ abstract class Unreal2 extends Protocol
     ];
 
     /**
-     * Parse the challenge response and apply it to all the packet types
-     *
-     * @param \GameQ\Buffer $challenge_buffer
-     *
-     * @return bool
-     * @throws \GameQ\Exception\Protocol
-     */
-    public function challengeParseAndApply(Buffer $challenge_buffer)
-    {
-
-        // Skip the header
-        $challenge_buffer->skip(5);
-
-        // Apply the challenge and return
-        return $this->challengeApply($challenge_buffer->read(4));
-    }
-
-    /**
      * Process the response
      *
      * @return array
@@ -127,7 +109,7 @@ abstract class Unreal2 extends Protocol
     {
 
         // Will hold the packets after sorting
-        $packets = [ ];
+        $packets = [];
 
         // We need to pre-sort these for split packets so we can do extra work where needed
         foreach ($this->packets_response as $response) {
@@ -142,19 +124,19 @@ abstract class Unreal2 extends Protocol
 
         unset($buffer);
 
-        $results = [ ];
+        $results = [];
 
         // Now let's iterate and process
         foreach ($packets as $header => $packetGroup) {
             // Figure out which packet response this is
             if (!array_key_exists($header, $this->responses)) {
-                throw new Exception(__METHOD__ . " response type '{$header}' is not valid");
+                throw new Exception(__METHOD__ . " response type '" . bin2hex($header) . "' is not valid");
             }
 
             // Now we need to call the proper method
             $results = array_merge(
                 $results,
-                call_user_func_array([ $this, $this->responses[$header] ], [ new Buffer(implode($packetGroup)) ])
+                call_user_func_array([$this, $this->responses[$header]], [new Buffer(implode($packetGroup))])
             );
         }
 
@@ -213,17 +195,16 @@ abstract class Unreal2 extends Protocol
         // Parse players
         while ($buffer->getLength()) {
             // Player id
-            if (($id = $buffer->readInt32()) === 0) {
-                break;
+            if (($id = $buffer->readInt32()) !== 0) {
+                // Add the results
+                $result->addPlayer('id', $id);
+                $result->addPlayer('name', utf8_encode($buffer->readPascalString(1)));
+                $result->addPlayer('ping', $buffer->readInt32());
+                $result->addPlayer('score', $buffer->readInt32());
+
+                // Skip the next 4, unsure what they are for
+                $buffer->skip(4);
             }
-
-            $result->addPlayer('id', $id);
-            $result->addPlayer('name', utf8_encode($buffer->readPascalString(1)));
-            $result->addPlayer('ping', $buffer->readInt32());
-            $result->addPlayer('score', $buffer->readInt32());
-
-            // Skip the next 4, unsure what they are for
-            $buffer->skip(4);
         }
 
         unset($buffer, $id);
