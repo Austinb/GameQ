@@ -45,7 +45,7 @@
     "wiki": "https://github.com/Austinb/GameQ/wiki"
   },
   "require": {
-    "php": "~5.4,>=5.4.14",
+    "php": ">=5.4.14",
     "ext-bz2": "*"
   },
   "require-dev": {
