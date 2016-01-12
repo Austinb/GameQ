@@ -190,7 +190,7 @@ class Gamespy3 extends Protocol
             $sndvar = substr($snd, 0, strpos($snd, "\x00"));
             // Check if fstvar is a substring of sndvar
             // If so, remove it from the first string
-            if (strpos($sndvar, $fstvar) !== false) {
+            if (!empty($fstvar) && strpos($sndvar, $fstvar) !== false) {
                 $packets[$i] = preg_replace("#(\\x00[^\\x00]+\\x00)$#", "\x00", $packets[$i]);
             }
         }
