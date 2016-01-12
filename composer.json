@@ -54,7 +54,7 @@
     "phpunit/php-invoker": "*",
     "phpmd/phpmd" : "@stable",
     "squizlabs/php_codesniffer": "2.*@stable",
-    "satooshi/php-coveralls": "dev-master",
+    "satooshi/php-coveralls": "~1.0",
     "corneltek/getoptionkit": "~2"
   },
   "autoload": {
