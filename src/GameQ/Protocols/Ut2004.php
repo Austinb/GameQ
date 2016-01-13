@@ -19,11 +19,7 @@
 namespace GameQ\Protocols;
 
 /**
- * Unreal Tournament 3 Protocol Class
- *
- * Note: The response from UT3 appears to not be consistent.  Many times packets are incomplete or there are extra
- * "echoes" in the responses.  This may cause issues like odd characters showing up in the keys for the player and team
- * array responses. Not sure much can be done about it.
+ * Unreal Tournament 2004 Protocol Class
  *
  * @author Austin Bischoff <austin@codebeard.com>
  */
