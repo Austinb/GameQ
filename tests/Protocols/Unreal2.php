@@ -24,7 +24,7 @@ class Unreal2 extends Base
     /**
      * Holds stub on setup
      *
-     * @type \GameQ\Protocols\Source
+     * @type \GameQ\Protocols\Unreal2
      */
     protected $stub;
 
