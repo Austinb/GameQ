@@ -298,7 +298,7 @@
 </span><span id="190" class="l"><a href="#190">190: </a>            <span class="php-var">$sndvar</span> = <span class="php-keyword2">substr</span>(<span class="php-var">$snd</span>, <span class="php-num">0</span>, <span class="php-keyword2">strpos</span>(<span class="php-var">$snd</span>, <span class="php-quote">&quot;\x00&quot;</span>));
 </span><span id="191" class="l"><a href="#191">191: </a>            <span class="php-comment">// Check if fstvar is a substring of sndvar</span>
 </span><span id="192" class="l"><a href="#192">192: </a>            <span class="php-comment">// If so, remove it from the first string</span>
-</span><span id="193" class="l"><a href="#193">193: </a>            <span class="php-keyword1">if</span> (<span class="php-keyword2">strpos</span>(<span class="php-var">$sndvar</span>, <span class="php-var">$fstvar</span>) !== <span class="php-keyword1">false</span>) {
+</span><span id="193" class="l"><a href="#193">193: </a>            <span class="php-keyword1">if</span> (!<span class="php-keyword1">empty</span>(<span class="php-var">$fstvar</span>) &amp;&amp; <span class="php-keyword2">strpos</span>(<span class="php-var">$sndvar</span>, <span class="php-var">$fstvar</span>) !== <span class="php-keyword1">false</span>) {
 </span><span id="194" class="l"><a href="#194">194: </a>                <span class="php-var">$packets</span>[<span class="php-var">$i</span>] = <span class="php-keyword2">preg_replace</span>(<span class="php-quote">&quot;#(\\x00[^\\x00]+\\x00)</span><span class="php-var">$</span><span class="php-quote">#&quot;</span>, <span class="php-quote">&quot;\x00&quot;</span>, <span class="php-var">$packets</span>[<span class="php-var">$i</span>]);
 </span><span id="195" class="l"><a href="#195">195: </a>            }
 </span><span id="196" class="l"><a href="#196">196: </a>        }
@@ -428,6 +428,6 @@
 </div>
 </div>
 <script src="resources/combined.js?44e93de8fc3b749f55d0fae2da59a38c45b15f0b"></script>
-<script src="elementlist.js?2e5b3720aa453e5a87c396456978f0360628b030"></script>
+<script src="elementlist.js?a403b1dd85e7f45c8e90822ab9e7a7d34d2922bc"></script>
 </body>
 </html>
