@@ -437,7 +437,7 @@ class Buffer
     {
 
         // We have the pack 64-bit codes available. See: http://php.net/manual/en/function.pack.php
-        if (version_compare(PHP_VERSION, '5.6.3') >= 0) {
+        if (version_compare(PHP_VERSION, '5.6.3') >= 0 && PHP_INT_SIZE == 8) {
             // Change the integer type we are looking up
             switch ($this->number_type) {
                 case self::NUMBER_TYPE_BIGENDIAN:
