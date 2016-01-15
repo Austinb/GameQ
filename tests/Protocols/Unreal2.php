@@ -65,7 +65,7 @@ class Unreal2 extends Base
     public function testInvalidPacketType()
     {
 
-        // Read in a css source file
+        // Read in a ut2004 source file
         $source = file_get_contents(sprintf('%s/Providers/Ut2004/1_response.txt', __DIR__));
 
         // Change the first packet to some unknown header
@@ -86,7 +86,7 @@ class Unreal2 extends Base
     public function testInvalidPacketTypeDebug()
     {
 
-        // Read in a css source file
+        // Read in a ut2004 source file
         $source = file_get_contents(sprintf('%s/Providers/Ut2004/1_response.txt', __DIR__));
 
         // Change the first packet to some unknown header
