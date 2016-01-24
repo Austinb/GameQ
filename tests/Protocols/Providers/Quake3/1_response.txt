@@ -1,0 +1,12 @@
+ÿÿÿÿstatusResponse
+\sv_maxclients\64\sv_privateClients\0\version\Q3 1.32c linux-i386 May  8 2009\com_protocol\71\protocol\68\dmflags\0\fraglimit\30\timelimit\10\g_gametype\0\mapname\q3tourney4\sv_hostname\XXXADULTS*ONLYXXX\sv_minRate\0\sv_maxRate\25000\sv_dlRate\1000\sv_minPing\0\sv_maxPing\0\sv_floodProtect\1\sv_allowDownload\1\bot_minplayers\2\ Administrator\X\ E-mail\esclan@att.net\ Location\San Jose, CA\ Website\matchlessgaming.com\g_maxGameClients\0\capturelimit\8\gamename\baseq3\g_needpass\0\Score_Time\Starting
+0 46 "^w*ES*^3Bro^7chillin"
+0 92 "^w*ES*^7a^6m^7and^6a"
+0 13 "^w*ES*yursofat"
+0 26 "^w*ES*guapo"
+0 28 "^w*ES*^7Darth Ni"
+0 18 "^w*ES*^3sunflarez"
+0 18 "^w*ES*^7^1Lovely^4Lisa"
+0 29 "^w*ES*^7tha mane"
+0 20 "^w*ES*^7^4NoStatic"
+0 68 "^w*ES*^7Hmmmmmm"

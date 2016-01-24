@@ -1,0 +1,2 @@
+ÿÿÿÿstatusResponse
+\cg_enemyColors\1\Score_Red\0\Score_Blue\0\gamename\NoGhost\Mod_Build\911\Mod_Website\www.NoGhost.net\Mod_Author\Maverick\g_authenticateClient_strict\2\g_authenticateClient\1\g_delag\2\g_gamemod\0\g_antiBot\1\g_needpass\0\sv_privateClients\0\mapname\q3ctf1\protocol\43\g_gametype\4\version\Q3 1.15c win-x86 Jan 13 2000\sv_keywords\demo\capturelimit\4\g_maxGameClients\0\sv_fps\30\sv_floodProtect\0\sv_maxPing\0\sv_minPing\0\sv_maxRate\25000\sv_maxclients\20\sv_hostname\Megas|CTF.\timelimit\20\fraglimit\25\dmflags\2056\fs_game\noghost

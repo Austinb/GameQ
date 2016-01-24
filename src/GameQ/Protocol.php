@@ -23,6 +23,8 @@ namespace GameQ;
 /**
  * Handles the core functionality for the protocols
  *
+ * @SuppressWarnings(PHPMD.NumberOfChildren)
+ *
  * @author Austin Bischoff <austin@codebeard.com>
  */
 abstract class Protocol
