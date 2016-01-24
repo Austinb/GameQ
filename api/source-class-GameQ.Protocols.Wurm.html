@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="robots" content="noindex">
+
+	<title>File GameQ/Protocols/Wurm.php</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li>
+					<a href="namespace-GameQ.html">
+						GameQ<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-GameQ.Exception.html">
+						Exception					</a>
+
+						</li>
+				<li>
+					<a href="namespace-GameQ.Filters.html">
+						Filters					</a>
+
+						</li>
+				<li>
+					<a href="namespace-GameQ.Protocols.html">
+						Protocols					</a>
+
+						</li>
+				<li>
+					<a href="namespace-GameQ.Query.html">
+						Query					</a>
+
+						</li>
+							</ul></li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-GameQ.Query.Core.html">GameQ\Query\Core</a></li>
+				<li><a href="class-GameQ.Query.Native.html">GameQ\Query\Native</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+<span>Namespace</span>			</li>
+			<li>
+				<a href="class-GameQ.Exception.Server.html" title="Summary of GameQ\Exception\Server"><span>Class</span></a>
+			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+			<li>
+				<a href="deprecated.html" title="List of deprecated elements"><span>Deprecated</span></a>
+			</li>
+			<li>
+				<a href="todo.html" title="Todo list"><span>Todo</span></a>
+			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="API-documentation.zip" title="Download documentation as ZIP archive"><span>Download</span></a>
+			</li>
+		</ul>
+	</div>
+
+<pre><code><span id="1" class="l"><a href="#1"> 1: </a><span class="xlang">&lt;?php</span>
+</span><span id="2" class="l"><a href="#2"> 2: </a><span class="php-comment">/**
+</span></span><span id="3" class="l"><a href="#3"> 3: </a><span class="php-comment"> * This file is part of GameQ.
+</span></span><span id="4" class="l"><a href="#4"> 4: </a><span class="php-comment"> *
+</span></span><span id="5" class="l"><a href="#5"> 5: </a><span class="php-comment"> * GameQ is free software; you can redistribute it and/or modify
+</span></span><span id="6" class="l"><a href="#6"> 6: </a><span class="php-comment"> * it under the terms of the GNU Lesser General Public License as published by
+</span></span><span id="7" class="l"><a href="#7"> 7: </a><span class="php-comment"> * the Free Software Foundation; either version 3 of the License, or
+</span></span><span id="8" class="l"><a href="#8"> 8: </a><span class="php-comment"> * (at your option) any later version.
+</span></span><span id="9" class="l"><a href="#9"> 9: </a><span class="php-comment"> *
+</span></span><span id="10" class="l"><a href="#10">10: </a><span class="php-comment"> * GameQ is distributed in the hope that it will be useful,
+</span></span><span id="11" class="l"><a href="#11">11: </a><span class="php-comment"> * but WITHOUT ANY WARRANTY; without even the implied warranty of
+</span></span><span id="12" class="l"><a href="#12">12: </a><span class="php-comment"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+</span></span><span id="13" class="l"><a href="#13">13: </a><span class="php-comment"> * GNU Lesser General Public License for more details.
+</span></span><span id="14" class="l"><a href="#14">14: </a><span class="php-comment"> *
+</span></span><span id="15" class="l"><a href="#15">15: </a><span class="php-comment"> * You should have received a copy of the GNU Lesser General Public License
+</span></span><span id="16" class="l"><a href="#16">16: </a><span class="php-comment"> * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+</span></span><span id="17" class="l"><a href="#17">17: </a><span class="php-comment"> */</span>
+</span><span id="18" class="l"><a href="#18">18: </a>
+</span><span id="19" class="l"><a href="#19">19: </a><span class="php-keyword1">namespace</span> GameQ\Protocols;
+</span><span id="20" class="l"><a href="#20">20: </a>
+</span><span id="21" class="l"><a href="#21">21: </a><span class="php-comment">/**
+</span></span><span id="22" class="l"><a href="#22">22: </a><span class="php-comment"> * Wurm Unlimited Protocol Class
+</span></span><span id="23" class="l"><a href="#23">23: </a><span class="php-comment"> *
+</span></span><span id="24" class="l"><a href="#24">24: </a><span class="php-comment"> * @package GameQ\Protocols
+</span></span><span id="25" class="l"><a href="#25">25: </a><span class="php-comment"> * @author  Austin Bischoff &lt;austin@codebeard.com&gt;
+</span></span><span id="26" class="l"><a href="#26">26: </a><span class="php-comment"> */</span>
+</span><span id="27" class="l"><a href="#27">27: </a><span class="php-keyword1">class</span> Wurm <span class="php-keyword1">extends</span> Source
+</span><span id="28" class="l"><a href="#28">28: </a>{
+</span><span id="29" class="l"><a href="#29">29: </a>    <span class="php-comment">/**
+</span></span><span id="30" class="l"><a href="#30">30: </a><span class="php-comment">     * String name of this protocol class
+</span></span><span id="31" class="l"><a href="#31">31: </a><span class="php-comment">     *
+</span></span><span id="32" class="l"><a href="#32">32: </a><span class="php-comment">     * @type string
+</span></span><span id="33" class="l"><a href="#33">33: </a><span class="php-comment">     */</span>
+</span><span id="34" class="l"><a href="#34">34: </a>    <span class="php-keyword1">protected</span> <span class="php-var">$name</span> = <span class="php-quote">'wurm'</span>;
+</span><span id="35" class="l"><a href="#35">35: </a>
+</span><span id="36" class="l"><a href="#36">36: </a>    <span class="php-comment">/**
+</span></span><span id="37" class="l"><a href="#37">37: </a><span class="php-comment">     * Longer string name of this protocol class
+</span></span><span id="38" class="l"><a href="#38">38: </a><span class="php-comment">     *
+</span></span><span id="39" class="l"><a href="#39">39: </a><span class="php-comment">     * @type string
+</span></span><span id="40" class="l"><a href="#40">40: </a><span class="php-comment">     */</span>
+</span><span id="41" class="l"><a href="#41">41: </a>    <span class="php-keyword1">protected</span> <span class="php-var">$name_long</span> = <span class="php-quote">&quot;Wurm Unlimited&quot;</span>;
+</span><span id="42" class="l"><a href="#42">42: </a>}
+</span><span id="43" class="l"><a href="#43">43: </a></span></code></pre>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js?44e93de8fc3b749f55d0fae2da59a38c45b15f0b"></script>
+<script src="elementlist.js?0d102b16b05acfc16ba89f3d74e02ca7bc32b60b"></script>
+</body>
+</html>
