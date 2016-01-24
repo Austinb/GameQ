@@ -45,6 +45,6 @@ class Grav extends Base
             $responses
         );
 
-        $this->assertEquals($result[$server], $testResult);
+        $this->assertEquals($result[ $server ], $testResult);
     }
 }
