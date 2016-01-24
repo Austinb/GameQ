@@ -9,7 +9,7 @@ use GameQ\Result;
 use GameQ\Exception\Protocol as Exception;
 
 /**
- * Class Quake3
+ * Quake3 Protocol Class
  *
  * Handles processing Quake 3 servers
  *

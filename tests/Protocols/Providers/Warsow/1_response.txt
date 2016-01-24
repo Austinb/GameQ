@@ -1,0 +1,19 @@
+ÿÿÿÿstatusResponse
+\challenge\\version\2.01 x86_64 Dec 19 2015 Linux\fs_game\basewsw\g_antilag\1\g_gametypes_available\\g_instagib\1\g_match_score\ ALPHA: 3 BETA: 14\g_match_time\17:13\g_needpass\0\g_race_gametype\0\gamedate\Dec 19 2015\gamename\Warsow\mapname\bipbeta2\protocol\21\sv_cheats\0\sv_hostname\^0_^9_^7_ ^3gibcity^2-|-^3insta ^7_^9_^0_ ^3#1 ^2/// ^9bb2\sv_http\0\sv_maxclients\17\sv_maxmvclients\4\sv_mm_enable\0\sv_mm_loginonly\0\sv_pps\20\sv_pure\1\sv_skilllevel\1\sv_skillRating\0\gametype\ca\clients\17
+1 34 "^7Stylo^1." 2
+14 88 "PunkiZi" 3
+5 72 "MegaZerg" 2
+1 43 "^2Ki^3Wi" 3
+0 11 "^5Crystal^7Clear" 2
+1 59 "^0pelo^1killer" 3
+-9999 0 "H I P P" 0
+11 56 "^0Sch^5w^0amm" 3
+-9999 26 "wcDUCK" 3
+14 41 "^0Ai^9o" 3
+22 20 "^7o_O^1//^7HERO" 3
+3 48 "m0e" 2
+17 53 "Monia" 2
+10 50 "^8LUCK^7SKILL" 3
+4 6 "Muthafunkbli" 2
+3 186 "o_O^1//^7LEGACY" 2
+0 95 "^4A^0l^4e^0s^4s^0i^4o" 2

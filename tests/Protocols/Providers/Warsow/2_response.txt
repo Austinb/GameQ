@@ -1,0 +1,14 @@
+ÿÿÿÿstatusResponse
+\challenge\\version\2.01 x86_64 Dec 19 2015 Linux\fs_game\basewsw\g_antilag\1\g_gametypes_available\\g_instagib\0\g_match_score\\g_match_time\Countdown\g_needpass\1\g_race_gametype\0\gamedate\Dec 19 2015\gamename\Warsow\mapname\wbomb1\protocol\21\sv_cheats\0\sv_hostname\null.one pickup #1\sv_http\1\sv_maxclients\32\sv_maxmvclients\4\sv_mm_enable\1\sv_mm_loginonly\0\sv_pps\20\sv_pure\1\sv_skilllevel\1\sv_skillRating\22\gametype\bomb\clients\12
+-9999 8 "^1Crust^0Y" 0
+2 11 "^04Z^11^0E" 3
+-9999 12 "^1C^2C^3C^4C^5C^6C^8C^9C^0C" 0
+6 14 "^00D^11^0N" 2
+73 41 "jAck" 3
+40 91 "^0FANG" 2
+10 47 "brianlag" 3
+24 20 "plX" 2
+4 39 "MadRat" 2
+10 12 "prim" 3
+18 48 "^9P^7uffdar" 2
+3 15 "timma^7(1)" 3
