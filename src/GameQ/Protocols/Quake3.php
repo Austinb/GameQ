@@ -78,7 +78,7 @@ class Quake3 extends Protocol
             'mapname'    => 'mapname',
             'maxplayers' => 'sv_maxclients',
             'mod'        => 'g_gametype',
-            'numplayers' => 'num_players',
+            'numplayers' => 'clients',
             'password'   => 'g_needpass',
         ],
         // Individual
@@ -168,9 +168,6 @@ class Quake3 extends Protocol
         // Set the result to a new result instance
         $result = new Result();
 
-        // Zero players by default
-        $playerCount = 0;
-
         // Loop until we are out of data
         while ($buffer->getLength()) {
             // Make a new buffer with this block
@@ -188,13 +185,7 @@ class Quake3 extends Protocol
 
             // Clear
             unset($playerInfo);
-
-            // Increment
-            $playerCount++;
         }
-
-        // Add total number of players
-        $result->add('num_players', $playerCount);
 
         // Clear
         unset($buffer);
