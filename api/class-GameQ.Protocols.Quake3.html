@@ -63,6 +63,8 @@
 				<li><a href="class-GameQ.Protocols.Bf3.html">Bf3</a></li>
 				<li><a href="class-GameQ.Protocols.Bf4.html">Bf4</a></li>
 				<li><a href="class-GameQ.Protocols.Bfh.html">Bfh</a></li>
+				<li><a href="class-GameQ.Protocols.Cod2.html">Cod2</a></li>
+				<li><a href="class-GameQ.Protocols.Cod4.html">Cod4</a></li>
 				<li><a href="class-GameQ.Protocols.Cs15.html">Cs15</a></li>
 				<li><a href="class-GameQ.Protocols.Cs16.html">Cs16</a></li>
 				<li><a href="class-GameQ.Protocols.Cscz.html">Cscz</a></li>
@@ -185,6 +187,8 @@
 
 	<div>
 		<h4>Direct known subclasses</h4>
+			<a href="class-GameQ.Protocols.Cod2.html">GameQ\Protocols\Cod2</a>, 
+			<a href="class-GameQ.Protocols.Cod4.html">GameQ\Protocols\Cod4</a>, 
 			<a href="class-GameQ.Protocols.Warsow.html">GameQ\Protocols\Warsow</a>
 	</div>
 
@@ -199,7 +203,7 @@
 		<b>Namespace:</b> <a href="namespace-GameQ.html">GameQ</a>\<a href="namespace-GameQ.Protocols.html">Protocols</a><br>
 		<b>Package:</b> GameQ\Protocols<br>
 
-			<b>Located at</b> <a href="source-class-GameQ.Protocols.Quake3.html#11-195" title="Go to source code">GameQ/Protocols/Quake3.php</a>
+			<b>Located at</b> <a href="source-class-GameQ.Protocols.Quake3.html#11-203" title="Go to source code">GameQ/Protocols/Quake3.php</a>
 		<br>
 	</div>
 
@@ -326,7 +330,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_processPlayers">#</a>
-		<code><a href="source-class-GameQ.Protocols.Quake3.html#159-194" title="Go to source code">processPlayers</a>( <span><code><a href="class-GameQ.Buffer.html">GameQ\Buffer</a></code> <var>$buffer</var></span> )</code>
+		<code><a href="source-class-GameQ.Protocols.Quake3.html#159-202" title="Go to source code">processPlayers</a>( <span><code><a href="class-GameQ.Buffer.html">GameQ\Buffer</a></code> <var>$buffer</var></span> )</code>
 
 		<div class="description short">
 			<p>Handle processing of player data</p>
@@ -631,7 +635,7 @@ Each key should correspond to a defined method in this or a parent class</p>
         <span class="php-quote">'maxplayers'</span> =&gt; <span class="php-quote">'sv_maxclients'</span>,
         <span class="php-quote">'mod'</span>        =&gt; <span class="php-quote">'g_gametype'</span>,
         <span class="php-quote">'numplayers'</span> =&gt; <span class="php-quote">'clients'</span>,
-        <span class="php-quote">'password'</span>   =&gt; <span class="php-quote">'g_needpass'</span>,
+        <span class="php-quote">'password'</span>   =&gt; [<span class="php-quote">'g_needpass'</span>, <span class="php-quote">'pswrd'</span>],
     ],
     <span class="php-comment">// Individual</span>
     <span class="php-quote">'player'</span>  =&gt; [
