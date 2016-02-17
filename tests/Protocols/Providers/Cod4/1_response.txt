@@ -1,0 +1,16 @@
+ÿÿÿÿstatusResponse
+\type\0\sv_maxclients\50\version\CoD4 X 1.7a win_mingw-x86-testing build 3325 Jan  3 2015\shortversion\1.7a\build\3325\sv_hostname\=^5|h4x|^7=^2War ^724/7 ^2Server COD4\sv_minPing\0\sv_maxPing\0\sv_voice\0\sv_maxRate\25000\sv_floodprotect\1\_CoD4 X Creator\Ninjaman, TheKelm @ http://iceops.in\protocol\6\sv_privateClients\0\sv_disableClientConsole\0\g_mapStartTime\Tue Feb 16 20:35:26 2016\uptime\6 minutes\g_gametype\war\mapname\mp_crash\sv_pure\1\_Admin\Admin\_admins_xfire\= ghash1985,somal007\_Apply_Clan\http://classic.xfire.com/communities/cod4h4x/\_Email\clanh4x@yahoo.com\_Website\http://www.clanh4x.tk\_clanh4x_forums\http://forum.clanh4x.tk\_clanh4x_facebook\www.facebook.com/clanh4x\_Recruiting\_On http://classic.xfire.com/communities/cod4h4x/\_Location\U.S.\_Mod\N/A\_ModVer\N/A\g_compassShowEnemies\0\gamename\Call of Duty 4
+150 47 "holy_buckets"
+30 233 "fede"
+40 229 "dany"
+160 30 "Orange Vest 2.0"
+222 108 "carlos"
+120 116 "ArleyBernal"
+70 202 "Mandrake"
+0 35 "DUMPST3R B4BY"
+30 119 "edge"
+70 181 "engelblue"
+40 56 "CHECLAVISICH"
+70 216 "VANE"
+30 87 "Deltron"
+30 180 "(PIDNA)ALF"
