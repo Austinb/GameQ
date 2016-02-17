@@ -165,6 +165,9 @@ class Quake3 extends Protocol
      */
     protected function processPlayers(Buffer $buffer)
     {
+        // Some games do not have a number of current players
+        $playerCount = 0;
+
         // Set the result to a new result instance
         $result = new Result();
 
@@ -183,9 +186,14 @@ class Quake3 extends Protocol
             // Add player name, encoded
             $result->addPlayer('name', utf8_encode(trim(($playerInfo->readString('"')))));
 
+            // Increment
+            $playerCount++;
+
             // Clear
             unset($playerInfo);
         }
+
+        $result->add('clients', $playerCount);
 
         // Clear
         unset($buffer);
