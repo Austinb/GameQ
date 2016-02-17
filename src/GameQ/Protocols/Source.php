@@ -357,7 +357,7 @@ class Source extends Protocol
         $result->add('version', $buffer->readString());
 
         // Extra data flag
-        if ($buffer->lookAhead(1) !== false) {
+        if (!empty($buffer->lookAhead(1))) {
             $edf = $buffer->readInt8();
 
             if ($edf & 0x80) {
