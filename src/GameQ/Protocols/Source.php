@@ -356,8 +356,11 @@ class Source extends Protocol
 
         $result->add('version', $buffer->readString());
 
+        // Because of php 5.4...
+        $edfCheck = $buffer->lookAhead(1);
+
         // Extra data flag
-        if (!empty($buffer->lookAhead(1))) {
+        if (!empty($edfCheck)) {
             $edf = $buffer->readInt8();
 
             if ($edf & 0x80) {
