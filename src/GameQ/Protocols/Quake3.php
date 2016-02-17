@@ -79,7 +79,7 @@ class Quake3 extends Protocol
             'maxplayers' => 'sv_maxclients',
             'mod'        => 'g_gametype',
             'numplayers' => 'clients',
-            'password'   => 'g_needpass',
+            'password'   => ['g_needpass', 'pswrd'],
         ],
         // Individual
         'player'  => [
@@ -196,7 +196,7 @@ class Quake3 extends Protocol
         $result->add('clients', $playerCount);
 
         // Clear
-        unset($buffer);
+        unset($buffer, $playerCount);
 
         return $result->fetch();
     }
