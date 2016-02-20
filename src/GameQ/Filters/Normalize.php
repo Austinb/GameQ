@@ -33,7 +33,7 @@ class Normalize extends Base
      *
      * @type array
      */
-    protected $normalize = [ ];
+    protected $normalize = [];
 
     /**
      * Apply this filter
@@ -64,26 +64,26 @@ class Normalize extends Base
         if (isset($result['players']) && count($result['players']) > 0) {
             // Iterate
             foreach ($result['players'] as $key => $player) {
-                $result['players'][$key] = array_merge($player, $this->check('player', $player));
+                $result['players'][ $key ] = array_merge($player, $this->check('player', $player));
             }
         } else {
-            $result['players'] = [ ];
+            $result['players'] = [];
         }
 
         // Do team information
         if (isset($result['teams']) && count($result['teams']) > 0) {
             // Iterate
             foreach ($result['teams'] as $key => $team) {
-                $result['teams'][$key] = array_merge($team, $this->check('team', $team));
+                $result['teams'][ $key ] = array_merge($team, $this->check('team', $team));
             }
         } else {
-            $result['teams'] = [ ];
+            $result['teams'] = [];
         }
 
         //$data['filtered'][$server->id()] = $result;
         /*file_put_contents(
-            sprintf('%s\..\..\tests\Filters\Providers\Normalize\mumble_1.json', __DIR__),
-            json_encode($data)
+            sprintf('%s/../../../tests/Filters/Providers/Normalize/%s_1.json', __DIR__, $server->protocol()->getProtocol()),
+            json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PARTIAL_OUTPUT_ON_ERROR)
         );*/
 
         // Return the normalized result
@@ -102,10 +102,10 @@ class Normalize extends Base
     {
 
         // Normalized return array
-        $normalized = [ ];
+        $normalized = [];
 
-        if (isset($this->normalize[$section]) && !empty($this->normalize[$section])) {
-            foreach ($this->normalize[$section] as $property => $raw) {
+        if (isset($this->normalize[ $section ]) && !empty($this->normalize[ $section ])) {
+            foreach ($this->normalize[ $section ] as $property => $raw) {
                 // Default the value for the new key as null
                 $value = null;
 
@@ -113,18 +113,18 @@ class Normalize extends Base
                     // Iterate over the raw property we want to use
                     foreach ($raw as $check) {
                         if (array_key_exists($check, $data)) {
-                            $value = $data[$check];
+                            $value = $data[ $check ];
                             break;
                         }
                     }
                 } else {
                     // String
                     if (array_key_exists($raw, $data)) {
-                        $value = $data[$raw];
+                        $value = $data[ $raw ];
                     }
                 }
 
-                $normalized['gq_' . $property] = $value;
+                $normalized[ 'gq_' . $property ] = $value;
             }
         }
 
