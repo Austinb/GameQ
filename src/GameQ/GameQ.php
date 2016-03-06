@@ -460,29 +460,31 @@ class GameQ
                 );
             }
 
-            // Iterate over all the packets we need to send
-            foreach ($packets as $packet_data) {
-                try {
+            try {
+                // Iterate over all the packets we need to send
+                foreach ($packets as $packet_data) {
                     // Now write the packet to the socket.
                     $socket->write($packet_data);
-                } catch (QueryException $e) {
-                    // Check to see if we are in debug, if so bubble up the exception
-                    if ($this->debug) {
-                        throw new \Exception($e->getMessage(), $e->getCode(), $e);
-                    }
+
+                    // Let's sleep shortly so we are not hammering out calls rapid fire style
+                    usleep($this->write_wait);
                 }
 
-                // Let's sleep shortly so we are not hammering out calls rapid fire style
-                usleep($this->write_wait);
+                unset($packets);
+
+                // Add the socket information so we can reference it easily
+                $sockets[ (int) $socket->get() ] = [
+                    'server_id' => $server_id,
+                    'socket'    => $socket,
+                ];
+            } catch (QueryException $e) {
+                // Check to see if we are in debug, if so bubble up the exception
+                if ($this->debug) {
+                    throw new \Exception($e->getMessage(), $e->getCode(), $e);
+                }
+
+                break;
             }
-
-            unset($packets);
-
-            // Add the socket information so we can reference it easily
-            $sockets[ (int) $socket->get() ] = [
-                'server_id' => $server_id,
-                'socket'    => $socket,
-            ];
 
             // Clean up the sockets, if any left over
             $server->socketCleanse();

@@ -109,6 +109,10 @@ class Native extends Core
             // Set blocking mode
             stream_set_blocking($this->socket, $this->blocking);
         } else {
+            // Reset socket
+            $this->socket = null;
+
+            // Something bad happened, throw query exception
             throw new Exception(
                 __METHOD__ . " - Error creating socket to server {$this->ip}:{$this->port}. Error: " . $errstr,
                 $errno
@@ -143,7 +147,7 @@ class Native extends Core
         foreach ($sockets as $socket_id => $socket_data) {
             // Get the socket
             /* @var $socket \GameQ\Query\Core */
-            $socket = $socket_data[ 'socket' ];
+            $socket = $socket_data['socket'];
 
             // Append the actual socket we are listening to
             $sockets_tmp[ $socket_id ] = $socket->get();
