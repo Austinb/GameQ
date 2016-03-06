@@ -18,6 +18,7 @@
 namespace GameQ;
 
 use GameQ\Exception\Protocol as ProtocolException;
+use GameQ\Exception\Query as QueryException;
 
 /**
  * Base GameQ Class
@@ -123,7 +124,7 @@ class GameQ
     public function __get($option)
     {
 
-        return isset($this->options[$option]) ? $this->options[$option] : null;
+        return isset($this->options[ $option ]) ? $this->options[ $option ] : null;
     }
 
     /**
@@ -137,7 +138,7 @@ class GameQ
     public function __set($option, $value)
     {
 
-        $this->options[$option] = $value;
+        $this->options[ $option ] = $value;
 
         return true;
     }
@@ -170,7 +171,7 @@ class GameQ
     {
 
         // Add and validate the server
-        $this->servers[uniqid()] = new Server($server_info);
+        $this->servers[ uniqid() ] = new Server($server_info);
 
         return $this; // Make calls chainable
     }
@@ -259,7 +260,7 @@ class GameQ
     {
 
         // Add the filter
-        $this->options['filters'][strtolower($filterName)] = $options;
+        $this->options['filters'][ strtolower($filterName) ] = $options;
 
         return $this;
     }
@@ -279,7 +280,7 @@ class GameQ
 
         // Remove this filter if it has been defined
         if (array_key_exists($filterName, $this->options['filters'])) {
-            unset($this->options['filters'][$filterName]);
+            unset($this->options['filters'][ $filterName ]);
         }
 
         return $this;
@@ -327,7 +328,7 @@ class GameQ
             ksort($result);
 
             // Add the result to the results array
-            $results[$server->id()] = $result;
+            $results[ $server->id() ] = $result;
         }
 
         return $results;
@@ -365,14 +366,22 @@ class GameQ
                     $this->timeout
                 );
 
-                // Now write the challenge packet to the socket.
-                $socket->write($server->protocol()->getPacket(Protocol::PACKET_CHALLENGE));
+                try {
+                    // Now write the challenge packet to the socket.
+                    $socket->write($server->protocol()->getPacket(Protocol::PACKET_CHALLENGE));
 
-                // Add the socket information so we can reference it easily
-                $sockets[(int) $socket->get()] = [
-                    'server_id' => $server_id,
-                    'socket'    => $socket,
-                ];
+                    // Add the socket information so we can reference it easily
+                    $sockets[ (int) $socket->get() ] = [
+                        'server_id' => $server_id,
+                        'socket'    => $socket,
+                    ];
+
+                } catch (QueryException $e) {
+                    // Check to see if we are in debug, if so bubble up the exception
+                    if ($this->debug) {
+                        throw new \Exception($e->getMessage(), $e->getCode(), $e);
+                    }
+                }
 
                 unset($socket);
 
@@ -392,20 +401,20 @@ class GameQ
             // Iterate over the challenge responses
             foreach ($responses as $socket_id => $response) {
                 // Back out the server_id we need to update the challenge response for
-                $server_id = $sockets[$socket_id]['server_id'];
+                $server_id = $sockets[ $socket_id ]['server_id'];
 
                 // Make this into a buffer so it is easier to manipulate
                 $challenge = new Buffer(implode('', $response));
 
                 // Grab the server instance
                 /* @var $server \GameQ\Server */
-                $server = $this->servers[$server_id];
+                $server = $this->servers[ $server_id ];
 
                 // Apply the challenge
                 $server->protocol()->challengeParseAndApply($challenge);
 
                 // Add this socket to be reused, has to be reused in GameSpy3 for example
-                $server->socketAdd($sockets[$socket_id]['socket']);
+                $server->socketAdd($sockets[ $socket_id ]['socket']);
 
                 // Clear
                 unset($server);
@@ -453,8 +462,15 @@ class GameQ
 
             // Iterate over all the packets we need to send
             foreach ($packets as $packet_data) {
-                // Now write the packet to the socket.
-                $socket->write($packet_data);
+                try {
+                    // Now write the packet to the socket.
+                    $socket->write($packet_data);
+                } catch (QueryException $e) {
+                    // Check to see if we are in debug, if so bubble up the exception
+                    if ($this->debug) {
+                        throw new \Exception($e->getMessage(), $e->getCode(), $e);
+                    }
+                }
 
                 // Let's sleep shortly so we are not hammering out calls rapid fire style
                 usleep($this->write_wait);
@@ -463,7 +479,7 @@ class GameQ
             unset($packets);
 
             // Add the socket information so we can reference it easily
-            $sockets[(int) $socket->get()] = [
+            $sockets[ (int) $socket->get() ] = [
                 'server_id' => $server_id,
                 'socket'    => $socket,
             ];
@@ -481,11 +497,11 @@ class GameQ
         // Iterate over the responses
         foreach ($responses as $socket_id => $response) {
             // Back out the server_id
-            $server_id = $sockets[$socket_id]['server_id'];
+            $server_id = $sockets[ $socket_id ]['server_id'];
 
             // Grab the server instance
             /* @var $server \GameQ\Server */
-            $server = $this->servers[$server_id];
+            $server = $this->servers[ $server_id ];
 
             // Save the response from this packet
             $server->protocol()->packetResponse($response);

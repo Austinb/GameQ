@@ -100,7 +100,7 @@ class Native extends Core
 
         // Create the socket
         if (($this->socket =
-                stream_socket_client($remote_addr, $errno, $errstr, $this->timeout, STREAM_CLIENT_CONNECT, $context))
+                @stream_socket_client($remote_addr, $errno, $errstr, $this->timeout, STREAM_CLIENT_CONNECT, $context))
             !== false
         ) {
             // Set the read timeout on the streams
@@ -110,7 +110,7 @@ class Native extends Core
             stream_set_blocking($this->socket, $this->blocking);
         } else {
             throw new Exception(
-                __METHOD__ . " Error creating socket to server {$this->ip}:{$this->port}. Error: " . $errstr,
+                __METHOD__ . " - Error creating socket to server {$this->ip}:{$this->port}. Error: " . $errstr,
                 $errno
             );
         }
@@ -143,10 +143,10 @@ class Native extends Core
         foreach ($sockets as $socket_id => $socket_data) {
             // Get the socket
             /* @var $socket \GameQ\Query\Core */
-            $socket = $socket_data['socket'];
+            $socket = $socket_data[ 'socket' ];
 
             // Append the actual socket we are listening to
-            $sockets_tmp[$socket_id] = $socket->get();
+            $sockets_tmp[ $socket_id ] = $socket->get();
 
             unset($socket);
         }
@@ -191,12 +191,12 @@ class Native extends Core
                 // Check to see if the response is empty, if so we are done with this server
                 if (strlen($response) == 0) {
                     // Remove this server from any future read loops
-                    unset($sockets_tmp[(int) $socket]);
+                    unset($sockets_tmp[ (int) $socket ]);
                     continue;
                 }
 
                 // Add the response we got back
-                $responses[(int) $socket][] = $response;
+                $responses[ (int) $socket ][] = $response;
             }
 
             // Because stream_select modifies read we need to reset it each time to the original array of sockets
