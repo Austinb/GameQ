@@ -115,6 +115,19 @@ class GameQ
     protected $query = null;
 
     /**
+     * GameQ constructor.
+     *
+     * Do some checks as needed so this will operate
+     */
+    public function __construct()
+    {
+        // Check for missing utf8_encode function
+        if (!function_exists('utf8_encode')) {
+            throw new \Exception("PHP's utf8_encode() function is required - http://php.net/manual/en/function.utf8-encode.php.  Check your php installation.");
+        }
+    }
+
+    /**
      * Get an option's value
      *
      * @param mixed $option

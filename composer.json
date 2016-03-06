@@ -46,7 +46,8 @@
   },
   "require": {
     "php": ">=5.4.14",
-    "ext-bz2": "*"
+    "ext-bz2": "*",
+    "ext-xml": "*"
   },
   "require-dev": {
     "ext-curl": "*",
