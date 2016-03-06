@@ -70,7 +70,7 @@ class Samp extends Protocol
      *
      * @type string
      */
-    protected $name = 'san andreas multiplayer';
+    protected $name = 'samp';
 
     /**
      * Longer string name of this protocol class
