@@ -70,7 +70,7 @@ class Ut3 extends Gamespy3
     {
 
         // Grab the result from the parent
-        /** @type \GameQ\Result $result */
+        /** @type array $result */
         $result = parent::processResponse();
 
         // Move some stuff around
@@ -97,7 +97,7 @@ class Ut3 extends Gamespy3
         }
 
         // Delete some unknown stuff
-        $this->deleteResult($result, [ 's1', 's9', 's11', 's12', 's13', 's14' ]);
+        $this->deleteResult($result, ['s1', 's9', 's11', 's12', 's13', 's14']);
 
         // Return the result
         return $result;

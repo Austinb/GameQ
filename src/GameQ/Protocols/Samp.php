@@ -198,7 +198,7 @@ class Samp extends Protocol
         $result = new Result();
 
         // Always dedicated
-        $result->add('dedicated', true);
+        $result->add('dedicated', 1);
 
         // Pull out the server information
         $result->add('password', (bool) $buffer->readInt8());

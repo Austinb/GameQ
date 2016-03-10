@@ -153,7 +153,7 @@ class Teeworlds extends Protocol
         $result = new Result();
 
         // Always dedicated
-        $result->add('dedicated', true);
+        $result->add('dedicated', 1);
 
         $result->add('version', $buffer->readString());
         $result->add('hostname', $buffer->readString());

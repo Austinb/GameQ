@@ -120,7 +120,7 @@ class Gamespy extends Protocol
         $result = new Result();
 
         // By default dedicted
-        $result->add('dedicated', true);
+        $result->add('dedicated', 1);
 
         // Lets peek and see if the data starts with a \
         if ($buffer->lookAhead(1) == '\\') {
@@ -138,8 +138,10 @@ class Gamespy extends Protocol
         $numPlayers = 0;
         $numTeams = 0;
 
+        $itemCount = count($data);
+
         // Now lets loop the array
-        for ($x = 0; $x < count($data); $x += 2) {
+        for ($x = 0; $x < $itemCount; $x += 2) {
             // Set some local vars
             $key = $data[$x];
             $val = $data[$x + 1];
@@ -168,7 +170,7 @@ class Gamespy extends Protocol
         $result->add('num_teams', $numTeams);
 
         // Unset some stuff to free up memory
-        unset($data, $key, $val, $suffix, $x);
+        unset($data, $key, $val, $suffix, $x, $itemCount);
 
         // Return the result
         return $result->fetch();
