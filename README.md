@@ -3,7 +3,8 @@
 [![Code Coverage](https://scrutinizer-ci.com/g/Austinb/GameQ/badges/coverage.png?b=v3)](https://scrutinizer-ci.com/g/Austinb/GameQ/?branch=v3)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Austinb/GameQ/badges/quality-score.png?b=v3&style=flat-square)](https://scrutinizer-ci.com/g/Austinb/GameQ/?branch=v3)
 [![License](https://img.shields.io/badge/license-LGPL-blue.svg?style=flat-square)](https://packagist.org/packages/austinb/gameq)
-[![Dependency Status](https://www.versioneye.com/user/projects/54d6a7d43ca0845f67000002/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/54d6a7d43ca0845f67000002)
+[![Dependency Status](https://www.versioneye.com/user/projects/56e1e4c4fce5de000ae71fed/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/56e1e4c4fce5de000ae71fed)
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VAU2KADATP5PU)
 
 GameQ is a PHP library that allows you to query multiple types of multiplayer game & voice servers at the same time.
 
@@ -48,4 +49,4 @@ See [LICENSE](LICENSE.lgpl) for more information
 
 Donations
 =========
-If you like this project and use it a lot please feel free to donate here: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VAU2KADATP5PU.
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VAU2KADATP5PU)
