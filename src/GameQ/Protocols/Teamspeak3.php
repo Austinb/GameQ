@@ -162,6 +162,10 @@ class Teamspeak3 extends Protocol
                 '\\',
                 '/',
             ],
+            [
+                '\\p',
+                '|',
+            ],
             $buffer->getBuffer()
         );
 
