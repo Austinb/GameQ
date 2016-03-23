@@ -157,15 +157,14 @@ class Teamspeak3 extends Protocol
             [
                 '\\\\', // Translate escaped \
                 '\\/', // Translate escaped /
+				'\\p',
             ],
             [
                 '\\',
                 '/',
+				'|',
             ],
-            [
-                '\\p',
-                '|',
-            ],
+
             $buffer->getBuffer()
         );
 
