@@ -44,11 +44,6 @@ class GameQ
      * Constants
      */
 
-    /**
-     * Current version
-     */
-    const VERSION = '3.0.0-alpha2';
-
     /* Static Section */
 
     /**
