@@ -18,10 +18,10 @@
 
 namespace GameQ\Protocols;
 
-use GameQ\Protocol;
 use GameQ\Buffer;
-use GameQ\Result;
 use GameQ\Exception\Protocol as Exception;
+use GameQ\Protocol;
+use GameQ\Result;
 
 /**
  * Valve Source Engine Protocol Class (A2S)
@@ -155,9 +155,9 @@ class Source extends Protocol
     public function processResponse()
     {
 
-        $results = [ ];
+        $results = [];
 
-        $packets = [ ];
+        $packets = [];
 
         // We need to pre-sort these for split packets so we can do extra work where needed
         foreach ($this->packets_response as $response) {
@@ -206,7 +206,7 @@ class Source extends Protocol
             // Now we need to call the proper method
             $results = array_merge(
                 $results,
-                call_user_func_array([ $this, $this->responses[$response_type] ], [ $buffer ])
+                call_user_func_array([$this, $this->responses[$response_type]], [$buffer])
             );
 
             unset($buffer);
@@ -267,16 +267,18 @@ class Source extends Protocol
                 if ($packet_id & 0x80000000) {
                     // Check to see if we have Bzip2 installed
                     if (!function_exists('bzdecompress')) {
+                        // @codeCoverageIgnoreStart
                         throw new Exception(
                             'Bzip2 is not installed.  See http://www.php.net/manual/en/book.bzip2.php for more info.',
                             0
                         );
+                        // @codeCoverageIgnoreEnd
                     }
 
                     // Get the length of the packet (long)
                     $packet_length = $buffer->readInt32Signed();
 
-                    // Checksum for the decompressed packet (long)
+                    // Checksum for the decompressed packet (long), burn it - doesnt work in split responses
                     $buffer->readInt32Signed();
 
                     // Try to decompress
@@ -284,13 +286,21 @@ class Source extends Protocol
 
                     // Now verify the length
                     if (strlen($result) != $packet_length) {
+                        // @codeCoverageIgnoreStart
                         throw new Exception(
                             "Checksum for compressed packet failed! Length expected: {$packet_length}, length
                             returned: " . strlen($result)
                         );
+                        // @codeCoverageIgnoreEnd
                     }
+
+                    // We need to burn the extra header (\xFF\xFF\xFF\xFF) on first loop
+                    if ($i == 0) {
+                        $result = substr($result, 4);
+                    }
+
                 } else {
-                    // Get the packet length (short)
+                    // Get the packet length (short), burn it
                     $buffer->readInt16Signed();
 
                     // We need to burn the extra header (\xFF\xFF\xFF\xFF) on first loop
