@@ -55,13 +55,18 @@ class Native extends Core
     public function write($data)
     {
 
-        // No socket for this server, make one
-        if (is_null($this->socket)) {
-            $this->create();
-        }
+        try {
+            // No socket for this server, make one
+            if (is_null($this->socket)) {
+                $this->create();
+            }
 
-        // Send the packet
-        return fwrite($this->socket, $data);
+            // Send the packet
+            return fwrite($this->socket, $data);
+
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage(), $e->getCode(), $e);
+        }
     }
 
     /**
@@ -138,10 +143,10 @@ class Native extends Core
         $loop_active = true;
 
         // Will hold the responses read from the sockets
-        $responses = [ ];
+        $responses = [];
 
         // To store the sockets
-        $sockets_tmp = [ ];
+        $sockets_tmp = [];
 
         // Loop and pull out all the actual sockets we need to listen on
         foreach ($sockets as $socket_id => $socket_data) {
@@ -150,7 +155,7 @@ class Native extends Core
             $socket = $socket_data['socket'];
 
             // Append the actual socket we are listening to
-            $sockets_tmp[ $socket_id ] = $socket->get();
+            $sockets_tmp[$socket_id] = $socket->get();
 
             unset($socket);
         }
@@ -195,12 +200,12 @@ class Native extends Core
                 // Check to see if the response is empty, if so we are done with this server
                 if (strlen($response) == 0) {
                     // Remove this server from any future read loops
-                    unset($sockets_tmp[ (int) $socket ]);
+                    unset($sockets_tmp[(int)$socket]);
                     continue;
                 }
 
                 // Add the response we got back
-                $responses[ (int) $socket ][] = $response;
+                $responses[(int)$socket][] = $response;
             }
 
             // Because stream_select modifies read we need to reset it each time to the original array of sockets
