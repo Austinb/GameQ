@@ -104,7 +104,7 @@ class Quake3 extends Protocol
         $header = $buffer->readString("\x0A");
 
         // Figure out which packet response this is
-        if (!array_key_exists($header, $this->responses)) {
+        if (empty($header) || !array_key_exists($header, $this->responses)) {
             throw new Exception(__METHOD__ . " response type '" . bin2hex($header) . "' is not valid");
         }
 
