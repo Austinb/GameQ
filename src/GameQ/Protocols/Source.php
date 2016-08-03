@@ -232,11 +232,11 @@ class Source extends Protocol
      * @return string
      * @throws \GameQ\Exception\Protocol
      */
-    protected function processPackets($packet_id, array $packets = [ ])
+    protected function processPackets($packet_id, array $packets = [])
     {
 
         // Init array so we can order
-        $packs = [ ];
+        $packs = [];
 
         // We have multiple packets so we need to get them and order them
         foreach ($packets as $i => $packet) {

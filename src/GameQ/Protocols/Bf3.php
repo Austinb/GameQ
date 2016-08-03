@@ -118,7 +118,7 @@ class Bf3 extends Protocol
         'player'  => [
             'name'  => 'name',
             'score' => 'score',
-            'ping' => 'ping',
+            'ping'  => 'ping',
         ],
         'team'    => [
             'score' => 'tickets',
@@ -135,10 +135,10 @@ class Bf3 extends Protocol
     {
 
         // Holds the results sent back
-        $results = [ ];
+        $results = [];
 
         // Holds the processed packets after having been reassembled
-        $processed = [ ];
+        $processed = [];
 
         // Start up the index for the processed
         $sequence_id_last = 0;
@@ -182,7 +182,7 @@ class Bf3 extends Protocol
             // Now we need to call the proper method
             $results = array_merge(
                 $results,
-                call_user_func_array([ $this, $this->responses[$sequence_id] ], [ $buffer ])
+                call_user_func_array([$this, $this->responses[$sequence_id]], [$buffer])
             );
         }
 
@@ -203,7 +203,7 @@ class Bf3 extends Protocol
     protected function decode(Buffer $buffer)
     {
 
-        $items = [ ];
+        $items = [];
 
         // Get the number of words in this buffer
         $itemCount = $buffer->readInt32();
@@ -241,13 +241,13 @@ class Bf3 extends Protocol
 
         // These are the same no matter what mode the server is in
         $result->add('hostname', $items[1]);
-        $result->add('num_players', (int) $items[2]);
-        $result->add('max_players', (int) $items[3]);
+        $result->add('num_players', (int)$items[2]);
+        $result->add('max_players', (int)$items[3]);
         $result->add('gametype', $items[4]);
         $result->add('map', $items[5]);
-        $result->add('roundsplayed', (int) $items[6]);
-        $result->add('roundstotal', (int) $items[7]);
-        $result->add('num_teams', (int) $items[8]);
+        $result->add('roundsplayed', (int)$items[6]);
+        $result->add('roundstotal', (int)$items[7]);
+        $result->add('num_teams', (int)$items[8]);
 
         // Set the current index
         $index_current = 9;
@@ -264,22 +264,22 @@ class Bf3 extends Protocol
         }
 
         // Get and set the rest of the data points.
-        $result->add('targetscore', (int) $items[$index_current]);
+        $result->add('targetscore', (int)$items[$index_current]);
         $result->add('online', 1); // Forced true, it seems $words[$index_current + 1] is always empty
-        $result->add('ranked', (int) $items[$index_current + 2]);
-        $result->add('punkbuster', (int) $items[$index_current + 3]);
-        $result->add('password', (int) $items[$index_current + 4]);
-        $result->add('uptime', (int) $items[$index_current + 5]);
-        $result->add('roundtime', (int) $items[$index_current + 6]);
+        $result->add('ranked', (int)$items[$index_current + 2]);
+        $result->add('punkbuster', (int)$items[$index_current + 3]);
+        $result->add('password', (int)$items[$index_current + 4]);
+        $result->add('uptime', (int)$items[$index_current + 5]);
+        $result->add('roundtime', (int)$items[$index_current + 6]);
         // Added in R9
         $result->add('ip_port', $items[$index_current + 7]);
         $result->add('punkbuster_version', $items[$index_current + 8]);
-        $result->add('join_queue', (int) $items[$index_current + 9]);
+        $result->add('join_queue', (int)$items[$index_current + 9]);
         $result->add('region', $items[$index_current + 10]);
         $result->add('pingsite', $items[$index_current + 11]);
         $result->add('country', $items[$index_current + 12]);
         // Added in R29, No docs as of yet
-        $result->add('quickmatch', (int) $items[$index_current + 13]); // Guessed from research
+        $result->add('quickmatch', (int)$items[$index_current + 13]); // Guessed from research
 
         unset($items, $index_current, $teamCount, $buffer);
 

@@ -51,7 +51,7 @@ class Cs16 extends Source
      * @return string
      * @throws \GameQ\Exception\Protocol
      */
-    protected function processPackets($packet_id, array $packets = [ ])
+    protected function processPackets($packet_id, array $packets = [])
     {
 
         // The response is gold source if the packets are split

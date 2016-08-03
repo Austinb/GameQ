@@ -162,7 +162,7 @@ class Starmade extends Protocol
     {
 
         // Init the parsed data array
-        $parsed = [ ];
+        $parsed = [];
 
         // Read the number of parameters to parse
         $parameterSize = $buffer->readInt32Signed();
@@ -201,7 +201,7 @@ class Starmade extends Protocol
 
                 // Boolean
                 case 5:
-                    $parsed[$i] = (bool) $buffer->readInt8Signed();
+                    $parsed[$i] = (bool)$buffer->readInt8Signed();
                     break;
 
                 // 8-bit int

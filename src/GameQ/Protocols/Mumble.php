@@ -108,7 +108,7 @@ class Mumble extends Protocol
         ],
         // Team
         'team'    => [
-            'name'  => 'name',
+            'name' => 'name',
         ],
     ];
 
@@ -135,7 +135,7 @@ class Mumble extends Protocol
         // Let's iterate over the response items, there are a lot
         foreach ($data as $key => $value) {
             // Ignore root for now, that is where all of the channel/player info is housed
-            if (in_array($key, [ 'root' ])) {
+            if (in_array($key, ['root'])) {
                 continue;
             }
 
@@ -170,7 +170,7 @@ class Mumble extends Protocol
         // Let's add all of the channel information
         foreach ($data as $key => $value) {
             // We will handle these later
-            if (in_array($key, [ 'channels', 'users' ])) {
+            if (in_array($key, ['channels', 'users'])) {
                 // skip
                 continue;
             }

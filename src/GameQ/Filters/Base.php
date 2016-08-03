@@ -33,14 +33,14 @@ abstract class Base
      *
      * @type array
      */
-    protected $options = [ ];
+    protected $options = [];
 
     /**
      * Construct
      *
      * @param array $options
      */
-    public function __construct($options = [ ])
+    public function __construct($options = [])
     {
 
         $this->options = $options;

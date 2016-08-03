@@ -107,7 +107,7 @@ class Gamespy3 extends Protocol
     {
 
         // Holds the processed packets
-        $processed = [ ];
+        $processed = [];
 
         // Iterate over the packets
         foreach ($this->packets_response as $response) {
@@ -169,7 +169,7 @@ class Gamespy3 extends Protocol
      *
      * @return array
      */
-    protected function cleanPackets(array $packets = [ ])
+    protected function cleanPackets(array $packets = [])
     {
 
         // Get the number of packets
@@ -289,7 +289,7 @@ class Gamespy3 extends Protocol
                 // Set the item group
                 $item_group = 'teams';
                 // Set the item type, rip off any trailing stuff and bad chars
-                $item_type = rtrim(str_replace([ "\x00", "\x02" ], '', $item), '_t');
+                $item_type = rtrim(str_replace(["\x00", "\x02"], '', $item), '_t');
             } else {
                 // We can assume it is data belonging to a previously defined item
 

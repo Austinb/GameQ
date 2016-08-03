@@ -32,7 +32,7 @@ class Result
      *
      * @var        array
      */
-    protected $result = [ ];
+    protected $result = [];
 
     /**
      * Adds variable to results
@@ -82,7 +82,7 @@ class Result
 
         // Nothing of this type yet, set an empty array
         if (!isset($this->result[$sub]) or !is_array($this->result[$sub])) {
-            $this->result[$sub] = [ ];
+            $this->result[$sub] = [];
         }
 
         // Find the first entry that doesn't have this variable

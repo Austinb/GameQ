@@ -85,7 +85,7 @@ class Ventrilo extends Protocol
         // General
         'general' => [
             'dedicated'  => 'dedicated',
-            'password'  => 'auth',
+            'password'   => 'auth',
             'hostname'   => 'name',
             'numplayers' => 'clientcount',
             'maxplayers' => 'maxclients',
@@ -748,17 +748,17 @@ class Ventrilo extends Protocol
      * @return string
      * @throws \GameQ\Exception\Protocol
      */
-    protected function decryptPackets(array $packets = [ ])
+    protected function decryptPackets(array $packets = [])
     {
 
         // This will be returned
-        $decrypted = [ ];
+        $decrypted = [];
 
         foreach ($packets as $packet) {
             # Header :
             $header = substr($packet, 0, 20);
 
-            $header_items = [ ];
+            $header_items = [];
 
             $header_key = unpack("n1", $header);
 
@@ -797,7 +797,7 @@ class Ventrilo extends Protocol
                 'totpck',
                 'pck',
                 'datakey',
-                'crc'
+                'crc',
             ], $header_items);
 
             // Check to make sure the number of packets match
