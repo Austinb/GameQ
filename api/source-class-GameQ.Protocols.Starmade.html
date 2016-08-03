@@ -270,7 +270,7 @@
 </span><span id="162" class="l"><a href="#162">162: </a>    {
 </span><span id="163" class="l"><a href="#163">163: </a>
 </span><span id="164" class="l"><a href="#164">164: </a>        <span class="php-comment">// Init the parsed data array</span>
-</span><span id="165" class="l"><a href="#165">165: </a>        <span class="php-var">$parsed</span> = [ ];
+</span><span id="165" class="l"><a href="#165">165: </a>        <span class="php-var">$parsed</span> = [];
 </span><span id="166" class="l"><a href="#166">166: </a>
 </span><span id="167" class="l"><a href="#167">167: </a>        <span class="php-comment">// Read the number of parameters to parse</span>
 </span><span id="168" class="l"><a href="#168">168: </a>        <span class="php-var">$parameterSize</span> = <span class="php-var">$buffer</span>-&gt;readInt32Signed();
@@ -309,7 +309,7 @@
 </span><span id="201" class="l"><a href="#201">201: </a>
 </span><span id="202" class="l"><a href="#202">202: </a>                <span class="php-comment">// Boolean</span>
 </span><span id="203" class="l"><a href="#203">203: </a>                <span class="php-keyword1">case</span> <span class="php-num">5</span>:
-</span><span id="204" class="l"><a href="#204">204: </a>                    <span class="php-var">$parsed</span>[<span class="php-var">$i</span>] = (bool) <span class="php-var">$buffer</span>-&gt;readInt8Signed();
+</span><span id="204" class="l"><a href="#204">204: </a>                    <span class="php-var">$parsed</span>[<span class="php-var">$i</span>] = (bool)<span class="php-var">$buffer</span>-&gt;readInt8Signed();
 </span><span id="205" class="l"><a href="#205">205: </a>                    <span class="php-keyword1">break</span>;
 </span><span id="206" class="l"><a href="#206">206: </a>
 </span><span id="207" class="l"><a href="#207">207: </a>                <span class="php-comment">// 8-bit int</span>
@@ -340,6 +340,6 @@
 </div>
 </div>
 <script src="resources/combined.js?44e93de8fc3b749f55d0fae2da59a38c45b15f0b"></script>
-<script src="elementlist.js?5faa156132d6a3512b904fd5e2ac0a5d20a78f97"></script>
+<script src="elementlist.js?c863867aa8058b9db6e583e509def4b5ff008020"></script>
 </body>
 </html>

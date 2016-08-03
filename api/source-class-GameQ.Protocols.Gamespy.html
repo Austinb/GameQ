@@ -228,7 +228,7 @@
 </span><span id="120" class="l"><a href="#120">120: </a>        <span class="php-var">$result</span> = <span class="php-keyword1">new</span> Result();
 </span><span id="121" class="l"><a href="#121">121: </a>
 </span><span id="122" class="l"><a href="#122">122: </a>        <span class="php-comment">// By default dedicted</span>
-</span><span id="123" class="l"><a href="#123">123: </a>        <span class="php-var">$result</span>-&gt;add(<span class="php-quote">'dedicated'</span>, <span class="php-keyword1">true</span>);
+</span><span id="123" class="l"><a href="#123">123: </a>        <span class="php-var">$result</span>-&gt;add(<span class="php-quote">'dedicated'</span>, <span class="php-num">1</span>);
 </span><span id="124" class="l"><a href="#124">124: </a>
 </span><span id="125" class="l"><a href="#125">125: </a>        <span class="php-comment">// Lets peek and see if the data starts with a \</span>
 </span><span id="126" class="l"><a href="#126">126: </a>        <span class="php-keyword1">if</span> (<span class="php-var">$buffer</span>-&gt;lookAhead(<span class="php-num">1</span>) == <span class="php-quote">'\\'</span>) {
@@ -246,43 +246,45 @@
 </span><span id="138" class="l"><a href="#138">138: </a>        <span class="php-var">$numPlayers</span> = <span class="php-num">0</span>;
 </span><span id="139" class="l"><a href="#139">139: </a>        <span class="php-var">$numTeams</span> = <span class="php-num">0</span>;
 </span><span id="140" class="l"><a href="#140">140: </a>
-</span><span id="141" class="l"><a href="#141">141: </a>        <span class="php-comment">// Now lets loop the array</span>
-</span><span id="142" class="l"><a href="#142">142: </a>        <span class="php-keyword1">for</span> (<span class="php-var">$x</span> = <span class="php-num">0</span>; <span class="php-var">$x</span> &lt; <span class="php-keyword2">count</span>(<span class="php-var">$data</span>); <span class="php-var">$x</span> += <span class="php-num">2</span>) {
-</span><span id="143" class="l"><a href="#143">143: </a>            <span class="php-comment">// Set some local vars</span>
-</span><span id="144" class="l"><a href="#144">144: </a>            <span class="php-var">$key</span> = <span class="php-var">$data</span>[<span class="php-var">$x</span>];
-</span><span id="145" class="l"><a href="#145">145: </a>            <span class="php-var">$val</span> = <span class="php-var">$data</span>[<span class="php-var">$x</span> + <span class="php-num">1</span>];
-</span><span id="146" class="l"><a href="#146">146: </a>
-</span><span id="147" class="l"><a href="#147">147: </a>            <span class="php-comment">// Check for &lt;variable&gt;_&lt;count&gt; variable (i.e players)</span>
-</span><span id="148" class="l"><a href="#148">148: </a>            <span class="php-keyword1">if</span> ((<span class="php-var">$suffix</span> = <span class="php-keyword2">strrpos</span>(<span class="php-var">$key</span>, <span class="php-quote">'_'</span>)) !== <span class="php-keyword1">false</span> &amp;&amp; <span class="php-keyword2">is_numeric</span>(<span class="php-keyword2">substr</span>(<span class="php-var">$key</span>, <span class="php-var">$suffix</span> + <span class="php-num">1</span>))) {
-</span><span id="149" class="l"><a href="#149">149: </a>                <span class="php-comment">// See if this is a team designation</span>
-</span><span id="150" class="l"><a href="#150">150: </a>                <span class="php-keyword1">if</span> (<span class="php-keyword2">substr</span>(<span class="php-var">$key</span>, <span class="php-num">0</span>, <span class="php-var">$suffix</span>) == <span class="php-quote">'teamname'</span>) {
-</span><span id="151" class="l"><a href="#151">151: </a>                    <span class="php-var">$result</span>-&gt;addTeam(<span class="php-quote">'teamname'</span>, <span class="php-var">$val</span>);
-</span><span id="152" class="l"><a href="#152">152: </a>                    <span class="php-var">$numTeams</span>++;
-</span><span id="153" class="l"><a href="#153">153: </a>                } <span class="php-keyword1">else</span> {
-</span><span id="154" class="l"><a href="#154">154: </a>                    <span class="php-comment">// Its a player</span>
-</span><span id="155" class="l"><a href="#155">155: </a>                    <span class="php-keyword1">if</span> (<span class="php-keyword2">substr</span>(<span class="php-var">$key</span>, <span class="php-num">0</span>, <span class="php-var">$suffix</span>) == <span class="php-quote">'playername'</span>) {
-</span><span id="156" class="l"><a href="#156">156: </a>                        <span class="php-var">$numPlayers</span>++;
-</span><span id="157" class="l"><a href="#157">157: </a>                    }
-</span><span id="158" class="l"><a href="#158">158: </a>                    <span class="php-var">$result</span>-&gt;addPlayer(<span class="php-keyword2">substr</span>(<span class="php-var">$key</span>, <span class="php-num">0</span>, <span class="php-var">$suffix</span>), <span class="php-keyword2">utf8_encode</span>(<span class="php-var">$val</span>));
-</span><span id="159" class="l"><a href="#159">159: </a>                }
-</span><span id="160" class="l"><a href="#160">160: </a>            } <span class="php-keyword1">else</span> {
-</span><span id="161" class="l"><a href="#161">161: </a>                <span class="php-comment">// Regular variable so just add the value.</span>
-</span><span id="162" class="l"><a href="#162">162: </a>                <span class="php-var">$result</span>-&gt;add(<span class="php-var">$key</span>, <span class="php-var">$val</span>);
-</span><span id="163" class="l"><a href="#163">163: </a>            }
-</span><span id="164" class="l"><a href="#164">164: </a>        }
-</span><span id="165" class="l"><a href="#165">165: </a>
-</span><span id="166" class="l"><a href="#166">166: </a>        <span class="php-comment">// Add the player and team count</span>
-</span><span id="167" class="l"><a href="#167">167: </a>        <span class="php-var">$result</span>-&gt;add(<span class="php-quote">'num_players'</span>, <span class="php-var">$numPlayers</span>);
-</span><span id="168" class="l"><a href="#168">168: </a>        <span class="php-var">$result</span>-&gt;add(<span class="php-quote">'num_teams'</span>, <span class="php-var">$numTeams</span>);
-</span><span id="169" class="l"><a href="#169">169: </a>
-</span><span id="170" class="l"><a href="#170">170: </a>        <span class="php-comment">// Unset some stuff to free up memory</span>
-</span><span id="171" class="l"><a href="#171">171: </a>        <span class="php-keyword1">unset</span>(<span class="php-var">$data</span>, <span class="php-var">$key</span>, <span class="php-var">$val</span>, <span class="php-var">$suffix</span>, <span class="php-var">$x</span>);
-</span><span id="172" class="l"><a href="#172">172: </a>
-</span><span id="173" class="l"><a href="#173">173: </a>        <span class="php-comment">// Return the result</span>
-</span><span id="174" class="l"><a href="#174">174: </a>        <span class="php-keyword1">return</span> <span class="php-var">$result</span>-&gt;fetch();
-</span><span id="175" class="l"><a href="#175">175: </a>    }
-</span><span id="176" class="l"><a href="#176">176: </a>}
-</span><span id="177" class="l"><a href="#177">177: </a></span></code></pre>
+</span><span id="141" class="l"><a href="#141">141: </a>        <span class="php-var">$itemCount</span> = <span class="php-keyword2">count</span>(<span class="php-var">$data</span>);
+</span><span id="142" class="l"><a href="#142">142: </a>
+</span><span id="143" class="l"><a href="#143">143: </a>        <span class="php-comment">// Now lets loop the array</span>
+</span><span id="144" class="l"><a href="#144">144: </a>        <span class="php-keyword1">for</span> (<span class="php-var">$x</span> = <span class="php-num">0</span>; <span class="php-var">$x</span> &lt; <span class="php-var">$itemCount</span>; <span class="php-var">$x</span> += <span class="php-num">2</span>) {
+</span><span id="145" class="l"><a href="#145">145: </a>            <span class="php-comment">// Set some local vars</span>
+</span><span id="146" class="l"><a href="#146">146: </a>            <span class="php-var">$key</span> = <span class="php-var">$data</span>[<span class="php-var">$x</span>];
+</span><span id="147" class="l"><a href="#147">147: </a>            <span class="php-var">$val</span> = <span class="php-var">$data</span>[<span class="php-var">$x</span> + <span class="php-num">1</span>];
+</span><span id="148" class="l"><a href="#148">148: </a>
+</span><span id="149" class="l"><a href="#149">149: </a>            <span class="php-comment">// Check for &lt;variable&gt;_&lt;count&gt; variable (i.e players)</span>
+</span><span id="150" class="l"><a href="#150">150: </a>            <span class="php-keyword1">if</span> ((<span class="php-var">$suffix</span> = <span class="php-keyword2">strrpos</span>(<span class="php-var">$key</span>, <span class="php-quote">'_'</span>)) !== <span class="php-keyword1">false</span> &amp;&amp; <span class="php-keyword2">is_numeric</span>(<span class="php-keyword2">substr</span>(<span class="php-var">$key</span>, <span class="php-var">$suffix</span> + <span class="php-num">1</span>))) {
+</span><span id="151" class="l"><a href="#151">151: </a>                <span class="php-comment">// See if this is a team designation</span>
+</span><span id="152" class="l"><a href="#152">152: </a>                <span class="php-keyword1">if</span> (<span class="php-keyword2">substr</span>(<span class="php-var">$key</span>, <span class="php-num">0</span>, <span class="php-var">$suffix</span>) == <span class="php-quote">'teamname'</span>) {
+</span><span id="153" class="l"><a href="#153">153: </a>                    <span class="php-var">$result</span>-&gt;addTeam(<span class="php-quote">'teamname'</span>, <span class="php-var">$val</span>);
+</span><span id="154" class="l"><a href="#154">154: </a>                    <span class="php-var">$numTeams</span>++;
+</span><span id="155" class="l"><a href="#155">155: </a>                } <span class="php-keyword1">else</span> {
+</span><span id="156" class="l"><a href="#156">156: </a>                    <span class="php-comment">// Its a player</span>
+</span><span id="157" class="l"><a href="#157">157: </a>                    <span class="php-keyword1">if</span> (<span class="php-keyword2">substr</span>(<span class="php-var">$key</span>, <span class="php-num">0</span>, <span class="php-var">$suffix</span>) == <span class="php-quote">'playername'</span>) {
+</span><span id="158" class="l"><a href="#158">158: </a>                        <span class="php-var">$numPlayers</span>++;
+</span><span id="159" class="l"><a href="#159">159: </a>                    }
+</span><span id="160" class="l"><a href="#160">160: </a>                    <span class="php-var">$result</span>-&gt;addPlayer(<span class="php-keyword2">substr</span>(<span class="php-var">$key</span>, <span class="php-num">0</span>, <span class="php-var">$suffix</span>), <span class="php-keyword2">utf8_encode</span>(<span class="php-var">$val</span>));
+</span><span id="161" class="l"><a href="#161">161: </a>                }
+</span><span id="162" class="l"><a href="#162">162: </a>            } <span class="php-keyword1">else</span> {
+</span><span id="163" class="l"><a href="#163">163: </a>                <span class="php-comment">// Regular variable so just add the value.</span>
+</span><span id="164" class="l"><a href="#164">164: </a>                <span class="php-var">$result</span>-&gt;add(<span class="php-var">$key</span>, <span class="php-var">$val</span>);
+</span><span id="165" class="l"><a href="#165">165: </a>            }
+</span><span id="166" class="l"><a href="#166">166: </a>        }
+</span><span id="167" class="l"><a href="#167">167: </a>
+</span><span id="168" class="l"><a href="#168">168: </a>        <span class="php-comment">// Add the player and team count</span>
+</span><span id="169" class="l"><a href="#169">169: </a>        <span class="php-var">$result</span>-&gt;add(<span class="php-quote">'num_players'</span>, <span class="php-var">$numPlayers</span>);
+</span><span id="170" class="l"><a href="#170">170: </a>        <span class="php-var">$result</span>-&gt;add(<span class="php-quote">'num_teams'</span>, <span class="php-var">$numTeams</span>);
+</span><span id="171" class="l"><a href="#171">171: </a>
+</span><span id="172" class="l"><a href="#172">172: </a>        <span class="php-comment">// Unset some stuff to free up memory</span>
+</span><span id="173" class="l"><a href="#173">173: </a>        <span class="php-keyword1">unset</span>(<span class="php-var">$data</span>, <span class="php-var">$key</span>, <span class="php-var">$val</span>, <span class="php-var">$suffix</span>, <span class="php-var">$x</span>, <span class="php-var">$itemCount</span>);
+</span><span id="174" class="l"><a href="#174">174: </a>
+</span><span id="175" class="l"><a href="#175">175: </a>        <span class="php-comment">// Return the result</span>
+</span><span id="176" class="l"><a href="#176">176: </a>        <span class="php-keyword1">return</span> <span class="php-var">$result</span>-&gt;fetch();
+</span><span id="177" class="l"><a href="#177">177: </a>    }
+</span><span id="178" class="l"><a href="#178">178: </a>}
+</span><span id="179" class="l"><a href="#179">179: </a></span></code></pre>
 
 	<div id="footer">
 		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
@@ -290,6 +292,6 @@
 </div>
 </div>
 <script src="resources/combined.js?44e93de8fc3b749f55d0fae2da59a38c45b15f0b"></script>
-<script src="elementlist.js?5faa156132d6a3512b904fd5e2ac0a5d20a78f97"></script>
+<script src="elementlist.js?c863867aa8058b9db6e583e509def4b5ff008020"></script>
 </body>
 </html>

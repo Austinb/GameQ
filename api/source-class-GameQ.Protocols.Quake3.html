@@ -212,11 +212,11 @@
 </span><span id="104" class="l"><a href="#104">104: </a>        <span class="php-var">$header</span> = <span class="php-var">$buffer</span>-&gt;readString(<span class="php-quote">&quot;\x0A&quot;</span>);
 </span><span id="105" class="l"><a href="#105">105: </a>
 </span><span id="106" class="l"><a href="#106">106: </a>        <span class="php-comment">// Figure out which packet response this is</span>
-</span><span id="107" class="l"><a href="#107">107: </a>        <span class="php-keyword1">if</span> (!<span class="php-keyword2">array_key_exists</span>(<span class="php-var">$header</span>, <span class="php-var">$this</span>-&gt;responses)) {
+</span><span id="107" class="l"><a href="#107">107: </a>        <span class="php-keyword1">if</span> (<span class="php-keyword1">empty</span>(<span class="php-var">$header</span>) || !<span class="php-keyword2">array_key_exists</span>(<span class="php-var">$header</span>, <span class="php-var">$this</span>-&gt;responses)) {
 </span><span id="108" class="l"><a href="#108">108: </a>            <span class="php-keyword1">throw</span> <span class="php-keyword1">new</span> Exception(__METHOD__ . <span class="php-quote">&quot; response type '&quot;</span> . <span class="php-keyword2">bin2hex</span>(<span class="php-var">$header</span>) . <span class="php-quote">&quot;' is not valid&quot;</span>);
 </span><span id="109" class="l"><a href="#109">109: </a>        }
 </span><span id="110" class="l"><a href="#110">110: </a>
-</span><span id="111" class="l"><a href="#111">111: </a>        <span class="php-keyword1">return</span> <span class="php-keyword2">call_user_func_array</span>([<span class="php-var">$this</span>, <span class="php-var">$this</span>-&gt;responses[ <span class="php-var">$header</span> ]], [<span class="php-var">$buffer</span>]);
+</span><span id="111" class="l"><a href="#111">111: </a>        <span class="php-keyword1">return</span> <span class="php-keyword2">call_user_func_array</span>([<span class="php-var">$this</span>, <span class="php-var">$this</span>-&gt;responses[<span class="php-var">$header</span>]], [<span class="php-var">$buffer</span>]);
 </span><span id="112" class="l"><a href="#112">112: </a>    }
 </span><span id="113" class="l"><a href="#113">113: </a>
 </span><span id="114" class="l"><a href="#114">114: </a>    <span class="php-keyword1">protected</span> <span class="php-keyword1">function</span> processStatus(Buffer <span class="php-var">$buffer</span>)
@@ -317,6 +317,6 @@
 </div>
 </div>
 <script src="resources/combined.js?44e93de8fc3b749f55d0fae2da59a38c45b15f0b"></script>
-<script src="elementlist.js?5faa156132d6a3512b904fd5e2ac0a5d20a78f97"></script>
+<script src="elementlist.js?c863867aa8058b9db6e583e509def4b5ff008020"></script>
 </body>
 </html>

@@ -216,7 +216,7 @@
 </span><span id="108" class="l"><a href="#108">108: </a>        ],
 </span><span id="109" class="l"><a href="#109">109: </a>        <span class="php-comment">// Team</span>
 </span><span id="110" class="l"><a href="#110">110: </a>        <span class="php-quote">'team'</span>    =&gt; [
-</span><span id="111" class="l"><a href="#111">111: </a>            <span class="php-quote">'name'</span>  =&gt; <span class="php-quote">'name'</span>,
+</span><span id="111" class="l"><a href="#111">111: </a>            <span class="php-quote">'name'</span> =&gt; <span class="php-quote">'name'</span>,
 </span><span id="112" class="l"><a href="#112">112: </a>        ],
 </span><span id="113" class="l"><a href="#113">113: </a>    ];
 </span><span id="114" class="l"><a href="#114">114: </a>
@@ -243,7 +243,7 @@
 </span><span id="135" class="l"><a href="#135">135: </a>        <span class="php-comment">// Let's iterate over the response items, there are a lot</span>
 </span><span id="136" class="l"><a href="#136">136: </a>        <span class="php-keyword1">foreach</span> (<span class="php-var">$data</span> <span class="php-keyword1">as</span> <span class="php-var">$key</span> =&gt; <span class="php-var">$value</span>) {
 </span><span id="137" class="l"><a href="#137">137: </a>            <span class="php-comment">// Ignore root for now, that is where all of the channel/player info is housed</span>
-</span><span id="138" class="l"><a href="#138">138: </a>            <span class="php-keyword1">if</span> (<span class="php-keyword2">in_array</span>(<span class="php-var">$key</span>, [ <span class="php-quote">'root'</span> ])) {
+</span><span id="138" class="l"><a href="#138">138: </a>            <span class="php-keyword1">if</span> (<span class="php-keyword2">in_array</span>(<span class="php-var">$key</span>, [<span class="php-quote">'root'</span>])) {
 </span><span id="139" class="l"><a href="#139">139: </a>                <span class="php-keyword1">continue</span>;
 </span><span id="140" class="l"><a href="#140">140: </a>            }
 </span><span id="141" class="l"><a href="#141">141: </a>
@@ -278,7 +278,7 @@
 </span><span id="170" class="l"><a href="#170">170: </a>        <span class="php-comment">// Let's add all of the channel information</span>
 </span><span id="171" class="l"><a href="#171">171: </a>        <span class="php-keyword1">foreach</span> (<span class="php-var">$data</span> <span class="php-keyword1">as</span> <span class="php-var">$key</span> =&gt; <span class="php-var">$value</span>) {
 </span><span id="172" class="l"><a href="#172">172: </a>            <span class="php-comment">// We will handle these later</span>
-</span><span id="173" class="l"><a href="#173">173: </a>            <span class="php-keyword1">if</span> (<span class="php-keyword2">in_array</span>(<span class="php-var">$key</span>, [ <span class="php-quote">'channels'</span>, <span class="php-quote">'users'</span> ])) {
+</span><span id="173" class="l"><a href="#173">173: </a>            <span class="php-keyword1">if</span> (<span class="php-keyword2">in_array</span>(<span class="php-var">$key</span>, [<span class="php-quote">'channels'</span>, <span class="php-quote">'users'</span>])) {
 </span><span id="174" class="l"><a href="#174">174: </a>                <span class="php-comment">// skip</span>
 </span><span id="175" class="l"><a href="#175">175: </a>                <span class="php-keyword1">continue</span>;
 </span><span id="176" class="l"><a href="#176">176: </a>            }
@@ -308,6 +308,6 @@
 </div>
 </div>
 <script src="resources/combined.js?44e93de8fc3b749f55d0fae2da59a38c45b15f0b"></script>
-<script src="elementlist.js?5faa156132d6a3512b904fd5e2ac0a5d20a78f97"></script>
+<script src="elementlist.js?c863867aa8058b9db6e583e509def4b5ff008020"></script>
 </body>
 </html>

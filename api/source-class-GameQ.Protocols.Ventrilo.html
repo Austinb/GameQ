@@ -193,7 +193,7 @@
 </span><span id="85" class="l"><a href="#85"> 85: </a>        <span class="php-comment">// General</span>
 </span><span id="86" class="l"><a href="#86"> 86: </a>        <span class="php-quote">'general'</span> =&gt; [
 </span><span id="87" class="l"><a href="#87"> 87: </a>            <span class="php-quote">'dedicated'</span>  =&gt; <span class="php-quote">'dedicated'</span>,
-</span><span id="88" class="l"><a href="#88"> 88: </a>            <span class="php-quote">'password'</span>  =&gt; <span class="php-quote">'auth'</span>,
+</span><span id="88" class="l"><a href="#88"> 88: </a>            <span class="php-quote">'password'</span>   =&gt; <span class="php-quote">'auth'</span>,
 </span><span id="89" class="l"><a href="#89"> 89: </a>            <span class="php-quote">'hostname'</span>   =&gt; <span class="php-quote">'name'</span>,
 </span><span id="90" class="l"><a href="#90"> 90: </a>            <span class="php-quote">'numplayers'</span> =&gt; <span class="php-quote">'clientcount'</span>,
 </span><span id="91" class="l"><a href="#91"> 91: </a>            <span class="php-quote">'maxplayers'</span> =&gt; <span class="php-quote">'maxclients'</span>,
@@ -856,17 +856,17 @@
 </span></span><span id="748" class="l"><a href="#748">748: </a><span class="php-comment">     * @return string
 </span></span><span id="749" class="l"><a href="#749">749: </a><span class="php-comment">     * @throws \GameQ\Exception\Protocol
 </span></span><span id="750" class="l"><a href="#750">750: </a><span class="php-comment">     */</span>
-</span><span id="751" class="l"><a href="#751">751: </a>    <span class="php-keyword1">protected</span> <span class="php-keyword1">function</span> decryptPackets(<span class="php-keyword1">array</span> <span class="php-var">$packets</span> = [ ])
+</span><span id="751" class="l"><a href="#751">751: </a>    <span class="php-keyword1">protected</span> <span class="php-keyword1">function</span> decryptPackets(<span class="php-keyword1">array</span> <span class="php-var">$packets</span> = [])
 </span><span id="752" class="l"><a href="#752">752: </a>    {
 </span><span id="753" class="l"><a href="#753">753: </a>
 </span><span id="754" class="l"><a href="#754">754: </a>        <span class="php-comment">// This will be returned</span>
-</span><span id="755" class="l"><a href="#755">755: </a>        <span class="php-var">$decrypted</span> = [ ];
+</span><span id="755" class="l"><a href="#755">755: </a>        <span class="php-var">$decrypted</span> = [];
 </span><span id="756" class="l"><a href="#756">756: </a>
 </span><span id="757" class="l"><a href="#757">757: </a>        <span class="php-keyword1">foreach</span> (<span class="php-var">$packets</span> <span class="php-keyword1">as</span> <span class="php-var">$packet</span>) {
 </span><span id="758" class="l"><a href="#758">758: </a>            <span class="php-comment"># Header :</span>
 </span><span id="759" class="l"><a href="#759">759: </a>            <span class="php-var">$header</span> = <span class="php-keyword2">substr</span>(<span class="php-var">$packet</span>, <span class="php-num">0</span>, <span class="php-num">20</span>);
 </span><span id="760" class="l"><a href="#760">760: </a>
-</span><span id="761" class="l"><a href="#761">761: </a>            <span class="php-var">$header_items</span> = [ ];
+</span><span id="761" class="l"><a href="#761">761: </a>            <span class="php-var">$header_items</span> = [];
 </span><span id="762" class="l"><a href="#762">762: </a>
 </span><span id="763" class="l"><a href="#763">763: </a>            <span class="php-var">$header_key</span> = <span class="php-keyword2">unpack</span>(<span class="php-quote">&quot;n1&quot;</span>, <span class="php-var">$header</span>);
 </span><span id="764" class="l"><a href="#764">764: </a>
@@ -905,7 +905,7 @@
 </span><span id="797" class="l"><a href="#797">797: </a>                <span class="php-quote">'totpck'</span>,
 </span><span id="798" class="l"><a href="#798">798: </a>                <span class="php-quote">'pck'</span>,
 </span><span id="799" class="l"><a href="#799">799: </a>                <span class="php-quote">'datakey'</span>,
-</span><span id="800" class="l"><a href="#800">800: </a>                <span class="php-quote">'crc'</span>
+</span><span id="800" class="l"><a href="#800">800: </a>                <span class="php-quote">'crc'</span>,
 </span><span id="801" class="l"><a href="#801">801: </a>            ], <span class="php-var">$header_items</span>);
 </span><span id="802" class="l"><a href="#802">802: </a>
 </span><span id="803" class="l"><a href="#803">803: </a>            <span class="php-comment">// Check to make sure the number of packets match</span>
@@ -991,6 +991,6 @@
 </div>
 </div>
 <script src="resources/combined.js?44e93de8fc3b749f55d0fae2da59a38c45b15f0b"></script>
-<script src="elementlist.js?5faa156132d6a3512b904fd5e2ac0a5d20a78f97"></script>
+<script src="elementlist.js?c863867aa8058b9db6e583e509def4b5ff008020"></script>
 </body>
 </html>
