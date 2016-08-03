@@ -51,7 +51,6 @@ class Stripcolors extends Base
 
         // Switch based on the base (not game) protocol
         switch ($server->protocol()->getProtocol()) {
-
             case 'quake2':
             case 'quake3':
             case 'doom3':

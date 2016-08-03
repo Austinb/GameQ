@@ -384,7 +384,6 @@ class GameQ
                         'server_id' => $server_id,
                         'socket'    => $socket,
                     ];
-
                 } catch (QueryException $e) {
                     // Check to see if we are in debug, if so bubble up the exception
                     if ($this->debug) {

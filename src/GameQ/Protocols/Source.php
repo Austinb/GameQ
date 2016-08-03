@@ -298,7 +298,6 @@ class Source extends Protocol
                     if ($i == 0) {
                         $result = substr($result, 4);
                     }
-
                 } else {
                     // Get the packet length (short), burn it
                     $buffer->readInt16Signed();
