@@ -72,6 +72,9 @@ class Armedassault3 extends Source
             $data .= $buffer->readString();
         }
 
+        // Restore escaped sequences
+        $data = str_replace(array("\x01\x01","\x01\x02","\x01\x03"), array("\x01","\x00","\xFF"), $data);
+
         // Make a new buffer with the reassembled data
         $responseBuffer = new Buffer($data);
 
