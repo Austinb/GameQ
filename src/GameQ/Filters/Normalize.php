@@ -64,7 +64,7 @@ class Normalize extends Base
         if (isset($result['players']) && count($result['players']) > 0) {
             // Iterate
             foreach ($result['players'] as $key => $player) {
-                $result['players'][ $key ] = array_merge($player, $this->check('player', $player));
+                $result['players'][$key] = array_merge($player, $this->check('player', $player));
             }
         } else {
             $result['players'] = [];
@@ -74,7 +74,7 @@ class Normalize extends Base
         if (isset($result['teams']) && count($result['teams']) > 0) {
             // Iterate
             foreach ($result['teams'] as $key => $team) {
-                $result['teams'][ $key ] = array_merge($team, $this->check('team', $team));
+                $result['teams'][$key] = array_merge($team, $this->check('team', $team));
             }
         } else {
             $result['teams'] = [];
@@ -104,8 +104,8 @@ class Normalize extends Base
         // Normalized return array
         $normalized = [];
 
-        if (isset($this->normalize[ $section ]) && !empty($this->normalize[ $section ])) {
-            foreach ($this->normalize[ $section ] as $property => $raw) {
+        if (isset($this->normalize[$section]) && !empty($this->normalize[$section])) {
+            foreach ($this->normalize[$section] as $property => $raw) {
                 // Default the value for the new key as null
                 $value = null;
 
@@ -113,18 +113,18 @@ class Normalize extends Base
                     // Iterate over the raw property we want to use
                     foreach ($raw as $check) {
                         if (array_key_exists($check, $data)) {
-                            $value = $data[ $check ];
+                            $value = $data[$check];
                             break;
                         }
                     }
                 } else {
                     // String
                     if (array_key_exists($raw, $data)) {
-                        $value = $data[ $raw ];
+                        $value = $data[$raw];
                     }
                 }
 
-                $normalized[ 'gq_' . $property ] = $value;
+                $normalized['gq_' . $property] = $value;
             }
         }
 

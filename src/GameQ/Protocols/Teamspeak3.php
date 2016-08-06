@@ -220,7 +220,7 @@ class Teamspeak3 extends Protocol
     {
 
         // Will hold the properties we are sending back
-        $properties = [ ];
+        $properties = [];
 
         // All of these are split on space
         $items = explode(' ', $data);

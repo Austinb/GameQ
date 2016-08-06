@@ -18,9 +18,6 @@
 
 namespace GameQ\Protocols;
 
-use GameQ\Buffer;
-use GameQ\Result;
-
 /**
  * Unreal Tournament 3 Protocol Class
  *

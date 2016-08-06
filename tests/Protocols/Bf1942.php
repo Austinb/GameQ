@@ -16,43 +16,31 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace GameQ\Filters;
+namespace GameQ\Tests\Protocols;
 
-use GameQ\Server;
-
-/**
- * Abstract base class which all filters must inherit
- *
- * @author Austin Bischoff <austin@codebeard.com>
- */
-abstract class Base
+class Bf1942 extends Base
 {
 
     /**
-     * Holds the options for this instance of the filter
+     * Test responses for Battlefield 1942
      *
-     * @type array
-     */
-    protected $options = [];
-
-    /**
-     * Construct
+     * @dataProvider loadData
      *
-     * @param array $options
+     * @param $responses
+     * @param $result
      */
-    public function __construct($options = [])
+    public function testResponses($responses, $result)
     {
 
-        $this->options = $options;
-    }
+        // Pull the first key off the array this is the server ip:port
+        $server = key($result);
 
-    /**
-     * Apply the filter to the data
-     *
-     * @param array         $data
-     * @param \GameQ\Server $server
-     *
-     * @return mixed
-     */
-    abstract public function apply(array $data, Server $server);
+        $testResult = $this->queryTest(
+            $server,
+            'bf1942',
+            $responses
+        );
+
+        $this->assertEquals($result[$server], $testResult);
+    }
 }

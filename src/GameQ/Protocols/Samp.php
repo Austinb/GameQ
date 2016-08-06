@@ -201,7 +201,7 @@ class Samp extends Protocol
         $result->add('dedicated', 1);
 
         // Pull out the server information
-        $result->add('password', (bool) $buffer->readInt8());
+        $result->add('password', $buffer->readInt8());
         $result->add('num_players', $buffer->readInt16());
         $result->add('max_players', $buffer->readInt16());
 
