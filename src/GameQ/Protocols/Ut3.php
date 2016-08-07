@@ -61,7 +61,7 @@ class Ut3 extends Gamespy3
     /**
      * Overload the response process so we can make some changes
      *
-     * @return \GameQ\Result
+     * @return array
      */
     public function processResponse()
     {
