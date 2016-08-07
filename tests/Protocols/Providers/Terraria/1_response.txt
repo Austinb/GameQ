@@ -1,0 +1,100 @@
+HTTP/1.0 200 Made by Jonas Gauffin
+Content-Type: application/json; charset=utf-8
+Content-Length: 1950
+Connection: Close
+Server: TShockAPI/4.3.16.0
+
+
+||
+{
+  "status": "200",
+  "name": "",
+  "serverversion": "v1.3.2.1",
+  "tshockversion": {
+    "Major": 4,
+    "Minor": 3,
+    "Build": 16,
+    "Revision": 0,
+    "MajorRevision": 0,
+    "MinorRevision": 0
+  },
+  "port": 7777,
+  "playercount": 7,
+  "maxplayers": 86,
+  "world": "ShadowRain ~ VII",
+  "uptime": "8.15:10:51",
+  "serverpassword": false,
+  "players": [
+    {
+      "nickname": "Woozer",
+      "username": "Woozer",
+      "group": "default",
+      "active": true,
+      "state": 10,
+      "team": 0
+    },
+    {
+      "nickname": "G0D",
+      "username": "G0D",
+      "group": "default",
+      "active": true,
+      "state": 10,
+      "team": 5
+    },
+    {
+      "nickname": "dood123",
+      "username": "dood123",
+      "group": "default",
+      "active": true,
+      "state": 10,
+      "team": 0
+    },
+    {
+      "nickname": "Shpee",
+      "username": "Shpee",
+      "group": "default",
+      "active": true,
+      "state": 10,
+      "team": 0
+    },
+    {
+      "nickname": "Ford_j_Ford",
+      "username": "Ford_j_Ford",
+      "group": "default",
+      "active": true,
+      "state": 10,
+      "team": 5
+    },
+    {
+      "nickname": "Hi-im-jimmy",
+      "username": "Hi-im-jimmy",
+      "group": "Member+1",
+      "active": true,
+      "state": 10,
+      "team": 3
+    },
+    {
+      "nickname": "Biofighter",
+      "username": "Biofighter",
+      "group": "default",
+      "active": true,
+      "state": 10,
+      "team": 0
+    }
+  ],
+  "rules": {
+    "AutoSave": false,
+    "DisableBuild": false,
+    "DisableClownBombs": false,
+    "DisableDungeonGuardian": false,
+    "DisableInvisPvP": true,
+    "DisableSnowBalls": false,
+    "DisableTombstones": true,
+    "EnableWhitelist": false,
+    "HardcoreOnly": false,
+    "PvPMode": "normal",
+    "SpawnProtection": true,
+    "SpawnProtectionRadius": 325,
+    "ServerSideInventory": false
+  }
+}
