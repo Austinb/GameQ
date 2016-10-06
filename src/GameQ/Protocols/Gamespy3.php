@@ -141,8 +141,13 @@ class Gamespy3 extends Protocol
         // Offload cleaning up the packets if they happen to be split
         $packets = $this->cleanPackets(array_values($processed));
 
+         // Fix: when server name contains string "\u0000" - query fails.
+        // "\u0000" also separates properties from server, so we are 
+        // replacing double "\u0000" in server response.
+        $packets = preg_replace("/(\\x00){2,}gametype/","\x00gametype", implode('', $packets));
+
         // Create a new buffer
-        $buffer = new Buffer(implode('', $packets), Buffer::NUMBER_TYPE_BIGENDIAN);
+        $buffer = new Buffer($packets, Buffer::NUMBER_TYPE_BIGENDIAN);
 
         // Create a new result
         $result = new Result();
