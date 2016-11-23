@@ -111,6 +111,7 @@ class Bf3 extends Protocol
             // target       => source
             'dedicated'  => 'dedicated',
             'hostname'   => 'hostname',
+            'mapname'    => 'map',
             'maxplayers' => 'max_players',
             'numplayers' => 'num_players',
             'password'   => 'password',
