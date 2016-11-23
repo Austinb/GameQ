@@ -45,6 +45,6 @@ class Spaceengineers extends Base
             $responses
         );
 
-        $this->assertEquals($result[ $server ], $testResult);
+        $this->assertEquals($result[ $server ], $testResult, '', 0.000000001);
     }
 }
