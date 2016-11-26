@@ -1,0 +1,12 @@
+ÿÿÿÿprint
+\mapname\q2dm1\ngWorldStats_Status\<<< Disabled >>>\anticheat\1\match_info\Runes, Hook, Protection\match_type\RegularDM\time_remaining\17:28\gamedate\Jul  1 1999\gamename\baseq2               \cheats\0\timelimit\20\fraglimit\0\dmflags\17940\version\R1Q2 b7864 i386 Oct  1 2008 Linux\hostname\Clanworld's Lithium-DM #1\deathmatch\1\gamedir\ospl2\port\27910\game\ospl2\maxclients\32
+0 15 "nikon"
+0 16 "Ulrik"
+0 16 "bubbleuniverse"
+0 18 "Centriot"
+0 17 "AL1AS"
+0 17 "Oilver"
+0 17 "snappy"
+16 55 "4833"
+0 17 "rackor"
+0 66 "Player"
