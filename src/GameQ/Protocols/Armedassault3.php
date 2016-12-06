@@ -36,7 +36,7 @@ class Armedassault3 extends Source
      * DLC ^2 constants
      */
     const DLC_KARTS = 1,
-        DLC_MARKSMEN = 2,
+        DLC_MARKSMAN = 2,
         DLC_HELICOPTER = 4,
         DLC_APEX = 16;
 
@@ -47,7 +47,7 @@ class Armedassault3 extends Source
      */
     protected $dlcNames = [
         self::DLC_KARTS      => 'Karts',
-        self::DLC_MARKSMEN   => 'Marksman',
+        self::DLC_MARKSMAN   => 'Marksman',
         self::DLC_HELICOPTER => 'Helicopter',
         self::DLC_APEX       => 'Apex',
     ];
@@ -125,12 +125,6 @@ class Armedassault3 extends Source
         $result->add('difficulty_ai', ($difficulty >> 3) & 3);
         $result->add('difficulty_level', $difficulty & 3);
 
-        /*var_dump($difficulty);
-        var_dump($difficulty >> 7);
-        var_dump(($difficulty >> 6) & 1);
-        var_dump(($difficulty >> 3) & 3);
-        var_dump($difficulty & 3);*/
-
         unset($difficulty);
 
         // Crosshair
@@ -150,6 +144,9 @@ class Armedassault3 extends Source
 
         // Grab the mod count
         $modCount = $responseBuffer->readInt8();
+
+        // Add mod count
+        $result->add('mod_count', $modCount);
 
         // Loop the mod count and add them
         for ($x = 0; $x < $modCount; $x++) {
@@ -175,6 +172,9 @@ class Armedassault3 extends Source
 
         // Add as a simple array
         $result->add('signatures', $signatures);
+
+        // Add signatures count
+        $result->add('signature_count', count($signatures));
 
         unset($responseBuffer, $signatures);
 
