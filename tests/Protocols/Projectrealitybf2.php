@@ -19,14 +19,14 @@
 namespace GameQ\Tests\Protocols;
 
 /**
- * Test Class for Space Engineers
+ * Test Class for Projectrealitybf2
  *
  * @package GameQ\Tests\Protocols
  */
-class Spaceengineers extends Base
+class Projectrealitybf2 extends Base
 {
     /**
-     * Test responses for Space engineers
+     * Test responses for Projectrealitybf2
      *
      * @dataProvider loadData
      *
@@ -41,10 +41,10 @@ class Spaceengineers extends Base
 
         $testResult = $this->queryTest(
             $server,
-            'spaceengineers',
+            'projectrealitybf2',
             $responses
         );
 
-        $this->assertEquals($result[ $server ], $testResult, '', 0.000000001);
+        $this->assertEquals($result[$server], $testResult);
     }
 }

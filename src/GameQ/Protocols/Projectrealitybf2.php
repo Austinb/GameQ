@@ -16,35 +16,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace GameQ\Tests\Protocols;
+namespace GameQ\Protocols;
 
 /**
- * Test Class for Space Engineers
+ * Class Projectrealitybf2
  *
- * @package GameQ\Tests\Protocols
+ * Based off of BF2
+ *
+ * @package GameQ\Protocols
+ * @author  Austin Bischoff <austin@codebeard.com>
  */
-class Spaceengineers extends Base
+class Projectrealitybf2 extends Bf2
 {
+
     /**
-     * Test responses for Space engineers
+     * String name of this protocol class
      *
-     * @dataProvider loadData
-     *
-     * @param $responses
-     * @param $result
+     * @type string
      */
-    public function testResponses($responses, $result)
-    {
+    protected $name = 'projectrealitybf2';
 
-        // Pull the first key off the array this is the server ip:port
-        $server = key($result);
-
-        $testResult = $this->queryTest(
-            $server,
-            'spaceengineers',
-            $responses
-        );
-
-        $this->assertEquals($result[ $server ], $testResult, '', 0.000000001);
-    }
+    /**
+     * Longer string name of this protocol class
+     *
+     * @type string
+     */
+    protected $name_long = "Project Reality: Battlefield 2";
 }

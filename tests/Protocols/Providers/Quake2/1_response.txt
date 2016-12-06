@@ -1,0 +1,13 @@
+ÿÿÿÿprint
+\Q2Admin\1.17.44-tsmod-2\mapname\q2dm6\anticheat\1\sv_noobquad\0\gamedate\Aug  2 2009\gamename\baseq2\sv_handicap\1\maxspectators\8\INFO2\NO BOTS, HACKS, CHEATS PLEASE\INFO1\All Skill Levels Welcome\cheats\0\timelimit\15\fraglimit\30\dmflags\16404\deathmatch\1\version\R1Q2 b7864 i386 Oct  1 2008 Linux\hostname\tastyspleen.net::dm\maxclients\17
+0 2 "WallFly[BZZZ]"
+2 162 "ninja"
+3 196 "Richo de Lula"
+22 52 "Fatal[KiD]"
+15 25 "Anus Paste"
+12 22 "hindmost"
+29 59 "[A2W]H3mr0yd"
+4 159 "nx0"
+26 40 "0:0"
+18 41 "mag"
+9 71 "mind"

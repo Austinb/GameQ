@@ -18,13 +18,13 @@
 
 namespace GameQ\Tests\Protocols;
 
-class Quake3 extends Base
+class Quake2 extends Base
 {
 
     /**
      * Holds stub on setup
      *
-     * @type \GameQ\Protocols\Quake3
+     * @type \GameQ\Protocols\Quake2
      */
     protected $stub;
 
@@ -34,7 +34,7 @@ class Quake3 extends Base
      * @type array
      */
     protected $packets = [
-        \GameQ\Protocol::PACKET_STATUS => "\xFF\xFF\xFF\xFF\x67\x65\x74\x73\x74\x61\x74\x75\x73\x0A",
+        \GameQ\Protocol::PACKET_STATUS => "\xFF\xFF\xFF\xFFstatus\x00",
     ];
 
     /**
@@ -44,7 +44,7 @@ class Quake3 extends Base
     {
 
         // Create the stub class
-        $this->stub = $this->getMock('\GameQ\Protocols\Quake3', null, [[]]);
+        $this->stub = $this->getMock('\GameQ\Protocols\Quake2', null, [[]]);
     }
 
     /**
@@ -63,14 +63,14 @@ class Quake3 extends Base
     public function testInvalidPacketType()
     {
 
-        // Read in a Quake 3 source file
-        $source = file_get_contents(sprintf('%s/Providers/Quake3/1_response.txt', __DIR__));
+        // Read in a quake 2 source file
+        $source = file_get_contents(sprintf('%s/Providers/Quake2/1_response.txt', __DIR__));
 
         // Change the first packet to some unknown header
-        $source = str_replace("\xFF\xFF\xFF\xFFstatusResponse", "\xFF\xFF\xFF\xFFstatusResponses", $source);
+        $source = str_replace("\xFF\xFF\xFF\xFFprint", "\xFF\xFF\xFF\xFFprints", $source);
 
         // Should show up as offline
-        $testResult = $this->queryTest('127.0.0.1:27960', 'quake3', explode(PHP_EOL . '||' . PHP_EOL, $source), false);
+        $testResult = $this->queryTest('127.0.0.1:27910', 'quake2', explode(PHP_EOL . '||' . PHP_EOL, $source), false);
 
         $this->assertFalse($testResult['gq_online']);
     }
@@ -79,20 +79,20 @@ class Quake3 extends Base
      * Test for invalid packet type in response
      *
      * @expectedException Exception
-     * @expectedExceptionMessage GameQ\Protocols\Quake3::processResponse response type
-     *                           'ffffffff737461747573526573706f6e736573' is not valid
+     * @expectedExceptionMessage GameQ\Protocols\Quake2::processResponse response type
+     *                           'ffffffff7072696e7473' is not valid
      */
     public function testInvalidPacketTypeDebug()
     {
 
-        // Read in a Quake 3 source file
-        $source = file_get_contents(sprintf('%s/Providers/Quake3/1_response.txt', __DIR__));
+        // Read in a quake 2 source file
+        $source = file_get_contents(sprintf('%s/Providers/Quake2/1_response.txt', __DIR__));
 
         // Change the first packet to some unknown header
-        $source = str_replace("\xFF\xFF\xFF\xFFstatusResponse", "\xFF\xFF\xFF\xFFstatusResponses", $source);
+        $source = str_replace("\xFF\xFF\xFF\xFFprint", "\xFF\xFF\xFF\xFFprints", $source);
 
         // Should show up as offline
-        $this->queryTest('127.0.0.1:27960', 'quake3', explode(PHP_EOL . '||' . PHP_EOL, $source), true);
+        $this->queryTest('127.0.0.1:27910', 'quake2', explode(PHP_EOL . '||' . PHP_EOL, $source), true);
     }
 
     /**
@@ -111,7 +111,7 @@ class Quake3 extends Base
 
         $testResult = $this->queryTest(
             $server,
-            'quake3',
+            'quake2',
             $responses
         );
 

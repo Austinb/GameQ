@@ -18,13 +18,13 @@
 
 namespace GameQ\Tests\Protocols;
 
-class Quake3 extends Base
+class Bfbc2 extends Base
 {
 
     /**
      * Holds stub on setup
      *
-     * @type \GameQ\Protocols\Quake3
+     * @type \GameQ\Protocols\Bfbc2
      */
     protected $stub;
 
@@ -34,7 +34,10 @@ class Quake3 extends Base
      * @type array
      */
     protected $packets = [
-        \GameQ\Protocol::PACKET_STATUS => "\xFF\xFF\xFF\xFF\x67\x65\x74\x73\x74\x61\x74\x75\x73\x0A",
+        \GameQ\Protocol::PACKET_VERSION => "\x00\x00\x00\x00\x18\x00\x00\x00\x01\x00\x00\x00\x07\x00\x00\x00version\x00",
+        \GameQ\Protocol::PACKET_STATUS  => "\x00\x00\x00\x00\x1b\x00\x00\x00\x01\x00\x00\x00\x0a\x00\x00\x00serverInfo\x00",
+        \GameQ\Protocol::PACKET_PLAYERS =>
+            "\x00\x00\x00\x00\x24\x00\x00\x00\x02\x00\x00\x00\x0b\x00\x00\x00listPlayers\x00\x03\x00\x00\x00\x61ll\x00",
     ];
 
     /**
@@ -44,7 +47,7 @@ class Quake3 extends Base
     {
 
         // Create the stub class
-        $this->stub = $this->getMock('\GameQ\Protocols\Quake3', null, [[]]);
+        $this->stub = $this->getMock('\GameQ\Protocols\Bfbc2', null, [ [ ] ]);
     }
 
     /**
@@ -58,45 +61,26 @@ class Quake3 extends Base
     }
 
     /**
-     * Test invalid packet type without debug
-     */
-    public function testInvalidPacketType()
-    {
-
-        // Read in a Quake 3 source file
-        $source = file_get_contents(sprintf('%s/Providers/Quake3/1_response.txt', __DIR__));
-
-        // Change the first packet to some unknown header
-        $source = str_replace("\xFF\xFF\xFF\xFFstatusResponse", "\xFF\xFF\xFF\xFFstatusResponses", $source);
-
-        // Should show up as offline
-        $testResult = $this->queryTest('127.0.0.1:27960', 'quake3', explode(PHP_EOL . '||' . PHP_EOL, $source), false);
-
-        $this->assertFalse($testResult['gq_online']);
-    }
-
-    /**
-     * Test for invalid packet type in response
+     * Test for invalid packet length
      *
      * @expectedException Exception
-     * @expectedExceptionMessage GameQ\Protocols\Quake3::processResponse response type
-     *                           'ffffffff737461747573526573706f6e736573' is not valid
+     * @expectedExceptionMessage GameQ\Protocols\Bfbc2::processResponse packet length does not match expected length!
      */
-    public function testInvalidPacketTypeDebug()
+    public function testInvalidPacketLengthDebug()
     {
 
-        // Read in a Quake 3 source file
-        $source = file_get_contents(sprintf('%s/Providers/Quake3/1_response.txt', __DIR__));
+        // Read in a css source file
+        $source = file_get_contents(sprintf('%s/Providers/Bfbc2/1_response.txt', __DIR__));
 
         // Change the first packet to some unknown header
-        $source = str_replace("\xFF\xFF\xFF\xFFstatusResponse", "\xFF\xFF\xFF\xFFstatusResponses", $source);
+        $source = str_replace("\x00\x00\x00\x40\x28", "\x00\x00\x00\x40\x29", $source);
 
-        // Should show up as offline
-        $this->queryTest('127.0.0.1:27960', 'quake3', explode(PHP_EOL . '||' . PHP_EOL, $source), true);
+        // Should fail out
+        $this->queryTest('127.0.0.1:27015', 'bfbc2', explode(PHP_EOL . '||' . PHP_EOL, $source), true);
     }
 
     /**
-     * Test responses for Quake3
+     * Test responses for Battlefield Bad Company 2
      *
      * @dataProvider loadData
      *
@@ -111,7 +95,7 @@ class Quake3 extends Base
 
         $testResult = $this->queryTest(
             $server,
-            'quake3',
+            'bfbc2',
             $responses
         );
 

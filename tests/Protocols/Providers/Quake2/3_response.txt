@@ -1,0 +1,2 @@
+ÿÿÿÿprint
+\Score_A\WARMUP\Score_B\WARMUP\anticheat\1\cheats\0\deathmatch\1\dmflags\1040\fraglimit\0\game\opentdm\gamedate\Feb  9 2013\gamedir\opentdm\gamename\OpenTDM\hostname\PlayGround.ru - Teamplay\mapname\q2dm1\match_type\TDM\maxclients\12\port\27911\protocol\34\revision\22\time_remaining\WARMUP\timelimit\0\version\q2proded r1504~924ff39 Dec  3 2014 Linux i386

@@ -16,35 +16,34 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace GameQ\Tests\Protocols;
+namespace GameQ\Protocols;
 
 /**
- * Test Class for Space Engineers
+ * Class 7 Days to Die
  *
- * @package GameQ\Tests\Protocols
+ * @package GameQ\Protocols
+ * @author Austin Bischoff <austin@codebeard.com>
  */
-class Spaceengineers extends Base
+class Sevendaystodie extends Source
 {
     /**
-     * Test responses for Space engineers
+     * String name of this protocol class
      *
-     * @dataProvider loadData
-     *
-     * @param $responses
-     * @param $result
+     * @type string
      */
-    public function testResponses($responses, $result)
-    {
+    protected $name = 'sevendaystodie';
 
-        // Pull the first key off the array this is the server ip:port
-        $server = key($result);
+    /**
+     * Longer string name of this protocol class
+     *
+     * @type string
+     */
+    protected $name_long = "7 Days to Die";
 
-        $testResult = $this->queryTest(
-            $server,
-            'spaceengineers',
-            $responses
-        );
-
-        $this->assertEquals($result[ $server ], $testResult, '', 0.000000001);
-    }
+    /**
+     * query_port = client_port + 1
+     *
+     * @type int
+     */
+    protected $port_diff = 1;
 }

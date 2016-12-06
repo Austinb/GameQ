@@ -24,14 +24,17 @@ use GameQ\Result;
 use GameQ\Exception\Protocol as Exception;
 
 /**
- * Battlefield 3 Protocol Class
+ * Battlefield Bad Company 2 Protocol Class
  *
- * Good place for doc status and info is http://www.fpsadmin.com/forum/showthread.php?t=24134
+ * NOTE:  There are no qualifiers to the response packets sent back from the server as to which response packet
+ * belongs to which query request.  For now this class assumes the responses are in the same order as the order in
+ * which the packets were sent to the server.  If this assumption turns out to be wrong there is easy way to tell which
+ * response belongs to which query.  Hopefully this assumption will hold true as it has in my testing.
  *
  * @package GameQ\Protocols
  * @author  Austin Bischoff <austin@codebeard.com>
  */
-class Bf3 extends Protocol
+class Bfbc2 extends Protocol
 {
 
     /**
@@ -40,10 +43,9 @@ class Bf3 extends Protocol
      * @type array
      */
     protected $packets = [
-        self::PACKET_STATUS  => "\x00\x00\x00\x21\x1b\x00\x00\x00\x01\x00\x00\x00\x0a\x00\x00\x00serverInfo\x00",
-        self::PACKET_VERSION => "\x00\x00\x00\x22\x18\x00\x00\x00\x01\x00\x00\x00\x07\x00\x00\x00version\x00",
-        self::PACKET_PLAYERS =>
-            "\x00\x00\x00\x23\x24\x00\x00\x00\x02\x00\x00\x00\x0b\x00\x00\x00listPlayers\x00\x03\x00\x00\x00\x61ll\x00",
+        self::PACKET_VERSION => "\x00\x00\x00\x00\x18\x00\x00\x00\x01\x00\x00\x00\x07\x00\x00\x00version\x00",
+        self::PACKET_STATUS  => "\x00\x00\x00\x00\x1b\x00\x00\x00\x01\x00\x00\x00\x0a\x00\x00\x00serverInfo\x00",
+        self::PACKET_PLAYERS => "\x00\x00\x00\x00\x24\x00\x00\x00\x02\x00\x00\x00\x0b\x00\x00\x00listPlayers\x00\x03\x00\x00\x00\x61ll\x00",
     ];
 
     /**
@@ -52,9 +54,9 @@ class Bf3 extends Protocol
      * @type array
      */
     protected $responses = [
-        1627389952 => "processDetails", // a
-        1644167168 => "processVersion", // b
-        1660944384 => "processPlayers", // c
+        "processVersion",
+        "processDetails",
+        "processPlayers",
     ];
 
     /**
@@ -69,21 +71,21 @@ class Bf3 extends Protocol
      *
      * @type string
      */
-    protected $protocol = 'bf3';
+    protected $protocol = 'bfbc2';
 
     /**
      * String name of this protocol class
      *
      * @type string
      */
-    protected $name = 'bf3';
+    protected $name = 'bfbc2';
 
     /**
      * Longer string name of this protocol class
      *
      * @type string
      */
-    protected $name_long = "Battlefield 3";
+    protected $name_long = "Battlefield Bad Company 2";
 
     /**
      * The client join link
@@ -93,12 +95,12 @@ class Bf3 extends Protocol
     protected $join_link = null;
 
     /**
-     * query_port = client_port + 22000
-     * 47200 = 25200 + 22000
+     * query_port = client_port + 29321
+     * 48888 = 19567 + 29321
      *
      * @type int
      */
-    protected $port_diff = 22000;
+    protected $port_diff = 29321;
 
     /**
      * Normalize settings for this protocol
@@ -135,57 +137,37 @@ class Bf3 extends Protocol
     public function processResponse()
     {
 
+        //print_r($this->packets_response);
+
         // Holds the results sent back
         $results = [];
 
-        // Holds the processed packets after having been reassembled
-        $processed = [];
-
-        // Start up the index for the processed
-        $sequence_id_last = 0;
-
-        foreach ($this->packets_response as $packet) {
+        // Iterate over the response packets
+        // @todo: This protocol has no packet ordering, ids or anyway to identify which packet coming back belongs to which initial call.
+        foreach ($this->packets_response as $i => $packet) {
             // Create a new buffer
             $buffer = new Buffer($packet);
 
-            // Each "good" packet begins with sequence_id (32-bit)
-            $sequence_id = $buffer->readInt32();
+            // Burn first 4 bytes, same across all packets
+            $buffer->skip(4);
 
-            // Sequence id is a response
-            if (array_key_exists($sequence_id, $this->responses)) {
-                $processed[$sequence_id] = $buffer->getBuffer();
-                $sequence_id_last = $sequence_id;
-            } else {
-                // This is a continuation of the previous packet, reset the buffer and append
-                $buffer->jumpto(0);
-
-                // Append
-                $processed[$sequence_id_last] .= $buffer->getBuffer();
-            }
-        }
-
-        unset($buffer, $sequence_id_last, $sequence_id);
-
-        // Iterate over the combined packets and do some work
-        foreach ($processed as $sequence_id => $data) {
-            // Create a new buffer
-            $buffer = new Buffer($data);
-
-            // Get the length of the packet
+            // Get the packet length
             $packetLength = $buffer->getLength();
 
             // Check to make sure the expected length matches the real length
-            // Subtract 4 for the sequence_id pulled out earlier
+            // Subtract 4 for the header burn
             if ($packetLength != ($buffer->readInt32() - 4)) {
                 throw new Exception(__METHOD__ . " packet length does not match expected length!");
             }
 
-            // Now we need to call the proper method
+            // We assume the packets are coming back in the same order as sent, this maybe incorrect...
             $results = array_merge(
                 $results,
-                call_user_func_array([$this, $this->responses[$sequence_id]], [$buffer])
+                call_user_func_array([$this, $this->responses[$i]], [$buffer])
             );
         }
+
+        unset($buffer, $packetLength);
 
         return $results;
     }
@@ -266,21 +248,18 @@ class Bf3 extends Protocol
 
         // Get and set the rest of the data points.
         $result->add('targetscore', (int)$items[$index_current]);
-        $result->add('online', 1); // Forced true, it seems $words[$index_current + 1] is always empty
-        $result->add('ranked', (int)$items[$index_current + 2]);
-        $result->add('punkbuster', (int)$items[$index_current + 3]);
-        $result->add('password', (int)$items[$index_current + 4]);
+        $result->add('online', 1); // Forced true, shows accepting players
+        $result->add('ranked', (($items[$index_current + 2] == 'true') ? 1 : 0));
+        $result->add('punkbuster', (($items[$index_current + 3] == 'true') ? 1 : 0));
+        $result->add('password', (($items[$index_current + 4] == 'true') ? 1 : 0));
         $result->add('uptime', (int)$items[$index_current + 5]);
         $result->add('roundtime', (int)$items[$index_current + 6]);
-        // Added in R9
-        $result->add('ip_port', $items[$index_current + 7]);
-        $result->add('punkbuster_version', $items[$index_current + 8]);
-        $result->add('join_queue', (int)$items[$index_current + 9]);
-        $result->add('region', $items[$index_current + 10]);
-        $result->add('pingsite', $items[$index_current + 11]);
-        $result->add('country', $items[$index_current + 12]);
-        // Added in R29, No docs as of yet
-        $result->add('quickmatch', (int)$items[$index_current + 13]); // Guessed from research
+        $result->add('mod', $items[$index_current + 7]);
+
+        $result->add('ip_port', $items[$index_current + 9]);
+        $result->add('punkbuster_version', $items[$index_current + 10]);
+        $result->add('join_queue', (($items[$index_current + 11] == 'true') ? 1 : 0));
+        $result->add('region', $items[$index_current + 12]);
 
         unset($items, $index_current, $teamCount, $buffer);
 
@@ -296,7 +275,6 @@ class Bf3 extends Protocol
      */
     protected function processVersion(Buffer $buffer)
     {
-
         // Decode into items
         $items = $this->decode($buffer);
 
