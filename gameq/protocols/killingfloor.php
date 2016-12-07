@@ -50,6 +50,7 @@ class GameQ_Protocols_Killingfloor extends GameQ_Protocols_Unreal2
 	    // Create a buffer
 	    $buf = new GameQ_Buffer($data);
 
+	    $result->add('game_descr',  $this->name_long);
 	    $result->add('serverid',    $buf->readInt32());          // 0
 	    $result->add('serverip',    $buf->readPascalString(1));  // empty
 	    $result->add('gameport',    $buf->readInt32());
