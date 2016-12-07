@@ -36,8 +36,8 @@ class Armedassault3 extends Source
      * DLC ^2 constants
      */
     const DLC_KARTS = 1,
-        DLC_MARKSMAN = 2,
-        DLC_HELICOPTER = 4,
+        DLC_MARKSMEN = 2,
+        DLC_HELICOPTERS = 4,
         DLC_APEX = 16;
 
     /**
@@ -46,10 +46,10 @@ class Armedassault3 extends Source
      * @var array
      */
     protected $dlcNames = [
-        self::DLC_KARTS      => 'Karts',
-        self::DLC_MARKSMAN   => 'Marksman',
-        self::DLC_HELICOPTER => 'Helicopter',
-        self::DLC_APEX       => 'Apex',
+        self::DLC_KARTS       => 'Karts',
+        self::DLC_MARKSMEN    => 'Marksmen',
+        self::DLC_HELICOPTERS => 'Helicopters',
+        self::DLC_APEX        => 'Apex',
     ];
 
 
