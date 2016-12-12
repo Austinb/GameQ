@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Armedassault3 extends Base
+class Arma3 extends Base
 {
     /**
      * Test responses for Arma 3
@@ -41,7 +41,7 @@ class Armedassault3 extends Base
 
         $testResult = $this->queryTest(
             $server,
-            'armedassault3',
+            'arma3',
             $responses
         );
 
