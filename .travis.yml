@@ -3,14 +3,13 @@ language: php
 php:
   - 5.4.45
   - 5.5.38
-  - 5.6.28
-  - 7.0.13
-  - 7.1
+  - 5.6.29
+  - 7.0.14
+  - 7.1.0
   - hhvm
 
 matrix:
     allow_failures:
-        - php: 7.1
         - php: hhvm
 
 before_script:
