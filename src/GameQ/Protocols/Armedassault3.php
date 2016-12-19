@@ -19,31 +19,14 @@
 namespace GameQ\Protocols;
 
 /**
- * Class Armed Assault 3
+ * Armed assault 3 dummy Protocol Class
  *
- * @package GameQ\Protocols
- * @author Austin Bischoff <austin@codebeard.com>
+ * Added for backward compatibility, please update to class arma3
+ *
+ * @deprecated v3.0.10
+ * @package    GameQ\Protocols
+ * @author     Austin Bischoff <austin@codebeard.com>
  */
-class Armedassault3 extends Source
+class Armedassault3 extends Arma3
 {
-    /**
-     * String name of this protocol class
-     *
-     * @type string
-     */
-    protected $name = 'armedassault3';
-
-    /**
-     * Longer string name of this protocol class
-     *
-     * @type string
-     */
-    protected $name_long = "Armed Assault 3";
-
-    /**
-     * Query port = client_port + 1
-     *
-     * @type int
-     */
-    protected $port_diff = 1;
 }
