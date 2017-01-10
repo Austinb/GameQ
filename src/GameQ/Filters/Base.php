@@ -40,7 +40,7 @@ abstract class Base
      *
      * @param array $options
      */
-    public function __construct($options = [])
+    public function __construct(array $options = [])
     {
 
         $this->options = $options;
@@ -49,10 +49,10 @@ abstract class Base
     /**
      * Apply the filter to the data
      *
-     * @param array         $data
+     * @param array         $result
      * @param \GameQ\Server $server
      *
      * @return mixed
      */
-    abstract public function apply(array $data, Server $server);
+    abstract public function apply(array $result, Server $server);
 }

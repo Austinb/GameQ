@@ -170,26 +170,34 @@ class GameQ extends \PHPUnit_Framework_TestCase
         // Add filter
         $this->stub->addFilter('test_filter');
 
-        $this->assertArrayHasKey('test_filter', \PHPUnit_Framework_Assert::readAttribute($this->stub, 'options')
-        ['filters']);
+        $this->assertArrayHasKey(
+            'test_filter_d751713988987e9331980363e24189ce',
+            \PHPUnit_Framework_Assert::readAttribute($this->stub, 'options')['filters']
+        );
 
         // Remove filter
-        $this->stub->removeFilter('test_filter');
+        $this->stub->removeFilter('test_filter_d751713988987e9331980363e24189ce');
 
-        $this->assertArrayNotHasKey('test_filter', \PHPUnit_Framework_Assert::readAttribute($this->stub, 'options')
-        ['filters']);
+        $this->assertArrayNotHasKey(
+            'test_filter_d751713988987e9331980363e24189ce',
+            \PHPUnit_Framework_Assert::readAttribute($this->stub, 'options')['filters']
+        );
 
         // Test for lower case always
         $this->stub->addFilter('tEst_fiLTEr');
 
-        $this->assertArrayHasKey('test_filter', \PHPUnit_Framework_Assert::readAttribute($this->stub, 'options')
-        ['filters']);
+        $this->assertArrayHasKey(
+            'test_filter_d751713988987e9331980363e24189ce',
+            \PHPUnit_Framework_Assert::readAttribute($this->stub, 'options')['filters']
+        );
 
         // Remove filter always lower case
-        $this->stub->removeFilter('tEst_fiLTEr');
+        $this->stub->removeFilter('tEst_fiLTEr_d751713988987e9331980363e24189ce');
 
-        $this->assertArrayNotHasKey('test_filter', \PHPUnit_Framework_Assert::readAttribute($this->stub, 'options')
-        ['filters']);
+        $this->assertArrayNotHasKey(
+            'test_filter_d751713988987e9331980363e24189ce',
+            \PHPUnit_Framework_Assert::readAttribute($this->stub, 'options')['filters']
+        );
     }
 
     /**
@@ -206,13 +214,13 @@ class GameQ extends \PHPUnit_Framework_TestCase
 
         // Create a mock server
         $server = $this->getMockBuilder('\GameQ\Server')
-                       ->disableOriginalConstructor()
-                       ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
 
         // Create a mock GameQ
-        $gq_mock = $this->getMock('\GameQ\GameQ', null, [ ]);
+        $gq_mock = $this->getMock('\GameQ\GameQ', null, []);
         $gq_mock->setOption('debug', false);
-        $gq_mock->removeFilter('normalize');
+        $gq_mock->removeFilter('normalize_d751713988987e9331980363e24189ce');
         $gq_mock->addFilter('test');
 
         // Reflect on GameQ class so we can parse
@@ -243,13 +251,13 @@ class GameQ extends \PHPUnit_Framework_TestCase
 
         // Create a mock server
         $server = $this->getMockBuilder('\GameQ\Server')
-                       ->disableOriginalConstructor()
-                       ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
 
         // Create a mock GameQ
-        $gq_mock = $this->getMock('\GameQ\GameQ', null, [ ]);
+        $gq_mock = $this->getMock('\GameQ\GameQ', null, []);
         $gq_mock->setOption('debug', false);
-        $gq_mock->removeFilter('normalize');
+        $gq_mock->removeFilter('normalize_d751713988987e9331980363e24189ce');
         $gq_mock->addFilter('some_bad_filter');
 
         // Reflect on GameQ class so we can parse

@@ -85,7 +85,7 @@ try {
 
     // Let's do GameQ
     $gq = new \GameQ\GameQ();
-    $gq->removeFilter('normalize'); // We dont care about normalize for testing the core
+    $gq->removeFilter('normalize_d751713988987e9331980363e24189ce'); // We dont care about normalize for testing the core
     $gq->setOption('debug', true);
     $gq->setOption('timeout', 10);
     $gq->setOption('stream_timeout', 900000);

@@ -78,7 +78,13 @@ class GameQ
     protected $options = [
         'debug'                => false,
         'timeout'              => 3, // Seconds
-        'filters'              => [ 'normalize' => [ ] ],
+        'filters'              => [
+            // Default normalize
+            'normalize_d751713988987e9331980363e24189ce' => [
+                'filter'  => 'normalize',
+                'options' => [],
+            ],
+        ],
         // Advanced settings
         'stream_timeout'       => 200000, // See http://www.php.net/manual/en/function.stream-select.php for more info
         'write_wait'           => 500,
@@ -93,7 +99,7 @@ class GameQ
      *
      * @type array
      */
-    protected $servers = [ ];
+    protected $servers = [];
 
     /**
      * The query library to use.  Default is Native
@@ -133,7 +139,7 @@ class GameQ
     public function __get($option)
     {
 
-        return isset($this->options[ $option ]) ? $this->options[ $option ] : null;
+        return isset($this->options[$option]) ? $this->options[$option] : null;
     }
 
     /**
@@ -147,7 +153,7 @@ class GameQ
     public function __set($option, $value)
     {
 
-        $this->options[ $option ] = $value;
+        $this->options[$option] = $value;
 
         return true;
     }
@@ -176,11 +182,11 @@ class GameQ
      *
      * @return $this
      */
-    public function addServer(array $server_info = [ ])
+    public function addServer(array $server_info = [])
     {
 
         // Add and validate the server
-        $this->servers[ uniqid() ] = new Server($server_info);
+        $this->servers[uniqid()] = new Server($server_info);
 
         return $this; // Make calls chainable
     }
@@ -192,7 +198,7 @@ class GameQ
      *
      * @return $this
      */
-    public function addServers(array $servers = [ ])
+    public function addServers(array $servers = [])
     {
 
         // Loop through all the servers and add them
@@ -213,12 +219,12 @@ class GameQ
      * @return $this
      * @throws \Exception
      */
-    public function addServersFromFiles($files = [ ])
+    public function addServersFromFiles($files = [])
     {
 
         // Since we expect an array let us turn a string (i.e. single file) into an array
         if (!is_array($files)) {
-            $files = [ $files ];
+            $files = [$files];
         }
 
         // Iterate over the file(s) and add them
@@ -252,7 +258,7 @@ class GameQ
     {
 
         // Reset all the servers
-        $this->servers = [ ];
+        $this->servers = [];
 
         return $this; // Make Chainable
     }
@@ -265,34 +271,52 @@ class GameQ
      *
      * @return $this
      */
-    public function addFilter($filterName, $options = [ ])
+    public function addFilter($filterName, $options = [])
     {
+        // Create the filter hash so we can run multiple versions of the same filter
+        $filterHash = sprintf('%s_%s', strtolower($filterName), md5(json_encode($options)));
 
         // Add the filter
-        $this->options['filters'][ strtolower($filterName) ] = $options;
+        $this->options['filters'][$filterHash] = [
+            'filter'  => strtolower($filterName),
+            'options' => $options,
+        ];
+
+        unset($filterHash);
 
         return $this;
     }
 
     /**
-     * Remove a filter from processing
+     * Remove an added filter
      *
-     * @param string $filterName
+     * @param string $filterHash
      *
      * @return $this
      */
-    public function removeFilter($filterName)
+    public function removeFilter($filterHash)
     {
-
-        // Set to all lower
-        $filterName = strtolower($filterName);
+        // Make lower case
+        $filterHash = strtolower($filterHash);
 
         // Remove this filter if it has been defined
-        if (array_key_exists($filterName, $this->options['filters'])) {
-            unset($this->options['filters'][ $filterName ]);
+        if (array_key_exists($filterHash, $this->options['filters'])) {
+            unset($this->options['filters'][$filterHash]);
         }
 
+        unset($filterHash);
+
         return $this;
+    }
+
+    /**
+     * Return the list of applied filters
+     *
+     * @return array
+     */
+    public function listFilters()
+    {
+        return $this->options['filters'];
     }
 
     /**
@@ -313,7 +337,7 @@ class GameQ
         unset($class);
 
         // Define the return
-        $results = [ ];
+        $results = [];
 
         // @todo: Add break up into loop to split large arrays into smaller chunks
 
@@ -337,7 +361,7 @@ class GameQ
             ksort($result);
 
             // Add the result to the results array
-            $results[ $server->id() ] = $result;
+            $results[$server->id()] = $result;
         }
 
         return $results;
@@ -350,7 +374,7 @@ class GameQ
     {
 
         // Initialize the sockets for reading
-        $sockets = [ ];
+        $sockets = [];
 
         // By default we don't have any challenges to process
         $server_challenge = false;
@@ -380,7 +404,7 @@ class GameQ
                     $socket->write($server->protocol()->getPacket(Protocol::PACKET_CHALLENGE));
 
                     // Add the socket information so we can reference it easily
-                    $sockets[ (int) $socket->get() ] = [
+                    $sockets[(int)$socket->get()] = [
                         'server_id' => $server_id,
                         'socket'    => $socket,
                     ];
@@ -402,27 +426,27 @@ class GameQ
         if ($server_challenge) {
             // Now we need to listen for and grab challenge response(s)
             $responses = call_user_func_array(
-                [ $this->query, 'getResponses' ],
-                [ $sockets, $this->timeout, $this->stream_timeout ]
+                [$this->query, 'getResponses'],
+                [$sockets, $this->timeout, $this->stream_timeout]
             );
 
             // Iterate over the challenge responses
             foreach ($responses as $socket_id => $response) {
                 // Back out the server_id we need to update the challenge response for
-                $server_id = $sockets[ $socket_id ]['server_id'];
+                $server_id = $sockets[$socket_id]['server_id'];
 
                 // Make this into a buffer so it is easier to manipulate
                 $challenge = new Buffer(implode('', $response));
 
                 // Grab the server instance
                 /* @var $server \GameQ\Server */
-                $server = $this->servers[ $server_id ];
+                $server = $this->servers[$server_id];
 
                 // Apply the challenge
                 $server->protocol()->challengeParseAndApply($challenge);
 
                 // Add this socket to be reused, has to be reused in GameSpy3 for example
-                $server->socketAdd($sockets[ $socket_id ]['socket']);
+                $server->socketAdd($sockets[$socket_id]['socket']);
 
                 // Clear
                 unset($server);
@@ -437,7 +461,7 @@ class GameQ
     {
 
         // Initialize the array of sockets
-        $sockets = [ ];
+        $sockets = [];
 
         // Iterate over the server list
         foreach ($this->servers as $server_id => $server) {
@@ -481,7 +505,7 @@ class GameQ
                 unset($packets);
 
                 // Add the socket information so we can reference it easily
-                $sockets[ (int) $socket->get() ] = [
+                $sockets[(int)$socket->get()] = [
                     'server_id' => $server_id,
                     'socket'    => $socket,
                 ];
@@ -500,18 +524,18 @@ class GameQ
 
         // Now we need to listen for and grab response(s)
         $responses = call_user_func_array(
-            [ $this->query, 'getResponses' ],
-            [ $sockets, $this->timeout, $this->stream_timeout ]
+            [$this->query, 'getResponses'],
+            [$sockets, $this->timeout, $this->stream_timeout]
         );
 
         // Iterate over the responses
         foreach ($responses as $socket_id => $response) {
             // Back out the server_id
-            $server_id = $sockets[ $socket_id ]['server_id'];
+            $server_id = $sockets[$socket_id]['server_id'];
 
             // Grab the server instance
             /* @var $server \GameQ\Server */
-            $server = $this->servers[ $server_id ];
+            $server = $this->servers[$server_id];
 
             // Save the response from this packet
             $server->protocol()->packetResponse($response);
@@ -577,7 +601,7 @@ class GameQ
         $results['gq_port_client'] = $server->portClient();
         $results['gq_port_query'] = $server->portQuery();
         $results['gq_protocol'] = $server->protocol()->getProtocol();
-        $results['gq_type'] = (string) $server->protocol();
+        $results['gq_type'] = (string)$server->protocol();
         $results['gq_name'] = $server->protocol()->nameLong();
         $results['gq_transport'] = $server->protocol()->transport();
 
@@ -601,14 +625,14 @@ class GameQ
     {
 
         // Loop over the filters
-        foreach ($this->options['filters'] as $filterName => $filterOptions) {
+        foreach ($this->options['filters'] as $filterOptions) {
             // Try to do this filter
             try {
                 // Make a new reflection class
-                $class = new \ReflectionClass(sprintf('GameQ\\Filters\\%s', ucfirst($filterName)));
+                $class = new \ReflectionClass(sprintf('GameQ\\Filters\\%s', ucfirst($filterOptions['filter'])));
 
                 // Create a new instance of the filter class specified
-                $filter = $class->newInstanceArgs([ $filterOptions ]);
+                $filter = $class->newInstanceArgs([$filterOptions['options']]);
 
                 // Apply the filter to the data
                 $results = $filter->apply($results, $server);
