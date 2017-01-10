@@ -33,16 +33,17 @@ class Issue307 extends \PHPUnit_Framework_TestCase
      *
      * PHP Fatal error:  [] operator not supported for strings in ./src/GameQ/Protocols/Source.php on line 185
      */
-    public function test1() {
+    public function test1()
+    {
 
         $filePath = sprintf('%s/Providers/307.txt', __DIR__);
 
         // Create a mock server
         $server = $this->getMock('\GameQ\Server', null, [
             [
-                \GameQ\Server::SERVER_HOST    => '127.0.0.1:27015',
-                \GameQ\Server::SERVER_TYPE    => 'csgo',
-            ]
+                \GameQ\Server::SERVER_HOST => '127.0.0.1:27015',
+                \GameQ\Server::SERVER_TYPE => 'csgo',
+            ],
         ]);
 
         // Invoke beforeSend function
@@ -52,7 +53,7 @@ class Issue307 extends \PHPUnit_Framework_TestCase
         $server->protocol()->packetResponse(explode(PHP_EOL . '||' . PHP_EOL, file_get_contents($filePath)));
 
         // Create a mock GameQ
-        $gq_mock = $this->getMock('\GameQ\GameQ', null, [ ]);
+        $gq_mock = $this->getMock('\GameQ\GameQ', null, []);
         $gq_mock->setOption('debug', false);
 
         // Reflect on GameQ class so we can parse
