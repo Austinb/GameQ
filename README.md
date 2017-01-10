@@ -16,10 +16,10 @@ GameQ is a PHP library that allows you to query multiple types of multiplayer ga
 
 ## Installation
 #### [Composer](https://getcomposer.org/)
-This method assumes you already have composer [installed](https://getcomposer.org/doc/00-intro.md) and working properly. Add `austinb/gameq` as a requirement to composer.json by using `composer require austinb/gameq:3.*@dev` or by manually adding the following to the *composer.json* file in the **require** section:
+This method assumes you already have composer [installed](https://getcomposer.org/doc/00-intro.md) and working properly. Add `austinb/gameq` as a requirement to composer.json by using `composer require austinb/gameq:~3.0` or by manually adding the following to the *composer.json* file in the **require** section:
 
 ```javascript
-"austinb/gameq": "3.*@dev"
+"austinb/gameq": "~3.0"
 ```
 
 Update your packages with `composer update` or install with `composer install`.
