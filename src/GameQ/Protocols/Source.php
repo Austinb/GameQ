@@ -154,9 +154,10 @@ class Source extends Protocol
      */
     public function processResponse()
     {
-
+        // Will hold the results when complete
         $results = [];
 
+        // Holds sorted response packets
         $packets = [];
 
         // We need to pre-sort these for split packets so we can do extra work where needed
@@ -179,12 +180,15 @@ class Source extends Protocol
                 // Split packet
 
                 // Packet Id (long)
-                $packet_id = $buffer->readInt32Signed();
+                $packet_id = $buffer->readInt32Signed() + 10;
 
                 // Add the buffer to the packet as another array
                 $packets[$packet_id][] = $buffer->getBuffer();
             }
         }
+
+        // Free up memory
+        unset($response, $packet_id, $buffer, $header);
 
         // Now that we have the packets sorted we need to iterate and process them
         foreach ($packets as $packet_id => $packet) {
@@ -212,7 +216,8 @@ class Source extends Protocol
             unset($buffer);
         }
 
-        unset($packets, $packet);
+        // Free up memory
+        unset($packets, $packet, $packet_id, $response_type);
 
         return $results;
     }
