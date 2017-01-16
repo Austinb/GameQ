@@ -122,6 +122,24 @@ class GameQ_Filters_Normalise extends GameQ_Filters
 
         unset($result['gq_players'], $result['gq_teams']);
 
+        // Apply the custom/more specific normalizer
+        if(!empty($this->params))
+        {
+            foreach($this->params as $normalizerName)
+            {
+                $className = 'GameQ_Filters_Normalizer_'.ucfirst($protocol_instance->name()).'_'.ucfirst($normalizerName);
+
+                try{
+                    /** @var $normalizer GameQ_Filters_Normalizer_Core */
+                    $normalizer = new $className();
+
+                    $result = $normalizer->normalize($result);
+                }catch (Exception $e)
+                {
+                    // ignore, as this filter does not exist.
+                }
+            }
+        }
 
         // Merge and sort array
         $result = (array_merge($data, $result));
