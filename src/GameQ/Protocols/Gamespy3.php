@@ -90,8 +90,8 @@ class Gamespy3 extends Protocol
         $challenge_result = '';
 
         // Check for valid challenge (see #197)
-        if( $challenge )
-        {
+        if ($challenge) {
+            // Encode chellenge result
             $challenge_result = sprintf(
                 "%c%c%c%c",
                 ($challenge >> 24),
