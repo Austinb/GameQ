@@ -182,8 +182,8 @@ class Native extends Core
             // Now lets listen for some streams, but do not cross the streams!
             $streams = stream_select($read, $write, $except, 0, $stream_timeout);
 
-            // We had error or no streams left, kill the loop
-            if ($streams === false || ($streams <= 0)) {
+            // We had error, kill the loop
+            if ($streams === false) {
                 break;
             }
 
@@ -205,6 +205,11 @@ class Native extends Core
 
                 // Add the response we got back
                 $responses[(int)$socket][] = $response;
+            }
+
+            // if we have data from all sockest, break
+            if( count($responses) == count($sockets) ) {
+                break;
             }
 
             // Because stream_select modifies read we need to reset it each time to the original array of sockets
