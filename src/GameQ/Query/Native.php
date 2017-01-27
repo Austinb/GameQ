@@ -207,8 +207,8 @@ class Native extends Core
                 $responses[(int)$socket][] = $response;
             }
 
-            // if we have data from all sockest, break
-            if( count($responses) == count($sockets) ) {
+            // If we have data from all sockest, break
+            if (count($responses) == count($sockets)) {
                 break;
             }
 
