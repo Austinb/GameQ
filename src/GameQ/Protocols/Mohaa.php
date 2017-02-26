@@ -39,4 +39,21 @@ class Mohaa extends Gamespy
      * @type string
      */
     protected $name_long = "Medal of honor: Allied Assault";
+
+    protected $normalize = [
+        'general' => [
+            // target       => source
+            'dedicated'  => 'dedicated',
+            'gametype'   => 'gametype',
+            'hostname'   => 'hostname',
+            'mapname'    => 'mapname',
+            'maxplayers' => 'maxplayers',
+            'numplayers' => 'numplayers',
+            'password'   => 'password',
+        ],
+        // Individual
+        'player'  => [
+            'name'  => 'player'
+        ],
+    ];
 }
