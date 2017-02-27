@@ -53,7 +53,9 @@ class Mohaa extends Gamespy
         ],
         // Individual
         'player'  => [
-            'name'  => 'player'
+            'name' => 'player',
+            'score' => 'frags',
+            'ping' => 'ping'
         ],
     ];
 }
