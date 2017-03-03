@@ -53,7 +53,7 @@ class Normalize extends Base
             ->getMock();
 
         // Create a mock filter
-        $filter = $this->getMockBuilder(\GameQ\Filters\Normalize::class)
+        $filter = $this->getMockBuilder('\GameQ\Filters\Normalize')
             ->enableProxyingToOriginalMethods()
             ->getMock();
 
@@ -78,7 +78,7 @@ class Normalize extends Base
             ->getMock();
 
         // Create a mock filter
-        $filter = $this->getMockBuilder(\GameQ\Filters\Normalize::class)
+        $filter = $this->getMockBuilder('\GameQ\Filters\Normalize')
             ->enableProxyingToOriginalMethods()
             ->getMock();
 

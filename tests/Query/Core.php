@@ -18,12 +18,14 @@
 
 namespace GameQ\Tests\Query;
 
+use GameQ\Tests\TestBase;
+
 /**
  * Class Core testing
  *
  * @package GameQ\Tests\Query
  */
-class Core extends \PHPUnit\Framework\TestCase
+class Core extends TestBase
 {
     /**
      * Test setting the properties for the query core
