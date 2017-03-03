@@ -42,15 +42,20 @@ class Normalize extends Base
         $host = key($raw);
 
         // Create a mock server
-        $server = $this->getMock('\GameQ\Server', null, [
-            [
-                \GameQ\Server::SERVER_HOST => $host,
-                \GameQ\Server::SERVER_TYPE => $protocol,
-            ]
-        ]);
+        $server = $this->getMockBuilder(\GameQ\Server::class)
+            ->setConstructorArgs([
+                [
+                    \GameQ\Server::SERVER_HOST => $host,
+                    \GameQ\Server::SERVER_TYPE => $protocol,
+                ],
+            ])
+            ->enableProxyingToOriginalMethods()
+            ->getMock();
 
         // Create a mock filter
-        $filter = $this->getMock('\GameQ\Filters\Normalize', null, [ ]);
+        $filter = $this->getMockBuilder(\GameQ\Filters\Normalize::class)
+            ->enableProxyingToOriginalMethods()
+            ->getMock();
 
         $this->assertEquals($filtered[$host], $filter->apply($raw[$host], $server));
     }
@@ -62,16 +67,21 @@ class Normalize extends Base
     {
 
         // Create a mock server
-        $server = $this->getMock('\GameQ\Server', null, [
-            [
-                \GameQ\Server::SERVER_HOST => '127.0.0.1:27015',
-                \GameQ\Server::SERVER_TYPE => 'css',
-            ]
-        ]);
+        $server = $this->getMockBuilder(\GameQ\Server::class)
+            ->setConstructorArgs([
+                [
+                    \GameQ\Server::SERVER_HOST => '127.0.0.1:27015',
+                    \GameQ\Server::SERVER_TYPE => 'css',
+                ],
+            ])
+            ->enableProxyingToOriginalMethods()
+            ->getMock();
 
         // Create a mock filter
-        $filter = $this->getMock('\GameQ\Filters\Normalize', null, [ ]);
+        $filter = $this->getMockBuilder(\GameQ\Filters\Normalize::class)
+            ->enableProxyingToOriginalMethods()
+            ->getMock();
 
-        $this->assertEmpty($filter->apply([ ], $server));
+        $this->assertEmpty($filter->apply([], $server));
     }
 }

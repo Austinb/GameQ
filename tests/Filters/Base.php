@@ -18,12 +18,14 @@
 
 namespace GameQ\Tests\Filters;
 
+use GameQ\Tests\TestBase;
+
 /**
  * Class for testing Filters Base
  *
  * @package GameQ\Tests\Filters
  */
-class Base extends \PHPUnit\Framework\TestCase
+class Base extends TestBase
 {
 
     /**
