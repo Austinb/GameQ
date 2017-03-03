@@ -42,7 +42,7 @@ class Normalize extends Base
         $host = key($raw);
 
         // Create a mock server
-        $server = $this->getMockBuilder(\GameQ\Server::class)
+        $server = $this->getMockBuilder('\GameQ\Server')
             ->setConstructorArgs([
                 [
                     \GameQ\Server::SERVER_HOST => $host,
@@ -67,7 +67,7 @@ class Normalize extends Base
     {
 
         // Create a mock server
-        $server = $this->getMockBuilder(\GameQ\Server::class)
+        $server = $this->getMockBuilder('\GameQ\Server')
             ->setConstructorArgs([
                 [
                     \GameQ\Server::SERVER_HOST => '127.0.0.1:27015',
