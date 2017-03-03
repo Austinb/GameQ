@@ -23,7 +23,7 @@ namespace GameQ\Tests\Query;
  *
  * @package GameQ\Tests\Query
  */
-class Core extends \PHPUnit_Framework_TestCase
+class Core extends \PHPUnit\Framework\TestCase
 {
     /**
      * Test setting the properties for the query core

@@ -23,7 +23,7 @@ namespace GameQ\Tests\Filters;
  *
  * @package GameQ\Tests\Filters
  */
-class Base extends \PHPUnit_Framework_TestCase
+class Base extends \PHPUnit\Framework\TestCase
 {
 
     /**

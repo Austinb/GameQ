@@ -25,7 +25,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-abstract class Base extends \PHPUnit_Framework_TestCase
+abstract class Base extends \PHPUnit\Framework\TestCase
 {
 
     /**

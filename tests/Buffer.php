@@ -23,7 +23,7 @@ namespace GameQ\Tests;
  *
  * @package GameQ\Tests
  */
-class Buffer extends \PHPUnit_Framework_TestCase
+class Buffer extends \PHPUnit\Framework\TestCase
 {
     /**
      * Build a mock Buffer

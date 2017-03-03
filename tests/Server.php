@@ -23,7 +23,7 @@ namespace GameQ\Tests;
  *
  * @package GameQ\Tests
  */
-class Server extends \PHPUnit_Framework_TestCase
+class Server extends \PHPUnit\Framework\TestCase
 {
     /**
      * Test for missing server type

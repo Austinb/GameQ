@@ -26,7 +26,7 @@ namespace GameQ\Tests\Issues;
  *
  * @package GameQ\Tests\Issues
  */
-class Issue307 extends \PHPUnit_Framework_TestCase
+class Issue307 extends \PHPUnit\Framework\TestCase
 {
     /**
      * Test for issue with colliding packet ids in Source Protocol
