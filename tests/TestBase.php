@@ -21,4 +21,8 @@ namespace GameQ\Tests;
 class TestBase extends \PHPUnit\Framework\TestCase
 {
 
+    public function testWarning()
+    {
+        $this->assertTrue(true);
+    }
 }
