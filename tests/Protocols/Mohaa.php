@@ -25,6 +25,33 @@ namespace GameQ\Tests\Protocols;
  */
 class Mohaa extends Base
 {
+
+    /**
+     * Holds stub on setup
+     *
+     * @type \GameQ\Protocols\Mohaa
+     */
+    protected $stub;
+
+    /**
+     * Setup
+     */
+    public function setUp()
+    {
+
+        // Create the stub class
+        $this->stub = $this->getMock('\GameQ\Protocols\Mohaa', null, [[]]);
+    }
+
+    /**
+     * Test to make sure the query port has not changed.  May have to come back and change this if it turns out
+     * that the mohaa query port can be different by some kind of predictable interval.
+     */
+    public function testQueryPort()
+    {
+        $this->assertEquals($this->stub->findQueryPort(12203), 12300);
+    }
+
     /**
      * Test responses for Medal of honor: Allied Assault
      *
@@ -42,9 +69,7 @@ class Mohaa extends Base
         $testResult = $this->queryTest(
             $server,
             'mohaa',
-            $responses,
-            false,
-            ['query_port' => 12300]
+            $responses
         );
 
         $this->assertEquals($result[$server], $testResult);

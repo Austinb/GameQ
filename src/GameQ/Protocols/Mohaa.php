@@ -22,6 +22,7 @@ namespace GameQ\Protocols;
  * Medal of honor: Allied Assault Protocol Class
  *
  * @package GameQ\Protocols
+ * @author  Bram <https://github.com/Stormyy>
  * @author  Austin Bischoff <austin@codebeard.com>
  */
 class Mohaa extends Gamespy
@@ -40,6 +41,11 @@ class Mohaa extends Gamespy
      */
     protected $name_long = "Medal of honor: Allied Assault";
 
+    /**
+     * Normalize settings for this protocol
+     *
+     * @type array
+     */
     protected $normalize = [
         'general' => [
             // target       => source
@@ -53,9 +59,21 @@ class Mohaa extends Gamespy
         ],
         // Individual
         'player'  => [
-            'name' => 'player',
+            'name'  => 'player',
             'score' => 'frags',
-            'ping' => 'ping'
+            'ping'  => 'ping',
         ],
     ];
+
+    /**
+     * We need to overload the query port for this game.  Always appears to be 12300 regardless of client port
+     *
+     * @param int $clientPort
+     *
+     * @return int
+     */
+    public function findQueryPort($clientPort)
+    {
+        return 12300;
+    }
 }
