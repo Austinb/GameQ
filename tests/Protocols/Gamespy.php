@@ -44,7 +44,9 @@ class Gamespy extends Base
     {
 
         // Create the stub class
-        $this->stub = $this->getMock('\GameQ\Protocols\Gamespy', null, [[]]);
+        $this->stub = $this->getMockBuilder('\GameQ\Protocols\Gamespy')
+            ->enableProxyingToOriginalMethods()
+            ->getMock();
     }
 
     /**
@@ -54,7 +56,7 @@ class Gamespy extends Base
     {
 
         // Test to make sure packets are defined properly
-        $this->assertEquals($this->packets, \PHPUnit_Framework_Assert::readAttribute($this->stub, 'packets'));
+        $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
     }
 
     /**
@@ -78,7 +80,7 @@ class Gamespy extends Base
     /**
      * Test for invalid packet type in response
      *
-     * @expectedException Exception
+     * @expectedException \Exception
      * @expectedExceptionMessage GameQ\Protocols\Gamespy::processResponse An error occurred while parsing the packets
      *                           for 'queryid'
      */

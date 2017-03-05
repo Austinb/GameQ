@@ -47,7 +47,9 @@ class Bfbc2 extends Base
     {
 
         // Create the stub class
-        $this->stub = $this->getMock('\GameQ\Protocols\Bfbc2', null, [ [ ] ]);
+        $this->stub = $this->getMockBuilder('\GameQ\Protocols\Bfbc2')
+            ->enableProxyingToOriginalMethods()
+            ->getMock();
     }
 
     /**
@@ -57,13 +59,13 @@ class Bfbc2 extends Base
     {
 
         // Test to make sure packets are defined properly
-        $this->assertEquals($this->packets, \PHPUnit_Framework_Assert::readAttribute($this->stub, 'packets'));
+        $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
     }
 
     /**
      * Test for invalid packet length
      *
-     * @expectedException Exception
+     * @expectedException \Exception
      * @expectedExceptionMessage GameQ\Protocols\Bfbc2::processResponse packet length does not match expected length!
      */
     public function testInvalidPacketLengthDebug()

@@ -18,12 +18,14 @@
 
 namespace GameQ\Tests\Filters;
 
+use GameQ\Tests\TestBase;
+
 /**
  * Class for testing Filters Base
  *
  * @package GameQ\Tests\Filters
  */
-class Base extends \PHPUnit_Framework_TestCase
+class Base extends TestBase
 {
 
     /**
@@ -97,6 +99,6 @@ class Base extends \PHPUnit_Framework_TestCase
 
         $mock = $this->getMockForAbstractClass('\GameQ\Filters\Base', [ $options ]);
 
-        $this->assertEquals($options, \PHPUnit_Framework_Assert::readAttribute($mock, 'options'));
+        $this->assertEquals($options, \PHPUnit\Framework\Assert::readAttribute($mock, 'options'));
     }
 }

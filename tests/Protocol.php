@@ -23,7 +23,7 @@ namespace GameQ\Tests;
  *
  * @package GameQ\Tests
  */
-class Protocol extends \PHPUnit_Framework_TestCase
+class Protocol extends TestBase
 {
 
     /**
@@ -145,7 +145,7 @@ class Protocol extends \PHPUnit_Framework_TestCase
     {
 
         // Test the options attribute
-        $this->assertEquals($this->options, \PHPUnit_Framework_Assert::readAttribute($this->stub, 'options'));
+        $this->assertEquals($this->options, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'options'));
 
         // Check the options getter
         $this->assertEquals($this->options, $this->stub->options());

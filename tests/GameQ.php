@@ -23,7 +23,7 @@ namespace GameQ\Tests;
  *
  * @package GameQ\Tests
  */
-class GameQ extends \PHPUnit_Framework_TestCase
+class GameQ extends TestBase
 {
 
     /**
@@ -38,8 +38,10 @@ class GameQ extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-
-        $this->stub = $this->getMock('\GameQ\GameQ', null);
+        $this->stub = $this->getMockBuilder('\GameQ\GameQ')
+            ->enableProxyingToOriginalMethods()
+            ->setMethods(['__get', '__set'])
+            ->getMock();
     }
 
     /**
@@ -56,23 +58,16 @@ class GameQ extends \PHPUnit_Framework_TestCase
      */
     public function testGetSetOptions()
     {
-
         // Test null return for missing option
         $this->assertNull($this->stub->invalidoption);
 
         $this->stub->option1 = 'value1';
-
-        // Verify the property is correct
-        $this->assertEquals('value1', \PHPUnit_Framework_Assert::readAttribute($this->stub, 'options')['option1']);
 
         // Verify the pull is correct
         $this->assertEquals('value1', $this->stub->option1);
 
         // Use set option chainable
         $this->stub->setOption('option1', 'value2');
-
-        // Verify the property is correct
-        $this->assertEquals('value2', \PHPUnit_Framework_Assert::readAttribute($this->stub, 'options')['option1']);
 
         // Verify the pull is correct
         $this->assertEquals('value2', $this->stub->option1);
@@ -103,17 +98,17 @@ class GameQ extends \PHPUnit_Framework_TestCase
         // Test single add server
         $this->stub->addServer($servers[0]);
 
-        $this->assertCount(1, \PHPUnit_Framework_Assert::readAttribute($this->stub, 'servers'));
+        $this->assertCount(1, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'servers'));
 
         // Clear the servers
         $this->stub->clearServers();
 
-        $this->assertCount(0, \PHPUnit_Framework_Assert::readAttribute($this->stub, 'servers'));
+        $this->assertCount(0, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'servers'));
 
         // Add multiple servers
         $this->stub->addServers($servers);
 
-        $this->assertCount(3, \PHPUnit_Framework_Assert::readAttribute($this->stub, 'servers'));
+        $this->assertCount(3, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'servers'));
 
         $this->stub->clearServers();
     }
@@ -129,7 +124,7 @@ class GameQ extends \PHPUnit_Framework_TestCase
         // Test single file
         $this->stub->addServersFromFiles(__DIR__ . '/Protocols/Providers/server_list1.json');
 
-        $this->assertCount(2, \PHPUnit_Framework_Assert::readAttribute($this->stub, 'servers'));
+        $this->assertCount(2, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'servers'));
 
         $this->stub->clearServers();
 
@@ -138,7 +133,7 @@ class GameQ extends \PHPUnit_Framework_TestCase
             __DIR__ . '/Protocols/Providers/server_list1.json',
         ]);
 
-        $this->assertCount(2, \PHPUnit_Framework_Assert::readAttribute($this->stub, 'servers'));
+        $this->assertCount(2, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'servers'));
 
         $this->stub->clearServers();
 
@@ -148,7 +143,7 @@ class GameQ extends \PHPUnit_Framework_TestCase
         ]);
 
         // No servers should exist
-        $this->assertCount(0, \PHPUnit_Framework_Assert::readAttribute($this->stub, 'servers'));
+        $this->assertCount(0, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'servers'));
 
         $this->stub->clearServers();
 
@@ -156,7 +151,7 @@ class GameQ extends \PHPUnit_Framework_TestCase
         $this->stub->addServersFromFiles(__DIR__ . '/Protocols/Providers/server_listDoesnotexist.json');
 
         // No servers should exist
-        $this->assertCount(0, \PHPUnit_Framework_Assert::readAttribute($this->stub, 'servers'));
+        $this->assertCount(0, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'servers'));
 
         $this->stub->clearServers();
     }
@@ -172,7 +167,7 @@ class GameQ extends \PHPUnit_Framework_TestCase
 
         $this->assertArrayHasKey(
             'test_filter_d751713988987e9331980363e24189ce',
-            \PHPUnit_Framework_Assert::readAttribute($this->stub, 'options')['filters']
+            \PHPUnit\Framework\Assert::readAttribute($this->stub, 'options')['filters']
         );
 
         // Remove filter
@@ -180,7 +175,7 @@ class GameQ extends \PHPUnit_Framework_TestCase
 
         $this->assertArrayNotHasKey(
             'test_filter_d751713988987e9331980363e24189ce',
-            \PHPUnit_Framework_Assert::readAttribute($this->stub, 'options')['filters']
+            \PHPUnit\Framework\Assert::readAttribute($this->stub, 'options')['filters']
         );
 
         // Test for lower case always
@@ -188,7 +183,7 @@ class GameQ extends \PHPUnit_Framework_TestCase
 
         $this->assertArrayHasKey(
             'test_filter_d751713988987e9331980363e24189ce',
-            \PHPUnit_Framework_Assert::readAttribute($this->stub, 'options')['filters']
+            \PHPUnit\Framework\Assert::readAttribute($this->stub, 'options')['filters']
         );
 
         // Remove filter always lower case
@@ -196,7 +191,7 @@ class GameQ extends \PHPUnit_Framework_TestCase
 
         $this->assertArrayNotHasKey(
             'test_filter_d751713988987e9331980363e24189ce',
-            \PHPUnit_Framework_Assert::readAttribute($this->stub, 'options')['filters']
+            \PHPUnit\Framework\Assert::readAttribute($this->stub, 'options')['filters']
         );
     }
 
@@ -214,17 +209,21 @@ class GameQ extends \PHPUnit_Framework_TestCase
 
         // Create a mock server
         $server = $this->getMockBuilder('\GameQ\Server')
-            ->disableOriginalConstructor()
+            ->setConstructorArgs([
+                [
+                    \GameQ\Server::SERVER_HOST => '127.0.0.1:27015',
+                    \GameQ\Server::SERVER_TYPE => 'css',
+                ],
+            ])
+            ->enableProxyingToOriginalMethods()
             ->getMock();
 
-        // Create a mock GameQ
-        $gq_mock = $this->getMock('\GameQ\GameQ', null, []);
-        $gq_mock->setOption('debug', false);
-        $gq_mock->removeFilter('normalize_d751713988987e9331980363e24189ce');
-        $gq_mock->addFilter('test');
+        $this->stub->setOption('debug', false);
+        $this->stub->removeFilter('normalize_d751713988987e9331980363e24189ce');
+        $this->stub->addFilter('test');
 
         // Reflect on GameQ class so we can parse
-        $gameq = new \ReflectionClass($gq_mock);
+        $gameq = new \ReflectionClass($this->stub);
 
         // Get the parse method so we can call it
         $method = $gameq->getMethod('doApplyFilters');
@@ -232,7 +231,7 @@ class GameQ extends \PHPUnit_Framework_TestCase
         // Set the method to accessible
         $method->setAccessible(true);
 
-        $testResult = $method->invoke($gq_mock, $fakeResults, $server);
+        $testResult = $method->invoke($this->stub, $fakeResults, $server);
 
         $this->assertEquals($fakeResults, $testResult);
     }
@@ -251,17 +250,21 @@ class GameQ extends \PHPUnit_Framework_TestCase
 
         // Create a mock server
         $server = $this->getMockBuilder('\GameQ\Server')
-            ->disableOriginalConstructor()
+            ->setConstructorArgs([
+                [
+                    \GameQ\Server::SERVER_HOST => '127.0.0.1:27015',
+                    \GameQ\Server::SERVER_TYPE => 'css',
+                ],
+            ])
+            ->enableProxyingToOriginalMethods()
             ->getMock();
 
-        // Create a mock GameQ
-        $gq_mock = $this->getMock('\GameQ\GameQ', null, []);
-        $gq_mock->setOption('debug', false);
-        $gq_mock->removeFilter('normalize_d751713988987e9331980363e24189ce');
-        $gq_mock->addFilter('some_bad_filter');
+        $this->stub->setOption('debug', false);
+        $this->stub->removeFilter('normalize_d751713988987e9331980363e24189ce');
+        $this->stub->addFilter('some_bad_filter');
 
         // Reflect on GameQ class so we can parse
-        $gameq = new \ReflectionClass($gq_mock);
+        $gameq = new \ReflectionClass($this->stub);
 
         // Get the parse method so we can call it
         $method = $gameq->getMethod('doApplyFilters');
@@ -270,7 +273,7 @@ class GameQ extends \PHPUnit_Framework_TestCase
         $method->setAccessible(true);
 
         // No changes should be made
-        $testResult = $method->invoke($gq_mock, $fakeResults, $server);
+        $testResult = $method->invoke($this->stub, $fakeResults, $server);
 
         $this->assertEquals($fakeResults, $testResult);
     }
