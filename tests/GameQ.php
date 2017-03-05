@@ -23,7 +23,7 @@ namespace GameQ\Tests;
  *
  * @package GameQ\Tests
  */
-class GameQ extends \PHPUnit\Framework\TestCase
+class GameQ extends TestBase
 {
 
     /**
@@ -38,8 +38,10 @@ class GameQ extends \PHPUnit\Framework\TestCase
      */
     public function setUp()
     {
-
-        $this->stub = $this->getMock('\GameQ\GameQ', null);
+        $this->stub = $this->getMockBuilder('\GameQ\GameQ')
+            ->enableProxyingToOriginalMethods()
+            ->setMethods(['__get', '__set'])
+            ->getMock();
     }
 
     /**
@@ -56,23 +58,16 @@ class GameQ extends \PHPUnit\Framework\TestCase
      */
     public function testGetSetOptions()
     {
-
         // Test null return for missing option
         $this->assertNull($this->stub->invalidoption);
 
         $this->stub->option1 = 'value1';
-
-        // Verify the property is correct
-        $this->assertEquals('value1', \PHPUnit_Framework_Assert::readAttribute($this->stub, 'options')['option1']);
 
         // Verify the pull is correct
         $this->assertEquals('value1', $this->stub->option1);
 
         // Use set option chainable
         $this->stub->setOption('option1', 'value2');
-
-        // Verify the property is correct
-        $this->assertEquals('value2', \PHPUnit_Framework_Assert::readAttribute($this->stub, 'options')['option1']);
 
         // Verify the pull is correct
         $this->assertEquals('value2', $this->stub->option1);
@@ -214,17 +209,21 @@ class GameQ extends \PHPUnit\Framework\TestCase
 
         // Create a mock server
         $server = $this->getMockBuilder('\GameQ\Server')
-            ->disableOriginalConstructor()
+            ->setConstructorArgs([
+                [
+                    \GameQ\Server::SERVER_HOST => '127.0.0.1:27015',
+                    \GameQ\Server::SERVER_TYPE => 'css',
+                ],
+            ])
+            ->enableProxyingToOriginalMethods()
             ->getMock();
 
-        // Create a mock GameQ
-        $gq_mock = $this->getMock('\GameQ\GameQ', null, []);
-        $gq_mock->setOption('debug', false);
-        $gq_mock->removeFilter('normalize_d751713988987e9331980363e24189ce');
-        $gq_mock->addFilter('test');
+        $this->stub->setOption('debug', false);
+        $this->stub->removeFilter('normalize_d751713988987e9331980363e24189ce');
+        $this->stub->addFilter('test');
 
         // Reflect on GameQ class so we can parse
-        $gameq = new \ReflectionClass($gq_mock);
+        $gameq = new \ReflectionClass($this->stub);
 
         // Get the parse method so we can call it
         $method = $gameq->getMethod('doApplyFilters');
@@ -232,7 +231,7 @@ class GameQ extends \PHPUnit\Framework\TestCase
         // Set the method to accessible
         $method->setAccessible(true);
 
-        $testResult = $method->invoke($gq_mock, $fakeResults, $server);
+        $testResult = $method->invoke($this->stub, $fakeResults, $server);
 
         $this->assertEquals($fakeResults, $testResult);
     }
@@ -251,17 +250,21 @@ class GameQ extends \PHPUnit\Framework\TestCase
 
         // Create a mock server
         $server = $this->getMockBuilder('\GameQ\Server')
-            ->disableOriginalConstructor()
+            ->setConstructorArgs([
+                [
+                    \GameQ\Server::SERVER_HOST => '127.0.0.1:27015',
+                    \GameQ\Server::SERVER_TYPE => 'css',
+                ],
+            ])
+            ->enableProxyingToOriginalMethods()
             ->getMock();
 
-        // Create a mock GameQ
-        $gq_mock = $this->getMock('\GameQ\GameQ', null, []);
-        $gq_mock->setOption('debug', false);
-        $gq_mock->removeFilter('normalize_d751713988987e9331980363e24189ce');
-        $gq_mock->addFilter('some_bad_filter');
+        $this->stub->setOption('debug', false);
+        $this->stub->removeFilter('normalize_d751713988987e9331980363e24189ce');
+        $this->stub->addFilter('some_bad_filter');
 
         // Reflect on GameQ class so we can parse
-        $gameq = new \ReflectionClass($gq_mock);
+        $gameq = new \ReflectionClass($this->stub);
 
         // Get the parse method so we can call it
         $method = $gameq->getMethod('doApplyFilters');
@@ -270,7 +273,7 @@ class GameQ extends \PHPUnit\Framework\TestCase
         $method->setAccessible(true);
 
         // No changes should be made
-        $testResult = $method->invoke($gq_mock, $fakeResults, $server);
+        $testResult = $method->invoke($this->stub, $fakeResults, $server);
 
         $this->assertEquals($fakeResults, $testResult);
     }
