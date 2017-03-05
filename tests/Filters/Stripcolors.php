@@ -42,15 +42,20 @@ class Stripcolors extends Base
         $host = key($raw);
 
         // Create a mock server
-        $server = $this->getMock('\GameQ\Server', null, [
-            [
-                \GameQ\Server::SERVER_HOST => $host,
-                \GameQ\Server::SERVER_TYPE => $protocol,
-            ]
-        ]);
+        $server = $this->getMockBuilder('\GameQ\Server')
+            ->setConstructorArgs([
+                [
+                    \GameQ\Server::SERVER_HOST => $host,
+                    \GameQ\Server::SERVER_TYPE => $protocol,
+                ],
+            ])
+            ->enableProxyingToOriginalMethods()
+            ->getMock();
 
         // Create a mock filter
-        $filter = $this->getMock('\GameQ\Filters\Stripcolors', null, [ ]);
+        $filter = $this->getMockBuilder('\GameQ\Filters\Stripcolors')
+            ->enableProxyingToOriginalMethods()
+            ->getMock();
 
         $this->assertEquals($filtered[$host], $filter->apply($raw[$host], $server));
     }
@@ -60,18 +65,22 @@ class Stripcolors extends Base
      */
     public function testEmpty()
     {
-
         // Create a mock server
-        $server = $this->getMock('\GameQ\Server', null, [
-            [
-                \GameQ\Server::SERVER_HOST => '127.0.0.1:28960',
-                \GameQ\Server::SERVER_TYPE => 'quake3',
-            ]
-        ]);
+        $server = $this->getMockBuilder('\GameQ\Server')
+            ->setConstructorArgs([
+                [
+                    \GameQ\Server::SERVER_HOST => '127.0.0.1:28960',
+                    \GameQ\Server::SERVER_TYPE => 'quake3',
+                ],
+            ])
+            ->enableProxyingToOriginalMethods()
+            ->getMock();
 
         // Create a mock filter
-        $filter = $this->getMock('\GameQ\Filters\Stripcolors', null, [ ]);
+        $filter = $this->getMockBuilder('\GameQ\Filters\Stripcolors')
+            ->enableProxyingToOriginalMethods()
+            ->getMock();
 
-        $this->assertEmpty($filter->apply([ ], $server));
+        $this->assertEmpty($filter->apply([], $server));
     }
 }
