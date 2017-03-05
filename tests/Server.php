@@ -185,7 +185,7 @@ class Server extends TestBase
     public function testIpv6()
     {
         // Create a mock server
-        $this->getMockBuilder('\GameQ\Server')
+        $stub = $this->getMockBuilder('\GameQ\Server')
             ->setConstructorArgs([
                 [
                     \GameQ\Server::SERVER_HOST => '[::1]:27015',
@@ -194,6 +194,8 @@ class Server extends TestBase
             ])
             ->enableProxyingToOriginalMethods()
             ->getMock();
+
+        $this->assertEquals('[::1]:27015', \PHPUnit\Framework\Assert::readAttribute($stub, 'id'));
     }
 
     /**

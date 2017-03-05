@@ -145,8 +145,10 @@ class Teamspeak3 extends Base
         $reflectionProperty = $reflectionClass->getProperty('__phpunit_originalObject');
         $reflectionProperty->setAccessible(true);
 
-        $this->assertEquals($packets,
-            \PHPUnit\Framework\Assert::readAttribute($reflectionProperty->getValue($stub), 'packets'));
+        $this->assertEquals(
+            $packets,
+            \PHPUnit\Framework\Assert::readAttribute($reflectionProperty->getValue($stub), 'packets')
+        );
     }
 
     /**

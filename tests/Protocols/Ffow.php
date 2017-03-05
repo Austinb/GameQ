@@ -85,8 +85,10 @@ class Ffow extends Base
         $reflectionProperty = $reflectionClass->getProperty('__phpunit_originalObject');
         $reflectionProperty->setAccessible(true);
 
-        $this->assertEquals($packets,
-            \PHPUnit\Framework\Assert::readAttribute($reflectionProperty->getValue($this->stub), 'packets'));
+        $this->assertEquals(
+            $packets,
+            \PHPUnit\Framework\Assert::readAttribute($reflectionProperty->getValue($this->stub), 'packets')
+        );
     }
 
     /**
