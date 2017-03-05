@@ -46,7 +46,8 @@ class Samp extends Base
     {
 
         // Create the stub class
-        $this->stub = $this->getMock('\GameQ\Protocols\Samp', null, [ [ ] ]);
+        $this->stub = $this->getMockBuilder('\GameQ\Protocols\Samp')
+            ->getMock();
     }
 
     /**
@@ -56,13 +57,13 @@ class Samp extends Base
     {
 
         // Test to make sure packets are defined properly
-        $this->assertEquals($this->packets, \PHPUnit_Framework_Assert::readAttribute($this->stub, 'packets'));
+        $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
     }
 
     /**
      * Test the packer header check application
      *
-     * @expectedException Exception
+     * @expectedException \Exception
      * @expectedExceptionMessage GameQ\Protocols\Samp::processResponse header response 'SAMu' is not valid
      */
     public function testPacketHeader()
@@ -81,7 +82,7 @@ class Samp extends Base
     /**
      * Test for mis matched server code in response
      *
-     * @expectedException Exception
+     * @expectedException \Exception
      * @expectedExceptionMessage GameQ\Protocols\Samp::processResponse code check failed.
      */
     public function testServerCode()
@@ -118,7 +119,7 @@ class Samp extends Base
     /**
      * Test for invalid packet type in response
      *
-     * @expectedException Exception
+     * @expectedException \Exception
      * @expectedExceptionMessage GameQ\Protocols\Samp::processResponse response type 'X' is not valid
      */
     public function testInvalidPacketTypeDebug()

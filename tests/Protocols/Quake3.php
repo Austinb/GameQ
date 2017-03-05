@@ -44,7 +44,9 @@ class Quake3 extends Base
     {
 
         // Create the stub class
-        $this->stub = $this->getMock('\GameQ\Protocols\Quake3', null, [[]]);
+        $this->stub = $this->getMockBuilder('\GameQ\Protocols\Quake3')
+            ->enableProxyingToOriginalMethods()
+            ->getMock();
     }
 
     /**
@@ -54,7 +56,7 @@ class Quake3 extends Base
     {
 
         // Test to make sure packets are defined properly
-        $this->assertEquals($this->packets, \PHPUnit_Framework_Assert::readAttribute($this->stub, 'packets'));
+        $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
     }
 
     /**
@@ -78,7 +80,7 @@ class Quake3 extends Base
     /**
      * Test for invalid packet type in response
      *
-     * @expectedException Exception
+     * @expectedException \Exception
      * @expectedExceptionMessage GameQ\Protocols\Quake3::processResponse response type
      *                           'ffffffff737461747573526573706f6e736573' is not valid
      */

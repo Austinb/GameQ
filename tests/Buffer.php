@@ -195,7 +195,7 @@ class Buffer extends TestBase
      *
      * @depends                  testRead
      *
-     * @expectedException Exception
+     * @expectedException \Exception
      * @expectedExceptionMessage Unable to read length=6 from buffer.  Bad protocol format or return?
      */
     public function testReadException()

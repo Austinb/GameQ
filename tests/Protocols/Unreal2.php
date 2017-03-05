@@ -46,7 +46,9 @@ class Unreal2 extends Base
     {
 
         // Create the stub class
-        $this->stub = $this->getMock('\GameQ\Protocols\Unreal2', null, [[]]);
+        $this->stub = $this->getMockBuilder('\GameQ\Protocols\Unreal2')
+            ->enableProxyingToOriginalMethods()
+            ->getMock();
     }
 
     /**
@@ -56,7 +58,7 @@ class Unreal2 extends Base
     {
 
         // Test to make sure packets are defined properly
-        $this->assertEquals($this->packets, \PHPUnit_Framework_Assert::readAttribute($this->stub, 'packets'));
+        $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
     }
 
     /**
@@ -80,7 +82,7 @@ class Unreal2 extends Base
     /**
      * Test for invalid packet type in response
      *
-     * @expectedException Exception
+     * @expectedException \Exception
      * @expectedExceptionMessage GameQ\Protocols\Unreal2::processResponse response type '8000000007' is not valid
      */
     public function testInvalidPacketTypeDebug()

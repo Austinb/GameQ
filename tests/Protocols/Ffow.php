@@ -47,7 +47,9 @@ class Ffow extends Base
     {
 
         // Create the stub class
-        $this->stub = $this->getMock('\GameQ\Protocols\Ffow', null, [[]]);
+        $this->stub = $this->getMockBuilder('\GameQ\Protocols\Ffow')
+            ->enableProxyingToOriginalMethods()
+            ->getMock();
     }
 
     /**
@@ -57,7 +59,7 @@ class Ffow extends Base
     {
 
         // Test to make sure packets are defined properly
-        $this->assertEquals($this->packets, \PHPUnit_Framework_Assert::readAttribute($this->stub, 'packets'));
+        $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
     }
 
     /**
@@ -78,7 +80,13 @@ class Ffow extends Base
         // Apply the challenge
         $this->stub->challengeParseAndApply($challenge_buffer);
 
-        $this->assertEquals($packets, \PHPUnit_Framework_Assert::readAttribute($this->stub, 'packets'));
+        // Build reflection to access changed data
+        $reflectionClass = new \ReflectionClass($this->stub);
+        $reflectionProperty = $reflectionClass->getProperty('__phpunit_originalObject');
+        $reflectionProperty->setAccessible(true);
+
+        $this->assertEquals($packets,
+            \PHPUnit\Framework\Assert::readAttribute($reflectionProperty->getValue($this->stub), 'packets'));
     }
 
     /**
@@ -102,7 +110,7 @@ class Ffow extends Base
     /**
      * Test for invalid packet type in response
      *
-     * @expectedException Exception
+     * @expectedException \Exception
      * @expectedExceptionMessage GameQ\Protocols\Ffow::processResponse response type 'ffffffff4802' is not valid
      */
     public function testInvalidPacketTypeDebug()

@@ -44,7 +44,9 @@ class Etqw extends Base
     {
 
         // Create the stub class
-        $this->stub = $this->getMock('\GameQ\Protocols\Etqw', null, [ [ ] ]);
+        $this->stub = $this->getMockBuilder('\GameQ\Protocols\Etqw')
+            ->enableProxyingToOriginalMethods()
+            ->getMock();
     }
 
     /**
@@ -54,7 +56,7 @@ class Etqw extends Base
     {
 
         // Test to make sure packets are defined properly
-        $this->assertEquals($this->packets, \PHPUnit_Framework_Assert::readAttribute($this->stub, 'packets'));
+        $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
     }
 
     /**
@@ -78,7 +80,7 @@ class Etqw extends Base
     /**
      * Test for invalid packet type in response
      *
-     * @expectedException Exception
+     * @expectedException \Exception
      * @expectedExceptionMessage
      */
     public function testInvalidPacketTypeDebug()
