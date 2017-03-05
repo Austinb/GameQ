@@ -40,7 +40,9 @@ class Mohaa extends Base
     {
 
         // Create the stub class
-        $this->stub = $this->getMock('\GameQ\Protocols\Mohaa', null, [[]]);
+        $this->stub = $this->getMockBuilder('\GameQ\Protocols\Mohaa')
+            ->enableProxyingToOriginalMethods()
+            ->getMock();
     }
 
     /**
