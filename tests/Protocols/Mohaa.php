@@ -51,7 +51,7 @@ class Mohaa extends Base
      */
     public function testQueryPort()
     {
-        $this->assertEquals($this->stub->findQueryPort(12203), 12300);
+        $this->assertEquals($this->stub->findQueryPort(12203), 12203+97);
     }
 
     /**
