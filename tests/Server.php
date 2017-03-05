@@ -83,7 +83,7 @@ class Server extends TestBase
             ->enableProxyingToOriginalMethods()
             ->getMock();
 
-        $this->assertEquals($options, \PHPUnit_Framework_Assert::readAttribute($server, 'options'));
+        $this->assertEquals($options, \PHPUnit\Framework\Assert::readAttribute($server, 'options'));
 
         // Check the getOption
         $this->assertEquals($options['option1'], $server->getOption('option1'));
@@ -116,7 +116,7 @@ class Server extends TestBase
             ->enableProxyingToOriginalMethods()
             ->getMock();
 
-        $this->assertEquals($id, \PHPUnit_Framework_Assert::readAttribute($server, 'id'));
+        $this->assertEquals($id, \PHPUnit\Framework\Assert::readAttribute($server, 'id'));
 
         $id = 'my_server_#1';
 
@@ -132,7 +132,7 @@ class Server extends TestBase
             ->enableProxyingToOriginalMethods()
             ->getMock();
 
-        $this->assertEquals($id, \PHPUnit_Framework_Assert::readAttribute($server, 'id'));
+        $this->assertEquals($id, \PHPUnit\Framework\Assert::readAttribute($server, 'id'));
 
         $this->assertEquals($id, $server->id());
     }
@@ -277,6 +277,6 @@ class Server extends TestBase
             ->enableProxyingToOriginalMethods()
             ->getMock();
 
-        $this->assertEquals($query_port, \PHPUnit_Framework_Assert::readAttribute($server, 'port_query'));
+        $this->assertEquals($query_port, \PHPUnit\Framework\Assert::readAttribute($server, 'port_query'));
     }
 }

@@ -98,17 +98,17 @@ class GameQ extends TestBase
         // Test single add server
         $this->stub->addServer($servers[0]);
 
-        $this->assertCount(1, \PHPUnit_Framework_Assert::readAttribute($this->stub, 'servers'));
+        $this->assertCount(1, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'servers'));
 
         // Clear the servers
         $this->stub->clearServers();
 
-        $this->assertCount(0, \PHPUnit_Framework_Assert::readAttribute($this->stub, 'servers'));
+        $this->assertCount(0, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'servers'));
 
         // Add multiple servers
         $this->stub->addServers($servers);
 
-        $this->assertCount(3, \PHPUnit_Framework_Assert::readAttribute($this->stub, 'servers'));
+        $this->assertCount(3, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'servers'));
 
         $this->stub->clearServers();
     }
@@ -124,7 +124,7 @@ class GameQ extends TestBase
         // Test single file
         $this->stub->addServersFromFiles(__DIR__ . '/Protocols/Providers/server_list1.json');
 
-        $this->assertCount(2, \PHPUnit_Framework_Assert::readAttribute($this->stub, 'servers'));
+        $this->assertCount(2, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'servers'));
 
         $this->stub->clearServers();
 
@@ -133,7 +133,7 @@ class GameQ extends TestBase
             __DIR__ . '/Protocols/Providers/server_list1.json',
         ]);
 
-        $this->assertCount(2, \PHPUnit_Framework_Assert::readAttribute($this->stub, 'servers'));
+        $this->assertCount(2, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'servers'));
 
         $this->stub->clearServers();
 
@@ -143,7 +143,7 @@ class GameQ extends TestBase
         ]);
 
         // No servers should exist
-        $this->assertCount(0, \PHPUnit_Framework_Assert::readAttribute($this->stub, 'servers'));
+        $this->assertCount(0, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'servers'));
 
         $this->stub->clearServers();
 
@@ -151,7 +151,7 @@ class GameQ extends TestBase
         $this->stub->addServersFromFiles(__DIR__ . '/Protocols/Providers/server_listDoesnotexist.json');
 
         // No servers should exist
-        $this->assertCount(0, \PHPUnit_Framework_Assert::readAttribute($this->stub, 'servers'));
+        $this->assertCount(0, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'servers'));
 
         $this->stub->clearServers();
     }
@@ -167,7 +167,7 @@ class GameQ extends TestBase
 
         $this->assertArrayHasKey(
             'test_filter_d751713988987e9331980363e24189ce',
-            \PHPUnit_Framework_Assert::readAttribute($this->stub, 'options')['filters']
+            \PHPUnit\Framework\Assert::readAttribute($this->stub, 'options')['filters']
         );
 
         // Remove filter
@@ -175,7 +175,7 @@ class GameQ extends TestBase
 
         $this->assertArrayNotHasKey(
             'test_filter_d751713988987e9331980363e24189ce',
-            \PHPUnit_Framework_Assert::readAttribute($this->stub, 'options')['filters']
+            \PHPUnit\Framework\Assert::readAttribute($this->stub, 'options')['filters']
         );
 
         // Test for lower case always
@@ -183,7 +183,7 @@ class GameQ extends TestBase
 
         $this->assertArrayHasKey(
             'test_filter_d751713988987e9331980363e24189ce',
-            \PHPUnit_Framework_Assert::readAttribute($this->stub, 'options')['filters']
+            \PHPUnit\Framework\Assert::readAttribute($this->stub, 'options')['filters']
         );
 
         // Remove filter always lower case
@@ -191,7 +191,7 @@ class GameQ extends TestBase
 
         $this->assertArrayNotHasKey(
             'test_filter_d751713988987e9331980363e24189ce',
-            \PHPUnit_Framework_Assert::readAttribute($this->stub, 'options')['filters']
+            \PHPUnit\Framework\Assert::readAttribute($this->stub, 'options')['filters']
         );
     }
 
