@@ -23,7 +23,7 @@ namespace GameQ\Tests;
  *
  * @package GameQ\Tests
  */
-class Buffer extends \PHPUnit_Framework_TestCase
+class Buffer extends TestBase
 {
     /**
      * Build a mock Buffer
@@ -195,7 +195,7 @@ class Buffer extends \PHPUnit_Framework_TestCase
      *
      * @depends                  testRead
      *
-     * @expectedException Exception
+     * @expectedException \Exception
      * @expectedExceptionMessage Unable to read length=6 from buffer.  Bad protocol format or return?
      */
     public function testReadException()

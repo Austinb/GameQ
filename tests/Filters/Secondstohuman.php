@@ -62,15 +62,20 @@ class Secondstohuman extends Base
         ];
 
         // Create a mock server
-        $server = $this->getMock('\GameQ\Server', null, [
-            [
-                \GameQ\Server::SERVER_HOST => '127.0.0.1:27015',
-                \GameQ\Server::SERVER_TYPE => 'source',
-            ],
-        ]);
+        $server = $this->getMockBuilder('\GameQ\Server')
+            ->setConstructorArgs([
+                [
+                    \GameQ\Server::SERVER_HOST => '127.0.0.1:27015',
+                    \GameQ\Server::SERVER_TYPE => 'css',
+                ],
+            ])
+            ->enableProxyingToOriginalMethods()
+            ->getMock();
 
         // Create a mock filter
-        $filter = $this->getMock('\GameQ\Filters\Secondstohuman', null, []);
+        $filter = $this->getMockBuilder('\GameQ\Filters\Secondstohuman')
+            ->enableProxyingToOriginalMethods()
+            ->getMock();
 
         $this->assertEquals($dataAfter, $filter->apply($data, $server));
     }
@@ -112,19 +117,25 @@ class Secondstohuman extends Base
         ];
 
         // Create a mock server
-        $server = $this->getMock('\GameQ\Server', null, [
-            [
-                \GameQ\Server::SERVER_HOST => '127.0.0.1:27015',
-                \GameQ\Server::SERVER_TYPE => 'source',
-            ],
-        ]);
+        $server = $this->getMockBuilder('\GameQ\Server')
+            ->setConstructorArgs([
+                [
+                    \GameQ\Server::SERVER_HOST => '127.0.0.1:27015',
+                    \GameQ\Server::SERVER_TYPE => 'css',
+                ],
+            ])
+            ->enableProxyingToOriginalMethods()
+            ->getMock();
 
         // Create a mock filter
-        $filter = $this->getMock('\GameQ\Filters\Secondstohuman', null, [
-            [
-                \GameQ\Filters\Secondstohuman::OPTION_TIMEKEYS => ['time', 'time_conn'],
-            ],
-        ]);
+        $filter = $this->getMockBuilder('\GameQ\Filters\Secondstohuman')
+            ->setConstructorArgs([
+                [
+                    \GameQ\Filters\Secondstohuman::OPTION_TIMEKEYS => ['time', 'time_conn'],
+                ],
+            ])
+            ->enableProxyingToOriginalMethods()
+            ->getMock();
 
         $this->assertEquals($dataAfter, $filter->apply($data, $server));
     }

@@ -48,7 +48,9 @@ class Starmade extends Base
     {
 
         // Create the stub class
-        $this->stub = $this->getMock('\GameQ\Protocols\Starmade', null, [ [ ] ]);
+        $this->stub = $this->getMockBuilder('\GameQ\Protocols\Starmade')
+            ->enableProxyingToOriginalMethods()
+            ->getMock();
     }
 
     /**
@@ -58,7 +60,7 @@ class Starmade extends Base
     {
 
         // Test to make sure packets are defined properly
-        $this->assertEquals($this->packets, \PHPUnit_Framework_Assert::readAttribute($this->stub, 'packets'));
+        $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
     }
 
     /**

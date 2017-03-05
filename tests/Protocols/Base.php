@@ -18,6 +18,8 @@
 
 namespace GameQ\Tests\Protocols;
 
+use GameQ\Tests\TestBase;
+
 /**
  * Class Base for protocol tests
  *
@@ -25,7 +27,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-abstract class Base extends \PHPUnit_Framework_TestCase
+abstract class Base extends TestBase
 {
 
     /**
@@ -43,7 +45,7 @@ abstract class Base extends \PHPUnit_Framework_TestCase
         $providersLookup = sprintf('%s/Providers/%s/', __DIR__, array_pop($class));
 
         // Init the return array
-        $providers = [ ];
+        $providers = [];
 
         // Do a glob lookup just for the responses
         $files = new \GlobIterator($providersLookup . '*_response.txt');
@@ -61,7 +63,7 @@ abstract class Base extends \PHPUnit_Framework_TestCase
             // Append this data to the providers return
             $providers[] = [
                 explode(PHP_EOL . '||' . PHP_EOL, file_get_contents($fileinfo->getRealPath())),
-                json_decode(file_get_contents(sprintf('%s%d_result.json', $providersLookup, $index)), true)
+                json_decode(file_get_contents(sprintf('%s%d_result.json', $providersLookup, $index)), true),
             ];
         }
 
@@ -82,17 +84,20 @@ abstract class Base extends \PHPUnit_Framework_TestCase
      *
      * @return mixed
      */
-    protected function queryTest($host, $protocol, $responses, $debug = false, $server_options = [ ])
+    protected function queryTest($host, $protocol, $responses, $debug = false, $server_options = [])
     {
 
         // Create a mock server
-        $server = $this->getMock('\GameQ\Server', null, [
-            [
-                \GameQ\Server::SERVER_HOST    => $host,
-                \GameQ\Server::SERVER_TYPE    => $protocol,
-                \GameQ\Server::SERVER_OPTIONS => $server_options,
-            ]
-        ]);
+        $server = $this->getMockBuilder('\GameQ\Server')
+            ->setConstructorArgs([
+                [
+                    \GameQ\Server::SERVER_HOST    => $host,
+                    \GameQ\Server::SERVER_TYPE    => $protocol,
+                    \GameQ\Server::SERVER_OPTIONS => $server_options,
+                ],
+            ])
+            ->enableProxyingToOriginalMethods()
+            ->getMock();
 
         // Invoke beforeSend function
         $server->protocol()->beforeSend($server);
@@ -101,7 +106,9 @@ abstract class Base extends \PHPUnit_Framework_TestCase
         $server->protocol()->packetResponse($responses);
 
         // Create a mock GameQ
-        $gq_mock = $this->getMock('\GameQ\GameQ', null, [ ]);
+        $gq_mock = $this->getMockBuilder('\GameQ\GameQ')
+            ->enableProxyingToOriginalMethods()
+            ->getMock();
         $gq_mock->setOption('debug', $debug);
         $gq_mock->removeFilter('normalize');
 
