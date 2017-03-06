@@ -66,7 +66,7 @@ class Mohaa extends Gamespy
     ];
 
     /**
-     * We need to overload the query port for this game.  Always appears to be 12300 regardless of client port
+     * Query port is always the client port + 97 in MOHAA
      *
      * @param int $clientPort
      *
