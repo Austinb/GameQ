@@ -1,0 +1,1 @@
+\location\1\gamever\1.11\gamename\mohaa\gamemode\openplaying\maxplayers\32\numplayers\2\gametype\Team-Match\mapname\dm/mohdm4\hostport\12206\hostname\^3=|LuV|= Team-Deathmatch Server @ www.luvclan.eu\rankedserver\0\fraglimit\0\timelimit\20\player_0\=|LuV|= Face |SA|\frags_0\0\deaths_0\0\ping_0\64\player_2\=|LUV|=grazy\frags_2\0\deaths_2\0\ping_2\10\final\\queryid\46314.1

@@ -1,0 +1,1 @@
+\location\1\gamever\1.11\gamename\mohaa\gamemode\openplaying\maxplayers\32\numplayers\1\gametype\=|LuV|= Freeze-Tag Melt Points\mapname\dm/mohdm7\hostport\12203\hostname\^3=|LuV|= Freeze-Tag Server @ www.luvclan.eu\rankedserver\0\fraglimit\0\timelimit\15\player_0\=|LuV|= AmmaR\frags_0\0\deaths_0\0\ping_0\98\final\\queryid\2663.1
