@@ -84,20 +84,4 @@ class Minecraft extends Gamespy3
             'name' => 'player',
         ],
     ];
-
-    /**
-     * Intercept the processResponse so we can add some extra fields
-     *
-     * @return array<string,integer>
-     */
-    public function processResponse()
-    {
-
-        $result = parent::processResponse();
-
-        $result['dedicated'] = 1; // All servers are dedicated as far as I can tell
-        $result['password'] = 0; // Unsure if you can password servers, cant read that value
-
-        return $result;
-    }
 }
