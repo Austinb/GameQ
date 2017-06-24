@@ -54,7 +54,6 @@ class Arma3 extends Source
         self::DLC_JETS        => 'Jets',
     ];
 
-
     /**
      * String name of this protocol class
      *
