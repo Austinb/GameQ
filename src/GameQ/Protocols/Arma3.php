@@ -51,9 +51,8 @@ class Arma3 extends Source
         self::DLC_MARKSMEN    => 'Marksmen',
         self::DLC_HELICOPTERS => 'Helicopters',
         self::DLC_APEX        => 'Apex',
-        self::DLC_JETS        => 'JETS',
+        self::DLC_JETS        => 'Jets',
     ];
-
 
     /**
      * String name of this protocol class
