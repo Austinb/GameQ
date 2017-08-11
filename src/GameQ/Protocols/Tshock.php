@@ -96,6 +96,10 @@ class Tshock extends Http
      */
     public function processResponse()
     {
+        if (empty($this->packets_response)) {
+            return [];
+        }
+        
         // Implode and rip out the JSON
         preg_match('/\{(.*)\}/ms', implode('', $this->packets_response), $matches);
 
