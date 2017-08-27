@@ -1,13 +1,1 @@
-{
-  "t.shadowrain.net:7777": {
-    "gq_address": "t.shadowrain.net",
-    "gq_joinlink": "steam:\/\/connect\/t.shadowrain.net:7777\/",
-    "gq_name": "Terraria",
-    "gq_online": false,
-    "gq_port_client": 7777,
-    "gq_port_query": 7878,
-    "gq_protocol": "tshock",
-    "gq_transport": "tcp",
-    "gq_type": "terraria"
-  }
-}
+{"216.52.143.248:7777":{"gq_address":"216.52.143.248","gq_joinlink":"steam:\/\/connect\/216.52.143.248:7777\/","gq_name":"Terraria","gq_online":false,"gq_port_client":7777,"gq_port_query":7878,"gq_protocol":"tshock","gq_transport":"tcp","gq_type":"terraria"}}

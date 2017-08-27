@@ -104,7 +104,7 @@ class Tshock extends Http
         preg_match('/\{(.*)\}/ms', implode('', $this->packets_response), $matches);
 
         // Return should be JSON, let's validate
-        if (($json = json_decode($matches[0])) === null) {
+        if (!isset($matches[0]) || ($json = json_decode($matches[0])) === null) {
             throw new Exception("JSON response from Tshock protocol is invalid.");
         }
 
