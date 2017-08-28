@@ -1,0 +1,2 @@
+ÿÿÿÿinfoResponse
+\sv_maxclients\30\clients\0\challenge\xxx\gamename\CitizenFX\protocol\4\hostname\San Andreas County RP | Grand Opening Now Hiring | sasrpcommunity.enjin.com\gametype\Freeroam\mapname\fivem-map-skater\iv\1881510958

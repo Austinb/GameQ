@@ -1,0 +1,2 @@
+ÿÿÿÿinfoResponse
+\sv_maxclients\30\clients\4\challenge\xxx\gamename\CitizenFX\protocol\4\hostname\State of Union RP | State Wide RP | Civilian Jobs | ServerHostedMenu | Robbery's! | Now Hiring!\gametype\Freeroam\mapname\fivem-map-skater\iv\173148099

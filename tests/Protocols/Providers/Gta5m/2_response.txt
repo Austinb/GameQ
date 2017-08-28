@@ -1,0 +1,2 @@
+ÿÿÿÿinfoResponse
+\sv_maxclients\30\clients\0\challenge\xxx\gamename\CitizenFX\protocol\4\hostname\LIGHT 'EM UP ROLEPLAY\gametype\Freeroam\mapname\fivem-map-skater\iv\1194941742
