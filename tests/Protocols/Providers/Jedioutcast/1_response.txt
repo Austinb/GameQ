@@ -1,0 +1,6 @@
+ÿÿÿÿstatusResponse
+\version\JK2MP: v1.04mv linux-amd64 Mar 27 2017\sv_maxclients\32\bot_minplayers\2\capturelimit\20\dmflags\0\duel_fraglimit\1\fraglimit\0\g_blueteam\Rebellion\g_duelWeaponDisable\0\g_forceBasedTeams\0\g_forcePowerDisable\0\g_forceRegenTime\200\g_gametype\7\g_jediVmerc\0\g_maxForceRank\7\g_maxGameClients\0\g_privateDuel\1\g_redteam\Empire\g_saberLocking\1\g_weapondisable\0\mv_httpdownloads\0\sv_allowDownload\0\sv_floodProtect\1\sv_hostname\[united] Coruscant\sv_maxPing\0\sv_maxRate\40000\sv_minPing\0\timelimit\20\protocol\16\JK2MV\1.3.1\g_maxHolocronCarry\3\g_needpass\0\mapname\ctf_yavin\sv_privateClients\0\sv_allowAnonymous\0\gamename\basejk
+0 0 "Reelo"
+10 0 "Luke"
+11 0 "Krussk"
+10 0 "Lieutenant_Cabbel"

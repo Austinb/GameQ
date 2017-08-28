@@ -1,0 +1,17 @@
+ÿÿÿÿstatusResponse
+\version\JK2MP: v1.02mv linux-amd64 Mar 27 2017\sv_maxclients\20\capturelimit\7\dmflags\0\duel_fraglimit\10\fraglimit\0\g_duelWeaponDisable\65531\g_forceBasedTeams\0\g_forcepowerdisable\262143\g_gametype\7\g_maxForceRank\7\g_privateDuel\1\g_saberLocking\0\g_weapondisable\12284\mv_httpdownloads\1\sv_allowDownload\0\sv_floodProtect\1\sv_hostname\< ^3CTF ^7>\sv_maxPing\0\sv_maxRate\50000\sv_minPing\0\timelimit\0\protocol\15\JK2MV\1.3.1\g_maxHolocronCarry\3\g_needpass\0\mapname\ctf_yavin\sv_privateClients\0\sv_allowAnonymous\0\gamename\basejk
+239 97 "^1Manufactura"
+188 87 "^4^4sonic"
+75 37 "Padawan"
+103 56 "^1i | ^6In Flam^3e"
+10 65 "^&^*i'm baby Gr^_oo^*T"
+150 57 "Padawan"
+112 42 "Padawan"
+243 53 "^d^1^d<(^wCjS^d)>^w v^1O^wlaTil"
+30 45 "^7b0b"
+-2 54 "^3^3^7_ph^1e^4^4^7Zor"
+204 50 "Padawan"
+79 62 "^1Padawan"
+113 60 "^1shax"
+344 64 "n0vaLyfe"
+195 67 "^4^4sonic^7"
