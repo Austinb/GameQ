@@ -71,6 +71,10 @@ abstract class Protocol
 
     const TRANSPORT_TCP = 'tcp';
 
+    const TRANSPORT_SSL = 'ssl';
+
+    const TRANSPORT_TLS = 'tls';
+
     /**
      * Short name of the protocol
      *

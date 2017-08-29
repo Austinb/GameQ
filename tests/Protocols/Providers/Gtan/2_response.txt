@@ -1,0 +1,9 @@
+HTTP/1.0 200 OK
+Content-Type: text/html; charset=UTF-8
+Content-Length: 188
+Date: Tue, 29 Aug 2017 00:25:10 GMT
+Accept-Ranges: bytes
+Server: LiteSpeed
+Connection: close
+
+{"ServerName":"Twitch","IP":"95.42.224.183:1701","FQDN":"","Port":1701,"CurrentPlayers":0,"MaxPlayers":20,"Gamemode":"freeroam","Map":null,"Passworded":false,"ServerVersion":"0.1.517.602"}
