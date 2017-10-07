@@ -128,6 +128,7 @@ class Native extends Core
      * Pull the responses out of the stream
      *
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     * @SuppressWarnings(PHPMD.NPathComplexity)
      *
      * @param array $sockets
      * @param int   $timeout
@@ -207,7 +208,7 @@ class Native extends Core
                 $responses[(int)$socket][] = $response;
             }
 
-            // If we have data from all sockest, break
+            // If we have data from all sockets, break
             if (count($responses) == count($sockets)) {
                 break;
             }

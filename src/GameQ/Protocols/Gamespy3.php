@@ -86,7 +86,7 @@ class Gamespy3 extends Protocol
         // Pull out the challenge
         $challenge = substr(preg_replace("/[^0-9\-]/si", "", $challenge_buffer->getBuffer()), 1);
 
-        // By default, no challenge result (see #197) 
+        // By default, no challenge result (see #197)
         $challenge_result = '';
 
         // Check for valid challenge (see #197)
