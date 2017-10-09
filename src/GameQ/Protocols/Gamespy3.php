@@ -155,13 +155,19 @@ class Gamespy3 extends Protocol
         // Create a new result
         $result = new Result();
 
+        // Assign variable due to pass by reference in PHP 7+
+        $buffer = new Buffer($split[0], Buffer::NUMBER_TYPE_BIGENDIAN);
+
         // First key should be server details and rules
-        $this->processDetails(new Buffer($split[0], Buffer::NUMBER_TYPE_BIGENDIAN), $result);
+        $this->processDetails($buffer, $result);
 
         // The rest should be the player and team information, if it exists
         if (array_key_exists(1, $split)) {
-            $this->processPlayersAndTeams(new Buffer($split[1], Buffer::NUMBER_TYPE_BIGENDIAN), $result);
+            $buffer = new Buffer($split[1], Buffer::NUMBER_TYPE_BIGENDIAN);
+            $this->processPlayersAndTeams($buffer, $result);
         }
+
+        unset($buffer);
 
         return $result->fetch();
     }
