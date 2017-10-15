@@ -91,16 +91,23 @@ class Gamespy3 extends Protocol
      */
     public function challengeParseAndApply(Buffer $challenge_buffer)
     {
-
         // Pull out the challenge
         $challenge = substr(preg_replace("/[^0-9\-]/si", "", $challenge_buffer->getBuffer()), 1);
-        $challenge_result = sprintf(
-            "%c%c%c%c",
-            ($challenge >> 24),
-            ($challenge >> 16),
-            ($challenge >> 8),
-            ($challenge >> 0)
-        );
+
+        // By default, no challenge result (see #197)
+        $challenge_result = '';
+
+        // Check for valid challenge (see #197)
+        if ($challenge) {
+            // Encode chellenge result
+            $challenge_result = sprintf(
+                "%c%c%c%c",
+                ($challenge >> 24),
+                ($challenge >> 16),
+                ($challenge >> 8),
+                ($challenge >> 0)
+            );
+        }
 
         // Apply the challenge and return
         return $this->challengeApply($challenge_result);
