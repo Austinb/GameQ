@@ -63,6 +63,13 @@ class Justcause2 extends Gamespy4
     ];
 
     /**
+     * Override the packet split
+     *
+     * @var string
+     */
+    protected $packetSplit = "/\\x00\\x00\\x00/m";
+
+    /**
      * Normalize settings for this protocol
      *
      * @type array
@@ -110,9 +117,6 @@ class Justcause2 extends Gamespy4
      */
     protected function processPlayersAndTeams(Buffer &$buffer, Result &$result)
     {
-        // First is the number of players, let's use this. Should have actual players, not connecting
-        $result->add('numplayers', $buffer->readInt16());
-
         // Loop until we run out of data
         while ($buffer->getLength()) {
             $result->addPlayer('name', $buffer->readString());
