@@ -193,7 +193,7 @@ class Native extends Core
                 /* @var $socket resource */
 
                 // See if we have a response
-                if (($response = stream_socket_recvfrom($socket, 8192)) === false) {
+                if (($response = fread($socket, 8192)) === false) {
                     continue; // No response yet so lets continue.
                 }
 

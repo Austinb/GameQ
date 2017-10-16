@@ -597,9 +597,9 @@ class GameQ
         }
 
         // Now add some default stuff
-        $results['gq_address'] = $server->ip();
+        $results['gq_address'] = (isset($results['gq_address'])) ? $results['gq_address'] : $server->ip();
         $results['gq_port_client'] = $server->portClient();
-        $results['gq_port_query'] = $server->portQuery();
+        $results['gq_port_query'] = (isset($results['gq_port_query'])) ? $results['gq_port_query'] : $server->portQuery();
         $results['gq_protocol'] = $server->protocol()->getProtocol();
         $results['gq_type'] = (string)$server->protocol();
         $results['gq_name'] = $server->protocol()->nameLong();
