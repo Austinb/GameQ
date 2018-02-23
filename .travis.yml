@@ -5,12 +5,11 @@ php:
   - 5.5.38
   - 5.6.33
   - 7.0.27
-  - 7.1.13
-  - 7.2.1
+  - 7.1.14
+  - 7.2.2
 
 matrix:
     allow_failures:
-        - php: 7.2.1
 
 before_script:
   - travis_retry composer self-update
