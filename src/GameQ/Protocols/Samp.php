@@ -96,7 +96,7 @@ class Samp extends Protocol
         'general' => [
             // target       => source
             'dedicated'  => 'dedicated',
-            'hostname'   => 'hostname',
+            'hostname'   => ['hostname', 'servername'],
             'mapname'    => 'mapname',
             'maxplayers' => 'max_players',
             'numplayers' => 'num_players',
