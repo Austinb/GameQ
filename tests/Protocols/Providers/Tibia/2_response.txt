@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<tsqp version="1.0"><serverinfo uptime="2866200" ip="192.99.32.220" servername="Deathzot II" port="7171" location="USA" url="http://deathzot.net/" server="The Forgotten Server" version="0.4_SVN" client="8.6"/><owner name="Xagul Synthetic" email="admin@deathzot.net"/><players online="14" max="500" peak="334"/><monsters total="12898"/><npcs total="64"/><map name="WORKING.otbm" author="Komic" width="5000" height="5000"/><motd>Welcome to Deathzot II!</motd></tsqp>

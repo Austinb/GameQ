@@ -1,0 +1,2 @@
+<?xml version="1.0"?>
+<tsqp version="1.0"><serverinfo uptime="2404686" ip="172.93.109.58" servername="NoxiousOT 8.60" port="7171" location="United States" url="noxiousot.com" server="OTMG" version="V1 - 8.60 Real Map" client="8.60"/><owner name="Noxious Staff" email="support@noxiousot.com"/><players online="246" max="1000" peak="779"/><monsters total="52643"/><npcs total="690"/><map name="World.otbm" author="Noxious Staff" width="33536" height="33024"/><motd>Welcome to NoxiousOT!</motd></tsqp>

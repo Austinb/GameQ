@@ -30,7 +30,8 @@ use GameQ\Exception\Protocol as Exception;
  *
  * Credit to Ahmad Fatoum for providing Perl based querying as a roadmap
  *
- * @author Yive <admin@yive.me>
+ * @author  Yive <admin@yive.me>
+ * @author  Austin Bischoff <austin@codebeard.com>
  */
 class Tibia extends Protocol
 {
@@ -88,13 +89,13 @@ class Tibia extends Protocol
         // General
         'general' => [
             // target       => source
-            'dedicated'   => 'dedicated',
-            'hostname'    => 'hostname',
-            'motd'        => 'motd',
-            'maxplayers'  => 'max_players',
-            'numplayers'  => 'num_players',
-            'peakplayers' => 'peak_players',
-            'map'         => 'map_name'
+            'dedicated'  => 'dedicated',
+            'gametype'   => 'server',
+            'hostname'   => 'servername',
+            'motd'       => 'motd',
+            'maxplayers' => 'players_max',
+            'numplayers' => 'players_online',
+            'map'        => 'map_name',
         ],
     ];
 
@@ -106,37 +107,35 @@ class Tibia extends Protocol
      */
     public function processResponse()
     {
-        $parsed = json_decode(json_encode(simplexml_load_string($this->packets_response[0])),true);
-        // Couldn't be bothered to deal with objects so just did a hacky conversion to arrays.
+        // Merge the response packets
+        $xmlString = implode('', $this->packets_response);
+
+        // Check to make sure this is will decode into a valid XML Document
+        if (($xmlDoc = @simplexml_load_string($xmlString)) === false) {
+            throw new Exception(__METHOD__ . " Unable to load XML string.");
+        }
 
         // Set the result to a new result instance
         $result = new Result();
 
-        $result->add('server_version', $parsed['serverinfo']['@attributes']['version']);
-        $result->add('client_version', $parsed['serverinfo']['@attributes']['client']);
-        $result->add('hostname', $parsed['serverinfo']['@attributes']['servername']);
-        $result->add('location', $parsed['serverinfo']['@attributes']['location']);
-        $result->add('server', $parsed['serverinfo']['@attributes']['server']); // Not really sure what this is for
-        $result->add('uptime', $parsed['serverinfo']['@attributes']['uptime']);
-        $result->add('port', $parsed['serverinfo']['@attributes']['port']);
-        $result->add('ip', $parsed['serverinfo']['@attributes']['ip']);
-        $result->add('url', $parsed['serverinfo']['@attributes']['url']);
-        $result->add('owner_name', $parsed['owner']['@attributes']['name']);
-        $result->add('owner_email', $parsed['owner']['@attributes']['email']);
-        $result->add('map_author', $parsed['map']['@attributes']['author']);
-        $result->add('map_height', $parsed['map']['@attributes']['height']);
-        $result->add('map_width', $parsed['map']['@attributes']['width']);
-        $result->add('map_name', $parsed['map']['@attributes']['name']);
-        $result->add('npcs', $parsed['npcs']['@attributes']['total']);
-        $result->add('monsters', $parsed['monsters']['@attributes']['total']);
-        $result->add('num_players', $parsed['players']['@attributes']['online']);
-        $result->add('peak_players', $parsed['players']['@attributes']['peak']);
-        $result->add('max_players', $parsed['players']['@attributes']['max']);
-        $result->add('version', $parsed['@attributes']['version']);
-        $result->add('motd', $parsed['motd']);
-        $result->add('dedicated', 1); // All servers are dedicated as far as I can tell
+        // All servers are dedicated as far as I can tell
+        $result->add('dedicated', 1);
 
-        unset($parsed);
+        // Iterate over the info
+        foreach (['serverinfo', 'owner', 'map', 'npcs', 'monsters', 'players'] as $property) {
+            foreach ($xmlDoc->{$property}->attributes() as $key => $value) {
+                if (!in_array($property, ['serverinfo'])) {
+                    $key = $property . '_' . $key;
+                }
+
+                // Add the result
+                $result->add($key, (string)$value);
+            }
+        }
+
+        $result->add("motd", (string)$xmlDoc->motd);
+
+        unset($xmlDoc, $xmlDoc);
 
         return $result->fetch();
     }
