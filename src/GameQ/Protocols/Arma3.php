@@ -91,6 +91,8 @@ class Arma3 extends Source
      */
     protected function processRules(Buffer $buffer)
     {
+        return [];
+
         // Total number of packets, burn it
         $buffer->readInt16();
 
