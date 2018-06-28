@@ -33,31 +33,19 @@ use GameQ\Result;
 class Arma3 extends Source
 {
     /**
-     * DLC ^2 constants
-     */
-    const DLC_KARTS = 1,
-        DLC_MARKSMEN = 2,
-        DLC_HELICOPTERS = 4,
-        DLC_APEX = 16,
-        DLC_JETS = 32,
-        DLC_LAWS = 64,
-        DLC_TACOPS = 128,
-        DLC_TANKS = 256;
-
-    /**
      * Defines the names for the specific game DLCs
      *
      * @var array
      */
     protected $dlcNames = [
-        self::DLC_KARTS       => 'Karts',
-        self::DLC_MARKSMEN    => 'Marksmen',
-        self::DLC_HELICOPTERS => 'Helicopters',
-        self::DLC_APEX        => 'Apex',
-        self::DLC_JETS        => 'Jets',
-        self::DLC_LAWS        => 'Laws of War',
-        self::DLC_TACOPS      => 'Tac-Ops',
-        self::DLC_TANKS       => 'Tanks'
+        'Karts',
+        'Marksmen',
+        'Helicopters',
+        'Apex',
+        'Jets',
+        'Laws of War',
+        'Tac-Ops',
+        'Tanks',
     ];
 
     /**
@@ -91,8 +79,6 @@ class Arma3 extends Source
      */
     protected function processRules(Buffer $buffer)
     {
-        return [];
-
         // Total number of packets, burn it
         $buffer->readInt16();
 
@@ -139,10 +125,19 @@ class Arma3 extends Source
         // Crosshair
         $result->add('crosshair', $responseBuffer->readInt8());
 
-        // Next are the dlc bits so loop over the dlcBit so we can determine which DLC's are running
-        for ($x = 1; $x <= $dlcBit; $x *= 2) {
-            // Enabled, add it to the list
-            if ($x & $dlcBit && array_key_exists($x, $this->dlcNames)) {
+        /*
+         * Due to a bug in the DLC byte response from the ARMA servers we end here until the DLC byte bug can be fixed
+         * or can code around the issue.
+         * See https://github.com/Austinb/GameQ/issues/420
+         */
+
+        return $result->fetch();
+
+        //$dlcBit = 255;
+
+        /*// Loop over the DLC bit so we can pull in the infor for the DLC (if enabled)
+        for ($x = 0; $x < 8; $x++) {
+            if (($dlcBit >> $x) & 1) {
                 $result->addSub('dlcs', 'name', $this->dlcNames[$x]);
                 $result->addSub('dlcs', 'hash', dechex($responseBuffer->readInt32()));
             }
@@ -187,6 +182,6 @@ class Arma3 extends Source
 
         unset($responseBuffer, $signatures);
 
-        return $result->fetch();
+        return $result->fetch();*/
     }
 }
