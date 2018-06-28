@@ -459,9 +459,19 @@ class GameQ
      */
     protected function doQueries()
     {
-
         // Initialize the array of sockets
         $sockets = [];
+
+        $masterListCheck = [];
+
+        // share socket by servers
+        /** @var Server $server */
+        foreach ($this->servers as $server_id => $server) {
+            if ($server->protocol()->isMasterListProtocol()) {
+                $masterListCheck[$server->protocol()->name()]['ids'][] = $server_id;
+                $masterListCheck[$server->protocol()->name()]['socket_send'] = false;
+            }
+        }
 
         // Iterate over the server list
         foreach ($this->servers as $server_id => $server) {
@@ -469,6 +479,10 @@ class GameQ
 
             // Invoke the beforeSend method
             $server->protocol()->beforeSend($server);
+
+            if (isset($masterListCheck[$server->protocol()->name()]) && $masterListCheck[$server->protocol()->name()]['socket_send']) {
+                continue;
+            }
 
             // Get all the non-challenge packets we need to send
             $packets = $server->protocol()->getPacket('!' . Protocol::PACKET_CHALLENGE);
@@ -506,7 +520,7 @@ class GameQ
 
                 // Add the socket information so we can reference it easily
                 $sockets[(int)$socket->get()] = [
-                    'server_id' => $server_id,
+                    'server_id' => isset($masterListCheck[$server->protocol()->name()]) ? $masterListCheck[$server->protocol()->name()]['ids'] : [$server_id],
                     'socket'    => $socket,
                 ];
             } catch (QueryException $e) {
@@ -520,7 +534,13 @@ class GameQ
 
             // Clean up the sockets, if any left over
             $server->socketCleanse();
+
+            if (isset($masterListCheck[$server->protocol()->name()])) {
+                $masterListCheck[$server->protocol()->name()]['socket_send'] = true;
+            }
         }
+
+        unset($masterListCheck);
 
         // Now we need to listen for and grab response(s)
         $responses = call_user_func_array(
@@ -531,16 +551,18 @@ class GameQ
         // Iterate over the responses
         foreach ($responses as $socket_id => $response) {
             // Back out the server_id
-            $server_id = $sockets[$socket_id]['server_id'];
+            $server_ids = $sockets[$socket_id]['server_id'];
 
-            // Grab the server instance
-            /* @var $server \GameQ\Server */
-            $server = $this->servers[$server_id];
+            foreach ($server_ids as $server_id) {
+                // Grab the server instance
+                /* @var $server \GameQ\Server */
+                $server = $this->servers[$server_id];
 
-            // Save the response from this packet
-            $server->protocol()->packetResponse($response);
+                // Save the response from this packet
+                $server->protocol()->packetResponse($response);
 
-            unset($server);
+                unset($server);
+            }
         }
 
         // Now we need to close all of the sockets

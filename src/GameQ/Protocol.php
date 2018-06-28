@@ -162,6 +162,11 @@ abstract class Protocol
     protected $state = self::STATE_STABLE;
 
     /**
+     * @var bool
+     */
+    protected $masterListProtocol = false;
+
+    /**
      * Holds specific normalize settings
      *
      * @todo: Remove this ugly bulk by moving specific ones to their specific game(s)
@@ -497,4 +502,12 @@ abstract class Protocol
      * @return mixed
      */
     abstract public function processResponse();
+
+    /**
+     * @return bool
+     */
+    public function isMasterListProtocol()
+    {
+        return $this->masterListProtocol;
+    }
 }
