@@ -38,6 +38,7 @@
         <exclude name="TooManyMethods"/>
         <exclude name="TooManyPublicMethods"/>
         <exclude name="ExcessiveClassComplexity"/>
+        <exclude name="ExcessiveMethodLength"/>
     </rule>
     <rule ref="rulesets/codesize.xml/TooManyMethods">
         <properties>
@@ -47,6 +48,11 @@
     <rule ref="rulesets/codesize.xml/ExcessiveClassComplexity">
         <properties>
             <property name="maximum" value="70" />
+        </properties>
+    </rule>
+    <rule ref="rulesets/codesize.xml/ExcessiveMethodLength">
+        <properties>
+            <property name="minimum" value="150" />
         </properties>
     </rule>
 </ruleset>

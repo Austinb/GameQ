@@ -130,7 +130,7 @@ class Arma3 extends Source
          * or can code around the issue.
          * See https://github.com/Austinb/GameQ/issues/420
          */
-
+        unset($dlcBit);
         return $result->fetch();
 
         //$dlcBit = 255;
