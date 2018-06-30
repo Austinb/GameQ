@@ -109,8 +109,9 @@ class Arma3 extends Source
         // Get results
         $result->add('rules_protocol_version', $responseBuffer->readInt8());
         $result->add('overflow', $responseBuffer->readInt8());
-        $dlcBit = $responseBuffer->readInt8(); // Grab DLC bit and use it later
-        $responseBuffer->skip(); // Reserved, burn it
+        $dlcBit = decbin($responseBuffer->readInt8()); // Grab DLC bit 1 and use it later
+        $dlcBit2 = decbin($responseBuffer->readInt8()); // Grab DLC bit 2 and use it later
+        $dlcCount = substr_count($dlcBit, '1') + substr_count($dlcBit2, '1'); // Count the DLCs
         // Grab difficulty so we can man handle it...
         $difficulty = $responseBuffer->readInt8();
 
@@ -125,26 +126,14 @@ class Arma3 extends Source
         // Crosshair
         $result->add('crosshair', $responseBuffer->readInt8());
 
-        /*
-         * Due to a bug in the DLC byte response from the ARMA servers we end here until the DLC byte bug can be fixed
-         * or can code around the issue.
-         * See https://github.com/Austinb/GameQ/issues/420
-         */
-        unset($dlcBit);
-        return $result->fetch();
-
-        //$dlcBit = 255;
-
-        /*// Loop over the DLC bit so we can pull in the infor for the DLC (if enabled)
-        for ($x = 0; $x < 8; $x++) {
-            if (($dlcBit >> $x) & 1) {
-                $result->addSub('dlcs', 'name', $this->dlcNames[$x]);
-                $result->addSub('dlcs', 'hash', dechex($responseBuffer->readInt32()));
-            }
+        // Loop over the DLC bit so we can pull in the infor for the DLC (if enabled)
+        for ($x = 0; $x < $dlcCount; $x++) {
+            $result->addSub('dlcs', 'name', $this->dlcNames[$x]);
+            $result->addSub('dlcs', 'hash', dechex($responseBuffer->readInt32()));
         }
 
         // No longer needed
-        unset($dlcBit);
+        unset($dlcBit, $dlcBit2, $dlcCount);
 
         // Grab the mod count
         $modCount = $responseBuffer->readInt8();
@@ -182,6 +171,6 @@ class Arma3 extends Source
 
         unset($responseBuffer, $signatures);
 
-        return $result->fetch();*/
+        return $result->fetch();
     }
 }
