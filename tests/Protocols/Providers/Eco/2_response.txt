@@ -1,0 +1,266 @@
+HTTP/1.1 200 OK
+Keep-Alive: true
+Content-Length: 5812
+Content-Type: application/json; charset=utf-8
+Server: Microsoft-HTTPAPI/2.0
+Date: Mon, 10 Sep 2018 16:34:02 GMT
+Connection: close
+
+{
+  "Info": {
+    "UniqueIdentifier": -4819071135178542589,
+    "GamePort": 3000,
+    "WebPort": 3001,
+    "IsLAN": false,
+    "Description": "<b><#0000FE>[</color>FR<#FF0000>]</color> <#0000FE>Serveur </color>Next <#FF0000>Multigaming</color> [EXP 1.5][v7.6.3][~2km]</color></b>",
+    "OnlinePlayers": 4,
+    "TotalPlayers": 61,
+    "TimeSinceStart": 560946.44009479822,
+    "TimeLeft": 2031053.6661686017,
+    "Animals": 3608,
+    "Plants": 316929,
+    "Laws": 7,
+    "Leader": "Ripley",
+    "WorldSize": "1,96km²",
+    "Version": "0.7.6.3 beta",
+    "EconomyDesc": "225 trades, 0 contracts",
+    "SkillSpecialization": "Medium",
+    "SkillSpecializationSetting": "medium",
+    "WorldObjective": "Mettez à jour vos Objectifs (touche \"O\") svp!",
+    "Language": "French",
+    "HasPassword": false,
+    "HasMeteor": true,
+    "DistributionStationItems": "None."
+  },
+  "Graphs": [
+    {
+      "Category": "Humans",
+      "Name": "Learn Specialty",
+      "Graph": {
+        "Keys": [
+          [
+            "Humans",
+            "All",
+            "Learn Specialty"
+          ]
+        ],
+        "TimeMin": 0.0,
+        "TimeMax": 6.4924354962661823
+      }
+    },
+    {
+      "Category": "Ecosystem",
+    
+||
+  "Name": "Populations",
+      "Graph": {
+        "Keys": [
+          [
+            "World",
+            "Population",
+            "Camas Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Wheat Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Birch Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Cedar Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Bunchgrass Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Fern Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Huckleberry Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Hare Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Elk Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Wolf Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Beets Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Corn Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Waterweed Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Fireweed Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Creosote Bush Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Sagebrush Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Prickly Pear Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Beans Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Bullrush Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Bison Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Turkey Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Fox Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Tuna Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Salmon Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Trout Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Otter Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Clam Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Urchin Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Kelp Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Pitcher Plant Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Buttonbush Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Salal Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Tomatoes Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Amanita Mushroom Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Crimini Mushroom Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Oak Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Fir Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Saguaro Cactus Population"
+          ],
+          [
+            "World",
+            "Population",
+            "Rice Population"
+         
+||
+ ],
+          [
+            "World",
+            "Population",
+            "Tortoise Population"
+          ]
+        ],
+        "TimeMin": 0.0,
+        "TimeMax": 6.4924355150833124
+      }
+    }
+  ]
+}
