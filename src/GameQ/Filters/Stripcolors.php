@@ -95,6 +95,6 @@ class Stripcolors extends Base
      */
     protected function stripUnreal(&$string)
     {
-        $string = preg_replace('/\x1b.../', '', $string);
+        $string = utf8_encode(preg_replace('/\x1b.../', '', utf8_decode($string)));
     }
 }
