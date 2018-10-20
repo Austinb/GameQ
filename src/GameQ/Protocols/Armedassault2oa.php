@@ -42,9 +42,9 @@ class Armedassault2oa extends Source
     protected $name_long = "Armed Assault 2: Operation Arrowhead";
 
     /**
-     * Query port = client_port - 1
+     * Query port = client_port + 1
      *
      * @type int
      */
-    protected $port_diff = -1;
+    protected $port_diff = 1;
 }
