@@ -85,6 +85,13 @@ class Samp extends Protocol
      * @type string
      */
     protected $server_code = null;
+    
+    /**
+	 * The client join link
+	 *
+	 * @type string
+	 */
+	protected $join_link = "samp://%s:%d/";
 
     /**
      * Normalize settings for this protocol
