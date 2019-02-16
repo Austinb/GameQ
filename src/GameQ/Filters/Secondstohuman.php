@@ -104,6 +104,8 @@ class Secondstohuman extends Base
                 // Iterate and update the result
                 $result[$key] = $this->iterate($value);
             } elseif (in_array($key, $this->options[self::OPTION_TIMEKEYS])) {
+                // Make sure the value is a float (throws E_WARNING in PHP 7.1+)
+                $value = floatval($value);
                 // We match one of the keys we are wanting to convert so add it and move on
                 $result[sprintf(self::RESULT_KEY, $key)] = sprintf(
                     "%02d:%02d:%02d",
