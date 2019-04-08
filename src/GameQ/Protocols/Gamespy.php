@@ -140,7 +140,7 @@ class Gamespy extends Protocol
 
         $itemCount = count($data);
 
-        if ($itemCount >= 1)
+        if ($itemCount <= 1)
         {
             return $result->fetch();
         }
