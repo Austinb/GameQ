@@ -206,7 +206,7 @@ class Samp extends Protocol
         $result->add('max_players', $buffer->readInt16());
 
         // These are read differently for these last 3
-        $result->add('servername', $buffer->read($buffer->readInt32()));
+        $result->add('servername', utf8_encode($buffer->read($buffer->readInt32())));
         $result->add('gametype', $buffer->read($buffer->readInt32()));
         $result->add('language', $buffer->read($buffer->readInt32()));
 
@@ -234,7 +234,7 @@ class Samp extends Protocol
         // Run until we run out of buffer
         while ($buffer->getLength()) {
             $result->addPlayer('id', $buffer->readInt8());
-            $result->addPlayer('name', $buffer->readPascalString());
+            $result->addPlayer('name', utf8_encode($buffer->readPascalString()));
             $result->addPlayer('score', $buffer->readInt32());
             $result->addPlayer('ping', $buffer->readInt32());
         }
