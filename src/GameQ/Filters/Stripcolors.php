@@ -33,6 +33,8 @@ class Stripcolors extends Base
     /**
      * Apply this filter
      *
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     *
      * @param array         $result
      * @param \GameQ\Server $server
      *
@@ -61,6 +63,9 @@ class Stripcolors extends Base
             case 'gamespy3':  //not sure if gamespy3 supports ut colors but won't hurt
             case 'gamespy2':
                 array_walk_recursive($result, [$this, 'stripUnreal']);
+                break;
+            case 'source':
+                array_walk_recursive($result, [$this, 'stripSource']);
                 break;
         }
 
@@ -96,5 +101,15 @@ class Stripcolors extends Base
     protected function stripUnreal(&$string)
     {
         $string = preg_replace('/\x1b.../', '', $string);
+    }
+
+    /**
+     * Strip color codes from Source based games
+     *
+     * @param string $string
+     */
+    protected function stripSource(&$string)
+    {
+        $string = strip_tags($string);
     }
 }
