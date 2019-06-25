@@ -140,28 +140,31 @@ class Gamespy extends Protocol
 
         $itemCount = count($data);
 
-        // Now lets loop the array
-        for ($x = 0; $x < $itemCount; $x += 2) {
-            // Set some local vars
-            $key = $data[$x];
-            $val = $data[$x + 1];
+        // Check to make sure we have more than 1 item in the array before trying to loop
+        if (count($data) > 1) {
+            // Now lets loop the array since we have items
+            for ($x = 0; $x < $itemCount; $x += 2) {
+                // Set some local vars
+                $key = $data[$x];
+                $val = $data[$x + 1];
 
-            // Check for <variable>_<count> variable (i.e players)
-            if (($suffix = strrpos($key, '_')) !== false && is_numeric(substr($key, $suffix + 1))) {
-                // See if this is a team designation
-                if (substr($key, 0, $suffix) == 'teamname') {
-                    $result->addTeam('teamname', $val);
-                    $numTeams++;
-                } else {
-                    // Its a player
-                    if (substr($key, 0, $suffix) == 'playername') {
-                        $numPlayers++;
+                // Check for <variable>_<count> variable (i.e players)
+                if (($suffix = strrpos($key, '_')) !== false && is_numeric(substr($key, $suffix + 1))) {
+                    // See if this is a team designation
+                    if (substr($key, 0, $suffix) == 'teamname') {
+                        $result->addTeam('teamname', $val);
+                        $numTeams++;
+                    } else {
+                        // Its a player
+                        if (substr($key, 0, $suffix) == 'playername') {
+                            $numPlayers++;
+                        }
+                        $result->addPlayer(substr($key, 0, $suffix), utf8_encode($val));
                     }
-                    $result->addPlayer(substr($key, 0, $suffix), utf8_encode($val));
+                } else {
+                    // Regular variable so just add the value.
+                    $result->add($key, $val);
                 }
-            } else {
-                // Regular variable so just add the value.
-                $result->add($key, $val);
             }
         }
 
