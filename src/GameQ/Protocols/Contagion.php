@@ -21,12 +21,9 @@ namespace GameQ\Protocols;
 /**
  * Class Contagion
  *
- * Pre-cursor to the A2S (source) protocol system
- *
+ * @package GameQ\Protocols
  * @author  Nikolay Ipanyuk <rostov114@gmail.com>
  * @author  Austin Bischoff <austin@codebeard.com>
- *
- * @package GameQ\Protocols
  */
 class Contagion extends Source
 {
