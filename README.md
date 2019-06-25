@@ -8,7 +8,7 @@
 GameQ is a PHP library that allows you to query multiple types of multiplayer game & voice servers at the same time.
 
 ## Requirements
-* PHP 5.4.14+ - [Tested](https://travis-ci.org/Austinb/GameQ) in PHP 5.4, 5.5, 5.6, 7.0, 7.1, 7.2 & 7.3
+* PHP 5.6.40+ - [Tested](https://travis-ci.org/Austinb/GameQ) in PHP 5.6, 7.0, 7.1, 7.2 & 7.3
 * [Bzip2](http://www.php.net/manual/en/book.bzip2.php) - Used for A2S Compressed responses
 
 ## Installation
