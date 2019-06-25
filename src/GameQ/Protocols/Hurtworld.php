@@ -21,12 +21,9 @@ namespace GameQ\Protocols;
 /**
  * Class Hurtworld
  *
- * Pre-cursor to the A2S (source) protocol system
- *
+ * @package GameQ\Protocols
  * @author  Nikolay Ipanyuk <rostov114@gmail.com>
  * @author  Austin Bischoff <austin@codebeard.com>
- *
- * @package GameQ\Protocols
  */
 class Hurtworld extends Source
 {
