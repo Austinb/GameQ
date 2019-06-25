@@ -100,13 +100,13 @@ class Stripcolors extends Base
     {
         $string = preg_replace('/\x1b.../', '', $string);
     }
-    
+
     /**
      * Strip color codes from Source based games
      *
      * @param string $string
      */
-	protected function stripSource(&$string)
+    protected function stripSource(&$string)
     {
         $string = strip_tags($string);
     }
