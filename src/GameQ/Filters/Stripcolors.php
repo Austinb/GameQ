@@ -33,6 +33,8 @@ class Stripcolors extends Base
     /**
      * Apply this filter
      *
+     * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+     *
      * @param array         $result
      * @param \GameQ\Server $server
      *
