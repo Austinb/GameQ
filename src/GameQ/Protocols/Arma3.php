@@ -38,14 +38,18 @@ class Arma3 extends Source
      * @var array
      */
     protected $dlcNames = [
-        'Karts',
-        'Marksmen',
-        'Helicopters',
-        'Apex',
-        'Jets',
-        'Laws of War',
-        'Tac-Ops',
-        'Tanks',
+        'af82811b' => 'Karts',
+        '94f76a1a' => 'Marksmen',
+        'd0356eec' => 'Helicopters',
+        '19984a71' => 'Zeus',
+        '7fb4b1f3' => 'Apex',
+        '49c2c12b' => 'Jets',
+        '7e766e18' => 'Laws of War',
+        '99d71f90' => 'Malden',
+        'a8b10cdf' => 'Tac-Ops',
+        '37680ce8' => 'Tanks',
+        'c4979557' => 'Contact',
+        '9bd1cee4' => 'Exile Mod'
     ];
 
     /**
@@ -126,10 +130,11 @@ class Arma3 extends Source
         // Crosshair
         $result->add('crosshair', $responseBuffer->readInt8());
 
-        // Loop over the DLC bit so we can pull in the infor for the DLC (if enabled)
+        // Loop over the DLC bit so we can pull in the info for the DLC (if enabled)
         for ($x = 0; $x < $dlcCount; $x++) {
-            $result->addSub('dlcs', 'name', $this->dlcNames[$x]);
-            $result->addSub('dlcs', 'hash', dechex($responseBuffer->readInt32()));
+            $dlcHash = dechex($responseBuffer->readInt32());
+            isset($this->dlcNames[$dlcHash]) ? $result->addSub('dlcs', 'name', $this->dlcNames[$dlcHash]) : $result->addSub('dlcs', 'name', 'Unknown');
+            $result->addSub('dlcs', 'hash', $dlcHash);
         }
 
         // No longer needed
