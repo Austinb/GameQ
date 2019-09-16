@@ -116,6 +116,7 @@ class Arma3 extends Source
         $dlcBit = decbin($responseBuffer->readInt8()); // Grab DLC bit 1 and use it later
         $dlcBit2 = decbin($responseBuffer->readInt8()); // Grab DLC bit 2 and use it later
         $dlcCount = substr_count($dlcBit, '1') + substr_count($dlcBit2, '1'); // Count the DLCs
+
         // Grab difficulty so we can man handle it...
         $difficulty = $responseBuffer->readInt8();
 
@@ -138,7 +139,7 @@ class Arma3 extends Source
         }
 
         // No longer needed
-        unset($dlcBit, $dlcBit2, $dlcCount);
+        unset($dlcBit, $dlcBit2, $dlcCount, $dlcHash);
 
         // Grab the mod count
         $modCount = $responseBuffer->readInt8();
@@ -156,25 +157,22 @@ class Arma3 extends Source
 
         unset($modCount, $x);
 
-        // Burn the signatures count, we will just loop until we run out of strings
-        $responseBuffer->read();
+        // Get the signatures count
+        $signatureCount = $responseBuffer->readInt8();
+        $result->add('signature_count', $signatureCount);
 
         // Make signatures array
         $signatures = [];
 
-        // Loop until we run out of strings
-        while ($responseBuffer->getLength()) {
-            //$result->addSub('signatures', 0, $responseBuffer->readPascalString(0, true));
+        // Loop until we run out of signatures
+        for ($x = 0; $x < $signatureCount; $x++) {
             $signatures[] = $responseBuffer->readPascalString(0, true);
         }
 
         // Add as a simple array
         $result->add('signatures', $signatures);
 
-        // Add signatures count
-        $result->add('signature_count', count($signatures));
-
-        unset($responseBuffer, $signatures);
+        unset($responseBuffer, $signatureCount, $signatures, $x);
 
         return $result->fetch();
     }
