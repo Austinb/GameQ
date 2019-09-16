@@ -23,7 +23,7 @@ namespace GameQ\Protocols;
  *
  * @package GameQ\Protocols
  *
- * @author  Austin Bischoff <austin@codebeard.com>
+ * @author  Wilson Jesus <>
  */
 class Crysis extends Gamespy3
 {
