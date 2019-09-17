@@ -43,6 +43,7 @@ class GameQ
     /*
      * Constants
      */
+    const PROTOCOLS_DIRECTORY = __DIR__ . '/Protocols';
 
     /* Static Section */
 
