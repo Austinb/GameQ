@@ -1,4 +1,5 @@
 * text=auto
+* .php text
 
 /build export-ignore
 /tests export-ignore
