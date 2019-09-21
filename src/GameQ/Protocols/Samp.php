@@ -85,13 +85,13 @@ class Samp extends Protocol
      * @type string
      */
     protected $server_code = null;
-    
+
     /**
-	 * The client join link
-	 *
-	 * @type string
-	 */
-	protected $join_link = "samp://%s:%d/";
+     * The client join link
+     *
+     * @type string
+     */
+    protected $join_link = "samp://%s:%d/";
 
     /**
      * Normalize settings for this protocol
@@ -127,7 +127,7 @@ class Samp extends Protocol
 
         // Build the server code
         $this->server_code = implode('', array_map('chr', explode('.', $server->ip()))) .
-                             pack("S", $server->portClient());
+            pack("S", $server->portClient());
 
         // Loop over the packets and update them
         foreach ($this->packets as $packetType => $packet) {
@@ -146,7 +146,7 @@ class Samp extends Protocol
     {
 
         // Results that will be returned
-        $results = [ ];
+        $results = [];
 
         // Get the length of the server code so we can figure out how much to read later
         $serverCodeLength = strlen($this->server_code);
@@ -177,7 +177,7 @@ class Samp extends Protocol
             // Now we need to call the proper method
             $results = array_merge(
                 $results,
-                call_user_func_array([ $this, $this->responses[$response_type] ], [ $buffer ])
+                call_user_func_array([$this, $this->responses[$response_type]], [$buffer])
             );
 
             unset($buffer);
