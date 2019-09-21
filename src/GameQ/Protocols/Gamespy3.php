@@ -277,10 +277,15 @@ class Gamespy3 extends Protocol
 
         // By default item_group is blank, this will be set for each loop thru the data
         $item_group = '';
+
         // By default the item_type is blank, this will be set on each loop
         $item_type = '';
+
+        // Save count as variable
+        $count = count($data);
+
         // Loop through all of the $data for information and pull it out into the result
-        for ($x = 0; $x < count($data) - 1; $x++) {
+        for ($x = 0; $x < $count - 1; $x++) {
             // Pull out the item
             $item = $data[$x];
             // If this is an empty item, move on
@@ -330,6 +335,6 @@ class Gamespy3 extends Protocol
             }
         }
         // Free up some memory
-        unset($data, $item, $item_group, $item_type, $val);
+        unset($count, $data, $item, $item_group, $item_type, $val);
     }
 }
