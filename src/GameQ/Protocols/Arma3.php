@@ -134,8 +134,9 @@ class Arma3 extends Source
         // Loop over the DLC bit so we can pull in the info for the DLC (if enabled)
         for ($x = 0; $x < $dlcCount; $x++) {
             $dlcHash = dechex($responseBuffer->readInt32());
-            isset($this->dlcNames[$dlcHash]) ? $result->addSub('dlcs', 'name',
-                $this->dlcNames[$dlcHash]) : $result->addSub('dlcs', 'name', 'Unknown');
+            isset($this->dlcNames[$dlcHash]) ?
+                $result->addSub('dlcs', 'name', $this->dlcNames[$dlcHash])
+                : $result->addSub('dlcs', 'name', 'Unknown');
             $result->addSub('dlcs', 'hash', $dlcHash);
         }
 
