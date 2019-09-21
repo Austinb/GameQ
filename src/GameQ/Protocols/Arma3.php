@@ -38,14 +38,18 @@ class Arma3 extends Source
      * @var array
      */
     protected $dlcNames = [
-        'Karts',
-        'Marksmen',
-        'Helicopters',
-        'Apex',
-        'Jets',
-        'Laws of War',
-        'Tac-Ops',
-        'Tanks',
+        'af82811b' => 'Karts',
+        '94f76a1a' => 'Marksmen',
+        'd0356eec' => 'Helicopters',
+        '19984a71' => 'Zeus',
+        '7fb4b1f3' => 'Apex',
+        '49c2c12b' => 'Jets',
+        '7e766e18' => 'Laws of War',
+        '99d71f90' => 'Malden',
+        'a8b10cdf' => 'Tac-Ops',
+        '37680ce8' => 'Tanks',
+        'c4979557' => 'Contact',
+        '9bd1cee4' => 'Exile Mod',
     ];
 
     /**
@@ -112,6 +116,7 @@ class Arma3 extends Source
         $dlcBit = decbin($responseBuffer->readInt8()); // Grab DLC bit 1 and use it later
         $dlcBit2 = decbin($responseBuffer->readInt8()); // Grab DLC bit 2 and use it later
         $dlcCount = substr_count($dlcBit, '1') + substr_count($dlcBit2, '1'); // Count the DLCs
+
         // Grab difficulty so we can man handle it...
         $difficulty = $responseBuffer->readInt8();
 
@@ -126,14 +131,17 @@ class Arma3 extends Source
         // Crosshair
         $result->add('crosshair', $responseBuffer->readInt8());
 
-        // Loop over the DLC bit so we can pull in the infor for the DLC (if enabled)
+        // Loop over the DLC bit so we can pull in the info for the DLC (if enabled)
         for ($x = 0; $x < $dlcCount; $x++) {
-            $result->addSub('dlcs', 'name', $this->dlcNames[$x]);
-            $result->addSub('dlcs', 'hash', dechex($responseBuffer->readInt32()));
+            $dlcHash = dechex($responseBuffer->readInt32());
+            isset($this->dlcNames[$dlcHash]) ?
+                $result->addSub('dlcs', 'name', $this->dlcNames[$dlcHash])
+                : $result->addSub('dlcs', 'name', 'Unknown');
+            $result->addSub('dlcs', 'hash', $dlcHash);
         }
 
         // No longer needed
-        unset($dlcBit, $dlcBit2, $dlcCount);
+        unset($dlcBit, $dlcBit2, $dlcCount, $dlcHash);
 
         // Grab the mod count
         $modCount = $responseBuffer->readInt8();
@@ -151,25 +159,22 @@ class Arma3 extends Source
 
         unset($modCount, $x);
 
-        // Burn the signatures count, we will just loop until we run out of strings
-        $responseBuffer->read();
+        // Get the signatures count
+        $signatureCount = $responseBuffer->readInt8();
+        $result->add('signature_count', $signatureCount);
 
         // Make signatures array
         $signatures = [];
 
-        // Loop until we run out of strings
-        while ($responseBuffer->getLength()) {
-            //$result->addSub('signatures', 0, $responseBuffer->readPascalString(0, true));
+        // Loop until we run out of signatures
+        for ($x = 0; $x < $signatureCount; $x++) {
             $signatures[] = $responseBuffer->readPascalString(0, true);
         }
 
         // Add as a simple array
         $result->add('signatures', $signatures);
 
-        // Add signatures count
-        $result->add('signature_count', count($signatures));
-
-        unset($responseBuffer, $signatures);
+        unset($responseBuffer, $signatureCount, $signatures, $x);
 
         return $result->fetch();
     }
