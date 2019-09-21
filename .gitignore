@@ -10,3 +10,4 @@ coverage/
 build/logs/
 test.php
 *.iml
+/remotes/
