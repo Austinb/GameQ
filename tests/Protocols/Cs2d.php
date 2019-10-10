@@ -96,4 +96,27 @@ class Cs2d extends Base
         // Should show up as offline
         $this->queryTest('127.0.0.1:36963', 'cs2d', explode(PHP_EOL . '||' . PHP_EOL, $source), true);
     }
+
+    /**
+     * Test responses for Cs2d
+     *
+     * @dataProvider loadData
+     *
+     * @param $responses
+     * @param $result
+     */
+    public function testResponses($responses, $result)
+    {
+
+        // Pull the first key off the array this is the server ip:port
+        $server = key($result);
+
+        $testResult = $this->queryTest(
+            $server,
+            'cs2d',
+            $responses
+        );
+
+        $this->assertEquals($result[$server], $testResult);
+    }
 }
