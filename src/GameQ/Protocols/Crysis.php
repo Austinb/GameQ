@@ -40,6 +40,4 @@ class Crysis extends Gamespy3
      * @type string
      */
     protected $name_long = "Crysis";
-
-    protected $port = 64087;
 }
