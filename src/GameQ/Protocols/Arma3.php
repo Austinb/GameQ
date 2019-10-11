@@ -48,8 +48,8 @@ class Arma3 extends Source
         '99d71f90' => 'Malden',
         'a8b10cdf' => 'Tac-Ops',
         '37680ce8' => 'Tanks',
-        'c4979557' => 'Contact',
-        '9bd1cee4' => 'Exile Mod',
+        '43f9c377' => 'Contact',
+        'c4979557' => 'Enoch',
     ];
 
     /**
