@@ -40,6 +40,4 @@ class Cod extends Quake3
      * @type string
      */
     protected $name_long = "Call of Duty";
-
-    protected $port = 28960;
 }

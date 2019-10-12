@@ -41,8 +41,6 @@ class Brink extends Source
      */
     protected $name_long = "Brink";
 
-    protected $port = 27015;
-
     /**
      * query_port = client_port + 1
      *

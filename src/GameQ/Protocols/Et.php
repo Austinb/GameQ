@@ -40,6 +40,4 @@ class Et extends Quake3
      * @type string
      */
     protected $name_long = "Wolfenstein Enemy Territory";
-
-    protected $port = 27960;
 }

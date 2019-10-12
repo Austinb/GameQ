@@ -3,9 +3,9 @@ language: php
 php:
   - 5.6.40
   - 7.0.33
-  - 7.1.30
-  - 7.2.19
-  - 7.3.6
+  - 7.1.32
+  - 7.2.22
+  - 7.3.9
 
 matrix:
     allow_failures:
@@ -17,7 +17,7 @@ before_script:
 script:
   - mkdir -p build/logs
   - vendor/bin/phpcs src tests --extensions=php --ignore=bootstrap --report=checkstyle --report-file=build/logs/checkstyle.xml --standard=build/config/phpcs.xml -v
-  - vendor/bin/phpmd src,tests xml build/config/phpmd.xml --reportfile build/logs/pmd.xml
+  - vendor/bin/phpmd src,tests xml build/config/phpmd.xml
   - vendor/bin/phpunit -c phpunit.xml --verbose
 
 after_script:
