@@ -16,28 +16,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace GameQ\Protocols;
+namespace GameQ\Tests\Protocols;
 
 /**
- * Class Crysis
+ * Test Class for Wolfenstein Enemy Territory
  *
- * @package GameQ\Protocols
- *
- * @author  Wilson Jesus <>
+ * @package GameQ\Tests\Protocols
  */
-class Crysis extends Gamespy2
+class Et extends Base
 {
     /**
-     * String name of this protocol class
+     * Test responses for Wolfenstein Enemy Territory
      *
-     * @type string
+     * @dataProvider loadData
+     *
+     * @param $responses
+     * @param $result
      */
-    protected $name = 'crysis';
+    public function testResponses($responses, $result)
+    {
 
-    /**
-     * Longer string name of this protocol class
-     *
-     * @type string
-     */
-    protected $name_long = "Crysis";
+        // Pull the first key off the array this is the server ip:port
+        $server = key($result);
+
+        $testResult = $this->queryTest(
+            $server,
+            'et',
+            $responses
+        );
+
+        $this->assertEquals($result[$server], $testResult);
+    }
 }

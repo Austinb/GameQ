@@ -1,0 +1,17 @@
+ÿÿÿÿstatusResponse
+\.Hosted_By\www.clanservers.com\g_gametype\bas\g_timeoutsallowed\0\gamename\CoD:United Offensive\mapname\mp_ponyri\protocol\22\scr_allow_jeeps\1\scr_allow_tanks\1\scr_friendlyfire\0\scr_killcam\1\shortversion\1.51\sv_allowAnonymous\1\sv_floodProtect\1\sv_hostname\Historians|Base|^twitch.tv/7LoveLess\sv_master1\coduomaster.activision.com\sv_master2\master.gamespy.com:28960\sv_master3\master0.gamespy.com\sv_master4\clanservers.net\sv_master5\coduoauthorize.activision.com\sv_maxclients\64\sv_maxPing\0\sv_maxRate\25000\sv_minPing\0\sv_privateClients\0\sv_punkbuster\0\sv_pure\1\pswrd\0\mod\1
+32 45 "Fuming Mouth"
+32 228 "MARK"
+24 151 "Batman_Cap"
+17 21 "^5Giraff"
+23 250 "bLitzVamp"
+0 999 "^1|H|^2Sgt.^1Lip^2ton"
+0 999 "^4>}^7K!||3R^4{<^7J()hn^4>^3***"
+30 39 "Grady"
+16 20 "Bulls-Eye"
+0 46 ""
+65 98 "^2{BA}^1HP^4Some^7Body"
+44 248 "MothmanRSA     "
+3 142 "Tuercebotas"
+9 56 "AFK"
+0 60 "^3|H|^4al^3O^4Maker"

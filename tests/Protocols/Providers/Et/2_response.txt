@@ -1,0 +1,11 @@
+ÿÿÿÿstatusResponse
+\nport\27960\sv_NxAC\1\omnibot_playing\0\mod_url\etmods.net\mod_version\2.3.1\P\--3--21112-1-----------------2----2\voteFlags\16777215\g_balancedteams\1\g_maxGameClients\0\g_bluelimbotime\8000\g_redlimbotime\8000\gamename\nitmod\.URL\www.clan-etc.de\.NAME\ETc|Clan\g_heavyWeaponRestriction\100\g_maxlivesRespawnPenalty\0\omnibot_enable\1\sl_clanid\113208\tb_clanid\27\g_gametype\2\g_antilag\1\g_voteFlags\0\g_alliedmaxlives\0\g_axismaxlives\0\g_minGameClients\8\g_needpass\0\g_maxlives\0\g_friendlyFire\416\sv_allowAnonymous\0\sv_floodProtect\0\sv_maxPing\0\sv_minPing\0\sv_maxRate\50000\sv_hostname\^8ETc|^4Clan^9,XPSave,ETPubII ^18SEC SPAWN^7[^1NxAC^7]\sv_privateClients\2\mapname\townsquare_final\timelimit\15\sv_maxclients\52\version\ET 3.00 - TB 0.7.4 linux-i386\protocol\84
+0 32 "^9[^4NbF^9]von ^4Hage^4n"
+31271 48 "deanna"
+1274390 51 "^1ETc|^0D^1!^0abll0"
+1148 100 "vasykas"
+11010 70 "^4ETc|^RRe^Lload***"
+69761 48 "^2C^6I^7^4S^3E^0^9^7K^4_^2^1P^7L"
+3767 26 "Bukkake Girl"
+1534 61 "LS"
+605687 48 "^3*^0Brrunerr^3*"
