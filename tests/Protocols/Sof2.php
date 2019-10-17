@@ -16,35 +16,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace GameQ\Protocols;
+namespace GameQ\Tests\Protocols;
 
 /**
- * Urban Terror Class
+ * Test Class for Soldier of Fortune 2
  *
- * @package GameQ\Protocols
- * @author  naXe <naxeify@gmail.com>
- * @author  Austin Bischoff <austin@codebeard.com>
+ * @package GameQ\Tests\Protocols
  */
-class Sof2mp extends Quake3
+class Sof2 extends Base
 {
     /**
-     * String name of this protocol class
+     * Test responses for Soldier of Fortune 2
      *
-     * @type string
+     * @dataProvider loadData
+     *
+     * @param $responses
+     * @param $result
      */
-    protected $name = 'sof2mp';
+    public function testResponses($responses, $result)
+    {
 
-    /**
-     * Longer string name of this protocol class
-     *
-     * @type string
-     */
-    protected $name_long = "Solder of Fortune II";
+        // Pull the first key off the array this is the server ip:port
+        $server = key($result);
 
-    /**
-     * The client join link
-     *
-     * @type string
-     */
-    protected $join_link = "sof2mp://%s:%d/";
+        $testResult = $this->queryTest(
+            $server,
+            'sof2',
+            $responses
+        );
+
+        $this->assertEquals($result[$server], $testResult);
+    }
 }
