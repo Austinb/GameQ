@@ -25,7 +25,7 @@ namespace GameQ\Protocols;
  *
  * @author  Wilson Jesus <>
  */
-class Crysis extends Gamespy2
+class Crysis extends Gamespy3
 {
     /**
      * String name of this protocol class
