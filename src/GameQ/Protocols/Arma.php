@@ -40,6 +40,4 @@ class Arma extends Gamespy2
      * @type string
      */
     protected $name_long = "ArmA Armed Assault";
-
-    protected $port = 2302;
 }
