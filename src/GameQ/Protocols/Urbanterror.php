@@ -22,7 +22,6 @@ namespace GameQ\Protocols;
  * Urban Terror Class
  *
  * @package GameQ\Protocols
- * @author  naXe <naxeify@gmail.com>
  * @author  Austin Bischoff <austin@codebeard.com>
  */
 class Urbanterror extends Quake3
