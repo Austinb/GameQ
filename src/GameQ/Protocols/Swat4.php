@@ -41,8 +41,6 @@ class Swat4 extends Gamespy2
      */
     protected $name_long = "SWAT 4";
 
-    protected $port = 10480;
-
     /**
      * query_port = client_port + 1
      *
