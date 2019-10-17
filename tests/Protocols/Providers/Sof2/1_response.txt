@@ -1,2 +1,12 @@
 ÿÿÿÿstatusResponse
-\game_version\sof2mp-1.00\sv_keywords\SOF2FULL \sv_maxclients\64\dmflags\8\timelimit\10\g_gametype\inf\sv_hostname\^<3D^F# ^<Hide^F&^<Seek\sv_maxRate\90000\sv_minPing\0\sv_maxPing\0\sv_floodProtect\1\sv_allowAnonymous\0\scorelimit\0 \g_friendlyFire\0\g_allowThirdPerson\1\g_maxgameclients\40\version\SOF2MP V1.00 linux-i386 May  6 2002\fraglimit\20\g_needpass\0\protocol\2002\mapname\col7\sv_privateClients\0\sv_pure\0\sv_allowDownload\1\bot_minplayers\0\AC_allowMods\0\^3Mod Name\1fx. Mod\^3Mod Version\0.82b\^3Mod Flavor\3d+dev\^3Mod URL\1fxmod.org\gamename\sof2mp\g_availableWeapons\200000000000022222222\current_gametype\1\modname\RPM 2 k 3 v2.00 ^_- ^31fxmod.org
+\game_version\sof2mp-1.00\sv_keywords\SOF2FULL \sv_maxclients\64\dmflags\8\timelimit\10\g_gametype\inf\sv_hostname\^<3D^F# ^<Hide^F&^<Seek\sv_maxRate\90000\sv_minPing\0\sv_maxPing\0\sv_floodProtect\1\sv_allowAnonymous\0\scorelimit\0\g_friendlyFire\0\g_allowThirdPerson\1\g_maxgameclients\40\version\SOF2MP V1.00 linux-i386 May  6 2002\fraglimit\20\g_needpass\0\protocol\2002\mapname\mp_col1\sv_privateClients\0\sv_pure\0\sv_allowDownload\1\bot_minplayers\0\AC_allowMods\0\^3Mod Name\1fx. Mod\^3Mod Version\0.82b\^3Mod Flavor\3d+dev\^3Mod URL\1fxmod.org\gamename\sof2mp\g_availableWeapons\200000000000022222222\current_gametype\1\modname\RPM 2 k 3 v2.00 ^_- ^31fxmod.org
+1 71 "^Kf^Et^=W^2}{^qJ^*e^:V^K,^*aRa"
+0 33 "UnnamedPlayer^7^7^7^7"
+0 75 "^Uf^Lt^yW}^v{R^NE^'L^CA^TX'"
+0 999 "^e#^wZaptore"
+6 74 "Z1zo"
+0 73 "^7)D^$2^7N( THE DEATH^$NOTE"
+0 170 "^3~^1>R^Ce^bL^:i^7c^3`"
+0 106 "                           "
+0 167 "^?Ni^SrV^jaC^<t^nO`"
+0 73 "^6.^~A^Cv^Na^3t^ga^nr^6'"
