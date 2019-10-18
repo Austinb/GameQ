@@ -162,6 +162,7 @@ class Quake3 extends Protocol
      * @param Buffer $buffer
      *
      * @return array
+     * @throws Exception
      */
     protected function processPlayers(Buffer $buffer)
     {
@@ -173,24 +174,34 @@ class Quake3 extends Protocol
 
         // Loop until we are out of data
         while ($buffer->getLength()) {
-            // Make a new buffer with this block
-            $playerInfo = new Buffer($buffer->readString("\x0A"));
-
             // Add player info
-            $result->addPlayer('frags', $playerInfo->readString("\x20"));
-            $result->addPlayer('ping', $playerInfo->readString("\x20"));
+            $result->addPlayer('frags', $buffer->readString("\x20"));
+            $result->addPlayer('ping', $buffer->readString("\x20"));
 
-            // Skip first "
-            $playerInfo->skip(1);
+            // Look ahead to see if we have a name or team
+            $checkTeam = $buffer->lookAhead(1);
+
+            // We have team info
+            if ($checkTeam != '' and $checkTeam != '"') {
+                $result->addPlayer('team', $buffer->readString("\x20"));
+            }
+
+            // Check to make sure we have player name
+            $checkPlayerName = $buffer->read();
+
+            // Bad response
+            if ($checkPlayerName !== '"') {
+                throw new Exception('Expected " but got ' . $checkPlayerName . ' for beginning of player name string!');
+            }
 
             // Add player name, encoded
-            $result->addPlayer('name', utf8_encode(trim(($playerInfo->readString('"')))));
+            $result->addPlayer('name', utf8_encode(trim($buffer->readString('"'))));
+
+            // Burn ending delimiter
+            $buffer->read();
 
             // Increment
             $playerCount++;
-
-            // Clear
-            unset($playerInfo);
         }
 
         $result->add('clients', $playerCount);

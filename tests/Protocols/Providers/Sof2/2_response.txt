@@ -1,10 +1,11 @@
 ÿÿÿÿstatusResponse
-\game_version\sof2mp-1.02\sv_keywords\SOF2FULL \sv_maxclients\22\sv_pure\0\scorelimit\10\timelimit\20\dmflags\8\fraglimit\100\g_gametype\ctf\g_needpass\0\sv_privateClients\0\sv_hostname\^1ROXgaming ^3RD CCTF\sv_punkbuster\0\sv_maxRate\25000\sv_minPing\0\sv_maxPing\200\sv_floodProtect\1\sv_allowAnonymous\0\sv_allowDownload\1\bot_minplayers\4\g_maxGameClients\0\sv_minRate\6000\g_friendlyfire\1\version\SOF2MP GOLD V1.03 win-x86 Nov  5 2002\protocol\2004\mapname\mp_kam3\gamename\sof2mp\sv_modClient\1\gameversion\ROC2.1c, AI-1.6.4\g_available\22222222002222000202\redscore\3\bluescore\2
-24 0 1 "[PyccaK]"
-38 51 2 "Eagle1"
-15 0 1 "M@n!eK"
-18 0 1 "SpKtR"
-10 0 2 "ECManOnFire"
-13 0 2 "LW][KILL$H0T.[R]"
-15 0 2 "D!p$3tXinu"
-16 0 1 "deat"
+\game_version\sof2mp-1.02\sv_keywords\SOF2FULL \sv_maxclients\22\sv_pure\0\scorelimit\10\timelimit\20\dmflags\8\fraglimit\100\g_gametype\CTF\g_needpass\0\sv_privateClients\0\sv_hostname\^1ROXgaming ^3RD CCTF\sv_punkbuster\0\sv_maxRate\25000\sv_minPing\0\sv_maxPing\200\sv_floodProtect\1\sv_allowAnonymous\0\sv_allowDownload\1\bot_minplayers\4\g_maxGameClients\0\sv_minRate\6000\g_friendlyfire\1\version\SOF2MP GOLD V1.03 win-x86 Nov  5 2002\protocol\2004\mapname\mp_jor3\gamename\sof2mp\sv_modClient\1\gameversion\ROC2.1c, AI-1.6.4\g_available\22222222022222000202\redscore\3\bluescore\5
+38 128 1 "FicTioN"
+0 108 3 "Fitch"
+101 115 2 "OneManClan"
+21 256 1 "Son Of Satan"
+41 122 1 "^_[R^7O^_X]^FTRON"
+23 50 2 "^1[ROX]^iBlueMarlin"
+0 0 2 "dig^/ital.^uground"
+36 50 1 "^n[^2ROX^n]^2Pe^nan^2ut"
+9 0 2 "xNVY010x"
