@@ -59,4 +59,31 @@ class Gamespy3 extends Base
         // Test to make sure packets are defined properly
         $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
     }
+
+    /**
+     * Test the challenge application
+     */
+    public function testChallengeapply()
+    {
+
+        $packets = $this->packets;
+
+        //09102030403000
+
+        // Set what the packets should look like
+        $packets[\GameQ\Protocol::PACKET_ALL] = "\xfe\xfd\x00\x10\x20\x30\x40\xd7\x13\xb1\x5f\xff\xff\xff\x01";
+
+        // Create a fake buffer
+        $challenge_buffer = new \GameQ\Buffer("\x09\x10\x20\x30\x40\x2d\x36\x38\x36\x35\x37\x35\x32\x36\x35\x00");
+
+        // Apply the challenge
+        $this->stub->challengeParseAndApply($challenge_buffer);
+
+        // Build reflection to access changed data
+        $reflectionClass = new \ReflectionClass($this->stub);
+        $reflectionProperty = $reflectionClass->getProperty('__phpunit_originalObject');
+        $reflectionProperty->setAccessible(true);
+
+        $this->assertEquals($packets, \PHPUnit\Framework\Assert::readAttribute($reflectionProperty->getValue($this->stub), 'packets'));
+    }
 }
