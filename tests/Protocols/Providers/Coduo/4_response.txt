@@ -1,0 +1,13 @@
+ÿÿÿÿstatusResponse
+\fs_game\modsrotuv1\g_gametype\zomrotu\g_timeoutsallowed\0\gamename\CoD:United Offensive\mapname\mp_carentan\protocol\21\scr_allow_jeeps\1\scr_allow_tanks\1\scr_friendlyfire\0\scr_killcam\0\shortversion\1.41\sv_allowAnonymous\0\sv_floodProtect\0\sv_hostname\^1R^7eign of the Undead\sv_maxclients\250\sv_maxRate\50000\sv_privateClients\0\sv_punkbuster\0\sv_pure\1\pswrd\0\mod\1
+0 101 " ^2Lynch^3Lipton"
+0 141 "Wolfman"
+0 62 "Klusek"
+99490 100 "MasterChief"
+0 61 "Showbaumbi"
+0 63 "Bridget"
+0 46 "Hoodowerer"
+0 64 "Knowerwe"
+0 45 "Indataff"
+0 65 "LexActiveFamous"
+0 41 "Rivasfi"

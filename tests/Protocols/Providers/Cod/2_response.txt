@@ -1,0 +1,2 @@
+ÿÿÿÿstatusResponse
+\^5Contact^6\admin@nexus-gaming.org\^5IRC^6\#neXus @ QuakeNet\^5Location^6\Frankfurt, Germany\^5Owner^6\bdz\^5Website^6\www.Nexus-Gaming.org\codextended\CoDExtended v20\g_gametype\sd\gamename\main\mapname\mp_harbor\protocol\1\shortversion\1.1\sv_allowAnonymous\0\sv_floodProtect\1\sv_hostname\ne^5X^7us^5#^7Harbor ^5[^71SK^5]\sv_maxclients\64\sv_maxPing\0\sv_maxRate\0\sv_minPing\0\sv_privateClients\0\sv_pure\0\pswrd\0\mod\0
