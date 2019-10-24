@@ -46,9 +46,9 @@ class Atlas extends Source
      * 57561 = 5761 + 51800
      *
      * this is the default value for the stock game server, both ports
-     * can be independently changed from the stock ones, 
+     * can be independently changed from the stock ones,
      * making the port_diff logic useless.
-     * 
+     *
      * @type int
      */
     protected $port_diff = 51800;
