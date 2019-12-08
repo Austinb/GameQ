@@ -1,0 +1,8 @@
+title: GameQ
+description: A PHP library for querying game and voice servers
+google_analytics: 
+show_downloads: true
+theme: jekyll-theme-modernist
+
+gems:
+  - jekyll-mentions
