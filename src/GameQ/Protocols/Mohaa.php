@@ -74,6 +74,6 @@ class Mohaa extends Gamespy
      */
     public function findQueryPort($clientPort)
     {
-        return $clientPort+97;
+        return $clientPort + 97;
     }
 }
