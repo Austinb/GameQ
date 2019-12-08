@@ -38,7 +38,7 @@ class Result
      * Adds variable to results
      *
      * @param string $name  Variable name
-     * @param string $value Variable value
+     * @param string|array $value Variable value
      */
     public function add($name, $value)
     {
