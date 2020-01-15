@@ -62,7 +62,7 @@ class Native extends Core
             }
 
             // Send the packet
-            return fwrite($this->socket, $data);
+            return @fwrite($this->socket, $data);
         } catch (\Exception $e) {
             throw new Exception($e->getMessage(), $e->getCode(), $e);
         }
