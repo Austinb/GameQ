@@ -19,7 +19,6 @@
 namespace GameQ\Protocols;
 
 use GameQ\Buffer;
-use GameQ\Result;
 
 /**
  * Class Rust
