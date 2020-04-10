@@ -18,6 +18,9 @@
 
 namespace GameQ\Protocols;
 
+use GameQ\Buffer;
+use GameQ\Result;
+
 /**
  * Class Rust
  *
@@ -42,21 +45,24 @@ class Rust extends Source
     protected $name_long = "Rust";
     
     /**
-     * Overload so we can take max_players from keywords
+     * Overload so we can get max players from mp of keywords and num players from cp keyword
      *
      * @param Buffer $buffer
-     * @param Result $result
      */
-    protected function processDetails(Buffer &$buffer, Result &$result)
+    protected function processDetails(Buffer $buffer)
     {
-        parent::processDetails($buffer, $result);
+
+        $results = parent::processDetails($buffer);
         
-        if($result->get('keywords')
+        if($results['keywords'])
         {
-            //get max players from mp of keywords
-            preg_match_all('/mp([\d]+)/', $result->get('keywords'), $matches);
-            $result->add('max_players', intval($matches[1]));
+            //get max players from mp of keywords and num players from cp keyword
+            preg_match_all('/(mp|cp)([\d]+)/', $results['keywords'], $matches);
+            $results['max_players'] = intval($matches[2][0]);
+            $results['num_players'] = intval($matches[2][1]);
         }
+
+        return $results;
           
     }
 }
