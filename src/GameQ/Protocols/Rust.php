@@ -40,4 +40,23 @@ class Rust extends Source
      * @type string
      */
     protected $name_long = "Rust";
+    
+    /**
+     * Overload so we can take max_players from keywords
+     *
+     * @param Buffer $buffer
+     * @param Result $result
+     */
+    protected function processDetails(Buffer &$buffer, Result &$result)
+    {
+        parent::processDetails($buffer, $result);
+        
+        if($result->get('keywords')
+        {
+            //get max players from mp of keywords
+            preg_match_all('/mp([\d]+)/', $result->get('keywords'), $matches);
+            $result->add('max_players', intval($matches[1]));
+        }
+          
+    }
 }
