@@ -112,6 +112,12 @@ class Native extends Core
 
             // Set blocking mode
             stream_set_blocking($this->socket, $this->blocking);
+
+            // Set the read buffer
+            stream_set_read_buffer($this->socket, 0);
+
+            // Set the write buffer
+            stream_set_write_buffer($this->socket, 0);
         } else {
             // Reset socket
             $this->socket = null;
@@ -193,7 +199,7 @@ class Native extends Core
                 /* @var $socket resource */
 
                 // See if we have a response
-                if (($response = fread($socket, 8192)) === false) {
+                if (($response = fread($socket, 32768)) === false) {
                     continue; // No response yet so lets continue.
                 }
 
