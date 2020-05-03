@@ -118,8 +118,7 @@ class Ase extends Protocol
 
         // Verify header
         if ($header !== 'EYE1') {
-            throw new \GameQ\Exception\Protocol(sprintf('%s The response header "%s" does not match expected "EYE1"',
-                __METHOD__, $header));
+            throw new \GameQ\Exception\Protocol(sprintf('%s The response header "%s" does not match expected "EYE1"', __METHOD__, $header));
         }
 
         // Create a new result
