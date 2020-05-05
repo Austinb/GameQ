@@ -105,12 +105,21 @@ class Ase extends Protocol
      */
     public function processResponse()
     {
-
         // Create a new buffer
         $buffer = new Buffer(implode('', $this->packets_response));
 
-        // Burn the header
-        $buffer->skip(4);
+        // Check for valid response
+        if ($buffer->getLength() < 4) {
+            throw new \GameQ\Exception\Protocol(sprintf('%s The response from the server was empty.', __METHOD__));
+        }
+
+        // Read the header
+        $header = $buffer->read(4);
+
+        // Verify header
+        if ($header !== 'EYE1') {
+            throw new \GameQ\Exception\Protocol(sprintf('%s The response header "%s" does not match expected "EYE1"', __METHOD__, $header));
+        }
 
         // Create a new result
         $result = new Result();
