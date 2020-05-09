@@ -134,11 +134,11 @@ class Gtar extends Http
         if (!isset($matches[0]) || ($json = json_decode($matches[0])) === null) {
             throw new Exception("JSON response from Gtar protocol is invalid.");
         }
-		
-		$address = $this->realIp.':'.$this->realPortQuery;
-		$server = $json->$address;
-		
-		if (empty($server)) {
+
+        $address = $this->realIp.':'.$this->realPortQuery;
+        $server = $json->$address;
+
+        if (empty($server)) {
             return [
                 'gq_address'    => $this->realIp,
                 'gq_port_query' => $this->realPortQuery,
