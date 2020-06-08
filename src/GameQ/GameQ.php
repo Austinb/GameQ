@@ -517,7 +517,7 @@ class GameQ
                     throw new \Exception($e->getMessage(), $e->getCode(), $e);
                 }
 
-                break;
+                continue;
             }
 
             // Clean up the sockets, if any left over

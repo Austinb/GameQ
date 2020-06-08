@@ -58,4 +58,65 @@ class Ase extends Base
         // Test to make sure packets are defined properly
         $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
     }
+
+    /**
+     * Test invalid packet type without debug
+     */
+    public function testInvalidPacketType()
+    {
+
+        // Read in a css source file
+        $source = file_get_contents(sprintf('%s/Providers/Mta/1_response.txt', __DIR__));
+
+        // Change the first packet to some unknown header
+        $source = str_replace("EYE1", "Something else", $source);
+
+        // Should show up as offline
+        $testResult = $this->queryTest('104.156.48.17:22003', 'mta', explode(PHP_EOL . '||' . PHP_EOL, $source), false);
+
+        $this->assertFalse($testResult['gq_online']);
+    }
+
+    /**
+     * Test for invalid packet type in response
+     *
+     * @expectedException \Exception
+     * @expectedExceptionMessage GameQ\Protocols\Ase::processResponse The response header "Some" does not match expected "EYE1"
+     */
+    public function testInvalidPacketTypeDebug()
+    {
+
+        // Read in a css source file
+        $source = file_get_contents(sprintf('%s/Providers/Mta/1_response.txt', __DIR__));
+
+        // Change the first packet to some unknown header
+        $source = str_replace("EYE1", "Something else", $source);
+
+        // Should fail out
+        $this->queryTest('104.156.48.17:22003', 'mta', explode(PHP_EOL . '||' . PHP_EOL, $source), true);
+    }
+
+    /**
+     * Test empty server response without debug
+     */
+    public function testEmptyServerResponse()
+    {
+
+        // Should show up as offline
+        $testResult = $this->queryTest('46.174.48.50:22051', 'mta', [], false);
+
+        $this->assertFalse($testResult['gq_online']);
+    }
+
+    /**
+     * Test empty server response
+     *
+     * @expectedException \Exception
+     * @expectedExceptionMessage GameQ\Protocols\Ase::processResponse The response from the server was empty.
+     */
+    public function testEmptyServerResponseDebug()
+    {
+        // Should fail out
+        $this->queryTest('46.174.48.50:22051', 'mta', [], true);
+    }
 }
