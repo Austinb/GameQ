@@ -46,6 +46,10 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 ## License
 See [LICENSE](LICENSE.lgpl) for more information
 
+## Third Party Provider
+
+* [dev.tkirch.wsc.gameq](https://github.com/tkirchDev/dev.tkirch.wsc.gameq) - Provides the "Austinb GameQ" library at the WSC.
+
 Donations
 =========
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VAU2KADATP5PU)
