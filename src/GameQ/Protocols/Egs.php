@@ -25,7 +25,7 @@ namespace GameQ\Protocols;
  * @author  Austin Bischoff <austin@codebeard.com>
  * @author  TacTicToe66 <https://github.com/TacTicToe66>
  */
-class EgS extends Source
+class Egs extends Source
 {
 
     /**
