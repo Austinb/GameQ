@@ -778,11 +778,11 @@ class Ventrilo extends Protocol
             $characterCount = count($chars);
 
             $key = 0;
-            for ($i = 1; $i <= $characterCount; $i++) {
-                $chars[$i] -= ($table[$a2] + (($i - 1) % 5)) & 0xFF;
+            for ($index = 1; $index <= $characterCount; $index++) {
+                $chars[$index] -= ($table[$a2] + (($index - 1) % 5)) & 0xFF;
                 $a2 = ($a2 + $a1) & 0xFF;
-                if (($i % 2) == 0) {
-                    $short_array = unpack("n1", pack("C2", $chars[$i - 1], $chars[$i]));
+                if (($index % 2) == 0) {
+                    $short_array = unpack("n1", pack("C2", $chars[$index - 1], $chars[$index]));
                     $header_items[$key] = $short_array[1];
                     ++$key;
                 }
@@ -818,10 +818,10 @@ class Ventrilo extends Protocol
             $data = "";
             $characterCount = count($chars);
 
-            for ($i = 1; $i <= $characterCount; $i++) {
-                $chars[$i] -= ($table[$a2] + (($i - 1) % 72)) & 0xFF;
+            for ($index = 1; $index <= $characterCount; $index++) {
+                $chars[$index] -= ($table[$a2] + (($index - 1) % 72)) & 0xFF;
                 $a2 = ($a2 + $a1) & 0xFF;
-                $data .= chr($chars[$i]);
+                $data .= chr($chars[$index]);
             }
             //@todo: Check CRC ???
             $decrypted[$header_items['pck']] = $data;

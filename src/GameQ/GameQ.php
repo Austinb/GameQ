@@ -410,10 +410,10 @@ class GameQ
                         'server_id' => $server_id,
                         'socket'    => $socket,
                     ];
-                } catch (QueryException $e) {
+                } catch (QueryException $exception) {
                     // Check to see if we are in debug, if so bubble up the exception
                     if ($this->debug) {
-                        throw new \Exception($e->getMessage(), $e->getCode(), $e);
+                        throw new \Exception($exception->getMessage(), $exception->getCode(), $exception);
                     }
                 }
 
@@ -511,10 +511,10 @@ class GameQ
                     'server_id' => $server_id,
                     'socket'    => $socket,
                 ];
-            } catch (QueryException $e) {
+            } catch (QueryException $exception) {
                 // Check to see if we are in debug, if so bubble up the exception
                 if ($this->debug) {
-                    throw new \Exception($e->getMessage(), $e->getCode(), $e);
+                    throw new \Exception($exception->getMessage(), $exception->getCode(), $exception);
                 }
 
                 continue;
@@ -638,7 +638,7 @@ class GameQ
 
                 // Apply the filter to the data
                 $results = $filter->apply($results, $server);
-            } catch (\ReflectionException $e) {
+            } catch (\ReflectionException $exception) {
                 // Invalid, skip it
                 continue;
             }
