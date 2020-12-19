@@ -17,6 +17,7 @@
         <exclude name="ShortVariable"/>
         <exclude name="LongVariable"/>
         <exclude name="ShortMethodName"/>
+        <exclude name="ShortClassName"/>
     </rule>
     <rule ref="rulesets/naming.xml/ShortVariable">
         <properties>
@@ -33,7 +34,11 @@
             <property name="minimum" value="2" />
         </properties>
     </rule>
-
+    <rule ref="rulesets/naming.xml/ShortClassName">
+        <properties>
+            <property name="minimum" value="2" />
+        </properties>
+    </rule>
     <rule ref="rulesets/codesize.xml">
         <exclude name="TooManyMethods"/>
         <exclude name="TooManyPublicMethods"/>
