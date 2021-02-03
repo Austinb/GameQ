@@ -19,10 +19,9 @@
 namespace GameQ\Protocols;
 
 /**
- * Unturned Protocol Class
+ * Valheim Protocol Class
  *
  * @package GameQ\Protocols
- * @author Austin Bischoff <austin@codebeard.com>
  */
 class Valheim extends Source
 {
