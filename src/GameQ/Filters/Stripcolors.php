@@ -67,6 +67,9 @@ class Stripcolors extends Base
             case 'source':
                 array_walk_recursive($result, [$this, 'stripSource']);
                 break;
+            case 'gta5m':
+                array_walk_recursive($result, [$this, 'stripGta5m']);
+                break;
         }
 
         /*$data['filtered'][ $server->id() ] = $result;
@@ -111,5 +114,9 @@ class Stripcolors extends Base
     protected function stripSource(&$string)
     {
         $string = strip_tags($string);
+    }
+    protected function stripGta5m(&$string)
+    {
+        $string = preg_replace('#(\^.)#', '', $string);
     }
 }
