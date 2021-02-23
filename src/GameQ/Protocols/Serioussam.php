@@ -23,7 +23,7 @@ namespace GameQ\Protocols;
  *
  * @author ZCaliptium <zcaliptium@gmail.com>
  */
-class SeriousSam extends Gamespy
+class Serioussam extends Gamespy
 {
 
     /**
