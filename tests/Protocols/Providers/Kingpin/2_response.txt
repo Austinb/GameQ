@@ -1,0 +1,2 @@
+ÿÿÿÿprint
+\mapname\joy_2019\time\ \scores\0 : 0\dm_realmode\0\teamplay\4\kick_flamehack\1\uptime\39d 16h 17m\antilag\1\gamedate\Feb  1 2017\gamename\Monkey Mod v2.0\protocol\32\cheats\0\timelimit\0\fraglimit\10\deathmatch\1\version\kpded 2.0 x86 Jul 31 2018 Win32 RELEASE\hostname\Dark Fiber FFA | Chicago\dmflags\68\maxclients\16
