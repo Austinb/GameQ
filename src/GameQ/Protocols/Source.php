@@ -50,7 +50,7 @@ class Source extends Protocol
      */
     protected $packets = [
         self::PACKET_CHALLENGE => "\xFF\xFF\xFF\xFF\x56\x00\x00\x00\x00",
-        self::PACKET_DETAILS   => "\xFF\xFF\xFF\xFFTSource Engine Query\x00",
+        self::PACKET_DETAILS   => "\xFF\xFF\xFF\xFFTSource Engine Query\x00%s",
         self::PACKET_PLAYERS   => "\xFF\xFF\xFF\xFF\x55%s",
         self::PACKET_RULES     => "\xFF\xFF\xFF\xFF\x56%s",
     ];
