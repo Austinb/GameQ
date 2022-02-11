@@ -71,6 +71,7 @@ class Source extends Base
         $packets = $this->packets;
 
         // Set what the packets should look like
+        $packets[\GameQ\Protocol::PACKET_DETAILS] = "\xFF\xFF\xFF\xFFTSource Engine Query\x00test";
         $packets[\GameQ\Protocol::PACKET_PLAYERS] = "\xFF\xFF\xFF\xFF\x55test";
         $packets[\GameQ\Protocol::PACKET_RULES] = "\xFF\xFF\xFF\xFF\x56test";
 
@@ -80,12 +81,7 @@ class Source extends Base
         // Apply the challenge
         $this->stub->challengeParseAndApply($challenge_buffer);
 
-        // Build reflection to access changed data
-        $reflectionClass = new \ReflectionClass($this->stub);
-        $reflectionProperty = $reflectionClass->getProperty('__phpunit_originalObject');
-        $reflectionProperty->setAccessible(true);
-
-        $this->assertEquals($packets, \PHPUnit\Framework\Assert::readAttribute($reflectionProperty->getValue($this->stub), 'packets'));
+        $this->assertEquals($packets, $this->stub->getPacket());
     }
 
     /**
