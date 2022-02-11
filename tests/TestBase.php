@@ -33,6 +33,15 @@ class TestBase extends \PHPUnit\Framework\TestCase
         parent::__construct($name, $data, $dataName);
     }
 
+    public function assertEqualsDelta($expected, $actual, $delta)
+    {
+        if (method_exists(get_parent_class($this), 'assertEqualsDelta')) {
+            return parent::assertEqualsDelta($expected, $actual, $delta);
+        } else {
+           return $this->assertEquals($expected, $actual, '', $delta);
+        }
+    }
+
     /**
      * Fake test so PHPUnit won't complain about no tests in class.
      */
