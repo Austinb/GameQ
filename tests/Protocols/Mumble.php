@@ -44,8 +44,10 @@ class Mumble extends Base
 
     /**
      * Setup
+     * 
+     * @before
      */
-    public function setUp()
+    public function customSetUp()
     {
 
         // Create the stub class
@@ -61,17 +63,16 @@ class Mumble extends Base
     {
 
         // Test to make sure packets are defined properly
-        $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
+        $this->assertEquals($this->packets, $this->stub->getPacket());
     }
 
     /**
      * Test non-JSON formatted response
-     *
-     * @expectedException \Exception
-     * @expectedExceptionMessage GameQ\Protocols\Mumble::processResponse Unable to decode JSON data.
      */
     public function testBadResponseFormat()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('GameQ\Protocols\Mumble::processResponse Unable to decode JSON data.');
 
         // Should fail out
         $this->queryTest('127.0.0.1:27015', 'mumble', [ '{"key1": "val", "key2" :}' ], true);

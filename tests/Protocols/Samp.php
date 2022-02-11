@@ -41,12 +41,15 @@ class Samp extends Base
 
     /**
      * Setup
+     * 
+     * @before
      */
-    public function setUp()
+    public function customSetUp()
     {
 
         // Create the stub class
         $this->stub = $this->getMockBuilder('\GameQ\Protocols\Samp')
+            ->enableProxyingToOriginalMethods()
             ->getMock();
     }
 
@@ -55,19 +58,17 @@ class Samp extends Base
      */
     public function testPackets()
     {
-
         // Test to make sure packets are defined properly
-        $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
+        $this->assertEquals($this->packets, $this->stub->getPacket());
     }
 
     /**
      * Test the packer header check application
-     *
-     * @expectedException \Exception
-     * @expectedExceptionMessage GameQ\Protocols\Samp::processResponse header response 'SAMu' is not valid
      */
     public function testPacketHeader()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('GameQ\Protocols\Samp::processResponse header response \'SAMu\' is not valid');
 
         // Read in a samp source file
         $source = file_get_contents(sprintf('%s/Providers/Samp/1_response.txt', __DIR__));
@@ -81,12 +82,11 @@ class Samp extends Base
 
     /**
      * Test for mis matched server code in response
-     *
-     * @expectedException \Exception
-     * @expectedExceptionMessage GameQ\Protocols\Samp::processResponse code check failed.
      */
     public function testServerCode()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('GameQ\Protocols\Samp::processResponse code check failed.');
 
         // Read in a samp source file
         $source = file_get_contents(sprintf('%s/Providers/Samp/1_response.txt', __DIR__));
@@ -118,12 +118,11 @@ class Samp extends Base
 
     /**
      * Test for invalid packet type in response
-     *
-     * @expectedException \Exception
-     * @expectedExceptionMessage GameQ\Protocols\Samp::processResponse response type 'X' is not valid
      */
     public function testInvalidPacketTypeDebug()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('GameQ\Protocols\Samp::processResponse response type \'X\' is not valid');
 
         // Read in a samp source file
         $source = file_get_contents(sprintf('%s/Providers/Samp/1_response.txt', __DIR__));

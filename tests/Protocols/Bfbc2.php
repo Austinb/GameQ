@@ -42,8 +42,10 @@ class Bfbc2 extends Base
 
     /**
      * Setup
+     * 
+     * @before
      */
-    public function setUp()
+    public function customSetUp()
     {
 
         // Create the stub class
@@ -59,17 +61,16 @@ class Bfbc2 extends Base
     {
 
         // Test to make sure packets are defined properly
-        $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
+        $this->assertEquals($this->packets, $this->stub->getPacket());
     }
 
     /**
      * Test for invalid packet length
-     *
-     * @expectedException \Exception
-     * @expectedExceptionMessage GameQ\Protocols\Bfbc2::processResponse packet length does not match expected length!
      */
     public function testInvalidPacketLengthDebug()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('GameQ\Protocols\Bfbc2::processResponse packet length does not match expected length!');
 
         // Read in a css source file
         $source = file_get_contents(sprintf('%s/Providers/Bfbc2/1_response.txt', __DIR__));

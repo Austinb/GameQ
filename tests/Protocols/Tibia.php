@@ -39,8 +39,10 @@ class Tibia extends Base
 
     /**
      * Setup
+     * 
+     * @before
      */
-    public function setUp()
+    public function customSetUp()
     {
 
         // Create the stub class
@@ -56,7 +58,7 @@ class Tibia extends Base
     {
 
         // Test to make sure packets are defined properly
-        $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
+        $this->assertEquals($this->packets, $this->stub->getPacket());
     }
 
     /**
@@ -79,12 +81,12 @@ class Tibia extends Base
 
     /**
      * Test for invalid response in response
-     *
-     * @expectedException \Exception
-     * @expectedExceptionMessage GameQ\Protocols\Tibia::processResponse Unable to load XML string.
      */
     public function testInvalidPacketTypeDebug()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('GameQ\Protocols\Tibia::processResponse Unable to load XML string.');
+
         // Read in a Tibia source file
         $source = file_get_contents(sprintf('%s/Providers/Tibia/1_response.txt', __DIR__));
 

@@ -55,4 +55,15 @@ abstract class Base
      * @return mixed
      */
     abstract public function apply(array $result, Server $server);
+
+    /**
+     * Returns the internal options array.
+     * Used for testing purpose.
+     *
+     * @return array
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
 }

@@ -16,35 +16,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace GameQ\Tests\Protocols;
+namespace GameQ\Protocols;
 
 /**
- * Test Class for Squad
+ * Valheim Protocol Class
  *
- * @package GameQ\Tests\Protocols
+ * @package GameQ\Protocols
  */
-class Squad extends Base
+class Valheim extends Source
 {
     /**
-     * Test responses for Squad
+     * String name of this protocol class
      *
-     * @dataProvider loadData
-     *
-     * @param $responses
-     * @param $result
+     * @type string
      */
-    public function testResponses($responses, $result)
-    {
+    protected $name = 'valheim';
 
-        // Pull the first key off the array this is the server ip:port
-        $server = key($result);
+    /**
+     * Longer string name of this protocol class
+     *
+     * @type string
+     */
+    protected $name_long = "Valheim";
 
-        $testResult = $this->queryTest(
-            $server,
-            'squad',
-            $responses
-        );
-
-        $this->assertEqualsDelta($result[$server], $testResult, 0.000000001);
-    }
+    /**
+     * query_port = client_port + 1
+     *
+     * @type int
+     */
+    protected $port_diff = 1;
 }
