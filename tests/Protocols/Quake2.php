@@ -81,13 +81,11 @@ class Quake2 extends Base
 
     /**
      * Test for invalid packet type in response
-     *
-     * @expectedException \Exception
-     * @expectedExceptionMessage GameQ\Protocols\Quake2::processResponse response type
-     *                           'ffffffff7072696e7473' is not valid
      */
     public function testInvalidPacketTypeDebug()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('GameQ\Protocols\Quake2::processResponse response type \'ffffffff7072696e7473\' is not valid');
 
         // Read in a quake 2 source file
         $source = file_get_contents(sprintf('%s/Providers/Quake2/1_response.txt', __DIR__));

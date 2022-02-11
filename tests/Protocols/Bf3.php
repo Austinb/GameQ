@@ -66,12 +66,11 @@ class Bf3 extends Base
 
     /**
      * Test for invalid packet length
-     *
-     * @expectedException \Exception
-     * @expectedExceptionMessage GameQ\Protocols\Bf3::processResponse packet length does not match expected length!
      */
     public function testInvalidPacketLengthDebug()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('GameQ\Protocols\Bf3::processResponse packet length does not match expected length!');
 
         // Read in a css source file
         $source = file_get_contents(sprintf('%s/Providers/Bf3/1_response.txt', __DIR__));

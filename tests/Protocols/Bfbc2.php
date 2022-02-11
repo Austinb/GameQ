@@ -66,12 +66,11 @@ class Bfbc2 extends Base
 
     /**
      * Test for invalid packet length
-     *
-     * @expectedException \Exception
-     * @expectedExceptionMessage GameQ\Protocols\Bfbc2::processResponse packet length does not match expected length!
      */
     public function testInvalidPacketLengthDebug()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('GameQ\Protocols\Bfbc2::processResponse packet length does not match expected length!');
 
         // Read in a css source file
         $source = file_get_contents(sprintf('%s/Providers/Bfbc2/1_response.txt', __DIR__));
