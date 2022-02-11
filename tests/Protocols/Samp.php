@@ -122,7 +122,7 @@ class Samp extends Base
     public function testInvalidPacketTypeDebug()
     {
         $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('GameQ\Protocols\Samp::processResponse response type 'X' is not valid');
+        $this->expectExceptionMessage('GameQ\Protocols\Samp::processResponse response type \'X\' is not valid');
 
         // Read in a samp source file
         $source = file_get_contents(sprintf('%s/Providers/Samp/1_response.txt', __DIR__));
