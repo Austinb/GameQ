@@ -81,6 +81,6 @@ class Eco extends Base
             $responses
         );
 
-        $this->assertEquals($result[$server], $testResult, '', 0.000001);
+        $this->assertEqualsWithDelta($result[$server], $testResult, '', 0.000001);
     }
 }
