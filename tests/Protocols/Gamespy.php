@@ -39,8 +39,10 @@ class Gamespy extends Base
 
     /**
      * Setup
+     * 
+     * @before
      */
-    public function setUp()
+    public function customSetUp()
     {
 
         // Create the stub class
@@ -56,7 +58,7 @@ class Gamespy extends Base
     {
 
         // Test to make sure packets are defined properly
-        $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
+        $this->assertEquals($this->packets, $this->stub->getPacket());
     }
 
     /**
@@ -79,13 +81,11 @@ class Gamespy extends Base
 
     /**
      * Test for invalid packet type in response
-     *
-     * @expectedException \Exception
-     * @expectedExceptionMessage GameQ\Protocols\Gamespy::processResponse An error occurred while parsing the packets
-     *                           for 'queryid'
      */
     public function testInvalidPacketTypeDebug()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('GameQ\Protocols\Gamespy::processResponse An error occurred while parsing the packets for \'queryid\'');
 
         // Read in a css source file
         $source = file_get_contents(sprintf('%s/Providers/Ut/1_response.txt', __DIR__));

@@ -348,6 +348,17 @@ abstract class Protocol
         return $this->options;
     }
 
+    /**
+     * Returns the internal options array.
+     * Used for testing pruposes.
+     *
+     * @return array
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
 
     /*
      * Packet Section
