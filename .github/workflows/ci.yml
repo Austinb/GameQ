@@ -7,10 +7,12 @@ on:
 jobs:
   CI:
     runs-on: ubuntu-18.04
+    continue-on-error: ${{ matrix.experimental }}
     strategy:
       fail-fast: false
       matrix:
         php: ['5.6', '7.0', '7.1', '7.2', '7.3']
+        experimental: [false]
         include:
           - php: '7.4'
             experimental: true
