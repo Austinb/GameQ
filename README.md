@@ -1,5 +1,5 @@
 # GameQ
-[![Build Status](https://travis-ci.org/Austinb/GameQ.svg?branch=v3&style=flat-square)](https://travis-ci.org/Austinb/GameQ)
+[![CI](https://github.com/bumbummen99/GameQ/actions/workflows/ci.yml/badge.svg)](https://github.com/bumbummen99/GameQ/actions/workflows/ci.yml)
 [![Code Coverage](https://scrutinizer-ci.com/g/Austinb/GameQ/badges/coverage.png?b=v3)](https://scrutinizer-ci.com/g/Austinb/GameQ/?branch=v3)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Austinb/GameQ/badges/quality-score.png?b=v3&style=flat-square)](https://scrutinizer-ci.com/g/Austinb/GameQ/?branch=v3)
 [![License](https://img.shields.io/badge/license-LGPL-blue.svg?style=flat)](https://packagist.org/packages/austinb/gameq)
