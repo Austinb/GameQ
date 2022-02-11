@@ -49,6 +49,6 @@ class Conanexiles extends Base
             ]
         );
 
-        $this->assertEqualsWithDelta($result[$server], $testResult, '', 0.00000001);
+        $this->assertEqualsWithDelta($result[$server], $testResult, 0.00000001);
     }
 }
