@@ -11,3 +11,5 @@ build/logs/
 test.php
 *.iml
 /remotes/
+.phpunit.result.cache
+/.vscode
