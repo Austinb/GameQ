@@ -33,12 +33,12 @@ class TestBase extends \PHPUnit\Framework\TestCase
         parent::__construct($name, $data, $dataName);
     }
 
-    public function assertEqualsDelta($expected, $actual, $delta)
+    public static function assertEqualsWithDelta($expected, $actual, float $delta, string $message = ''): void
     {
-        if (method_exists(get_parent_class($this), 'assertEqualsDelta')) {
-            return parent::assertEqualsDelta($expected, $actual, $delta);
+        if (method_exists(get_parent_class(self::class), 'assertEqualsDelta')) {
+            parent::assertEqualsWithDelta($expected, $actual, $delta);
         } else {
-           return $this->assertEquals($expected, $actual, '', $delta);
+           self::assertEquals($expected, $actual, '', $delta);
         }
     }
 
