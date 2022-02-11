@@ -1,9 +1,7 @@
 # GameQ
 [![CI](https://github.com/bumbummen99/GameQ/actions/workflows/ci.yml/badge.svg)](https://github.com/bumbummen99/GameQ/actions/workflows/ci.yml)
-[![Code Coverage](https://scrutinizer-ci.com/g/Austinb/GameQ/badges/coverage.png?b=v3)](https://scrutinizer-ci.com/g/Austinb/GameQ/?branch=v3)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Austinb/GameQ/badges/quality-score.png?b=v3&style=flat-square)](https://scrutinizer-ci.com/g/Austinb/GameQ/?branch=v3)
-[![License](https://img.shields.io/badge/license-LGPL-blue.svg?style=flat)](https://packagist.org/packages/austinb/gameq)
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VAU2KADATP5PU)
+[![codecov](https://codecov.io/gh/bumbummen99/GameQ/branch/master/graph/badge.svg)](https://codecov.io/gh/bumbummen99/GameQ)
+[![License](https://img.shields.io/badge/license-LGPL-blue.svg?style=flat)](https://github.com/bumbummen99/GameQ/blob/v3/LICENSE)
 
 GameQ is a PHP library that allows you to query multiple types of multiplayer game & voice servers at the same time.
 
