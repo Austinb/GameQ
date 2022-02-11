@@ -86,7 +86,6 @@ class Etqw extends Base
     {
 
         $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('');
 
         // Read in a css source file
         $source = file_get_contents(sprintf('%s/Providers/Etqw/1_response.txt', __DIR__));

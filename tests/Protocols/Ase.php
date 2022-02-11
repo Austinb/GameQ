@@ -115,7 +115,7 @@ class Ase extends Base
     public function testEmptyServerResponseDebug()
     {
         $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('GameQ\Protocols\Ase::process Response  The response from the server was empty.');
+        $this->expectExceptionMessage('GameQ\Protocols\Ase::processResponse The response from the server was empty.');
 
         // Should fail out
         $this->queryTest('46.174.48.50:22051', 'mta', [], true);

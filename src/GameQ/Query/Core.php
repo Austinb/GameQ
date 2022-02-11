@@ -179,7 +179,7 @@ abstract class Core
      */
     public function getIp()
     {
-        return $this->transport;
+        return $this->ip;
     }
 
     /**
@@ -189,7 +189,7 @@ abstract class Core
      */
     public function getPort()
     {
-        return $this->transport;
+        return $this->port;
     }
 
     /**
@@ -199,7 +199,7 @@ abstract class Core
      */
     public function getTimeout()
     {
-        return $this->transport;
+        return $this->timeout;
     }
 
     /**

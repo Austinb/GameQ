@@ -49,6 +49,7 @@ class Samp extends Base
 
         // Create the stub class
         $this->stub = $this->getMockBuilder('\GameQ\Protocols\Samp')
+            ->enableProxyingToOriginalMethods()
             ->getMock();
     }
 
@@ -57,7 +58,6 @@ class Samp extends Base
      */
     public function testPackets()
     {
-
         // Test to make sure packets are defined properly
         $this->assertEquals($this->packets, $this->stub->getPacket());
     }
