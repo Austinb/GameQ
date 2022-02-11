@@ -322,6 +322,28 @@ class GameQ
     }
 
     /**
+     * Access to the internal servers array.
+     * Being used for testing pruposes.
+     * 
+     * @return array
+     */
+    public function getServers()
+    {
+        return $this->servers;
+    }
+
+    /**
+     * Access to the internal options array.
+     * Being used for testing pruposes.
+     * 
+     * @return array
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    /**
      * Main method used to actually process all of the added servers and return the information
      *
      * @return array

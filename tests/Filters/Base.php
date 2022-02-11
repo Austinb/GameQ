@@ -99,6 +99,6 @@ class Base extends TestBase
 
         $mock = $this->getMockForAbstractClass('\GameQ\Filters\Base', [ $options ]);
 
-        $this->assertEquals($options, \PHPUnit\Framework\Assert::readAttribute($mock, 'options'));
+        $this->assertEquals($options, $mock->getOptions());
     }
 }
