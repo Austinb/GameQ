@@ -49,6 +49,6 @@ class Wurm extends Base
             ]
         );
 
-        $this->assertEqualsWithDelta($result[ $server ], $testResult, 0.0001);
+        $this->assertEqualsDelta($result[ $server ], $testResult, 0.0001);
     }
 }

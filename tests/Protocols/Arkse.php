@@ -45,6 +45,6 @@ class Arkse extends Base
             $responses
         );
 
-        $this->assertEqualsWithDelta($result[$server], $testResult, 0.00000001);
+        $this->assertEqualsDelta($result[$server], $testResult, 0.00000001);
     }
 }
