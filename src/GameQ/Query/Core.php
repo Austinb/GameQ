@@ -161,4 +161,54 @@ abstract class Core
      * @return array
      */
     abstract public function getResponses(array $sockets, $timeout, $stream_timeout);
+
+    /**
+     * Used for testing purpose.
+     *
+     * @return string
+     */
+    public function getTransport()
+    {
+        return $this->transport;
+    }
+
+    /**
+     * Used for testing purpose.
+     *
+     * @return string
+     */
+    public function getIp()
+    {
+        return $this->transport;
+    }
+
+    /**
+     * Used for testing purpose.
+     *
+     * @return int
+     */
+    public function getPort()
+    {
+        return $this->transport;
+    }
+
+    /**
+     * Used for testing purpose.
+     *
+     * @return int
+     */
+    public function getTimeout()
+    {
+        return $this->transport;
+    }
+
+    /**
+     * Used for testing purpose.
+     *
+     * @return bool
+     */
+    public function isBlocking()
+    {
+        return $this->blocking;
+    }
 }

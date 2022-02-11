@@ -39,28 +39,28 @@ class Core extends TestBase
         $stub->set('tcp', '127.0.0.1', 27015, 5, true);
 
         // Verify the properties
-        $this->assertEquals('tcp', \PHPUnit\Framework\Assert::readAttribute($stub, 'transport'));
+        $this->assertEquals('tcp', $stub->getTransport());
 
-        $this->assertEquals('127.0.0.1', \PHPUnit\Framework\Assert::readAttribute($stub, 'ip'));
+        $this->assertEquals('127.0.0.1', $stub->getIp());
 
-        $this->assertEquals(27015, \PHPUnit\Framework\Assert::readAttribute($stub, 'port'));
+        $this->assertEquals(27015, $stub->getPort());
 
-        $this->assertEquals(5, \PHPUnit\Framework\Assert::readAttribute($stub, 'timeout'));
+        $this->assertEquals(5, $stub->getTimeout());
 
-        $this->assertEquals(true, \PHPUnit\Framework\Assert::readAttribute($stub, 'blocking'));
+        $this->assertEquals(true, $stub->isBlocking());
 
         // Testing the clone
         $stub_clone = clone $stub;
 
         // All of these should tbe the defaults now
-        $this->assertNull(\PHPUnit\Framework\Assert::readAttribute($stub_clone, 'transport'));
+        $this->assertNull($stub->getTransport());
 
-        $this->assertNull(\PHPUnit\Framework\Assert::readAttribute($stub_clone, 'ip'));
+        $this->assertNull($stub->getIp());
 
-        $this->assertNull(\PHPUnit\Framework\Assert::readAttribute($stub_clone, 'port'));
+        $this->assertNull($stub->getPort());
 
-        $this->assertEquals(3, \PHPUnit\Framework\Assert::readAttribute($stub_clone, 'timeout'));
+        $this->assertEquals(3, $stub->getTimeout());
 
-        $this->assertEquals(false, \PHPUnit\Framework\Assert::readAttribute($stub_clone, 'blocking'));
+        $this->assertEquals(false, $stub->isBlocking());
     }
 }

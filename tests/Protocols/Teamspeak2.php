@@ -65,7 +65,7 @@ class Teamspeak2 extends Base
     {
 
         // Test to make sure packets are defined properly
-        $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
+        $this->assertEquals($this->packets, $this->stub->getPacket());
     }
 
     /**
@@ -148,7 +148,7 @@ class Teamspeak2 extends Base
 
         $this->assertEquals(
             $packets,
-            \PHPUnit\Framework\Assert::readAttribute($reflectionProperty->getValue($stub), 'packets')
+            $this->stub->getPacket()
         );
     }
 

@@ -147,7 +147,7 @@ class Protocol extends TestBase
     {
 
         // Test the options attribute
-        $this->assertEquals($this->options, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'options'));
+        $this->assertEquals($this->options, $this->stub->getOptions());
 
         // Check the options getter
         $this->assertEquals($this->options, $this->stub->options());

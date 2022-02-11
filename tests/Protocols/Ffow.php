@@ -61,7 +61,7 @@ class Ffow extends Base
     {
 
         // Test to make sure packets are defined properly
-        $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
+        $this->assertEquals($this->packets, $this->stub->getPacket());
     }
 
     /**
@@ -89,7 +89,7 @@ class Ffow extends Base
 
         $this->assertEquals(
             $packets,
-            \PHPUnit\Framework\Assert::readAttribute($reflectionProperty->getValue($this->stub), 'packets')
+            $this->stub->getPacket()
         );
     }
 
