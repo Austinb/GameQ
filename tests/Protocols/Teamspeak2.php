@@ -145,10 +145,7 @@ class Teamspeak2 extends Base
         $reflectionProperty = $reflectionClass->getProperty('__phpunit_originalObject');
         $reflectionProperty->setAccessible(true);
 
-        $this->assertEquals(
-            $packets,
-            $this->stub->getPacket()
-        );
+        $this->assertEquals($packets, $stub->getPacket());
     }
 
     /**
