@@ -35,8 +35,10 @@ class GameQ extends TestBase
 
     /**
      * Setup to create our stub
+     *
+     * @before
      */
-    public function setUp()
+    public function customSetUp()
     {
         $this->stub = $this->getMockBuilder('\GameQ\GameQ')
             ->enableProxyingToOriginalMethods()
