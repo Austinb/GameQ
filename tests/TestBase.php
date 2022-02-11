@@ -38,7 +38,7 @@ class TestBase extends \PHPUnit\Framework\TestCase
         if (method_exists(get_parent_class(self::class), 'assertEqualsDelta')) {
             parent::assertEqualsWithDelta($expected, $actual, $delta);
         } else {
-           self::assertEquals($expected, $actual, '', $delta);
+            self::assertEquals($expected, $actual, '', $delta);
         }
     }
 
