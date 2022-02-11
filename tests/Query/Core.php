@@ -53,14 +53,14 @@ class Core extends TestBase
         $stub_clone = clone $stub;
 
         // All of these should tbe the defaults now
-        $this->assertNull($stub->getTransport());
+        $this->assertNull($stub_clone->getTransport());
 
-        $this->assertNull($stub->getIp());
+        $this->assertNull($stub_clone->getIp());
 
-        $this->assertNull($stub->getPort());
+        $this->assertNull($stub_clone->getPort());
 
-        $this->assertEquals(3, $stub->getTimeout());
+        $this->assertEquals(3, $stub_clone->getTimeout());
 
-        $this->assertEquals(false, $stub->isBlocking());
+        $this->assertEquals(false, $stub_clone->isBlocking());
     }
 }
