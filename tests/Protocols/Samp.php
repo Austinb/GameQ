@@ -157,4 +157,26 @@ class Samp extends Base
 
         $this->assertEquals($result[$server], $testResult);
     }
+    
+    /**
+     * Test adding/removing servers
+     */
+    public function testAddServerByDomainAndProcess()
+    {
+        // Test single add server
+        $this->stub->addServer([
+            \GameQ\Server::SERVER_HOST => 'game.samp-mobile.com:7777',
+            \GameQ\Server::SERVER_TYPE => 'Samp',
+        ]);
+
+        $this->assertCount(1, $this->stub->getServers());
+
+        $this->stub->addFilter('normalize');
+
+        // We do fail here
+        $info = $this->stub->process();
+
+        // Clear the servers
+        $this->stub->clearServers();
+    }
 }
