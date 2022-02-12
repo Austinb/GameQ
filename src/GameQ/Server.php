@@ -203,13 +203,18 @@ class Server
                 );
             }
 
-            // Validate the IPv4 value, if FALSE is not a valid IP, maybe a hostname.  Try to resolve
-            if (!filter_var($this->ip, FILTER_VALIDATE_IP, ['flags' => FILTER_FLAG_IPV4,])
-                && $this->ip === gethostbyname($this->ip)
-            ) {
+            // Validate the IPv4 value, if FALSE is not a valid IP, maybe a hostname.
+            if (! filter_var($this->ip, FILTER_VALIDATE_IP, ['flags' => FILTER_FLAG_IPV4,])) {
+                // Try to resolve the hostname to IPv4
+                $resolved = gethostbyname($this->ip);
+
                 // When gethostbyname() fails it returns the original string
-                // so if ip and the result from gethostbyname() are equal this failed.
-                throw new Exception("Unable to resolve the host '{$this->ip}' to an IP address.");
+                if ($this->ip === $resolved) {
+                    // so if ip and the result from gethostbyname() are equal this failed.
+                    throw new Exception("Unable to resolve the host '{$this->ip}' to an IP address.");
+                } else {
+                    $this->ip = $resolved;
+                }
             }
         }
     }
