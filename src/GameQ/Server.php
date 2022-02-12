@@ -205,7 +205,7 @@ class Server
 
             // Validate the IPv4 value, if FALSE is not a valid IP, maybe a hostname.  Try to resolve
             if (!filter_var($this->ip, FILTER_VALIDATE_IP, ['flags' => FILTER_FLAG_IPV4,])
-                && $this->ip === gethostbyname($this->ip)
+                && $this->ip = gethostbyname($this->ip)
             ) {
                 // When gethostbyname() fails it returns the original string
                 // so if ip and the result from gethostbyname() are equal this failed.
