@@ -55,8 +55,6 @@ class Issue588 extends TestBase
             \GameQ\Server::SERVER_TYPE => 'Samp',
         ]);
 
-        $this->assertCount(1, $this->stub->getServers());
-
         $this->stub->addFilter('normalize');
 
         // We do fail here
