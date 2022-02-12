@@ -58,7 +58,7 @@ class Issue588 extends TestBase
         $this->stub->addFilter('normalize');
 
         // We do fail here
-        $info = $this->stub->process();
+        $this->stub->process();
 
         // Clear the servers
         $this->assertTrue(true);
