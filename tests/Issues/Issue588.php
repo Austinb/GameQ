@@ -27,8 +27,23 @@ use GameQ\Tests\TestBase;
  *
  * @package GameQ\Tests\Issues
  */
-class Issue307 extends TestBase
+class Issue588 extends TestBase
 {
+    /**
+     * Setup
+     * 
+     * @before
+     */
+    public function customSetUp()
+    {
+
+        // Create the stub class
+        $this->stub = $this->getMockBuilder('\GameQ\GameQ')
+            ->enableProxyingToOriginalMethods()
+            ->setMethods(['__get', '__set'])
+            ->getMock();
+    }
+
     /**
      * Test for issue where hostnames are not correctly resolved to IP
      */
