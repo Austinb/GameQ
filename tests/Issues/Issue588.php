@@ -27,7 +27,7 @@ use GameQ\Tests\TestBase;
  *
  * @package GameQ\Tests\Issues
  */
-class Issue307 extends TestBase
+class Issue588 extends TestBase
 {
     /**
      * Setup to create our stub
@@ -50,8 +50,6 @@ class Issue307 extends TestBase
             \GameQ\Server::SERVER_HOST => 'game.samp-mobile.com:7777',
             \GameQ\Server::SERVER_TYPE => 'Samp',
         ]);
-
-        $this->assertCount(1, $this->stub->getServers());
 
         $this->stub->addFilter('normalize');
 
