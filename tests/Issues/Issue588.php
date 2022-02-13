@@ -27,8 +27,19 @@ use GameQ\Tests\TestBase;
  *
  * @package GameQ\Tests\Issues
  */
-class Issue307 extends TestBase
+class Issue588 extends TestBase
 {
+    /**
+     * Setup to create our stub
+     */
+    public function setUp()
+    {
+        $this->stub = $this->getMockBuilder('\GameQ\GameQ')
+            ->enableProxyingToOriginalMethods()
+            ->setMethods(['__get', '__set'])
+            ->getMock();
+    }
+
     /**
      * Test for issue where hostnames are not correctly resolved to IP
      */
@@ -40,12 +51,10 @@ class Issue307 extends TestBase
             \GameQ\Server::SERVER_TYPE => 'Samp',
         ]);
 
-        $this->assertCount(1, $this->stub->getServers());
-
         $this->stub->addFilter('normalize');
 
         // We do fail here
-        $info = $this->stub->process();
+        $this->stub->process();
 
         // Clear the servers
         $this->assertTrue(true);
