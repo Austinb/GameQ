@@ -33,23 +33,35 @@ use GameQ\Result;
 class Arma3 extends Source
 {
     /**
-     * Defines the names for the specific game DLCs
+     * Defines the names for the specific game DLCs.
+     *
+     * Obtained from the server log / rpt. CDLC can be
+     * obtained by selecting correct branch in steam on
+     * windows.
+     * Version: 2.06.148470
      *
      * @var array
      */
     protected $dlcNames = [
-        'af82811b' => 'Karts',
-        '94f76a1a' => 'Marksmen',
-        'd0356eec' => 'Helicopters',
-        '19984a71' => 'Zeus',
-        '7fb4b1f3' => 'Apex',
-        '49c2c12b' => 'Jets',
-        '7e766e18' => 'Laws of War',
-        '99d71f90' => 'Malden',
-        'a8b10cdf' => 'Tac-Ops',
-        '37680ce8' => 'Tanks',
-        '43f9c377' => 'Contact',
-        'c4979557' => 'Enoch',
+        // Base DLC
+        'bb26feb'  => 'Art of War',         // aow
+        'c3ba4c1'  => 'Contact (Platform)', // enoch
+        '6b26ff75' => 'Tanks',              // tank
+        '8646e5fd' => 'Tac-Ops',            // tacops
+        '630e5234' => 'Laws of War',        // orange
+        '3b10ba25' => 'Malden',             // argo
+        'd0356eec' => 'Jets',               // jets
+        '19984a71' => 'Apex',               // expansion
+        '7fb4b1f3' => 'Marksmen',           // mark
+        '456e1ae6' => 'Helicopters',        // heli
+        '7e766e18' => 'Karts',              // kart
+        '99d71f90' => 'Zeus',               // curator
+
+        // Creator DLC
+        '6e39b4d'  => 'ČSLA - Iron Curtain', // csla
+        '4cec2195' => 'Global Mobilization', // gm
+        '60950c6e' => 'S.O.G. Prairie Fire', // vn
+        'e57a25d'  => 'Western Sahara',     // ws
     ];
 
     /**
