@@ -38,18 +38,18 @@ class Arma3 extends Source
      * @var array
      */
     protected $dlcNames = [
-        'af82811b' => 'Karts',
-        '94f76a1a' => 'Marksmen',
-        'd0356eec' => 'Helicopters',
-        '19984a71' => 'Zeus',
-        '7fb4b1f3' => 'Apex',
-        '49c2c12b' => 'Jets',
-        '7e766e18' => 'Laws of War',
-        '99d71f90' => 'Malden',
-        'a8b10cdf' => 'Tac-Ops',
-        '37680ce8' => 'Tanks',
-        '43f9c377' => 'Contact',
-        'c4979557' => 'Enoch',
+        'bb26feb'  => 'Art of War',         // aow
+        'c3ba4c1'  => 'Contact (Platform)', // enoch
+        '6b26ff75' => 'Tanks',              // tank
+        '8646e5fd' => 'Tac-Ops',            // tacops
+        '630e5234' => 'Laws of War',        // orange
+        '3b10ba25' => 'Malden',             // argo
+        'd0356eec' => 'Jets',               // jets
+        '19984a71' => 'Apex',               // expansion
+        '7fb4b1f3' => 'Marksmen',           // mark
+        '456e1ae6' => 'Helicopters',        // heli
+        '7e766e18' => 'Karts',              // kart
+        '99d71f90' => 'Zeus',               // curator
     ];
 
     /**
