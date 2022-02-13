@@ -33,7 +33,11 @@ use GameQ\Result;
 class Arma3 extends Source
 {
     /**
-     * Defines the names for the specific game DLCs
+     * Defines the names for the specific game DLCs.
+     *
+     * Obtained from the server log / rpt. CDLC can be
+     * obtained by selecting correct branch in steam on
+     * windows.
      * Version: 2.06.148470
      *
      * @var array
