@@ -34,10 +34,12 @@ class Arma3 extends Source
 {
     /**
      * Defines the names for the specific game DLCs
+     * Version: 2.06.148470
      *
      * @var array
      */
     protected $dlcNames = [
+        // Base DLC
         'bb26feb'  => 'Art of War',         // aow
         'c3ba4c1'  => 'Contact (Platform)', // enoch
         '6b26ff75' => 'Tanks',              // tank
@@ -50,6 +52,12 @@ class Arma3 extends Source
         '456e1ae6' => 'Helicopters',        // heli
         '7e766e18' => 'Karts',              // kart
         '99d71f90' => 'Zeus',               // curator
+
+        // Creator DLC
+        '6e39b4d'  => 'ČSLA - Iron Curtain', // csla
+        '4cec2195' => 'Global Mobilization', // gm
+        '60950c6e' => 'S.O.G. Prairie Fire', // vn
+        'e57a25d'  => 'Western Sahara',     // ws
     ];
 
     /**
