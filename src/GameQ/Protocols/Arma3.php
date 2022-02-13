@@ -185,10 +185,16 @@ class Arma3 extends Source
             $infoByte = $responseBuffer->readInt8();
 
             // Determine isDLC by flag, first bit in upper nibble
-            $result->addSub('mods', 'dlc', ($dlcBits & 0b00010000) === 0b00010000);
+            $isDLC = ($dlcBits & 0b00010000) === 0b00010000;
+            $result->addSub('mods', 'dlc', $isDLC);
             
-            // Read workshop id and unpack as 32bit int
-            $result->addSub('mods', 'steam_id', self::readWorkshopId($responseBuffer, $infoByte & 0x0F));
+            if ($isDLC) {
+                // TODO no clue what to do here
+                $responseBuffer->read($infoByte & 0x0F);
+            } else {
+                // Read workshop id and unpack as 32bit int
+                $result->addSub('mods', 'steam_id', self::readWorkshopId($responseBuffer, $infoByte & 0x0F));
+            }
 
             // Read the name of the mod
             $result->addSub('mods', 'name', $responseBuffer->readPascalString(0, true) ?: 'Unknown');
