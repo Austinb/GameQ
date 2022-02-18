@@ -43,40 +43,7 @@ class Issue382 extends TestBase
          */
         $filePath = sprintf('%s/Providers/382.txt', __DIR__);
 
-        // Create a mock server
-        $server =
-            $this->getMockBuilder('\GameQ\Server')
-                ->setConstructorArgs([
-                    [
-                        \GameQ\Server::SERVER_HOST => '58.162.184.102:2302',
-                        \GameQ\Server::SERVER_TYPE => 'arma3',
-                    ],
-                ])
-                ->enableProxyingToOriginalMethods()
-                ->getMock();
-
-        // Invoke beforeSend function
-        $server->protocol()->beforeSend($server);
-
-        // Set the packet response as if we have really queried it
-        $server->protocol()->packetResponse(explode(PHP_EOL . '||' . PHP_EOL, file_get_contents($filePath)));
-
-        // Create a mock GameQ
-        $gq_mock = $this->getMockBuilder('\GameQ\GameQ')
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
-        $gq_mock->setOption('debug', false);
-
-        // Reflect on GameQ class so we can parse
-        $gameq = new \ReflectionClass($gq_mock);
-
-        // Get the parse method so we can call it
-        $method = $gameq->getMethod('doParseResponse');
-
-        // Set the method to accessible
-        $method->setAccessible(true);
-
-        $testResult = $method->invoke($gq_mock, $server);
+        $testResult = $this->queryTest('58.162.184.102:2302', 'arma3', explode(PHP_EOL . '||' . PHP_EOL, file_get_contents($filePath)));
 
         $this->assertEquals($testResult['gq_online'], true);
     }
