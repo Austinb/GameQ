@@ -21,27 +21,42 @@ namespace GameQ\Tests\Issues;
 use GameQ\Tests\TestBase;
 
 /**
- * Class Issue307
+ * Class Issue588
  *
- * Test for issue #307 - https://github.com/Austinb/GameQ/issues/307
- * Thanks to @vimishor for the testable response
+ * Test for issue #588 - https://github.com/Austinb/GameQ/issues/588
  *
  * @package GameQ\Tests\Issues
  */
-class Issue307 extends TestBase
+class Issue588 extends TestBase
 {
     /**
-     * Test for issue with colliding packet ids in Source Protocol
-     *
-     * PHP Fatal error:  [] operator not supported for strings in ./src/GameQ/Protocols/Source.php on line 185
+     * Setup to create our stub
+     */
+    public function setUp()
+    {
+        $this->stub = $this->getMockBuilder('\GameQ\GameQ')
+            ->enableProxyingToOriginalMethods()
+            ->setMethods(['__get', '__set'])
+            ->getMock();
+    }
+
+    /**
+     * Test for issue where hostnames are not correctly resolved to IP
      */
     public function test1()
     {
+        // Test single add server
+        $this->stub->addServer([
+            \GameQ\Server::SERVER_HOST => 'game.samp-mobile.com:7777',
+            \GameQ\Server::SERVER_TYPE => 'Samp',
+        ]);
 
-        $filePath = sprintf('%s/Providers/307.txt', __DIR__);
+        $this->stub->addFilter('normalize');
 
-        $testResult = $this->queryTest('127.0.0.1:27015', 'csgo', explode(PHP_EOL . '||' . PHP_EOL, file_get_contents($filePath)));
+        // We do fail here
+        $this->stub->process();
 
-        $this->assertEquals($testResult['gq_online'], 1);
+        // Clear the servers
+        $this->assertTrue(true);
     }
 }
