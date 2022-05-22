@@ -31,6 +31,10 @@ class TestBase extends \PHPUnit\Framework\TestCase
     public function __construct($name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
+
+        // Register MockDNS to actual namespace and to the namespace PHPUnit decides to use ¯\_(ツ)_/¯
+        MockDNS::register(\GameQ\Server::class);
+        MockDNS::register(self::class);
     }
     
     /**
@@ -58,7 +62,6 @@ class TestBase extends \PHPUnit\Framework\TestCase
      */
     protected function queryTest($host, $protocol, $responses, $debug = false, $server_options = [])
     {
-
         // Create a mock server
         $server = new \GameQ\Server([
             \GameQ\Server::SERVER_HOST    => $host,

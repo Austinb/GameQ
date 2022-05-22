@@ -39,9 +39,6 @@ class Wurm extends Base
             'game.mythmoor.com' => '54.39.28.49'
         ]);
 
-        /* Register mocked DNS to Server */
-        \GameQ\Tests\MockDNS::register(\GameQ\Server::class);
-
         // Pull the first key off the array this is the server ip:port
         $server = key($result);
 

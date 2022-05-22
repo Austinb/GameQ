@@ -39,9 +39,6 @@ class Arma extends Base
             'sygsky.no-ip.org' => '80.240.222.67'
         ]);
 
-        /* Register mocked DNS to Server */
-        \GameQ\Tests\MockDNS::register(\GameQ\Server::class);
-
         // Pull the first key off the array this is the server ip:port
         $server = key($result);
 

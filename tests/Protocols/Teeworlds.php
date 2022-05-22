@@ -129,9 +129,6 @@ class Teeworlds extends Base
             'ddracepro.net' => '195.154.113.141'
         ]);
 
-        /* Register mocked DNS to Server */
-        \GameQ\Tests\MockDNS::register(\GameQ\Server::class);
-
         // Pull the first key off the array this is the server ip:port
         $server = key($result);
 

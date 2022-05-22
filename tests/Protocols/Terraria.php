@@ -35,9 +35,6 @@ class Terraria extends Base
             't.shadowrain.net' => '83.233.14.21'
         ]);
 
-        /* Register mocked DNS to Server */
-        \GameQ\Tests\MockDNS::register(\GameQ\Server::class);
-
         // Pull the first key off the array this is the server ip:port
         $server = key($result);
 
