@@ -6,7 +6,7 @@ namespace GameQ\Tests;
  * MockDNS class using monkey patching. Inspired by symfony/phpunit-bridge
  *
  * @see https://github.com/symfony/phpunit-bridge/blob/5.3/DnsMock.php
- * 
+ *
  * @SuppressWarnings(PHPMD)
  */
 class MockDNS
