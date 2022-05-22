@@ -36,11 +36,7 @@ class Arma extends Base
     public function testResponses($responses, $result)
     {
         \GameQ\Tests\MockDNS::mockHosts([
-            'sygsky.no-ip.org' => [
-                [
-                    'ip' => '80.240.222.67'
-                ]
-            ]
+            'sygsky.no-ip.org' => '80.240.222.67'
         ]);
 
         /* Register mocked DNS to Server */

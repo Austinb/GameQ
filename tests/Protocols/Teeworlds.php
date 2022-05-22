@@ -126,11 +126,7 @@ class Teeworlds extends Base
     public function testResponses($responses, $result)
     {
         \GameQ\Tests\MockDNS::mockHosts([
-            'ddracepro.net' => [
-                [
-                    'ip' => '195.154.113.141'
-                ]
-            ]
+            'ddracepro.net' => '195.154.113.141'
         ]);
 
         /* Register mocked DNS to Server */

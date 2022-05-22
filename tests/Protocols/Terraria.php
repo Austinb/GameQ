@@ -32,11 +32,7 @@ class Terraria extends Base
     public function testResponses($responses, $result)
     {
         \GameQ\Tests\MockDNS::mockHosts([
-            't.shadowrain.net' => [
-                [
-                    'ip' => '83.233.14.21'
-                ]
-            ]
+            't.shadowrain.net' => '83.233.14.21'
         ]);
 
         /* Register mocked DNS to Server */

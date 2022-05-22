@@ -27,9 +27,7 @@ class MockDNS
 
         // Check if a overwrite has been defined for this host
         if (isset(self::$hosts[$hostname])) {
-            foreach (self::$hosts[$hostname] as $ip) {
-                return $ip;
-            }
+            return self::$hosts[$hostname];
         }
 
         // Default behaivour, return the same on error

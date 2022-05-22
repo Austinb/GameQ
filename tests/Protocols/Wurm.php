@@ -36,11 +36,7 @@ class Wurm extends Base
     public function testResponses($responses, $result)
     {
         \GameQ\Tests\MockDNS::mockHosts([
-            'game.mythmoor.com' => [
-                [
-                    'ip' => '54.39.28.49'
-                ]
-            ]
+            'game.mythmoor.com' => '54.39.28.49'
         ]);
 
         /* Register mocked DNS to Server */
