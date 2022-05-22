@@ -62,7 +62,7 @@ class Server extends TestBase
         ];
 
         // Create a server with some options
-        new \GameQ\Server([
+        $server = new \GameQ\Server([
             \GameQ\Server::SERVER_HOST    => '127.0.0.1:27015',
             \GameQ\Server::SERVER_TYPE    => 'source',
             \GameQ\Server::SERVER_OPTIONS => $options,
@@ -91,7 +91,7 @@ class Server extends TestBase
         $id = '127.0.0.1:27015';
 
         // Create a server with id
-        new \GameQ\Server([
+        $server = new \GameQ\Server([
             \GameQ\Server::SERVER_HOST => $id,
             \GameQ\Server::SERVER_TYPE => 'source',
         ]);

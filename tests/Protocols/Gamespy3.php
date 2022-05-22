@@ -79,11 +79,6 @@ class Gamespy3 extends Base
         // Apply the challenge
         $this->stub->challengeParseAndApply($challenge_buffer);
 
-        // Build reflection to access changed data
-        $reflectionClass = new \ReflectionClass($this->stub);
-        $reflectionProperty = $reflectionClass->getProperty('__phpunit_originalObject');
-        $reflectionProperty->setAccessible(true);
-
         $this->assertEquals($packets, $this->stub->getPacket());
     }
 }
