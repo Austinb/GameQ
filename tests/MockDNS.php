@@ -55,11 +55,9 @@ function gethostbyname(\$hostname)
 }
 EOPHP;
 
-// phpcs:disable
             // Eval the script below, will define the function in the namespace effectively overwriting it
             // https://www.php.net/manual/de/language.namespaces.fallback.php#116275
-            eval($code);
-// phpcs:enable
+            eval($code); // phpcs:ignore
         }
     }
 }
