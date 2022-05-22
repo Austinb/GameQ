@@ -50,11 +50,9 @@ class Rust extends Source
      */
     protected function processDetails(Buffer $buffer)
     {
-
         $results = parent::processDetails($buffer);
-        
-        if($results['keywords'])
-        {
+
+        if ($results['keywords']) {
             //get max players from mp of keywords and num players from cp keyword
             preg_match_all('/(mp|cp)([\d]+)/', $results['keywords'], $matches);
             $results['max_players'] = intval($matches[2][0]);
@@ -62,6 +60,5 @@ class Rust extends Source
         }
 
         return $results;
-          
     }
 }
