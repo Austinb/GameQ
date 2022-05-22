@@ -44,7 +44,7 @@ class Wurm extends Base
         ]);
 
         /* Register mocked DNS to Server */
-        MockDNS::register(\GameQ\Server::class);
+        \GameQ\Tests\MockDNS::register(\GameQ\Server::class);
 
         // Pull the first key off the array this is the server ip:port
         $server = key($result);
