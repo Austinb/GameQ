@@ -30,16 +30,15 @@ class TestBase extends \PHPUnit\Framework\TestCase
      */
     public function __construct($name = null, array $data = [], $dataName = '')
     {
-        // PHPUnit 5 & 6+ hack for name spaces
-        if (!class_exists('\PHPUnit\Framework\Assert', true)) {
-            class_alias('\PHPUnit_Framework_Assert', '\PHPUnit\Framework\Assert');
-        }
-
         parent::__construct($name, $data, $dataName);
+
+        // Register MockDNS to actual namespace and to the namespace PHPUnit decides to use ¯\_(ツ)_/¯
+        MockDNS::register(\GameQ\Server::class);
+        MockDNS::register(self::class);
     }
     
     /**
-     + Backwards compatibility
+     * Backwards compatibility
      */
     public function assertEqualsDelta($expected, $actual, $delta, $message = '')
     {
@@ -63,18 +62,12 @@ class TestBase extends \PHPUnit\Framework\TestCase
      */
     protected function queryTest($host, $protocol, $responses, $debug = false, $server_options = [])
     {
-
         // Create a mock server
-        $server = $this->getMockBuilder('\GameQ\Server')
-            ->setConstructorArgs([
-                [
-                    \GameQ\Server::SERVER_HOST    => $host,
-                    \GameQ\Server::SERVER_TYPE    => $protocol,
-                    \GameQ\Server::SERVER_OPTIONS => $server_options,
-                ],
-            ])
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        $server = new \GameQ\Server([
+            \GameQ\Server::SERVER_HOST    => $host,
+            \GameQ\Server::SERVER_TYPE    => $protocol,
+            \GameQ\Server::SERVER_OPTIONS => $server_options,
+        ]);
 
         // Invoke beforeSend function
         $server->protocol()->beforeSend($server);
@@ -83,9 +76,7 @@ class TestBase extends \PHPUnit\Framework\TestCase
         $server->protocol()->packetResponse($responses);
 
         // Create a mock GameQ
-        $gq_mock = $this->getMockBuilder('\GameQ\GameQ')
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        $gq_mock =  new \GameQ\GameQ();
         $gq_mock->setOption('debug', $debug);
         $gq_mock->removeFilter('normalize');
 

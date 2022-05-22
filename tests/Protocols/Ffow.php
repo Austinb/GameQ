@@ -49,9 +49,7 @@ class Ffow extends Base
     {
 
         // Create the stub class
-        $this->stub = $this->getMockBuilder('\GameQ\Protocols\Ffow')
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        $this->stub = new \GameQ\Protocols\Ffow();
     }
 
     /**
@@ -82,15 +80,7 @@ class Ffow extends Base
         // Apply the challenge
         $this->stub->challengeParseAndApply($challenge_buffer);
 
-        // Build reflection to access changed data
-        $reflectionClass = new \ReflectionClass($this->stub);
-        $reflectionProperty = $reflectionClass->getProperty('__phpunit_originalObject');
-        $reflectionProperty->setAccessible(true);
-
-        $this->assertEquals(
-            $packets,
-            $this->stub->getPacket()
-        );
+        $this->assertEquals($packets, $this->stub->getPacket());
     }
 
     /**

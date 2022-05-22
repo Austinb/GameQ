@@ -47,9 +47,7 @@ class Gamespy3 extends Base
     {
 
         // Create the stub class
-        $this->stub = $this->getMockBuilder('\GameQ\Protocols\Gamespy3')
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        $this->stub = new \GameQ\Protocols\Gamespy3();
     }
 
     /**
@@ -80,11 +78,6 @@ class Gamespy3 extends Base
 
         // Apply the challenge
         $this->stub->challengeParseAndApply($challenge_buffer);
-
-        // Build reflection to access changed data
-        $reflectionClass = new \ReflectionClass($this->stub);
-        $reflectionProperty = $reflectionClass->getProperty('__phpunit_originalObject');
-        $reflectionProperty->setAccessible(true);
 
         $this->assertEquals($packets, $this->stub->getPacket());
     }

@@ -37,7 +37,6 @@ abstract class Base extends TestBase
      */
     public function loadData()
     {
-
         // Explode the class that called to avoid strict error
         $class = explode('\\', get_called_class());
 

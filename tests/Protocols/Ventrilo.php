@@ -52,9 +52,7 @@ class Ventrilo extends Base
     {
 
         // Create the stub class
-        $this->stub = $this->getMockBuilder('\GameQ\Protocols\Ventrilo')
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        $this->stub = new \GameQ\Protocols\Ventrilo();
     }
 
     /**

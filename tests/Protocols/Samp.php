@@ -47,9 +47,7 @@ class Samp extends Base
     public function customSetUp()
     {
         // Create the stub class
-        $this->stub = $this->getMockBuilder('\GameQ\Protocols\Samp')
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        $this->stub = new \GameQ\Protocols\Samp();
     }
 
     /**
@@ -143,7 +141,6 @@ class Samp extends Base
      */
     public function testResponses($responses, $result)
     {
-
         // Pull the first key off the array this is the server ip:port
         $server = key($result);
 

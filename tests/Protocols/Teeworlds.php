@@ -51,9 +51,7 @@ class Teeworlds extends Base
     {
 
         // Create the stub class
-        $this->stub = $this->getMockBuilder('\GameQ\Protocols\Teeworlds')
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        $this->stub = new \GameQ\Protocols\Teeworlds();
     }
 
     /**
@@ -127,6 +125,9 @@ class Teeworlds extends Base
      */
     public function testResponses($responses, $result)
     {
+        \GameQ\Tests\MockDNS::mockHosts([
+            'ddracepro.net' => '195.154.113.141'
+        ]);
 
         // Pull the first key off the array this is the server ip:port
         $server = key($result);

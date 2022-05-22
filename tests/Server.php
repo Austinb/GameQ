@@ -34,9 +34,7 @@ class Server extends TestBase
         $this->expectExceptionMessage("Missing server info key 'type'!");
 
         // Create a mock server should throw exception
-        $this->getMockBuilder('\GameQ\Server')
-            ->setConstructorArgs([])
-            ->getMock();
+        new \GameQ\Server([]);
     }
 
     /**
@@ -48,14 +46,9 @@ class Server extends TestBase
         $this->expectExceptionMessage("Missing server info key 'host'!");
 
         // Create a mock server Create a mock server should throw exception
-        $this->getMockBuilder('\GameQ\Server')
-            ->setConstructorArgs([
-                [
-                    \GameQ\Server::SERVER_TYPE => 'source',
-                ],
-            ])
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        new \GameQ\Server([
+            \GameQ\Server::SERVER_TYPE => 'source',
+        ]);
     }
 
     /**
@@ -63,23 +56,17 @@ class Server extends TestBase
      */
     public function testSetServerOptions()
     {
-
         $options = [
             'option1' => 'val1',
             'option2' => 'val2',
         ];
 
         // Create a server with some options
-        $server = $this->getMockBuilder('\GameQ\Server')
-            ->setConstructorArgs([
-                [
-                    \GameQ\Server::SERVER_HOST    => '127.0.0.1:27015',
-                    \GameQ\Server::SERVER_TYPE    => 'source',
-                    \GameQ\Server::SERVER_OPTIONS => $options,
-                ],
-            ])
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        $server = new \GameQ\Server([
+            \GameQ\Server::SERVER_HOST    => '127.0.0.1:27015',
+            \GameQ\Server::SERVER_TYPE    => 'source',
+            \GameQ\Server::SERVER_OPTIONS => $options,
+        ]);
 
         $this->assertEquals($options, $server->getOptions());
 
@@ -104,33 +91,21 @@ class Server extends TestBase
         $id = '127.0.0.1:27015';
 
         // Create a server with id
-        $server = $this->getMockBuilder('\GameQ\Server')
-            ->setConstructorArgs([
-                [
-                    \GameQ\Server::SERVER_HOST => $id,
-                    \GameQ\Server::SERVER_TYPE => 'source',
-                ],
-            ])
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        $server = new \GameQ\Server([
+            \GameQ\Server::SERVER_HOST => $id,
+            \GameQ\Server::SERVER_TYPE => 'source',
+        ]);
 
         $this->assertEquals($id, $server->id());
 
         $id = 'my_server_#1';
 
         // Create a server with id
-        $server = $this->getMockBuilder('\GameQ\Server')
-            ->setConstructorArgs([
-                [
-                    \GameQ\Server::SERVER_HOST => '127.0.0.1:27015',
-                    \GameQ\Server::SERVER_TYPE => 'source',
-                    \GameQ\Server::SERVER_ID   => $id,
-                ],
-            ])
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
-
-        $this->assertEquals($id, $server->id());
+        $server = new \GameQ\Server([
+            \GameQ\Server::SERVER_HOST => '127.0.0.1:27015',
+            \GameQ\Server::SERVER_TYPE => 'source',
+                \GameQ\Server::SERVER_ID   => $id,
+        ]);
 
         $this->assertEquals($id, $server->id());
     }
@@ -144,15 +119,10 @@ class Server extends TestBase
         $this->expectExceptionMessage("The host address '127.0.0.1' is missing the port. All servers must have a port defined!");
 
         // Create a mock server
-        $this->getMockBuilder('\GameQ\Server')
-            ->setConstructorArgs([
-                [
-                    \GameQ\Server::SERVER_HOST => '127.0.0.1',
-                    \GameQ\Server::SERVER_TYPE => 'source',
-                ],
-            ])
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        new \GameQ\Server([
+            \GameQ\Server::SERVER_HOST => '127.0.0.1',
+            \GameQ\Server::SERVER_TYPE => 'source',
+        ]);
     }
 
     /**
@@ -164,15 +134,10 @@ class Server extends TestBase
         $this->expectExceptionMessage("Unable to resolve the host 'some.unresolable.domain' to an IP address.");
 
         // Create a mock server
-        $this->getMockBuilder('\GameQ\Server')
-            ->setConstructorArgs([
-                [
-                    \GameQ\Server::SERVER_HOST => 'some.unresolable.domain:27015',
-                    \GameQ\Server::SERVER_TYPE => 'source',
-                ],
-            ])
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        new \GameQ\Server([
+            \GameQ\Server::SERVER_HOST => 'some.unresolable.domain:27015',
+            \GameQ\Server::SERVER_TYPE => 'source',
+        ]);
     }
 
     /**
@@ -181,15 +146,10 @@ class Server extends TestBase
     public function testIpv6()
     {
         // Create a mock server
-        $stub = $this->getMockBuilder('\GameQ\Server')
-            ->setConstructorArgs([
-                [
-                    \GameQ\Server::SERVER_HOST => '[::1]:27015',
-                    \GameQ\Server::SERVER_TYPE => 'source',
-                ],
-            ])
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        $stub = new \GameQ\Server([
+            \GameQ\Server::SERVER_HOST => '[::1]:27015',
+            \GameQ\Server::SERVER_TYPE => 'source',
+        ]);
 
         $this->assertEquals('[::1]:27015', $stub->id());
     }
@@ -203,15 +163,10 @@ class Server extends TestBase
         $this->expectExceptionMessage("The host address '[::1]' is missing the port.  All servers must have a port defined!");
 
         // Create a mock server
-        $this->getMockBuilder('\GameQ\Server')
-            ->setConstructorArgs([
-                [
-                    \GameQ\Server::SERVER_HOST => '[::1]',
-                    \GameQ\Server::SERVER_TYPE => 'source',
-                ],
-            ])
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        new \GameQ\Server([
+            \GameQ\Server::SERVER_HOST => '[::1]',
+            \GameQ\Server::SERVER_TYPE => 'source',
+        ]);
     }
 
     /**
@@ -223,15 +178,10 @@ class Server extends TestBase
         $this->expectExceptionMessage("The IPv6 address '[:0:1]' is invalid.");
 
         // Create a mock server
-        $this->getMockBuilder('\GameQ\Server')
-            ->setConstructorArgs([
-                [
-                    \GameQ\Server::SERVER_HOST => '[:0:1]:27015',
-                    \GameQ\Server::SERVER_TYPE => 'source',
-                ],
-            ])
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        new \GameQ\Server([
+            \GameQ\Server::SERVER_HOST => '[:0:1]:27015',
+            \GameQ\Server::SERVER_TYPE => 'source',
+        ]);
     }
 
     /**
@@ -243,15 +193,10 @@ class Server extends TestBase
         $this->expectExceptionMessage("Unable to locate Protocols class for 'doesnotexist'!");
 
         // Create a mock server
-        $this->getMockBuilder('\GameQ\Server')
-            ->setConstructorArgs([
-                [
-                    \GameQ\Server::SERVER_HOST => '127.0.0.1:27015',
-                    \GameQ\Server::SERVER_TYPE => 'doesnotexist',
-                ],
-            ])
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        new \GameQ\Server([
+            \GameQ\Server::SERVER_HOST => '127.0.0.1:27015',
+            \GameQ\Server::SERVER_TYPE => 'doesnotexist',
+        ]);
     }
 
     /**
@@ -262,18 +207,13 @@ class Server extends TestBase
         $query_port = 27016;
 
         // Create a mock server
-        $server = $this->getMockBuilder('\GameQ\Server')
-            ->setConstructorArgs([
-                [
-                    \GameQ\Server::SERVER_HOST    => '127.0.0.1:27015',
-                    \GameQ\Server::SERVER_TYPE    => 'source',
-                    \GameQ\Server::SERVER_OPTIONS => [
-                        \GameQ\Server::SERVER_OPTIONS_QUERY_PORT => $query_port,
-                    ],
-                ],
-            ])
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        $server = new \GameQ\Server([
+            \GameQ\Server::SERVER_HOST    => '127.0.0.1:27015',
+            \GameQ\Server::SERVER_TYPE    => 'source',
+            \GameQ\Server::SERVER_OPTIONS => [
+                \GameQ\Server::SERVER_OPTIONS_QUERY_PORT => $query_port,
+            ],
+        ]);
 
         $this->assertEquals($query_port, $server->port_query);
     }

@@ -112,7 +112,6 @@ class Buffer extends TestBase
      */
     public function testGeneral()
     {
-
         $data = "Some Kind of buffer";
 
         $buffer = $this->buildBuffer($data);
@@ -131,7 +130,6 @@ class Buffer extends TestBase
      */
     public function testRead()
     {
-
         $data = "Buffer of data";
 
         $buffer = $this->buildBuffer($data);
@@ -162,7 +160,6 @@ class Buffer extends TestBase
      */
     public function testPosition()
     {
-
         $data = "Some like My Strings...";
 
         $buffer = $this->buildBuffer($data);
@@ -213,7 +210,6 @@ class Buffer extends TestBase
      */
     public function testReadString()
     {
-
         $data = "This is string 1\x00This is string 2\x00";
 
         $buffer = $this->buildBuffer($data);
@@ -244,7 +240,6 @@ class Buffer extends TestBase
      */
     public function testNumberReads($method, $number_type, $file, $expected)
     {
-
         // Make the buffer
         $buffer = $this->buildBuffer(file_get_contents($file), $number_type);
 

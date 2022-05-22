@@ -27,7 +27,6 @@ use GameQ\Exception\Server as Exception;
  */
 class Server
 {
-
     /*
      * Server array keys
      */

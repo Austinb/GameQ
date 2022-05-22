@@ -35,6 +35,9 @@ class Wurm extends Base
      */
     public function testResponses($responses, $result)
     {
+        \GameQ\Tests\MockDNS::mockHosts([
+            'game.mythmoor.com' => '54.39.28.49'
+        ]);
 
         // Pull the first key off the array this is the server ip:port
         $server = key($result);

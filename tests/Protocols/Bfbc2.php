@@ -49,9 +49,7 @@ class Bfbc2 extends Base
     {
 
         // Create the stub class
-        $this->stub = $this->getMockBuilder('\GameQ\Protocols\Bfbc2')
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        $this->stub = new \GameQ\Protocols\Bfbc2();
     }
 
     /**
