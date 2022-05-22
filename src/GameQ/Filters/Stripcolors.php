@@ -68,7 +68,7 @@ class Stripcolors extends Base
                 array_walk_recursive($result, [$this, 'stripSource']);
                 break;
             case 'gta5m':
-                array_walk_recursive($result, [$this, 'stripGta5m']);
+                array_walk_recursive($result, [$this, 'stripCFX']);
                 break;
         }
 
@@ -115,7 +115,13 @@ class Stripcolors extends Base
     {
         $string = strip_tags($string);
     }
-    protected function stripGta5m(&$string)
+
+    /**
+     * Strip color codes from CitizenFX
+     *
+     * @param string $string
+     */
+    protected function stripCFX(&$string)
     {
         $string = preg_replace('#(\^.)#', '', $string);
     }
