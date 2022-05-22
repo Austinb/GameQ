@@ -20,7 +20,6 @@ namespace GameQ\Tests\Protocols;
 
 class Etqw extends Base
 {
-
     /**
      * Holds stub on setup
      *
@@ -42,7 +41,6 @@ class Etqw extends Base
      */
     public function setUp()
     {
-
         // Create the stub class
         $this->stub = $this->getMockBuilder('\GameQ\Protocols\Etqw')
             ->enableProxyingToOriginalMethods()
@@ -54,7 +52,6 @@ class Etqw extends Base
      */
     public function testPackets()
     {
-
         // Test to make sure packets are defined properly
         $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
     }
@@ -64,7 +61,6 @@ class Etqw extends Base
      */
     public function testInvalidPacketType()
     {
-
         // Read in a css source file
         $source = file_get_contents(sprintf('%s/Providers/Etqw/1_response.txt', __DIR__));
 
@@ -85,7 +81,6 @@ class Etqw extends Base
      */
     public function testInvalidPacketTypeDebug()
     {
-
         // Read in a css source file
         $source = file_get_contents(sprintf('%s/Providers/Etqw/1_response.txt', __DIR__));
 
@@ -106,7 +101,6 @@ class Etqw extends Base
      */
     public function testResponses($responses, $result)
     {
-
         // Pull the first key off the array this is the server ip:port
         $server = key($result);
 

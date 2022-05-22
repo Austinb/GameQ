@@ -29,7 +29,6 @@ use GameQ\Tests\TestBase;
  */
 abstract class Base extends TestBase
 {
-
     /**
      * Shared provider to give protocols the data to test with
      *
@@ -37,7 +36,6 @@ abstract class Base extends TestBase
      */
     public function loadData()
     {
-
         // Explode the class that called to avoid strict error
         $class = explode('\\', get_called_class());
 
@@ -86,7 +84,6 @@ abstract class Base extends TestBase
      */
     protected function queryTest($host, $protocol, $responses, $debug = false, $server_options = [])
     {
-
         // Create a mock server
         $server = $this->getMockBuilder('\GameQ\Server')
             ->setConstructorArgs([

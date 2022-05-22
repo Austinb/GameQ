@@ -20,7 +20,6 @@ namespace GameQ\Tests\Protocols;
 
 class Cs2d extends Base
 {
-
     /**
      * Holds stub on setup
      *
@@ -43,7 +42,6 @@ class Cs2d extends Base
      */
     public function setUp()
     {
-
         // Create the stub class
         $this->stub = $this->getMockBuilder('\GameQ\Protocols\Cs2d')
             ->enableProxyingToOriginalMethods()
@@ -55,7 +53,6 @@ class Cs2d extends Base
      */
     public function testPackets()
     {
-
         // Test to make sure packets are defined properly
         $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
     }
@@ -65,7 +62,6 @@ class Cs2d extends Base
      */
     public function testInvalidPacketType()
     {
-
         // Read in a ut2004 source file
         $source = file_get_contents(sprintf('%s/Providers/Cs2d/1_response.txt', __DIR__));
 
@@ -86,7 +82,6 @@ class Cs2d extends Base
      */
     public function testInvalidPacketTypeDebug()
     {
-
         // Read in a ut2004 source file
         $source = file_get_contents(sprintf('%s/Providers/Ut2004/1_response.txt', __DIR__));
 
@@ -107,7 +102,6 @@ class Cs2d extends Base
      */
     public function testResponses($responses, $result)
     {
-
         // Pull the first key off the array this is the server ip:port
         $server = key($result);
 

@@ -42,7 +42,6 @@ class Quake3 extends Base
      */
     public function setUp()
     {
-
         // Create the stub class
         $this->stub = $this->getMockBuilder('\GameQ\Protocols\Quake3')
             ->enableProxyingToOriginalMethods()
@@ -54,7 +53,6 @@ class Quake3 extends Base
      */
     public function testPackets()
     {
-
         // Test to make sure packets are defined properly
         $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
     }
@@ -64,7 +62,6 @@ class Quake3 extends Base
      */
     public function testInvalidPacketType()
     {
-
         // Read in a Quake 3 source file
         $source = file_get_contents(sprintf('%s/Providers/Quake3/1_response.txt', __DIR__));
 
@@ -86,7 +83,6 @@ class Quake3 extends Base
      */
     public function testInvalidPacketTypeDebug()
     {
-
         // Read in a Quake 3 source file
         $source = file_get_contents(sprintf('%s/Providers/Quake3/1_response.txt', __DIR__));
 
@@ -107,7 +103,6 @@ class Quake3 extends Base
      */
     public function testResponses($responses, $result)
     {
-
         // Pull the first key off the array this is the server ip:port
         $server = key($result);
 

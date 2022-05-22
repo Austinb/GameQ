@@ -25,7 +25,6 @@ namespace GameQ\Tests\Protocols;
  */
 class Teeworlds extends Base
 {
-
     /**
      * Holds stub on setup
      *
@@ -47,7 +46,6 @@ class Teeworlds extends Base
      */
     public function setUp()
     {
-
         // Create the stub class
         $this->stub = $this->getMockBuilder('\GameQ\Protocols\Teeworlds')
             ->enableProxyingToOriginalMethods()
@@ -59,7 +57,6 @@ class Teeworlds extends Base
      */
     public function testPackets()
     {
-
         // Test to make sure packets are defined properly
         $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
     }
@@ -69,7 +66,6 @@ class Teeworlds extends Base
      */
     public function testInvalidPacketType()
     {
-
         // Read in a css source file
         $source = file_get_contents(sprintf('%s/Providers/Teeworlds/1_response.txt', __DIR__));
 
@@ -100,7 +96,6 @@ class Teeworlds extends Base
      */
     public function testInvalidPacketTypeDebug()
     {
-
         // Read in a css source file
         $source = file_get_contents(sprintf('%s/Providers/Teeworlds/1_response.txt', __DIR__));
 
@@ -125,7 +120,6 @@ class Teeworlds extends Base
      */
     public function testResponses($responses, $result)
     {
-
         // Pull the first key off the array this is the server ip:port
         $server = key($result);
 

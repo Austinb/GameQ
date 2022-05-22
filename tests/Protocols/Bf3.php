@@ -20,7 +20,6 @@ namespace GameQ\Tests\Protocols;
 
 class Bf3 extends Base
 {
-
     /**
      * Holds stub on setup
      *
@@ -45,7 +44,6 @@ class Bf3 extends Base
      */
     public function setUp()
     {
-
         // Create the stub class
         $this->stub = $this->getMockBuilder('\GameQ\Protocols\Bf3')
             ->enableProxyingToOriginalMethods()
@@ -57,7 +55,6 @@ class Bf3 extends Base
      */
     public function testPackets()
     {
-
         // Test to make sure packets are defined properly
         $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
     }
@@ -70,7 +67,6 @@ class Bf3 extends Base
      */
     public function testInvalidPacketLengthDebug()
     {
-
         // Read in a css source file
         $source = file_get_contents(sprintf('%s/Providers/Bf3/1_response.txt', __DIR__));
 
@@ -91,7 +87,6 @@ class Bf3 extends Base
      */
     public function testResponses($responses, $result)
     {
-
         // Pull the first key off the array this is the server ip:port
         $server = key($result);
 

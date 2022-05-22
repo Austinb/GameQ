@@ -20,7 +20,6 @@ namespace GameQ\Tests\Protocols;
 
 class Ffow extends Base
 {
-
     /**
      * Holds stub on setup
      *
@@ -45,7 +44,6 @@ class Ffow extends Base
      */
     public function setUp()
     {
-
         // Create the stub class
         $this->stub = $this->getMockBuilder('\GameQ\Protocols\Ffow')
             ->enableProxyingToOriginalMethods()
@@ -57,7 +55,6 @@ class Ffow extends Base
      */
     public function testPackets()
     {
-
         // Test to make sure packets are defined properly
         $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
     }
@@ -67,7 +64,6 @@ class Ffow extends Base
      */
     public function testChallengeapply()
     {
-
         $packets = $this->packets;
 
         // Set what the packets should look like
@@ -96,7 +92,6 @@ class Ffow extends Base
      */
     public function testInvalidPacketType()
     {
-
         // Read in a ffow source file
         $source = file_get_contents(sprintf('%s/Providers/Ffow/1_response.txt', __DIR__));
 
@@ -117,7 +112,6 @@ class Ffow extends Base
      */
     public function testInvalidPacketTypeDebug()
     {
-
         // Read in a ffow source file
         $source = file_get_contents(sprintf('%s/Providers/Ffow/1_response.txt', __DIR__));
 
@@ -138,7 +132,6 @@ class Ffow extends Base
      */
     public function testResponses($responses, $result)
     {
-
         // Pull the first key off the array this is the server ip:port
         $server = key($result);
 

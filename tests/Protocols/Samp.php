@@ -20,7 +20,6 @@ namespace GameQ\Tests\Protocols;
 
 class Samp extends Base
 {
-
     /**
      * Holds stub on setup
      *
@@ -44,7 +43,6 @@ class Samp extends Base
      */
     public function setUp()
     {
-
         // Create the stub class
         $this->stub = $this->getMockBuilder('\GameQ\Protocols\Samp')
             ->getMock();
@@ -55,7 +53,6 @@ class Samp extends Base
      */
     public function testPackets()
     {
-
         // Test to make sure packets are defined properly
         $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
     }
@@ -68,7 +65,6 @@ class Samp extends Base
      */
     public function testPacketHeader()
     {
-
         // Read in a samp source file
         $source = file_get_contents(sprintf('%s/Providers/Samp/1_response.txt', __DIR__));
 
@@ -87,7 +83,6 @@ class Samp extends Base
      */
     public function testServerCode()
     {
-
         // Read in a samp source file
         $source = file_get_contents(sprintf('%s/Providers/Samp/1_response.txt', __DIR__));
 
@@ -103,7 +98,6 @@ class Samp extends Base
      */
     public function testInvalidPacketType()
     {
-
         // Read in a samp source file
         $source = file_get_contents(sprintf('%s/Providers/Samp/1_response.txt', __DIR__));
 
@@ -124,7 +118,6 @@ class Samp extends Base
      */
     public function testInvalidPacketTypeDebug()
     {
-
         // Read in a samp source file
         $source = file_get_contents(sprintf('%s/Providers/Samp/1_response.txt', __DIR__));
 
@@ -145,7 +138,6 @@ class Samp extends Base
      */
     public function testResponses($responses, $result)
     {
-
         // Pull the first key off the array this is the server ip:port
         $server = key($result);
 

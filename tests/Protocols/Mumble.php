@@ -25,7 +25,6 @@ namespace GameQ\Tests\Protocols;
  */
 class Mumble extends Base
 {
-
     /**
      * Holds stub on setup
      *
@@ -47,7 +46,6 @@ class Mumble extends Base
      */
     public function setUp()
     {
-
         // Create the stub class
         $this->stub = $this->getMockBuilder('\GameQ\Protocols\Mumble')
             ->enableProxyingToOriginalMethods()
@@ -59,7 +57,6 @@ class Mumble extends Base
      */
     public function testPackets()
     {
-
         // Test to make sure packets are defined properly
         $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
     }
@@ -72,7 +69,6 @@ class Mumble extends Base
      */
     public function testBadResponseFormat()
     {
-
         // Should fail out
         $this->queryTest('127.0.0.1:27015', 'mumble', [ '{"key1": "val", "key2" :}' ], true);
     }
@@ -87,7 +83,6 @@ class Mumble extends Base
      */
     public function testResponses($responses, $result)
     {
-
         // Pull the first key off the array this is the server ip:port
         $server = key($result);
 

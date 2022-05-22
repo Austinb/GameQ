@@ -25,7 +25,6 @@ namespace GameQ\Tests\Protocols;
  */
 class Teamspeak3 extends Base
 {
-
     /**
      * Holds stub on setup
      *
@@ -49,7 +48,6 @@ class Teamspeak3 extends Base
      */
     public function setUp()
     {
-
         // Create the stub class
         $this->stub = $this->getMockBuilder('\GameQ\Protocols\Teamspeak3')
             ->enableProxyingToOriginalMethods()
@@ -61,7 +59,6 @@ class Teamspeak3 extends Base
      */
     public function testPackets()
     {
-
         // Test to make sure packets are defined properly
         $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
     }
@@ -74,7 +71,6 @@ class Teamspeak3 extends Base
      */
     public function testMissingQueryPort()
     {
-
         $client_port = 9987;
         $query_port = 10011;
 
@@ -103,7 +99,6 @@ class Teamspeak3 extends Base
      */
     public function testBeforeSend()
     {
-
         $client_port = 9987;
         $query_port = 10011;
 
@@ -160,7 +155,6 @@ class Teamspeak3 extends Base
      */
     public function testInvalidHeader()
     {
-
         $client_port = 9987;
         $query_port = 10011;
 
@@ -192,7 +186,6 @@ class Teamspeak3 extends Base
      */
     public function testResponses($responses, $result)
     {
-
         // Pull the first key off the array this is the server ip:port
         $server = key($result);
 
