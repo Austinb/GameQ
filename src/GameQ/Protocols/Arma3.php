@@ -57,7 +57,7 @@ class Arma3 extends Source
 
     /**
      * DLC Flags/Bits as defined in the documentation.
-     * 
+     *
      * @see https://community.bistudio.com/wiki/Arma_3:_ServerBrowserProtocol3
      *
      * @var array
@@ -178,7 +178,7 @@ class Arma3 extends Source
         
         // Loop over the mods
         while ($modCount) {
-            // Read the mods hash 
+            // Read the mods hash
             $result->addSub('mods', 'hash', dechex($responseBuffer->readInt32()));
 
             // Get the information byte containing DLC flag and steamId length
