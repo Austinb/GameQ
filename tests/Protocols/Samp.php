@@ -46,7 +46,6 @@ class Samp extends Base
      */
     public function customSetUp()
     {
-
         // Create the stub class
         $this->stub = $this->getMockBuilder('\GameQ\Protocols\Samp')
             ->getMock();
@@ -57,7 +56,6 @@ class Samp extends Base
      */
     public function testPackets()
     {
-
         // Test to make sure packets are defined properly
         $this->assertEquals($this->packets, $this->stub->getPacket());
     }

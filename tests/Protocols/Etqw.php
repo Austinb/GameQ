@@ -85,7 +85,7 @@ class Etqw extends Base
     public function testInvalidPacketTypeDebug()
     {
         $this->expectException(\Exception::class);
-        $this->expectExceptionMessage("");
+        $this->expectExceptionMessage("GameQ\Protocols\Source::processResponse response type '");
 
         // Read in a css source file
         $source = file_get_contents(sprintf('%s/Providers/Etqw/1_response.txt', __DIR__));
