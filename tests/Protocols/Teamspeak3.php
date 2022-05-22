@@ -79,12 +79,10 @@ class Teamspeak3 extends Base
 
         // Create a mock server
         $server = new \GameQ\Server([
-            [
-                \GameQ\Server::SERVER_HOST    => "127.0.0.1:{$client_port}",
-                \GameQ\Server::SERVER_TYPE    => 'teamspeak3',
-                \GameQ\Server::SERVER_OPTIONS => [
-                    \GameQ\Server::SERVER_OPTIONS_QUERY_PORT => $query_port,
-                ],
+            \GameQ\Server::SERVER_HOST    => "127.0.0.1:{$client_port}",
+            \GameQ\Server::SERVER_TYPE    => 'teamspeak3',
+            \GameQ\Server::SERVER_OPTIONS => [
+                \GameQ\Server::SERVER_OPTIONS_QUERY_PORT => $query_port,
             ],
         ]);
 
@@ -112,19 +110,15 @@ class Teamspeak3 extends Base
 
         // Create a mock server
         $server = new \GameQ\Server([
-            [
-                \GameQ\Server::SERVER_HOST    => "127.0.0.1:{$client_port}",
-                \GameQ\Server::SERVER_TYPE    => 'teamspeak3',
-                \GameQ\Server::SERVER_OPTIONS => [
-                    \GameQ\Server::SERVER_OPTIONS_QUERY_PORT => $query_port,
-                ],
+            \GameQ\Server::SERVER_HOST    => "127.0.0.1:{$client_port}",
+            \GameQ\Server::SERVER_TYPE    => 'teamspeak3',
+            \GameQ\Server::SERVER_OPTIONS => [
+                \GameQ\Server::SERVER_OPTIONS_QUERY_PORT => $query_port,
             ],
         ]);
 
         $stub = new \GameQ\Protocols\Teamspeak3([
-            [
-                \GameQ\Server::SERVER_OPTIONS_QUERY_PORT => $query_port,
-            ],
+            \GameQ\Server::SERVER_OPTIONS_QUERY_PORT => $query_port,
         ]);
 
         // Apply the before send
