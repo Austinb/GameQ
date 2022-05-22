@@ -61,5 +61,5 @@ jobs:
       - name: Upload Scrutinizer coverage
         if: github.repository == 'Austinb/GameQ'
         run: |
-          wget https://scrutinizer-ci.com/ocular.phar
-          php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml --revision=${{ github.event.pull_request.head.sha || github.sha }}
+          composer global require scrutinizer/ocular
+          php ~/.composer/vendor/bin/ocular code-coverage:upload --format=php-clover build/logs/clover.xml --revision=${{ github.event.pull_request.head.sha || github.sha }}
