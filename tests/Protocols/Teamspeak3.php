@@ -141,7 +141,7 @@ class Teamspeak3 extends Base
         // Apply the before send
         $stub->beforeSend($server);
 
-        $this->assertEquals($packets, $stub->getPackets());
+        $this->assertEquals($packets, $stub->getPacket());
     }
 
     /**

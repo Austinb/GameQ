@@ -168,7 +168,7 @@ class GameQ extends TestBase
 
         $this->assertArrayHasKey(
             'test_filter_d751713988987e9331980363e24189ce',
-            $this->stub->filterss
+            $this->stub->filters
         );
 
         // Remove filter
@@ -176,7 +176,7 @@ class GameQ extends TestBase
 
         $this->assertArrayNotHasKey(
             'test_filter_d751713988987e9331980363e24189ce',
-            $this->stub->filterss
+            $this->stub->filters
         );
 
         // Test for lower case always
@@ -184,7 +184,7 @@ class GameQ extends TestBase
 
         $this->assertArrayHasKey(
             'test_filter_d751713988987e9331980363e24189ce',
-            $this->stub->filterss
+            $this->stub->filters
         );
 
         // Remove filter always lower case
