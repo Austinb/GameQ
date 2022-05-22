@@ -40,10 +40,8 @@ class Lhmp extends Base
 
     /**
      * Setup
-     * 
-     * @before
      */
-    public function customSetUp()
+    public function setUp()
     {
 
         // Create the stub class
@@ -59,7 +57,7 @@ class Lhmp extends Base
     {
 
         // Test to make sure packets are defined properly
-        $this->assertEquals($this->packets, $this->stub->getPacket());
+        $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
     }
 
     /**
@@ -82,11 +80,12 @@ class Lhmp extends Base
 
     /**
      * Test for invalid packet type in response
+     *
+     * @expectedException \Exception
+     * @expectedExceptionMessage GameQ\Protocols\Lhmp::processResponse response type 'LHMPz' is not valid
      */
     public function testInvalidPacketTypeDebug()
     {
-        $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('GameQ\Protocols\Lhmp::processResponse response type \'LHMPz\' is not valid');
 
         // Read in a lhmp source file
         $source = file_get_contents(sprintf('%s/Providers/Lhmp/1_response.txt', __DIR__));

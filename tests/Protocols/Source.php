@@ -42,10 +42,8 @@ class Source extends Base
 
     /**
      * Setup
-     * 
-     * @before
      */
-    public function customSetUp()
+    public function setUp()
     {
 
         // Create the stub class
@@ -61,7 +59,7 @@ class Source extends Base
     {
 
         // Test to make sure packets are defined properly
-        $this->assertEquals($this->packets, $this->stub->getPacket());
+        $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
     }
 
     /**
@@ -83,7 +81,12 @@ class Source extends Base
         // Apply the challenge
         $this->stub->challengeParseAndApply($challenge_buffer);
 
-        $this->assertEquals($packets, $this->stub->getPacket());
+        // Build reflection to access changed data
+        $reflectionClass = new \ReflectionClass($this->stub);
+        $reflectionProperty = $reflectionClass->getProperty('__phpunit_originalObject');
+        $reflectionProperty->setAccessible(true);
+
+        $this->assertEquals($packets, \PHPUnit\Framework\Assert::readAttribute($reflectionProperty->getValue($this->stub), 'packets'));
     }
 
     /**
@@ -106,11 +109,12 @@ class Source extends Base
 
     /**
      * Test for invalid packet type in response
+     *
+     * @expectedException \Exception
+     * @expectedExceptionMessage GameQ\Protocols\Source::processResponse response type 'X' is not valid
      */
     public function testInvalidPacketTypeDebug()
     {
-        $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('GameQ\Protocols\Source::processResponse response type \'X\' is not valid');
 
         // Read in a css source file
         $source = file_get_contents(sprintf('%s/Providers/Css/1_response.txt', __DIR__));

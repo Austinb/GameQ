@@ -264,17 +264,6 @@ class Server
     }
 
     /**
-     * Returns the internal options array.
-     * Used for testing pruposes.
-     *
-     * @return array
-     */
-    public function getOptions()
-    {
-        return $this->options;
-    }
-
-    /**
      * Get the ID for this server
      *
      * @return string

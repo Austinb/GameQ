@@ -45,6 +45,6 @@ class Theforrest extends Base
             $responses
         );
 
-        $this->assertEqualsDelta($result[$server], $testResult, 0.000000001);
+        $this->assertEquals($result[$server], $testResult, '', 0.000000001);
     }
 }

@@ -39,10 +39,8 @@ class Quake2 extends Base
 
     /**
      * Setup
-     * 
-     * @before
      */
-    public function customSetUp()
+    public function setUp()
     {
 
         // Create the stub class
@@ -58,7 +56,7 @@ class Quake2 extends Base
     {
 
         // Test to make sure packets are defined properly
-        $this->assertEquals($this->packets, $this->stub->getPacket());
+        $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
     }
 
     /**
@@ -81,11 +79,13 @@ class Quake2 extends Base
 
     /**
      * Test for invalid packet type in response
+     *
+     * @expectedException \Exception
+     * @expectedExceptionMessage GameQ\Protocols\Quake2::processResponse response type
+     *                           'ffffffff7072696e7473' is not valid
      */
     public function testInvalidPacketTypeDebug()
     {
-        $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('GameQ\Protocols\Quake2::processResponse response type \'ffffffff7072696e7473\' is not valid');
 
         // Read in a quake 2 source file
         $source = file_get_contents(sprintf('%s/Providers/Quake2/1_response.txt', __DIR__));

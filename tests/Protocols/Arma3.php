@@ -45,6 +45,6 @@ class Arma3 extends Base
             $responses
         );
 
-        $this->assertEqualsDelta($result[$server], $testResult, 0.0000001);
+        $this->assertEquals($result[$server], $testResult, '', 0.0000001);
     }
 }

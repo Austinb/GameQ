@@ -39,10 +39,8 @@ class Gtan extends Base
 
     /**
      * Setup
-     * 
-     * @before
      */
-    public function customSetUp()
+    public function setUp()
     {
 
         // Create the stub class
@@ -58,7 +56,7 @@ class Gtan extends Base
     {
 
         // Test to make sure packets are defined properly
-        $this->assertEquals($this->packets, $this->stub->getPacket());
+        $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
     }
 
     /**
@@ -81,6 +79,6 @@ class Gtan extends Base
             $responses
         );
 
-        $this->assertEqualsDelta($result[ $server ], $testResult, 0.000000001);
+        $this->assertEquals($result[ $server ], $testResult, '', 0.000000001);
     }
 }

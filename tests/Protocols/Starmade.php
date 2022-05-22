@@ -43,10 +43,8 @@ class Starmade extends Base
 
     /**
      * Setup
-     * 
-     * @before
      */
-    public function customSetUp()
+    public function setUp()
     {
 
         // Create the stub class
@@ -62,7 +60,7 @@ class Starmade extends Base
     {
 
         // Test to make sure packets are defined properly
-        $this->assertEquals($this->packets, $this->stub->getPacket());
+        $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
     }
 
     /**

@@ -44,10 +44,8 @@ class Protocol extends TestBase
 
     /**
      * Setup to create our stub
-     *
-     * @before
      */
-    public function customSetUp()
+    public function setUp()
     {
 
         $this->stub = $this->getMockForAbstractClass('\GameQ\Protocol', [ $this->options ]);
@@ -147,7 +145,7 @@ class Protocol extends TestBase
     {
 
         // Test the options attribute
-        $this->assertEquals($this->options, $this->stub->getOptions());
+        $this->assertEquals($this->options, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'options'));
 
         // Check the options getter
         $this->assertEquals($this->options, $this->stub->options());

@@ -42,10 +42,8 @@ class Ffow extends Base
 
     /**
      * Setup
-     * 
-     * @before
      */
-    public function customSetUp()
+    public function setUp()
     {
 
         // Create the stub class
@@ -61,7 +59,7 @@ class Ffow extends Base
     {
 
         // Test to make sure packets are defined properly
-        $this->assertEquals($this->packets, $this->stub->getPacket());
+        $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
     }
 
     /**
@@ -89,7 +87,7 @@ class Ffow extends Base
 
         $this->assertEquals(
             $packets,
-            $this->stub->getPacket()
+            \PHPUnit\Framework\Assert::readAttribute($reflectionProperty->getValue($this->stub), 'packets')
         );
     }
 
@@ -113,11 +111,12 @@ class Ffow extends Base
 
     /**
      * Test for invalid packet type in response
+     *
+     * @expectedException \Exception
+     * @expectedExceptionMessage GameQ\Protocols\Ffow::processResponse response type 'ffffffff4802' is not valid
      */
     public function testInvalidPacketTypeDebug()
     {
-        $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('GameQ\Protocols\Ffow::processResponse response type \'ffffffff4802\' is not valid');
 
         // Read in a ffow source file
         $source = file_get_contents(sprintf('%s/Providers/Ffow/1_response.txt', __DIR__));

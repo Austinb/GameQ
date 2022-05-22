@@ -46,10 +46,8 @@ class Teamspeak2 extends Base
 
     /**
      * Setup
-     * 
-     * @before
      */
-    public function customSetUp()
+    public function setUp()
     {
 
         // Create the stub class
@@ -65,16 +63,17 @@ class Teamspeak2 extends Base
     {
 
         // Test to make sure packets are defined properly
-        $this->assertEquals($this->packets, $this->stub->getPacket());
+        $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
     }
 
     /**
      * Test for exception being thrown if missing query_port
+     *
+     * @expectedException \Exception
+     * @expectedExceptionMessage GameQ\Protocols\Teamspeak2::beforeSend Missing required setting 'query_port'.
      */
     public function testMissingQueryPort()
     {
-        $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('GameQ\Protocols\Teamspeak2::beforeSend Missing required setting \'query_port\'.');
 
         $client_port = 8767;
         $query_port = 51234;
@@ -145,16 +144,21 @@ class Teamspeak2 extends Base
         $reflectionProperty = $reflectionClass->getProperty('__phpunit_originalObject');
         $reflectionProperty->setAccessible(true);
 
-        $this->assertEquals($packets, $stub->getPacket());
+        $this->assertEquals(
+            $packets,
+            \PHPUnit\Framework\Assert::readAttribute($reflectionProperty->getValue($stub), 'packets')
+        );
     }
 
     /**
      * Test for invalid header
+     *
+     * @expectedException \Exception
+     * @expectedExceptionMessage GameQ\Protocols\Teamspeak2::processResponse Expected header 'BadH' does not match
+     *                           expected '[TS]'.
      */
     public function testInvalidHeader()
     {
-        $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('GameQ\Protocols\Teamspeak2::processResponse Expected header \'BadH\' does not match expected \'[TS]\'.');
 
         $client_port = 8767;
         $query_port = 51234;

@@ -194,11 +194,12 @@ class Buffer extends TestBase
      * Test for proper read exception
      *
      * @depends                  testRead
+     *
+     * @expectedException \Exception
+     * @expectedExceptionMessage Unable to read length=6 from buffer.  Bad protocol format or return?
      */
     public function testReadException()
     {
-        $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('Unable to read length=6 from buffer.  Bad protocol format or return?');
 
         $buffer = $this->buildBuffer("12345");
 
