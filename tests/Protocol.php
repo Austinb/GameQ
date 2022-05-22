@@ -44,8 +44,10 @@ class Protocol extends TestBase
 
     /**
      * Setup to create our stub
+     * 
+     * @before
      */
-    public function setUp()
+    public function customSetUp()
     {
 
         $this->stub = $this->getMockForAbstractClass('\GameQ\Protocol', [ $this->options ]);
