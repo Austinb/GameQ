@@ -51,11 +51,13 @@ jobs:
         run: vendor/bin/phpunit -c phpunit.xml --verbose
 
       - name: Upload Coveralls coverage
+        if: github.repository == 'Austinb/GameQ'
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: php vendor/bin/php-coveralls --coverage_clover=build/logs/clover.xml -v
         
       - name: Upload Scrutinizer coverage
+        if: github.repository == 'Austinb/GameQ'
         run: |
           wget https://scrutinizer-ci.com/ocular.phar
           php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml --revision=${{ github.event.pull_request.head.sha || github.sha }}
