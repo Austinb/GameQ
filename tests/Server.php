@@ -56,7 +56,6 @@ class Server extends TestBase
      */
     public function testSetServerOptions()
     {
-
         $options = [
             'option1' => 'val1',
             'option2' => 'val2',
@@ -102,16 +101,13 @@ class Server extends TestBase
         $id = 'my_server_#1';
 
         // Create a server with id
-        $server = $this->getMockBuilder('\GameQ\Server')
-            ->setConstructorArgs([
-                [
-                    \GameQ\Server::SERVER_HOST => '127.0.0.1:27015',
-                    \GameQ\Server::SERVER_TYPE => 'source',
-                    \GameQ\Server::SERVER_ID   => $id,
-                ],
-            ])
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        $server = new \GameQ\Server([
+            [
+                \GameQ\Server::SERVER_HOST => '127.0.0.1:27015',
+                \GameQ\Server::SERVER_TYPE => 'source',
+                \GameQ\Server::SERVER_ID   => $id,
+            ],
+        ]);
 
         $this->assertEquals($id, $server->id());
 
@@ -154,7 +150,7 @@ class Server extends TestBase
     public function testIpv6()
     {
         // Create a mock server
-        new \GameQ\Server([
+        $stub = new \GameQ\Server([
             \GameQ\Server::SERVER_HOST => '[::1]:27015',
             \GameQ\Server::SERVER_TYPE => 'source',
         ]);
@@ -215,7 +211,7 @@ class Server extends TestBase
         $query_port = 27016;
 
         // Create a mock server
-        new \GameQ\Server([
+        $server = new \GameQ\Server([
             \GameQ\Server::SERVER_HOST    => '127.0.0.1:27015',
             \GameQ\Server::SERVER_TYPE    => 'source',
             \GameQ\Server::SERVER_OPTIONS => [
