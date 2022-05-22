@@ -521,8 +521,6 @@ class Buffer
 
     private static function isLittleEndian()
     {
-        $testint = 0x00FF;
-        $p = pack('S', $testint);
-        return $testint===current(unpack('v', $p));
+        return 0x00FF === current(unpack('v', pack('S', 0x00FF)));
     }
 }
