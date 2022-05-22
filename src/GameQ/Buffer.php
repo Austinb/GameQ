@@ -262,8 +262,8 @@ class Buffer
      *
      * If not found, return everything
      *
-     * @param      $delims
-     * @param null $delimfound
+     * @param              $delims
+     * @param null|string &$delimfound
      *
      * @return string
      * @throws \GameQ\Exception\Protocol
