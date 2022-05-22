@@ -85,7 +85,8 @@ class Quake3 extends Base
     public function testInvalidPacketTypeDebug()
     {
         $this->expectException(\Exception::class);
-        $this->expectExceptionMessage("GameQ\Protocols\Quake3::processResponse response type 'ffffffff737461747573526573706f6e736573' is not valid");
+        $this->expectExceptionMessage("GameQ\Protocols\Quake3::processResponse 
+        response type 'ffffffff737461747573526573706f6e736573' is not valid");
 
         // Read in a Quake 3 source file
         $source = file_get_contents(sprintf('%s/Providers/Quake3/1_response.txt', __DIR__));
