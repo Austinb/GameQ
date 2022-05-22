@@ -50,8 +50,7 @@ jobs:
       - name: Run PHPUnit
         run: vendor/bin/phpunit -c phpunit.xml --verbose
 
-      - name: Upload coverage to Coveralls
-        run: |
-          php vendor/bin/php-coveralls -v
-          wget https://scrutinizer-ci.com/ocular.phar
-          php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
+      - name: Upload coverage results to Coveralls
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: php vendor/bin/php-coveralls --coverage_clover=build/logs/clover.xml -v
