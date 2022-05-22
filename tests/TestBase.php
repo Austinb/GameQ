@@ -37,6 +37,18 @@ class TestBase extends \PHPUnit\Framework\TestCase
 
         parent::__construct($name, $data, $dataName);
     }
+    
+    /**
+     + Backwards compatibility
+     */
+    public function assertEqualsDelta($expected, $actual, $delta, $message = '')
+    {
+        if (method_exists(get_parent_class(self::class), 'assertEqualsWithDelta')) {
+            $this->assertEqualsWithDelta($expected, $actual, $delta, $message);
+        } else {
+            $this->assertEquals($expected, $actual, $message, $delta);
+        }
+    }
 
     /**
      * Generic query test function to simulate testing of protocol classes
