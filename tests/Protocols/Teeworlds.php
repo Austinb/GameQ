@@ -95,13 +95,11 @@ class Teeworlds extends Base
 
     /**
      * Test for invalid packet type in response
-     *
-     * @expectedException \Exception
-     * @expectedExceptionMessage GameQ\Protocols\Teeworlds::processResponse response type
-     *                           'ffffffffffffffffffff696e663336' is not valid
      */
     public function testInvalidPacketTypeDebug()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage("GameQ\Protocols\Teeworlds::processResponse response type 'ffffffffffffffffffff696e663336' is not valid");
 
         // Read in a css source file
         $source = file_get_contents(sprintf('%s/Providers/Teeworlds/1_response.txt', __DIR__));

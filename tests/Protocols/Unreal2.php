@@ -83,12 +83,11 @@ class Unreal2 extends Base
 
     /**
      * Test for invalid packet type in response
-     *
-     * @expectedException \Exception
-     * @expectedExceptionMessage GameQ\Protocols\Unreal2::processResponse response type '8000000007' is not valid
      */
     public function testInvalidPacketTypeDebug()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage("GameQ\Protocols\Unreal2::processResponse response type '8000000007' is not valid");
 
         // Read in a ut2004 source file
         $source = file_get_contents(sprintf('%s/Providers/Ut2004/1_response.txt', __DIR__));

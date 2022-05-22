@@ -70,12 +70,11 @@ class Teamspeak3 extends Base
 
     /**
      * Test for exception being thrown if missing query_port
-     *
-     * @expectedException \Exception
-     * @expectedExceptionMessage GameQ\Protocols\Teamspeak3::beforeSend Missing required setting 'query_port'.
      */
     public function testMissingQueryPort()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage("GameQ\Protocols\Teamspeak3::beforeSend Missing required setting 'query_port'.");
 
         $client_port = 9987;
         $query_port = 10011;
@@ -155,13 +154,11 @@ class Teamspeak3 extends Base
 
     /**
      * Test for invalid header
-     *
-     * @expectedException \Exception
-     * @expectedExceptionMessage GameQ\Protocols\Teamspeak3::processResponse Expected header 'So2' does not match
-     *                           expected 'TS3'.
      */
     public function testInvalidHeader()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage("GameQ\Protocols\Teamspeak3::processResponse Expected header 'So2' does not match expected 'TS3'.");
 
         $client_port = 9987;
         $query_port = 10011;

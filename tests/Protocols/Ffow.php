@@ -113,12 +113,11 @@ class Ffow extends Base
 
     /**
      * Test for invalid packet type in response
-     *
-     * @expectedException \Exception
-     * @expectedExceptionMessage GameQ\Protocols\Ffow::processResponse response type 'ffffffff4802' is not valid
      */
     public function testInvalidPacketTypeDebug()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage("GameQ\Protocols\Ffow::processResponse response type 'ffffffff4802' is not valid");
 
         // Read in a ffow source file
         $source = file_get_contents(sprintf('%s/Providers/Ffow/1_response.txt', __DIR__));

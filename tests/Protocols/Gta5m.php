@@ -81,12 +81,11 @@ class Gta5m extends Base
 
     /**
      * Test for invalid packet type in response
-     *
-     * @expectedException \Exception
-     * @expectedExceptionMessage
      */
     public function testInvalidPacketTypeDebug()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage("");
 
         // Read in a css source file
         $source = file_get_contents(sprintf('%s/Providers/Gta5m/1_response.txt', __DIR__));

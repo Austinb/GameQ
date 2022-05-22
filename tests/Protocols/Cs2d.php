@@ -82,12 +82,11 @@ class Cs2d extends Base
 
     /**
      * Test for invalid packet type in response
-     *
-     * @expectedException \Exception
-     * @expectedExceptionMessage GameQ\Protocols\Cs2d::processResponse response type '80000000' is not valid
      */
     public function testInvalidPacketTypeDebug()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage("GameQ\Protocols\Cs2d::processResponse response type '80000000' is not valid");
 
         // Read in a ut2004 source file
         $source = file_get_contents(sprintf('%s/Providers/Ut2004/1_response.txt', __DIR__));
