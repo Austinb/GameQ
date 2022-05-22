@@ -56,7 +56,9 @@ jobs:
         if: github.repository == 'Austinb/GameQ'
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: php vendor/bin/php-coveralls --coverage_clover=build/logs/clover.xml -v
+        run: |
+          composer global require php-coveralls/php-coveralls
+          php ~/.composer/vendor/bin/php-coveralls --coverage_clover=build/logs/clover.xml -v
         
       - name: Upload Scrutinizer coverage
         if: github.repository == 'Austinb/GameQ'
