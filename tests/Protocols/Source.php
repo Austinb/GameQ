@@ -20,7 +20,6 @@ namespace GameQ\Tests\Protocols;
 
 class Source extends Base
 {
-
     /**
      * Holds stub on setup
      *
@@ -47,7 +46,6 @@ class Source extends Base
      */
     public function customSetUp()
     {
-
         // Create the stub class
         $this->stub = new \GameQ\Protocols\Source();
     }
@@ -57,7 +55,6 @@ class Source extends Base
      */
     public function testPackets()
     {
-
         // Test to make sure packets are defined properly
         $this->assertEquals($this->packets, $this->stub->getPacket());
     }
@@ -67,7 +64,6 @@ class Source extends Base
      */
     public function testChallengeapply()
     {
-
         $packets = $this->packets;
 
         // Set what the packets should look like
@@ -89,7 +85,6 @@ class Source extends Base
      */
     public function testInvalidPacketType()
     {
-
         // Read in a css source file
         $source = file_get_contents(sprintf('%s/Providers/Css/1_response.txt', __DIR__));
 

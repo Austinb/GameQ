@@ -20,7 +20,6 @@ namespace GameQ\Tests\Protocols;
 
 class Samp extends Base
 {
-
     /**
      * Holds stub on setup
      *
@@ -84,7 +83,6 @@ class Samp extends Base
     {
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage("GameQ\Protocols\Samp::processResponse code check failed.");
-
         // Read in a samp source file
         $source = file_get_contents(sprintf('%s/Providers/Samp/1_response.txt', __DIR__));
 
@@ -100,7 +98,6 @@ class Samp extends Base
      */
     public function testInvalidPacketType()
     {
-
         // Read in a samp source file
         $source = file_get_contents(sprintf('%s/Providers/Samp/1_response.txt', __DIR__));
 

@@ -20,7 +20,6 @@ namespace GameQ\Tests\Protocols;
 
 class Gtan extends Base
 {
-
     /**
      * Holds stub on setup
      *
@@ -44,7 +43,6 @@ class Gtan extends Base
      */
     public function customSetUp()
     {
-
         // Create the stub class
         $this->stub = new \GameQ\Protocols\Gtan();
     }
@@ -54,7 +52,6 @@ class Gtan extends Base
      */
     public function testPackets()
     {
-
         // Test to make sure packets are defined properly
         $this->assertEquals($this->packets, $this->stub->getPacket());
     }
@@ -69,7 +66,6 @@ class Gtan extends Base
      */
     public function testResponses($responses, $result)
     {
-
         // Pull the first key off the array this is the server ip:port
         $server = key($result);
 

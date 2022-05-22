@@ -20,7 +20,6 @@ namespace GameQ\Tests\Protocols;
 
 class Gamespy3 extends Base
 {
-
     /**
      * Holds stub on setup
      *
@@ -45,7 +44,6 @@ class Gamespy3 extends Base
      */
     public function customSetUp()
     {
-
         // Create the stub class
         $this->stub = new \GameQ\Protocols\Gamespy3();
     }
@@ -55,7 +53,6 @@ class Gamespy3 extends Base
      */
     public function testPackets()
     {
-
         // Test to make sure packets are defined properly
         $this->assertEquals($this->packets, $this->stub->getPacket());
     }
@@ -65,7 +62,6 @@ class Gamespy3 extends Base
      */
     public function testChallengeapply()
     {
-
         $packets = $this->packets;
 
         //09102030403000

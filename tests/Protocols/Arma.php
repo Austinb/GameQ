@@ -38,7 +38,6 @@ class Arma extends Base
         \GameQ\Tests\MockDNS::mockHosts([
             'sygsky.no-ip.org' => '80.240.222.67'
         ]);
-
         // Pull the first key off the array this is the server ip:port
         $server = key($result);
 

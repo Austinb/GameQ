@@ -20,7 +20,6 @@ namespace GameQ\Tests\Protocols;
 
 class Cs2d extends Base
 {
-
     /**
      * Holds stub on setup
      *
@@ -45,7 +44,6 @@ class Cs2d extends Base
      */
     public function customSetUp()
     {
-
         // Create the stub class
         $this->stub = new \GameQ\Protocols\Cs2d();
     }
@@ -55,7 +53,6 @@ class Cs2d extends Base
      */
     public function testPackets()
     {
-
         // Test to make sure packets are defined properly
         $this->assertEquals($this->packets, $this->stub->getPacket());
     }
@@ -65,7 +62,6 @@ class Cs2d extends Base
      */
     public function testInvalidPacketType()
     {
-
         // Read in a ut2004 source file
         $source = file_get_contents(sprintf('%s/Providers/Cs2d/1_response.txt', __DIR__));
 
@@ -106,7 +102,6 @@ class Cs2d extends Base
      */
     public function testResponses($responses, $result)
     {
-
         // Pull the first key off the array this is the server ip:port
         $server = key($result);
 

@@ -25,7 +25,6 @@ namespace GameQ\Tests\Protocols;
  */
 class Teamspeak3 extends Base
 {
-
     /**
      * Holds stub on setup
      *
@@ -51,7 +50,6 @@ class Teamspeak3 extends Base
      */
     public function customSetUp()
     {
-
         // Create the stub class
         $this->stub = new \GameQ\Protocols\Teamspeak3();
     }
@@ -61,7 +59,6 @@ class Teamspeak3 extends Base
      */
     public function testPackets()
     {
-
         // Test to make sure packets are defined properly
         $this->assertEquals($this->packets, $this->stub->getPacket());
     }
@@ -97,7 +94,6 @@ class Teamspeak3 extends Base
      */
     public function testBeforeSend()
     {
-
         $client_port = 9987;
         $query_port = 10011;
 
@@ -166,7 +162,6 @@ class Teamspeak3 extends Base
      */
     public function testResponses($responses, $result)
     {
-
         // Pull the first key off the array this is the server ip:port
         $server = key($result);
 

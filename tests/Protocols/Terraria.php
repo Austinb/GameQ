@@ -20,7 +20,6 @@ namespace GameQ\Tests\Protocols;
 
 class Terraria extends Base
 {
-
     /**
      * Test responses for Terraria
      *

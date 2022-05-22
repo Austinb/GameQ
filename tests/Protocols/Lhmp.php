@@ -20,7 +20,6 @@ namespace GameQ\Tests\Protocols;
 
 class Lhmp extends Base
 {
-
     /**
      * Holds stub on setup
      *
@@ -45,7 +44,6 @@ class Lhmp extends Base
      */
     public function customSetUp()
     {
-
         // Create the stub class
         $this->stub = new \GameQ\Protocols\Lhmp();
     }
@@ -55,7 +53,6 @@ class Lhmp extends Base
      */
     public function testPackets()
     {
-
         // Test to make sure packets are defined properly
         $this->assertEquals($this->packets, $this->stub->getPacket());
     }
@@ -65,7 +62,6 @@ class Lhmp extends Base
      */
     public function testInvalidPacketType()
     {
-
         // Read in a lhmp source file
         $source = file_get_contents(sprintf('%s/Providers/Lhmp/1_response.txt', __DIR__));
 

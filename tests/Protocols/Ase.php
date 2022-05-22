@@ -20,7 +20,6 @@ namespace GameQ\Tests\Protocols;
 
 class Ase extends Base
 {
-
     /**
      * Holds stub on setup
      *
@@ -44,7 +43,6 @@ class Ase extends Base
      */
     public function customSetUp()
     {
-
         // Create the stub class
         $this->stub = new \GameQ\Protocols\Ase();
     }
@@ -54,7 +52,6 @@ class Ase extends Base
      */
     public function testPackets()
     {
-
         // Test to make sure packets are defined properly
         $this->assertEquals($this->packets, $this->stub->getPacket());
     }
@@ -64,7 +61,6 @@ class Ase extends Base
      */
     public function testInvalidPacketType()
     {
-
         // Read in a css source file
         $source = file_get_contents(sprintf('%s/Providers/Mta/1_response.txt', __DIR__));
 
@@ -100,7 +96,6 @@ class Ase extends Base
      */
     public function testEmptyServerResponse()
     {
-
         // Should show up as offline
         $testResult = $this->queryTest('46.174.48.50:22051', 'mta', [], false);
 

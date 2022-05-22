@@ -20,7 +20,6 @@ namespace GameQ\Tests\Protocols;
 
 class Bfbc2 extends Base
 {
-
     /**
      * Holds stub on setup
      *
@@ -47,7 +46,6 @@ class Bfbc2 extends Base
      */
     public function customSetUp()
     {
-
         // Create the stub class
         $this->stub = new \GameQ\Protocols\Bfbc2();
     }
@@ -57,7 +55,6 @@ class Bfbc2 extends Base
      */
     public function testPackets()
     {
-
         // Test to make sure packets are defined properly
         $this->assertEquals($this->packets, $this->stub->getPacket());
     }
@@ -90,7 +87,6 @@ class Bfbc2 extends Base
      */
     public function testResponses($responses, $result)
     {
-
         // Pull the first key off the array this is the server ip:port
         $server = key($result);
 

@@ -20,7 +20,6 @@ namespace GameQ\Tests\Protocols;
 
 class Unreal2 extends Base
 {
-
     /**
      * Holds stub on setup
      *
@@ -46,7 +45,6 @@ class Unreal2 extends Base
      */
     public function customSetUp()
     {
-
         // Create the stub class
         $this->stub = new \GameQ\Protocols\Unreal2();
     }
@@ -56,7 +54,6 @@ class Unreal2 extends Base
      */
     public function testPackets()
     {
-
         // Test to make sure packets are defined properly
         $this->assertEquals($this->packets, $this->stub->getPacket());
     }
@@ -66,7 +63,6 @@ class Unreal2 extends Base
      */
     public function testInvalidPacketType()
     {
-
         // Read in a ut2004 source file
         $source = file_get_contents(sprintf('%s/Providers/Ut2004/1_response.txt', __DIR__));
 

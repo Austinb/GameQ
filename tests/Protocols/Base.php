@@ -29,7 +29,6 @@ use GameQ\Tests\TestBase;
  */
 abstract class Base extends TestBase
 {
-
     /**
      * Shared provider to give protocols the data to test with
      *

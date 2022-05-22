@@ -25,7 +25,6 @@ namespace GameQ\Tests\Protocols;
  */
 class Risingstorm2 extends Base
 {
-
     /**
      * Holds stub on setup
      *
@@ -40,7 +39,6 @@ class Risingstorm2 extends Base
      */
     public function customSetUp()
     {
-
         // Create the stub class
         $this->stub = new \GameQ\Protocols\Risingstorm2();
     }
@@ -63,7 +61,6 @@ class Risingstorm2 extends Base
      */
     public function testResponses($responses, $result)
     {
-
         // Pull the first key off the array this is the server ip:port
         $server = key($result);
 

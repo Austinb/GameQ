@@ -20,7 +20,6 @@ namespace GameQ\Tests\Protocols;
 
 class Bf4 extends Base
 {
-
     /**
      * Test responses for Battlefield 4
      *
@@ -31,7 +30,6 @@ class Bf4 extends Base
      */
     public function testResponses($responses, $result)
     {
-
         // Pull the first key off the array this is the server ip:port
         $server = key($result);
 

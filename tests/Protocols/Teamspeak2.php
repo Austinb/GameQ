@@ -25,7 +25,6 @@ namespace GameQ\Tests\Protocols;
  */
 class Teamspeak2 extends Base
 {
-
     /**
      * Holds stub on setup
      *
@@ -51,7 +50,6 @@ class Teamspeak2 extends Base
      */
     public function customSetUp()
     {
-
         // Create the stub class
         $this->stub = new \GameQ\Protocols\Teamspeak2();
     }
@@ -61,7 +59,6 @@ class Teamspeak2 extends Base
      */
     public function testPackets()
     {
-
         // Test to make sure packets are defined properly
         $this->assertEquals($this->packets, $this->stub->getPacket());
     }
@@ -73,7 +70,6 @@ class Teamspeak2 extends Base
     {
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage("GameQ\Protocols\Teamspeak2::beforeSend Missing required setting 'query_port'.");
-
         $client_port = 8767;
         $query_port = 51234;
 
@@ -96,7 +92,6 @@ class Teamspeak2 extends Base
      */
     public function testBeforeSend()
     {
-
         $client_port = 8767;
         $query_port = 51234;
 
@@ -168,7 +163,6 @@ class Teamspeak2 extends Base
      */
     public function testResponses($responses, $result)
     {
-
         // Pull the first key off the array this is the server ip:port
         $server = key($result);
 
