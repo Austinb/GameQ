@@ -58,7 +58,7 @@ class Gtar extends Base
     {
 
         // Test to make sure packets are defined properly
-        $this->assertEquals($this->packets, $this->stub->getPacket();
+        $this->assertEquals($this->packets, $this->stub->getPacket());
     }
 
     /**
