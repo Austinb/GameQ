@@ -44,7 +44,7 @@ class Protocol extends TestBase
 
     /**
      * Setup to create our stub
-     * 
+     *
      * @before
      */
     public function customSetUp()
