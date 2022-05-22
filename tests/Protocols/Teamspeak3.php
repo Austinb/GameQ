@@ -46,8 +46,10 @@ class Teamspeak3 extends Base
 
     /**
      * Setup
+     * 
+     * @before
      */
-    public function setUp()
+    public function customSetUp()
     {
 
         // Create the stub class
@@ -63,17 +65,16 @@ class Teamspeak3 extends Base
     {
 
         // Test to make sure packets are defined properly
-        $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
+        $this->assertEquals($this->packets, $this->stub->getPacket());
     }
 
     /**
      * Test for exception being thrown if missing query_port
-     *
-     * @expectedException \Exception
-     * @expectedExceptionMessage GameQ\Protocols\Teamspeak3::beforeSend Missing required setting 'query_port'.
      */
     public function testMissingQueryPort()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('GameQ\Protocols\Teamspeak3::beforeSend Missing required setting \'query_port\'.');
 
         $client_port = 9987;
         $query_port = 10011;
@@ -145,21 +146,16 @@ class Teamspeak3 extends Base
         $reflectionProperty = $reflectionClass->getProperty('__phpunit_originalObject');
         $reflectionProperty->setAccessible(true);
 
-        $this->assertEquals(
-            $packets,
-            \PHPUnit\Framework\Assert::readAttribute($reflectionProperty->getValue($stub), 'packets')
-        );
+        $this->assertEquals($packets, $stub->getPacket());
     }
 
     /**
      * Test for invalid header
-     *
-     * @expectedException \Exception
-     * @expectedExceptionMessage GameQ\Protocols\Teamspeak3::processResponse Expected header 'So2' does not match
-     *                           expected 'TS3'.
      */
     public function testInvalidHeader()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('GameQ\Protocols\Teamspeak3::processResponse Expected header \'So2\' does not match expected \'TS3\'.');
 
         $client_port = 9987;
         $query_port = 10011;

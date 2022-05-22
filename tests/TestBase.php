@@ -30,12 +30,71 @@ class TestBase extends \PHPUnit\Framework\TestCase
      */
     public function __construct($name = null, array $data = [], $dataName = '')
     {
-        // PHPUnit 5 & 6+ hack for name spaces
-        if (!class_exists('\PHPUnit\Framework\Assert', true)) {
-            class_alias('\PHPUnit_Framework_Assert', '\PHPUnit\Framework\Assert');
-        }
-
         parent::__construct($name, $data, $dataName);
+    }
+
+    public function assertEqualsDelta($expected, $actual, $delta, $message = '')
+    {
+        if (method_exists(get_parent_class(self::class), 'assertEqualsWithDelta')) {
+            $this->assertEqualsWithDelta($expected, $actual, $delta, $message);
+        } else {
+            $this->assertEquals($expected, $actual, $message, $delta);
+        }
+    }
+
+    /**
+     * Generic query test function to simulate testing of protocol classes
+     *
+     * @param string $host
+     * @param string $protocol
+     * @param array  $responses
+     * @param bool   $debug
+     * @param array  $server_options
+     *
+     * @return mixed
+     */
+    protected function queryTest($host, $protocol, $responses, $debug = false, $server_options = [])
+    {
+
+        // Create a mock server
+        $server = $this->getMockBuilder('\GameQ\Server')
+            ->setConstructorArgs([
+                [
+                    \GameQ\Server::SERVER_HOST    => $host,
+                    \GameQ\Server::SERVER_TYPE    => $protocol,
+                    \GameQ\Server::SERVER_OPTIONS => $server_options,
+                ],
+            ])
+            ->enableProxyingToOriginalMethods()
+            ->getMock();
+
+        // Invoke beforeSend function
+        $server->protocol()->beforeSend($server);
+
+        // Set the packet response as if we have really queried it
+        $server->protocol()->packetResponse($responses);
+
+        // Create a mock GameQ
+        $gq_mock = $this->getMockBuilder('\GameQ\GameQ')
+            ->enableProxyingToOriginalMethods()
+            ->getMock();
+        $gq_mock->setOption('debug', $debug);
+        $gq_mock->removeFilter('normalize');
+
+        // Reflect on GameQ class so we can parse
+        $gameq = new \ReflectionClass($gq_mock);
+
+        // Get the parse method so we can call it
+        $method = $gameq->getMethod('doParseResponse');
+
+        // Set the method to accessible
+        $method->setAccessible(true);
+
+        $testResult = $method->invoke($gq_mock, $server);
+
+        unset($server, $gq_mock, $gameq, $method);
+
+        return $testResult;
     }
 
     /**
