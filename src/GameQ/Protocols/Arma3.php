@@ -35,16 +35,16 @@ class Arma3 extends Source
     // Base DLC names
     const BASE_DLC_KART      = 'Karts';
     const BASE_DLC_MARKSMEN  = 'Marksmen';
-    const BASE_DLC_Heli      = 'Helicopters';
-    const BASE_DLC_Curator   = 'Curator';
-    const BASE_DLC_Expansion = 'Expansion';
-    const BASE_DLC_Jets      = 'Jets';
-    const BASE_DLC_Orange    = 'Laws of War';
-    const BASE_DLC_Argo      = 'Malden';
-    const BASE_DLC_TacOps    = 'Tac-Ops';
-    const BASE_DLC_Tanks     = 'Tanks';
-    const BASE_DLC_Contact   = 'Contact';
-    const BASE_DLC_Enoch     = 'Contact (Platform)';
+    const BASE_DLC_HELI      = 'Helicopters';
+    const BASE_DLC_CURATOR   = 'Curator';
+    const BASE_DLC_EXPANSION = 'Expansion';
+    const BASE_DLC_JETS      = 'Jets';
+    const BASE_DLC_ORANGE    = 'Laws of War';
+    const BASE_DLC_ARGO      = 'Malden';
+    const BASE_DLC_TACOPS    = 'Tac-Ops';
+    const BASE_DLC_TANKS     = 'Tanks';
+    const BASE_DLC_CONTACT   = 'Contact';
+    const BASE_DLC_ENOCH     = 'Contact (Platform)';
 
     // Special
     const BASE_DLC_AOW       = 'Art of War';
@@ -65,16 +65,16 @@ class Arma3 extends Source
     protected $dlcFlags = [
         0b0000000000000001 => self::BASE_DLC_KART,
         0b0000000000000010 => self::BASE_DLC_MARKSMEN,
-        0b0000000000000100 => self::BASE_DLC_Heli,
-        0b0000000000001000 => self::BASE_DLC_Curator,
-        0b0000000000010000 => self::BASE_DLC_Expansion,
-        0b0000000000100000 => self::BASE_DLC_Jets,
-        0b0000000001000000 => self::BASE_DLC_Orange,
-        0b0000000010000000 => self::BASE_DLC_Argo,
-        0b0000000100000000 => self::BASE_DLC_TacOps,
-        0b0000001000000000 => self::BASE_DLC_Tanks,
-        0b0000010000000000 => self::BASE_DLC_Contact,
-        0b0000100000000000 => self::BASE_DLC_Enoch,
+        0b0000000000000100 => self::BASE_DLC_HELI,
+        0b0000000000001000 => self::BASE_DLC_CURATOR,
+        0b0000000000010000 => self::BASE_DLC_EXPANSION,
+        0b0000000000100000 => self::BASE_DLC_JETS,
+        0b0000000001000000 => self::BASE_DLC_ORANGE,
+        0b0000000010000000 => self::BASE_DLC_ARGO,
+        0b0000000100000000 => self::BASE_DLC_TACOPS,
+        0b0000001000000000 => self::BASE_DLC_TANKS,
+        0b0000010000000000 => self::BASE_DLC_CONTACT,
+        0b0000100000000000 => self::BASE_DLC_ENOCH,
         0b0001000000000000 => self::BASE_DLC_AOW,
         0b0010000000000000 => 'Unknown',
         0b0100000000000000 => 'Unknown',
@@ -185,10 +185,16 @@ class Arma3 extends Source
             $infoByte = $responseBuffer->readInt8();
 
             // Determine isDLC by flag, first bit in upper nibble
-            $result->addSub('mods', 'dlc', ($infoByte & 0b00010000) === 0b00010000);
+            $isDLC = ($dlcBits & 0b00010000) === 0b00010000;
+            $result->addSub('mods', 'dlc', $isDLC);
             
-            // Read the steam id of the mod/CDLC (might be less than 4 bytes)
-            $result->addSub('mods', 'steam_id', $responseBuffer->readInt32($infoByte & 0x0F));
+            if ($isDLC) {
+                // TODO no clue what to do here
+                $responseBuffer->read($infoByte & 0x0F);
+            } else {
+                // Read workshop id and unpack as 32bit int
+                $result->addSub('mods', 'steam_id', self::readWorkshopId($responseBuffer, $infoByte & 0x0F));
+            }
 
             // Read the name of the mod
             $result->addSub('mods', 'name', $responseBuffer->readPascalString(0, true) ?: 'Unknown');
@@ -217,5 +223,10 @@ class Arma3 extends Source
         unset($responseBuffer, $signatureCount, $signatures, $x);
 
         return $result->fetch();
+    }
+
+    private static function readWorkshopId(Buffer $buffer, $length = 4) {
+        $unpacked = unpack('Vint', $buffer->read($length));
+        return array_shift($unpacked);
     }
 }
