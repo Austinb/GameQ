@@ -30,16 +30,11 @@ class TestBase extends \PHPUnit\Framework\TestCase
      */
     public function __construct($name = null, array $data = [], $dataName = '')
     {
-        // PHPUnit 5 & 6+ hack for name spaces
-        if (!class_exists('\PHPUnit\Framework\Assert', true)) {
-            class_alias('\PHPUnit_Framework_Assert', '\PHPUnit\Framework\Assert');
-        }
-
         parent::__construct($name, $data, $dataName);
     }
     
     /**
-     + Backwards compatibility
+     * Backwards compatibility
      */
     public function assertEqualsDelta($expected, $actual, $delta, $message = '')
     {
