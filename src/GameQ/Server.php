@@ -263,6 +263,11 @@ class Server
         return (array_key_exists($key, $this->options)) ? $this->options[$key] : null;
     }
 
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
     /**
      * Get the ID for this server
      *

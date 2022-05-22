@@ -117,6 +117,6 @@ class Gta5m extends Base
             $responses
         );
 
-        $this->assertEquals($result[ $server ], $testResult, '', 0.000000001);
+        $this->assertEqualsDelta($result[ $server ], $testResult, 0.000000001);
     }
 }
