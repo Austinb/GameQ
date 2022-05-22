@@ -65,7 +65,7 @@ class Teamspeak2 extends Base
     {
 
         // Test to make sure packets are defined properly
-        $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
+        $this->assertEquals($this->packets, $this->stub->getPacket());
     }
 
     /**
@@ -141,14 +141,9 @@ class Teamspeak2 extends Base
         // Apply the before send
         $stub->beforeSend($server);
 
-        // Build reflection to access changed data
-        $reflectionClass = new \ReflectionClass($stub);
-        $reflectionProperty = $reflectionClass->getProperty('__phpunit_originalObject');
-        $reflectionProperty->setAccessible(true);
-
         $this->assertEquals(
             $packets,
-            \PHPUnit\Framework\Assert::readAttribute($reflectionProperty->getValue($stub), 'packets')
+            $stub->getPacket()
         );
     }
 

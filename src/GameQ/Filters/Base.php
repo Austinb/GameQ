@@ -46,6 +46,11 @@ abstract class Base
         $this->options = $options;
     }
 
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
     /**
      * Apply the filter to the data
      *
