@@ -32,24 +32,53 @@ use GameQ\Result;
  */
 class Arma3 extends Source
 {
+    // Base DLC names
+    const BASE_DLC_KART      = 'Karts';
+    const BASE_DLC_MARKSMEN  = 'Marksmen';
+    const BASE_DLC_HELI      = 'Helicopters';
+    const BASE_DLC_CURATOR   = 'Curator';
+    const BASE_DLC_EXPANSION = 'Expansion';
+    const BASE_DLC_JETS      = 'Jets';
+    const BASE_DLC_ORANGE    = 'Laws of War';
+    const BASE_DLC_ARGO      = 'Malden';
+    const BASE_DLC_TACOPS    = 'Tac-Ops';
+    const BASE_DLC_TANKS     = 'Tanks';
+    const BASE_DLC_CONTACT   = 'Contact';
+    const BASE_DLC_ENOCH     = 'Contact (Platform)';
+
+    // Special
+    const BASE_DLC_AOW       = 'Art of War';
+
+    // Creator DLC names
+    const CREATOR_DLC_GM     = 'Global Mobilization';
+    const CREATOR_DLC_VN     = 'S.O.G. Prairie Fire';
+    const CREATOR_DLC_CSLA   = 'ČSLA - Iron Curtain';
+    const CREATOR_DLC_WS     = 'Western Sahara';
+
     /**
-     * Defines the names for the specific game DLCs
+     * DLC Flags/Bits as defined in the documentation.
+     * 
+     * @see https://community.bistudio.com/wiki/Arma_3:_ServerBrowserProtocol3
      *
      * @var array
      */
-    protected $dlcNames = [
-        'af82811b' => 'Karts',
-        '94f76a1a' => 'Marksmen',
-        'd0356eec' => 'Helicopters',
-        '19984a71' => 'Zeus',
-        '7fb4b1f3' => 'Apex',
-        '49c2c12b' => 'Jets',
-        '7e766e18' => 'Laws of War',
-        '99d71f90' => 'Malden',
-        'a8b10cdf' => 'Tac-Ops',
-        '37680ce8' => 'Tanks',
-        '43f9c377' => 'Contact',
-        'c4979557' => 'Enoch',
+    protected $dlcFlags = [
+        0b0000000000000001 => self::BASE_DLC_KART,
+        0b0000000000000010 => self::BASE_DLC_MARKSMEN,
+        0b0000000000000100 => self::BASE_DLC_HELI,
+        0b0000000000001000 => self::BASE_DLC_CURATOR,
+        0b0000000000010000 => self::BASE_DLC_EXPANSION,
+        0b0000000000100000 => self::BASE_DLC_JETS,
+        0b0000000001000000 => self::BASE_DLC_ORANGE,
+        0b0000000010000000 => self::BASE_DLC_ARGO,
+        0b0000000100000000 => self::BASE_DLC_TACOPS,
+        0b0000001000000000 => self::BASE_DLC_TANKS,
+        0b0000010000000000 => self::BASE_DLC_CONTACT,
+        0b0000100000000000 => self::BASE_DLC_ENOCH,
+        0b0001000000000000 => self::BASE_DLC_AOW,
+        0b0010000000000000 => 'Unknown',
+        0b0100000000000000 => 'Unknown',
+        0b1000000000000000 => 'Unknown',
     ];
 
     /**
@@ -111,11 +140,11 @@ class Arma3 extends Source
         $result = new Result();
 
         // Get results
-        $result->add('rules_protocol_version', $responseBuffer->readInt8());
-        $result->add('overflow', $responseBuffer->readInt8());
-        $dlcBit = decbin($responseBuffer->readInt8()); // Grab DLC bit 1 and use it later
-        $dlcBit2 = decbin($responseBuffer->readInt8()); // Grab DLC bit 2 and use it later
-        $dlcCount = substr_count($dlcBit, '1') + substr_count($dlcBit2, '1'); // Count the DLCs
+        $result->add('rules_protocol_version', $responseBuffer->readInt8()); // read protocol version
+        $result->add('overflow', $responseBuffer->readInt8()); // Read overflow flags
+        $dlcByte = $responseBuffer->readInt8(); // Grab DLC byte 1 and use it later
+        $dlcByte2 = $responseBuffer->readInt8(); // Grab DLC byte 2 and use it later
+        $dlcBits = ($dlcByte2 << 8) | $dlcByte; // concatenate DLC bits to 16 Bit int
 
         // Grab difficulty so we can man handle it...
         $difficulty = $responseBuffer->readInt8();
@@ -131,33 +160,44 @@ class Arma3 extends Source
         // Crosshair
         $result->add('crosshair', $responseBuffer->readInt8());
 
-        // Loop over the DLC bit so we can pull in the info for the DLC (if enabled)
-        for ($x = 0; $x < $dlcCount; $x++) {
-            $dlcHash = dechex($responseBuffer->readInt32());
-            isset($this->dlcNames[$dlcHash]) ?
-                $result->addSub('dlcs', 'name', $this->dlcNames[$dlcHash])
-                : $result->addSub('dlcs', 'name', 'Unknown');
-            $result->addSub('dlcs', 'hash', $dlcHash);
+        // Loop over the base DLC bits so we can pull in the info for the DLC (if enabled)
+        foreach ($this->dlcFlags as $dlcFlag => $dlcName) {
+            // Check that the DLC bit is enabled
+            if (($dlcBits & $dlcFlag) === $dlcFlag) {
+                // Add the DLC to the list
+                $result->addSub('dlcs', 'name', $dlcName);
+                $result->addSub('dlcs', 'hash', dechex($responseBuffer->readInt32()));
+            }
         }
 
-        // No longer needed
-        unset($dlcBit, $dlcBit2, $dlcCount, $dlcHash);
-
-        // Grab the mod count
+        // Read the mount of mods, these include DLC as well as Creator DLC and custom modifications
         $modCount = $responseBuffer->readInt8();
 
         // Add mod count
         $result->add('mod_count', $modCount);
-
-        // Loop the mod count and add them
-        for ($x = 0; $x < $modCount; $x++) {
-            // Add the mod to the list
+        
+        // Loop over the mods
+        while ($modCount) {
+            // Read the mods hash 
             $result->addSub('mods', 'hash', dechex($responseBuffer->readInt32()));
-            $result->addSub('mods', 'steam_id', hexdec($responseBuffer->readPascalString(0, true)));
-            $result->addSub('mods', 'name', $responseBuffer->readPascalString(0, true));
+
+            // Get the information byte containing DLC flag and steamId length
+            $infoByte = $responseBuffer->readInt8();
+
+            // Determine isDLC by flag, first bit in upper nibble
+            $result->addSub('mods', 'dlc', ($infoByte & 0b00010000) === 0b00010000);
+            
+            // Read the steam id of the mod/CDLC (might be less than 4 bytes)
+            $result->addSub('mods', 'steam_id', $responseBuffer->readInt32($infoByte & 0x0F));
+
+            // Read the name of the mod
+            $result->addSub('mods', 'name', $responseBuffer->readPascalString(0, true) ?: 'Unknown');
+
+            --$modCount;
         }
 
-        unset($modCount, $x);
+        // No longer needed
+        unset($dlcByte, $dlcByte2, $dlcBits);
 
         // Get the signatures count
         $signatureCount = $responseBuffer->readInt8();

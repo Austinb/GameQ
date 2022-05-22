@@ -380,25 +380,30 @@ class Buffer
      * @return int
      * @throws \GameQ\Exception\Protocol
      */
-    public function readInt32()
+    public function readInt32($length = 4)
     {
-
         // Change the integer type we are looking up
+        $littleEndian = null;
         switch ($this->number_type) {
             case self::NUMBER_TYPE_BIGENDIAN:
-                $type = 'Nint';
+                $type = 'N';
+                $littleEndian = false;
                 break;
 
             case self::NUMBER_TYPE_LITTLEENDIAN:
-                $type = 'Vint';
+                $type = 'V';
+                $littleEndian = true;
                 break;
 
             default:
-                $type = 'Lint';
+                $type = 'L';
         }
 
+        // read from the buffer and append/prepend empty bytes for shortened int32
+        $corrected = $this->read($length);
+
         // Unpack the number
-        $int = unpack($type, $this->read(4));
+        $int = unpack($type . 'int', self::extendBinaryString($corrected, 4, $littleEndian));
 
         return $int['int'];
     }
@@ -497,5 +502,26 @@ class Buffer
         unset($string);
 
         return $float['float'];
+    }
+
+    private static function extendBinaryString($input, $length = 4, $littleEndian = null)
+    {
+        if (is_null($littleEndian)) {
+            $littleEndian = self::isLittleEndian();
+        }
+
+        $extension = str_repeat(pack($littleEndian ? 'V' : 'N', 0b0000), $length - strlen($input));
+
+        if ($littleEndian) {
+            return $input . $extension;
+        } else {
+            return $extension . $input;
+        }
+    }
+
+    private static function isLittleEndian() {
+        $testint = 0x00FF;
+        $p = pack('S', $testint);
+        return $testint===current(unpack('v', $p));
     }
 }
