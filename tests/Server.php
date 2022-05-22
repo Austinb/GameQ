@@ -27,12 +27,11 @@ class Server extends TestBase
 {
     /**
      * Test for missing server type
-     *
-     * @expectedException \GameQ\Exception\Server
-     * @expectedExceptionMessage Missing server info key 'type'!
      */
     public function testMissingServerType()
     {
+        $this->expectException(\GameQ\Exception\Server::class);
+        $this->expectExceptionMessage("Missing server info key 'type'!");
 
         // Create a mock server should throw exception
         $this->getMockBuilder('\GameQ\Server')
@@ -42,12 +41,11 @@ class Server extends TestBase
 
     /**
      * Test for missing host information
-     *
-     * @expectedException \GameQ\Exception\Server
-     * @expectedExceptionMessage Missing server info key 'host'!
      */
     public function testMissingHost()
     {
+        $this->expectException(\GameQ\Exception\Server::class);
+        $this->expectExceptionMessage("Missing server info key 'host'!");
 
         // Create a mock server Create a mock server should throw exception
         $this->getMockBuilder('\GameQ\Server')
@@ -83,7 +81,7 @@ class Server extends TestBase
             ->enableProxyingToOriginalMethods()
             ->getMock();
 
-        $this->assertEquals($options, \PHPUnit\Framework\Assert::readAttribute($server, 'options'));
+        $this->assertEquals($options, $server->getOptions());
 
         // Check the getOption
         $this->assertEquals($options['option1'], $server->getOption('option1'));
@@ -116,7 +114,7 @@ class Server extends TestBase
             ->enableProxyingToOriginalMethods()
             ->getMock();
 
-        $this->assertEquals($id, \PHPUnit\Framework\Assert::readAttribute($server, 'id'));
+        $this->assertEquals($id, $server->id());
 
         $id = 'my_server_#1';
 
@@ -132,20 +130,18 @@ class Server extends TestBase
             ->enableProxyingToOriginalMethods()
             ->getMock();
 
-        $this->assertEquals($id, \PHPUnit\Framework\Assert::readAttribute($server, 'id'));
+        $this->assertEquals($id, $server->id());
 
         $this->assertEquals($id, $server->id());
     }
 
     /**
      * Test ipv4 missing port
-     *
-     * @expectedException \GameQ\Exception\Server
-     * @expectedExceptionMessage The host address '127.0.0.1' is missing the port. All servers must have a port
-     *                           defined!
      */
     public function testIpv4NoPort()
     {
+        $this->expectException(\GameQ\Exception\Server::class);
+        $this->expectExceptionMessage("The host address '127.0.0.1' is missing the port. All servers must have a port defined!");
 
         // Create a mock server
         $this->getMockBuilder('\GameQ\Server')
@@ -161,12 +157,12 @@ class Server extends TestBase
 
     /**
      * Test IPv4 unresolvable hostname
-     *
-     * @expectedException \GameQ\Exception\Server
-     * @expectedExceptionMessage Unable to resolve the host 'some.unresolable.domain' to an IP address.
      */
     public function testIpv4UnresovlableHostname()
     {
+        $this->expectException(\GameQ\Exception\Server::class);
+        $this->expectExceptionMessage("Unable to resolve the host 'some.unresolable.domain' to an IP address.");
+
         // Create a mock server
         $this->getMockBuilder('\GameQ\Server')
             ->setConstructorArgs([
@@ -195,17 +191,17 @@ class Server extends TestBase
             ->enableProxyingToOriginalMethods()
             ->getMock();
 
-        $this->assertEquals('[::1]:27015', \PHPUnit\Framework\Assert::readAttribute($stub, 'id'));
+        $this->assertEquals('[::1]:27015', $stub->id());
     }
 
     /**
      * Test ipv6 missing port
-     *
-     * @expectedException \GameQ\Exception\Server
-     * @expectedExceptionMessage The host address '[::1]' is missing the port.  All servers must have a port defined!
      */
     public function testIpv6NoPort()
     {
+        $this->expectException(\GameQ\Exception\Server::class);
+        $this->expectExceptionMessage("The host address '[::1]' is missing the port.  All servers must have a port defined!");
+
         // Create a mock server
         $this->getMockBuilder('\GameQ\Server')
             ->setConstructorArgs([
@@ -220,12 +216,12 @@ class Server extends TestBase
 
     /**
      * Test invalid ipv6
-     *
-     * @expectedException \GameQ\Exception\Server
-     * @expectedExceptionMessage The IPv6 address '[:0:1]' is invalid.
      */
     public function testIpv6Invalid()
     {
+        $this->expectException(\GameQ\Exception\Server::class);
+        $this->expectExceptionMessage("The IPv6 address '[:0:1]' is invalid.");
+
         // Create a mock server
         $this->getMockBuilder('\GameQ\Server')
             ->setConstructorArgs([
@@ -240,12 +236,12 @@ class Server extends TestBase
 
     /**
      * Test invalid protocol
-     *
-     * @expectedException \GameQ\Exception\Server
-     * @expectedExceptionMessage Unable to locate Protocols class for 'doesnotexist'!
      */
     public function testInvalidProtocol()
     {
+        $this->expectException(\GameQ\Exception\Server::class);
+        $this->expectExceptionMessage("Unable to locate Protocols class for 'doesnotexist'!");
+
         // Create a mock server
         $this->getMockBuilder('\GameQ\Server')
             ->setConstructorArgs([
@@ -279,6 +275,6 @@ class Server extends TestBase
             ->enableProxyingToOriginalMethods()
             ->getMock();
 
-        $this->assertEquals($query_port, \PHPUnit\Framework\Assert::readAttribute($server, 'port_query'));
+        $this->assertEquals($query_port, $server->port_query);
     }
 }

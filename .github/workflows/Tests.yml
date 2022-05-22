@@ -14,7 +14,31 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: ['5.6', '7.0', '7.1', '7.2', '7.3', '7.4']
+        php: ['5.6', '7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1']
+        include:
+          - php: 5.6
+            ocular: ~1.8.1
+
+          - php: 7.0
+            ocular: ^1.9
+
+          - php: 7.1
+            ocular: ^1.9
+
+          - php: 7.2
+            ocular: ^1.9
+
+          - php: 7.3
+            ocular: ^1.9
+
+          - php: 7.4
+            ocular: ^1.9
+
+          - php: 8.0
+            ocular: ^1.9
+
+          - php: 8.1
+            ocular: ^1.9
     env:
       PHP_VERSION: ${{ matrix.php }}
     name: PHP ${{ matrix.php }}
@@ -30,6 +54,8 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 10
 
       - name: Validate composer.json
         run: composer validate
@@ -56,10 +82,12 @@ jobs:
         if: github.repository == 'Austinb/GameQ'
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: php vendor/bin/php-coveralls --coverage_clover=build/logs/clover.xml -v
+        run: |
+          composer global require php-coveralls/php-coveralls
+          php ~/.composer/vendor/bin/php-coveralls --coverage_clover=build/logs/clover.xml -v
         
       - name: Upload Scrutinizer coverage
         if: github.repository == 'Austinb/GameQ'
         run: |
-          wget https://scrutinizer-ci.com/ocular.phar
-          php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml --revision=${{ github.event.pull_request.head.sha || github.sha }}
+          composer global require scrutinizer/ocular ${{ matrix.ocular }}
+          php ~/.composer/vendor/bin/ocular code-coverage:upload --format=php-clover build/logs/clover.xml --revision=${{ github.event.pull_request.head.sha || github.sha }}

@@ -160,6 +160,16 @@ class GameQ
         return true;
     }
 
+    public function getServers()
+    {
+        return $this->servers;
+    }
+
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
     /**
      * Chainable call to __set, uses set as the actual setter
      *

@@ -119,6 +119,31 @@ abstract class Core
         $this->blocking = false;
     }
 
+    public function getTransport()
+    {
+        return $this->transport;
+    }
+
+    public function getIp()
+    {
+        return $this->ip;
+    }
+
+    public function getPort()
+    {
+        return $this->port;
+    }
+
+    public function getTimeout()
+    {
+        return $this->timeout;
+    }
+
+    public function getBlocking()
+    {
+        return $this->blocking;
+    }
+
     /**
      * Create a new socket
      *

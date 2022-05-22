@@ -39,8 +39,10 @@ class Ase extends Base
 
     /**
      * Setup
+     *
+     * @before
      */
-    public function setUp()
+    public function customSetUp()
     {
 
         // Create the stub class
@@ -56,7 +58,7 @@ class Ase extends Base
     {
 
         // Test to make sure packets are defined properly
-        $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
+        $this->assertEquals($this->packets, $this->stub->getPacket());
     }
 
     /**
@@ -79,12 +81,11 @@ class Ase extends Base
 
     /**
      * Test for invalid packet type in response
-     *
-     * @expectedException \Exception
-     * @expectedExceptionMessage GameQ\Protocols\Ase::processResponse The response header "Some" does not match expected "EYE1"
      */
     public function testInvalidPacketTypeDebug()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage("GameQ\Protocols\Ase::processResponse The response header \"Some\" does not match expected \"EYE1\"");
 
         // Read in a css source file
         $source = file_get_contents(sprintf('%s/Providers/Mta/1_response.txt', __DIR__));
@@ -110,12 +111,12 @@ class Ase extends Base
 
     /**
      * Test empty server response
-     *
-     * @expectedException \Exception
-     * @expectedExceptionMessage GameQ\Protocols\Ase::processResponse The response from the server was empty.
      */
     public function testEmptyServerResponseDebug()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage("GameQ\Protocols\Ase::processResponse The response from the server was empty.");
+
         // Should fail out
         $this->queryTest('46.174.48.50:22051', 'mta', [], true);
     }
