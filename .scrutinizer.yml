@@ -36,6 +36,7 @@ coding_style:
 tools:
   external_code_coverage:
     enabled: true
+    runs: 6
     timeout: 1800    # Timeout in seconds.
   php_mess_detector:
     config:

@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  CI:
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['5.6', '7.0', '7.1', '7.2', '7.3', '7.4']
+    env:
+      PHP_VERSION: ${{ matrix.php }}
+    name: PHP ${{ matrix.php }}
+    steps:
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: bz2,xml,curl
+        env:
+          runner: ubuntu-22.04
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Validate composer.json
+        run: composer validate
+        
+      - name: Cache composer files
+        uses: actions/cache@v2
+        with:
+          path: ~/.composer/cache/files
+          key: dependencies-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
+
+      - name: Install dependencies using composer
+        run: composer install --prefer-dist --no-interaction
+       
+      - name: PHP CodeStyle
+        run: |
+          mkdir -p build/logs
+          vendor/bin/phpcs src tests --extensions=php --ignore=bootstrap --report=checkstyle --report-file=build/logs/checkstyle.xml --standard=build/config/phpcs.xml -v
+          vendor/bin/phpmd src,tests xml build/config/phpmd.xml
+
+      - name: Run PHPUnit
+        run: vendor/bin/phpunit -c phpunit.xml --verbose
+
+      - name: Upload Coveralls coverage
+        if: github.repository == 'Austinb/GameQ'
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: php vendor/bin/php-coveralls --coverage_clover=build/logs/clover.xml -v
+        
+      - name: Upload Scrutinizer coverage
+        if: github.repository == 'Austinb/GameQ'
+        run: |
+          wget https://scrutinizer-ci.com/ocular.phar
+          php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml --revision=${{ github.event.pull_request.head.sha || github.sha }}
