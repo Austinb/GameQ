@@ -39,10 +39,7 @@ class GameQ extends TestBase
      */
     public function customSetUp()
     {
-        $this->stub = $this->getMockBuilder('\GameQ\GameQ')
-            ->enableProxyingToOriginalMethods()
-            ->setMethods(['__get', '__set'])
-            ->getMock();
+        $this->stub = new \GameQ\GameQ();
     }
 
     /**
@@ -209,15 +206,10 @@ class GameQ extends TestBase
         ];
 
         // Create a mock server
-        $server = $this->getMockBuilder('\GameQ\Server')
-            ->setConstructorArgs([
-                [
-                    \GameQ\Server::SERVER_HOST => '127.0.0.1:27015',
-                    \GameQ\Server::SERVER_TYPE => 'css',
-                ],
-            ])
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        $server = new \GameQ\Server([
+            \GameQ\Server::SERVER_HOST => '127.0.0.1:27015',
+            \GameQ\Server::SERVER_TYPE => 'css',
+        ]);
 
         $this->stub->setOption('debug', false);
         $this->stub->removeFilter('normalize_d751713988987e9331980363e24189ce');
@@ -250,15 +242,10 @@ class GameQ extends TestBase
         ];
 
         // Create a mock server
-        $server = $this->getMockBuilder('\GameQ\Server')
-            ->setConstructorArgs([
-                [
-                    \GameQ\Server::SERVER_HOST => '127.0.0.1:27015',
-                    \GameQ\Server::SERVER_TYPE => 'css',
-                ],
-            ])
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        $server = new \GameQ\Server([
+            \GameQ\Server::SERVER_HOST => '127.0.0.1:27015',
+            \GameQ\Server::SERVER_TYPE => 'css',
+        ]);
 
         $this->stub->setOption('debug', false);
         $this->stub->removeFilter('normalize_d751713988987e9331980363e24189ce');

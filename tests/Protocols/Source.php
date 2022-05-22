@@ -49,9 +49,7 @@ class Source extends Base
     {
 
         // Create the stub class
-        $this->stub = $this->getMockBuilder('\GameQ\Protocols\Source')
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        $this->stub = new \GameQ\Protocols\Source();
     }
 
     /**

@@ -49,9 +49,7 @@ class Ffow extends Base
     {
 
         // Create the stub class
-        $this->stub = $this->getMockBuilder('\GameQ\Protocols\Ffow')
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        $this->stub = new \GameQ\Protocols\Ffow();
     }
 
     /**

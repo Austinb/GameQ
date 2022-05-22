@@ -47,9 +47,7 @@ class Cs2d extends Base
     {
 
         // Create the stub class
-        $this->stub = $this->getMockBuilder('\GameQ\Protocols\Cs2d')
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        $this->stub = new \GameQ\Protocols\Cs2d();
     }
 
     /**

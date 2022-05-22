@@ -60,16 +60,11 @@ class TestBase extends \PHPUnit\Framework\TestCase
     {
 
         // Create a mock server
-        $server = $this->getMockBuilder('\GameQ\Server')
-            ->setConstructorArgs([
-                [
-                    \GameQ\Server::SERVER_HOST    => $host,
-                    \GameQ\Server::SERVER_TYPE    => $protocol,
-                    \GameQ\Server::SERVER_OPTIONS => $server_options,
-                ],
-            ])
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        $server = new \GameQ\Server([
+            \GameQ\Server::SERVER_HOST    => $host,
+            \GameQ\Server::SERVER_TYPE    => $protocol,
+            \GameQ\Server::SERVER_OPTIONS => $server_options,
+        ]);
 
         // Invoke beforeSend function
         $server->protocol()->beforeSend($server);
@@ -78,9 +73,7 @@ class TestBase extends \PHPUnit\Framework\TestCase
         $server->protocol()->packetResponse($responses);
 
         // Create a mock GameQ
-        $gq_mock = $this->getMockBuilder('\GameQ\GameQ')
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        $gq_mock =  new \GameQ\GameQ();
         $gq_mock->setOption('debug', $debug);
         $gq_mock->removeFilter('normalize');
 

@@ -46,9 +46,7 @@ class Quake2 extends Base
     {
 
         // Create the stub class
-        $this->stub = $this->getMockBuilder('\GameQ\Protocols\Quake2')
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        $this->stub = new \GameQ\Protocols\Quake2();
     }
 
     /**

@@ -46,9 +46,7 @@ class Gamespy extends Base
     {
 
         // Create the stub class
-        $this->stub = $this->getMockBuilder('\GameQ\Protocols\Gamespy')
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        $this->stub = new \GameQ\Protocols\Gamespy();
     }
 
     /**

@@ -35,10 +35,7 @@ class Issue588 extends TestBase
      */
     public function customSetUp()
     {
-        $this->stub = $this->getMockBuilder('\GameQ\GameQ')
-            ->enableProxyingToOriginalMethods()
-            ->setMethods(['__get', '__set'])
-            ->getMock();
+        $this->stub = new \GameQ\GameQ();
     }
 
     /**

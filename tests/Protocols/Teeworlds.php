@@ -51,9 +51,7 @@ class Teeworlds extends Base
     {
 
         // Create the stub class
-        $this->stub = $this->getMockBuilder('\GameQ\Protocols\Teeworlds')
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        $this->stub = new \GameQ\Protocols\Teeworlds();
     }
 
     /**

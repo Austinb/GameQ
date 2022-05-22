@@ -53,9 +53,7 @@ class Teamspeak3 extends Base
     {
 
         // Create the stub class
-        $this->stub = $this->getMockBuilder('\GameQ\Protocols\Teamspeak3')
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        $this->stub = new \GameQ\Protocols\Teamspeak3();
     }
 
     /**
@@ -80,18 +78,15 @@ class Teamspeak3 extends Base
         $query_port = 10011;
 
         // Create a mock server
-        $server = $this->getMockBuilder('\GameQ\Server')
-            ->setConstructorArgs([
-                [
-                    \GameQ\Server::SERVER_HOST    => "127.0.0.1:{$client_port}",
-                    \GameQ\Server::SERVER_TYPE    => 'teamspeak3',
-                    \GameQ\Server::SERVER_OPTIONS => [
-                        \GameQ\Server::SERVER_OPTIONS_QUERY_PORT => $query_port,
-                    ],
+        $server = new \GameQ\Server([
+            [
+                \GameQ\Server::SERVER_HOST    => "127.0.0.1:{$client_port}",
+                \GameQ\Server::SERVER_TYPE    => 'teamspeak3',
+                \GameQ\Server::SERVER_OPTIONS => [
+                    \GameQ\Server::SERVER_OPTIONS_QUERY_PORT => $query_port,
                 ],
-            ])
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+            ],
+        ]);
 
         // Apply the before send, should throw exception
         $this->stub->beforeSend($server);
@@ -116,27 +111,21 @@ class Teamspeak3 extends Base
         ];
 
         // Create a mock server
-        $server = $this->getMockBuilder('\GameQ\Server')
-            ->setConstructorArgs([
-                [
-                    \GameQ\Server::SERVER_HOST    => "127.0.0.1:{$client_port}",
-                    \GameQ\Server::SERVER_TYPE    => 'teamspeak3',
-                    \GameQ\Server::SERVER_OPTIONS => [
-                        \GameQ\Server::SERVER_OPTIONS_QUERY_PORT => $query_port,
-                    ],
-                ],
-            ])
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
-
-        $stub = $this->getMockBuilder('\GameQ\Protocols\Teamspeak3')
-            ->setConstructorArgs([
-                [
+        $server = new \GameQ\Server([
+            [
+                \GameQ\Server::SERVER_HOST    => "127.0.0.1:{$client_port}",
+                \GameQ\Server::SERVER_TYPE    => 'teamspeak3',
+                \GameQ\Server::SERVER_OPTIONS => [
                     \GameQ\Server::SERVER_OPTIONS_QUERY_PORT => $query_port,
                 ],
-            ])
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+            ],
+        ]);
+
+        $stub = new \GameQ\Protocols\Teamspeak3([
+            [
+                \GameQ\Server::SERVER_OPTIONS_QUERY_PORT => $query_port,
+            ],
+        ]);
 
         // Apply the before send
         $stub->beforeSend($server);
