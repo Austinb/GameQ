@@ -43,18 +43,23 @@ class Issue588 extends TestBase
      */
     public function test1()
     {
+        \GameQ\Tests\MockDNS::mockHosts([
+            'game.samp-mobile.com' => '1.2.3.4'
+        ]);
+
         // Test single add server
         $this->stub->addServer([
             \GameQ\Server::SERVER_HOST => 'game.samp-mobile.com:7777',
             \GameQ\Server::SERVER_TYPE => 'Samp',
         ]);
 
-        $this->stub->addFilter('normalize');
+        // Check if the server was added
+        $servers = $this->stub->getServers();
+        $this->assertCount(1, $servers);
 
-        // We do fail here
-        $this->stub->process();
+        $server = $servers[key($servers)];
 
-        // Clear the servers
-        $this->assertTrue(true);
+        // Check that the server resolved hostname
+        $this->assertEquals('1.2.3.4', $server->ip);
     }
 }
