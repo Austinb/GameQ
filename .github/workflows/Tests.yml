@@ -15,6 +15,7 @@ jobs:
       fail-fast: false
       matrix:
         php: ['5.6', '7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1']
+        ocular: [ '^1.8.1', '^1.9', '^1.9', '^1.9', '^1.9', '^1.9' ]
     env:
       PHP_VERSION: ${{ matrix.php }}
     name: PHP ${{ matrix.php }}
@@ -65,5 +66,5 @@ jobs:
       - name: Upload Scrutinizer coverage
         if: github.repository == 'Austinb/GameQ'
         run: |
-          composer global require scrutinizer/ocular
+          composer global require scrutinizer/ocular ${{ matrix.ocular }}
           php ~/.composer/vendor/bin/ocular code-coverage:upload --format=php-clover build/logs/clover.xml --revision=${{ github.event.pull_request.head.sha || github.sha }}
