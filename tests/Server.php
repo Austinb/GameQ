@@ -279,6 +279,6 @@ class Server extends TestBase
             ->enableProxyingToOriginalMethods()
             ->getMock();
 
-        $this->assertEquals($query_port, \PHPUnit\Framework\Assert::readAttribute($server, 'port_query'));
+        $this->assertEquals($query_port, $server->port_query);
     }
 }
