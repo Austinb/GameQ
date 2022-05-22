@@ -39,13 +39,13 @@ class Justcause2 extends Base
 
     /**
      * Setup
+     *
+     * @before
      */
-    public function setUp()
+    public function customSetUp()
     {
         // Create the stub class
-        $this->stub = $this->getMockBuilder('\GameQ\Protocols\Justcause2')
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        $this->stub = new \GameQ\Protocols\Justcause2();
     }
 
     /**
@@ -54,7 +54,7 @@ class Justcause2 extends Base
     public function testPackets()
     {
         // Test to make sure packets are defined properly
-        $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
+        $this->assertEquals($this->packets, $this->stub->getPacket());
     }
 
     /**

@@ -43,13 +43,13 @@ class Teeworlds extends Base
 
     /**
      * Setup
+     *
+     * @before
      */
-    public function setUp()
+    public function customSetUp()
     {
         // Create the stub class
-        $this->stub = $this->getMockBuilder('\GameQ\Protocols\Teeworlds')
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        $this->stub = new \GameQ\Protocols\Teeworlds();
     }
 
     /**
@@ -58,7 +58,7 @@ class Teeworlds extends Base
     public function testPackets()
     {
         // Test to make sure packets are defined properly
-        $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
+        $this->assertEquals($this->packets, $this->stub->getPacket());
     }
 
     /**
@@ -89,13 +89,14 @@ class Teeworlds extends Base
 
     /**
      * Test for invalid packet type in response
-     *
-     * @expectedException \Exception
-     * @expectedExceptionMessage GameQ\Protocols\Teeworlds::processResponse response type
-     *                           'ffffffffffffffffffff696e663336' is not valid
      */
     public function testInvalidPacketTypeDebug()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage(
+            "GameQ\Protocols\Teeworlds::processResponse response type 'ffffffffffffffffffff696e663336' is not valid"
+        );
+
         // Read in a css source file
         $source = file_get_contents(sprintf('%s/Providers/Teeworlds/1_response.txt', __DIR__));
 
@@ -120,6 +121,10 @@ class Teeworlds extends Base
      */
     public function testResponses($responses, $result)
     {
+        \GameQ\Tests\MockDNS::mockHosts([
+            'ddracepro.net' => '195.154.113.141'
+        ]);
+
         // Pull the first key off the array this is the server ip:port
         $server = key($result);
 

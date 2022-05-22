@@ -112,7 +112,6 @@ class Buffer extends TestBase
      */
     public function testGeneral()
     {
-
         $data = "Some Kind of buffer";
 
         $buffer = $this->buildBuffer($data);
@@ -131,7 +130,6 @@ class Buffer extends TestBase
      */
     public function testRead()
     {
-
         $data = "Buffer of data";
 
         $buffer = $this->buildBuffer($data);
@@ -162,7 +160,6 @@ class Buffer extends TestBase
      */
     public function testPosition()
     {
-
         $data = "Some like My Strings...";
 
         $buffer = $this->buildBuffer($data);
@@ -193,13 +190,12 @@ class Buffer extends TestBase
     /**
      * Test for proper read exception
      *
-     * @depends                  testRead
-     *
-     * @expectedException \Exception
-     * @expectedExceptionMessage Unable to read length=6 from buffer.  Bad protocol format or return?
+     * @depends testRead
      */
     public function testReadException()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage("Unable to read length=6 from buffer.  Bad protocol format or return?");
 
         $buffer = $this->buildBuffer("12345");
 
@@ -214,7 +210,6 @@ class Buffer extends TestBase
      */
     public function testReadString()
     {
-
         $data = "This is string 1\x00This is string 2\x00";
 
         $buffer = $this->buildBuffer($data);
@@ -245,7 +240,6 @@ class Buffer extends TestBase
      */
     public function testNumberReads($method, $number_type, $file, $expected)
     {
-
         // Make the buffer
         $buffer = $this->buildBuffer(file_get_contents($file), $number_type);
 

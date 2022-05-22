@@ -34,13 +34,13 @@ class Risingstorm2 extends Base
 
     /**
      * Setup
+     *
+     * @before
      */
-    public function setUp()
+    public function customSetUp()
     {
         // Create the stub class
-        $this->stub = $this->getMockBuilder('\GameQ\Protocols\Risingstorm2')
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        $this->stub = new \GameQ\Protocols\Risingstorm2();
     }
 
     /**

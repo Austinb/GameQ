@@ -34,13 +34,13 @@ class Mohaa extends Base
 
     /**
      * Setup
+     *
+     * @before
      */
-    public function setUp()
+    public function customSetUp()
     {
         // Create the stub class
-        $this->stub = $this->getMockBuilder('\GameQ\Protocols\Mohaa')
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        $this->stub = new \GameQ\Protocols\Mohaa();
     }
 
     /**

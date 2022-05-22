@@ -38,13 +38,13 @@ class Gtan extends Base
 
     /**
      * Setup
+     *
+     * @before
      */
-    public function setUp()
+    public function customSetUp()
     {
         // Create the stub class
-        $this->stub = $this->getMockBuilder('\GameQ\Protocols\Gtan')
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        $this->stub = new \GameQ\Protocols\Gtan();
     }
 
     /**
@@ -53,7 +53,7 @@ class Gtan extends Base
     public function testPackets()
     {
         // Test to make sure packets are defined properly
-        $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
+        $this->assertEquals($this->packets, $this->stub->getPacket());
     }
 
     /**
@@ -75,6 +75,6 @@ class Gtan extends Base
             $responses
         );
 
-        $this->assertEquals($result[ $server ], $testResult, '', 0.000000001);
+        $this->assertEqualsDelta($result[ $server ], $testResult, 0.000000001);
     }
 }

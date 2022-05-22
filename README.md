@@ -1,5 +1,5 @@
 # GameQ Version 3
-[![Build Status](https://travis-ci.org/Austinb/GameQ.svg?branch=v3&style=flat-square)](https://travis-ci.org/Austinb/GameQ)
+[![CI](https://github.com/Austinb/GameQ/actions/workflows/Tests.yml/badge.svg)](https://github.com/Austinb/GameQ/actions/workflows/Tests.yml)
 [![Code Coverage](https://scrutinizer-ci.com/g/Austinb/GameQ/badges/coverage.png?b=v3)](https://scrutinizer-ci.com/g/Austinb/GameQ/?branch=v3)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Austinb/GameQ/badges/quality-score.png?b=v3&style=flat-square)](https://scrutinizer-ci.com/g/Austinb/GameQ/?branch=v3)
 [![License](https://img.shields.io/badge/license-LGPL-blue.svg?style=flat)](https://packagist.org/packages/austinb/gameq)
@@ -8,7 +8,7 @@
 GameQ is a PHP library that allows you to query multiple types of multiplayer game & voice servers at the same time.
 
 ## Requirements
-* PHP 5.6.40+ - [Tested](https://travis-ci.org/Austinb/GameQ) in PHP 5.6, 7.0, 7.1, 7.2 & 7.3
+* PHP 5.6.40+ - [Tested](https://travis-ci.org/Austinb/GameQ) in PHP 5.6, 7.0, 7.1, 7.2, 7.3, 7.4, 8.0 & 8.1
 * [Bzip2](http://www.php.net/manual/en/book.bzip2.php) - Used for A2S Compressed responses
 
 ## Installation
@@ -45,6 +45,10 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## License
 See [LICENSE](LICENSE.lgpl) for more information
+
+## Third Party Provider
+
+* [dev.tkirch.wsc.gameq](https://github.com/tkirchDev/dev.tkirch.wsc.gameq) - Provides the "Austinb GameQ" library at the WSC.
 
 Donations
 =========

@@ -38,13 +38,13 @@ class Etqw extends Base
 
     /**
      * Setup
+     *
+     * @before
      */
-    public function setUp()
+    public function customSetUp()
     {
         // Create the stub class
-        $this->stub = $this->getMockBuilder('\GameQ\Protocols\Etqw')
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        $this->stub = new \GameQ\Protocols\Etqw();
     }
 
     /**
@@ -53,7 +53,7 @@ class Etqw extends Base
     public function testPackets()
     {
         // Test to make sure packets are defined properly
-        $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
+        $this->assertEquals($this->packets, $this->stub->getPacket());
     }
 
     /**
@@ -75,12 +75,12 @@ class Etqw extends Base
 
     /**
      * Test for invalid packet type in response
-     *
-     * @expectedException \Exception
-     * @expectedExceptionMessage
      */
     public function testInvalidPacketTypeDebug()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage("GameQ\Protocols\Source::processResponse response type '");
+
         // Read in a css source file
         $source = file_get_contents(sprintf('%s/Providers/Etqw/1_response.txt', __DIR__));
 
@@ -110,6 +110,6 @@ class Etqw extends Base
             $responses
         );
 
-        $this->assertEquals($result[ $server ], $testResult, '', 0.000000001);
+        $this->assertEqualsDelta($result[ $server ], $testResult, 0.000000001);
     }
 }

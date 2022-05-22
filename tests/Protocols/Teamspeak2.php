@@ -45,13 +45,13 @@ class Teamspeak2 extends Base
 
     /**
      * Setup
+     *
+     * @before
      */
-    public function setUp()
+    public function customSetUp()
     {
         // Create the stub class
-        $this->stub = $this->getMockBuilder('\GameQ\Protocols\Teamspeak2')
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        $this->stub = new \GameQ\Protocols\Teamspeak2();
     }
 
     /**
@@ -60,32 +60,26 @@ class Teamspeak2 extends Base
     public function testPackets()
     {
         // Test to make sure packets are defined properly
-        $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
+        $this->assertEquals($this->packets, $this->stub->getPacket());
     }
 
     /**
      * Test for exception being thrown if missing query_port
-     *
-     * @expectedException \Exception
-     * @expectedExceptionMessage GameQ\Protocols\Teamspeak2::beforeSend Missing required setting 'query_port'.
      */
     public function testMissingQueryPort()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage("GameQ\Protocols\Teamspeak2::beforeSend Missing required setting 'query_port'.");
         $client_port = 8767;
         $query_port = 51234;
 
-        $server = $this->getMockBuilder('\GameQ\Server')
-            ->setConstructorArgs([
-                [
-                    \GameQ\Server::SERVER_HOST    => "127.0.0.1:{$client_port}",
-                    \GameQ\Server::SERVER_TYPE    => 'teamspeak2',
-                    \GameQ\Server::SERVER_OPTIONS => [
-                        \GameQ\Server::SERVER_OPTIONS_QUERY_PORT => $query_port,
-                    ],
-                ],
-            ])
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        $server = new \GameQ\Server([
+            \GameQ\Server::SERVER_HOST    => "127.0.0.1:{$client_port}",
+            \GameQ\Server::SERVER_TYPE    => 'teamspeak2',
+            \GameQ\Server::SERVER_OPTIONS => [
+                \GameQ\Server::SERVER_OPTIONS_QUERY_PORT => $query_port,
+            ],
+        ]);
 
         // Apply the before send, should throw exception
         $this->stub->beforeSend($server);
@@ -109,51 +103,35 @@ class Teamspeak2 extends Base
         ];
 
         // Create a mock server
-        $server = $this->getMockBuilder('\GameQ\Server')
-            ->setConstructorArgs([
-                [
-                    \GameQ\Server::SERVER_HOST    => "127.0.0.1:{$client_port}",
-                    \GameQ\Server::SERVER_TYPE    => 'teamspeak2',
-                    \GameQ\Server::SERVER_OPTIONS => [
-                        \GameQ\Server::SERVER_OPTIONS_QUERY_PORT => $query_port,
-                    ],
-                ],
-            ])
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        $server = new \GameQ\Server([
+            \GameQ\Server::SERVER_HOST    => "127.0.0.1:{$client_port}",
+            \GameQ\Server::SERVER_TYPE    => 'teamspeak2',
+            \GameQ\Server::SERVER_OPTIONS => [
+                \GameQ\Server::SERVER_OPTIONS_QUERY_PORT => $query_port,
+            ]
+        ]);
 
-        $stub = $this->getMockBuilder('\GameQ\Protocols\Teamspeak2')
-            ->setConstructorArgs([
-                [
-                    \GameQ\Server::SERVER_OPTIONS_QUERY_PORT => $query_port,
-                ],
-            ])
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        $stub = new \GameQ\Protocols\Teamspeak2([
+            \GameQ\Server::SERVER_OPTIONS_QUERY_PORT => $query_port,
+        ]);
 
         // Apply the before send
         $stub->beforeSend($server);
 
-        // Build reflection to access changed data
-        $reflectionClass = new \ReflectionClass($stub);
-        $reflectionProperty = $reflectionClass->getProperty('__phpunit_originalObject');
-        $reflectionProperty->setAccessible(true);
-
         $this->assertEquals(
             $packets,
-            \PHPUnit\Framework\Assert::readAttribute($reflectionProperty->getValue($stub), 'packets')
+            $stub->getPacket()
         );
     }
 
     /**
      * Test for invalid header
-     *
-     * @expectedException \Exception
-     * @expectedExceptionMessage GameQ\Protocols\Teamspeak2::processResponse Expected header 'BadH' does not match
-     *                           expected '[TS]'.
      */
     public function testInvalidHeader()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage("GameQ\Protocols\Teamspeak2::processResponse Expected header 'BadH' does not match expected '[TS]'.");
+
         $client_port = 8767;
         $query_port = 51234;
 

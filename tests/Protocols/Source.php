@@ -34,20 +34,20 @@ class Source extends Base
      */
     protected $packets = [
         \GameQ\Protocol::PACKET_CHALLENGE => "\xFF\xFF\xFF\xFF\x56\x00\x00\x00\x00",
-        \GameQ\Protocol::PACKET_DETAILS   => "\xFF\xFF\xFF\xFFTSource Engine Query\x00",
+        \GameQ\Protocol::PACKET_DETAILS   => "\xFF\xFF\xFF\xFFTSource Engine Query\x00%s",
         \GameQ\Protocol::PACKET_PLAYERS   => "\xFF\xFF\xFF\xFF\x55%s",
         \GameQ\Protocol::PACKET_RULES     => "\xFF\xFF\xFF\xFF\x56%s",
     ];
 
     /**
      * Setup
+     *
+     * @before
      */
-    public function setUp()
+    public function customSetUp()
     {
         // Create the stub class
-        $this->stub = $this->getMockBuilder('\GameQ\Protocols\Source')
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        $this->stub = new \GameQ\Protocols\Source();
     }
 
     /**
@@ -56,7 +56,7 @@ class Source extends Base
     public function testPackets()
     {
         // Test to make sure packets are defined properly
-        $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
+        $this->assertEquals($this->packets, $this->stub->getPacket());
     }
 
     /**
@@ -67,6 +67,7 @@ class Source extends Base
         $packets = $this->packets;
 
         // Set what the packets should look like
+        $packets[\GameQ\Protocol::PACKET_DETAILS] = "\xFF\xFF\xFF\xFFTSource Engine Query\x00test";
         $packets[\GameQ\Protocol::PACKET_PLAYERS] = "\xFF\xFF\xFF\xFF\x55test";
         $packets[\GameQ\Protocol::PACKET_RULES] = "\xFF\xFF\xFF\xFF\x56test";
 
@@ -76,12 +77,7 @@ class Source extends Base
         // Apply the challenge
         $this->stub->challengeParseAndApply($challenge_buffer);
 
-        // Build reflection to access changed data
-        $reflectionClass = new \ReflectionClass($this->stub);
-        $reflectionProperty = $reflectionClass->getProperty('__phpunit_originalObject');
-        $reflectionProperty->setAccessible(true);
-
-        $this->assertEquals($packets, \PHPUnit\Framework\Assert::readAttribute($reflectionProperty->getValue($this->stub), 'packets'));
+        $this->assertEquals($packets, $this->stub->getPacket());
     }
 
     /**
@@ -103,12 +99,12 @@ class Source extends Base
 
     /**
      * Test for invalid packet type in response
-     *
-     * @expectedException \Exception
-     * @expectedExceptionMessage GameQ\Protocols\Source::processResponse response type 'X' is not valid
      */
     public function testInvalidPacketTypeDebug()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage("GameQ\Protocols\Source::processResponse response type 'X' is not valid");
+
         // Read in a css source file
         $source = file_get_contents(sprintf('%s/Providers/Css/1_response.txt', __DIR__));
 

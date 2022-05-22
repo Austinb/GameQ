@@ -44,6 +44,6 @@ class Dayzmod extends Base
             $responses
         );
 
-        $this->assertEquals($result[$server], $testResult, '', 0.0000001);
+        $this->assertEqualsDelta($result[$server], $testResult, 0.0000001);
     }
 }

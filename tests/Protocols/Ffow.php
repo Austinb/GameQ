@@ -41,13 +41,13 @@ class Ffow extends Base
 
     /**
      * Setup
+     *
+     * @before
      */
-    public function setUp()
+    public function customSetUp()
     {
         // Create the stub class
-        $this->stub = $this->getMockBuilder('\GameQ\Protocols\Ffow')
-            ->enableProxyingToOriginalMethods()
-            ->getMock();
+        $this->stub = new \GameQ\Protocols\Ffow();
     }
 
     /**
@@ -56,7 +56,7 @@ class Ffow extends Base
     public function testPackets()
     {
         // Test to make sure packets are defined properly
-        $this->assertEquals($this->packets, \PHPUnit\Framework\Assert::readAttribute($this->stub, 'packets'));
+        $this->assertEquals($this->packets, $this->stub->getPacket());
     }
 
     /**
@@ -76,15 +76,7 @@ class Ffow extends Base
         // Apply the challenge
         $this->stub->challengeParseAndApply($challenge_buffer);
 
-        // Build reflection to access changed data
-        $reflectionClass = new \ReflectionClass($this->stub);
-        $reflectionProperty = $reflectionClass->getProperty('__phpunit_originalObject');
-        $reflectionProperty->setAccessible(true);
-
-        $this->assertEquals(
-            $packets,
-            \PHPUnit\Framework\Assert::readAttribute($reflectionProperty->getValue($this->stub), 'packets')
-        );
+        $this->assertEquals($packets, $this->stub->getPacket());
     }
 
     /**
@@ -106,12 +98,12 @@ class Ffow extends Base
 
     /**
      * Test for invalid packet type in response
-     *
-     * @expectedException \Exception
-     * @expectedExceptionMessage GameQ\Protocols\Ffow::processResponse response type 'ffffffff4802' is not valid
      */
     public function testInvalidPacketTypeDebug()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage("GameQ\Protocols\Ffow::processResponse response type 'ffffffff4802' is not valid");
+
         // Read in a ffow source file
         $source = file_get_contents(sprintf('%s/Providers/Ffow/1_response.txt', __DIR__));
 

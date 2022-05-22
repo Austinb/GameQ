@@ -30,6 +30,10 @@ class Terraria extends Base
      */
     public function testResponses($responses, $result)
     {
+        \GameQ\Tests\MockDNS::mockHosts([
+            't.shadowrain.net' => '83.233.14.21'
+        ]);
+
         // Pull the first key off the array this is the server ip:port
         $server = key($result);
 
