@@ -68,7 +68,7 @@ class Stripcolors extends Base
                 array_walk_recursive($result, [$this, 'stripSource']);
                 break;
             case 'gta5m':
-                array_walk_recursive($result, [$this, 'stripCFX']);
+                array_walk_recursive($result, [$this, 'stripQuake']);
                 break;
         }
 
@@ -97,16 +97,6 @@ class Stripcolors extends Base
     }
 
     /**
-     * Strip color codes from Unreal based games
-     *
-     * @param string $string
-     */
-    protected function stripUnreal(&$string)
-    {
-        $string = preg_replace('/\x1b.../', '', $string);
-    }
-
-    /**
      * Strip color codes from Source based games
      *
      * @param string $string
@@ -117,12 +107,12 @@ class Stripcolors extends Base
     }
 
     /**
-     * Strip color codes from CitizenFX
+     * Strip color codes from Unreal based games
      *
      * @param string $string
      */
-    protected function stripCFX(&$string)
+    protected function stripUnreal(&$string)
     {
-        $string = preg_replace('#(\^.)#', '', $string);
+        $string = preg_replace('/\x1b.../', '', $string);
     }
 }
