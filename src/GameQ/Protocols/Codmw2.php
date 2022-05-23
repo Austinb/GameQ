@@ -48,32 +48,44 @@ class Codmw2 extends Quake3
         // Some games do not have a number of current players
         $playerCount = 0;
 
-        // Set the result to a new result instance
-        $result = new Result();
+        // Temporarily cache players in order to remove last
+        $players = [];
 
         // Loop until we are out of data
         while ($buffer->getLength()) {
             // Make a new buffer with this block
             $playerInfo = new Buffer($buffer->readString("\x0A"));
 
-            // Add player info
-            $result->addPlayer('frags', $playerInfo->readString("\x20"));
-            $result->addPlayer('ping', $playerInfo->readString("\x20"));
+            // Read player info
+            $player = [
+                'frags' => $playerInfo->readString("\x20"),
+                'ping' => $playerInfo->readString("\x20"),
+            ];
 
             // Skip first "
             $playerInfo->skip(1);
 
             // Add player name, encoded
-            $result->addPlayer('name', utf8_encode(trim(($playerInfo->readString('"')))));
+            $player['name'] = utf8_encode(trim(($playerInfo->readString('"'))));
 
             // Increment
             $playerCount++;
         }
 
-        $result->add('clients', $playerCount);
+        // Remove last, empty player
+        array_pop($players);
+
+        // Set the result to a new result instance
+        $result = new Result();
+
+        // Add players
+        $result->add('players', $players);
+
+        // Add Playercount
+        $result->add('clients', count($players));
         
         // Clear
-        unset($buffer, $playerCount);
+        unset($buffer, $playerCount, $players);
 
         return $result->fetch();
     }
