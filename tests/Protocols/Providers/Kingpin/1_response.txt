@@ -1,0 +1,3 @@
+ÿÿÿÿprint
+\ last map request\Thuggy: 13.04.20 23:26:01 GMT+1\mapname\kpdm3\autobotskill\0\time\14:43\gamedate\Oct 24 2019\gamename\Botmatch.v39.2\hitmen\0\bw-admin\1.72a\deviation\60\sv_hook\1\antilag\1\sv_bot_hunt\1\sv_botskill\2.4\bots\6\teamplay\0\dm_realmode\0\kick_flamehack\1\hostname\Luschen Botmatch\protocol\32\cheats\0\timelimit\20\fraglimit\30\dmflags\788\deathmatch\1\version\kpded 2.1 x86 Nov 17 2019 Win32 RELEASE\game\botmatch\uptime\11d 12h 33m\maxclients\20
+17 59 "Thuggy"
