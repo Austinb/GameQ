@@ -39,4 +39,39 @@ class Codmw2 extends Quake3
      * @type string
      */
     protected $name_long = "Call of Duty: Modern Warfare 2";
+    
+    protected function processPlayers(Buffer $buffer)
+    {
+        // Some games do not have a number of current players
+        $playerCount = 0;
+
+        // Set the result to a new result instance
+        $result = new Result();
+
+        // Loop until we are out of data
+        while ($buffer->getLength()) {
+            // Make a new buffer with this block
+            $playerInfo = new Buffer($buffer->readString("\x0A"));
+
+            // Add player info
+            $result->addPlayer('frags', $playerInfo->readString("\x20"));
+            $result->addPlayer('ping', $playerInfo->readString("\x20"));
+
+            // Skip first "
+            $playerInfo->skip(1);
+
+            // Add player name, encoded
+            $result->addPlayer('name', utf8_encode(trim(($playerInfo->readString('"')))));
+
+            // Increment
+            $playerCount++;
+        }
+
+        $result->add('clients', $playerCount);
+        
+        // Clear
+        unset($buffer, $playerCount);
+
+        return $result->fetch();
+    }
 }
