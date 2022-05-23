@@ -18,6 +18,9 @@
 
 namespace GameQ\Protocols;
 
+use GameQ\Buffer;
+use GameQ\Result;
+
 /**
  * Call of Duty: Modern Warfare 2 Protocol Class
  *
