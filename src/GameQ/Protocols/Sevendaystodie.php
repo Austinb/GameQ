@@ -42,7 +42,7 @@ class Sevendaystodie extends Source
 
     /**
      * query_port = client_port - 2
-     * 
+     *
      * ATTENTION: client_port is the game port and NOT base port.
      *
      * @type int
