@@ -35,6 +35,9 @@ class Kingpin extends Base
      */
     public function testResponses($responses, $result)
     {
+        \GameQ\Tests\MockDNS::mockHosts([
+            'kp.hambloch.com' => '1.2.3.4'
+        ]);
 
         // Pull the first key off the array this is the server ip:port
         $server = key($result);
