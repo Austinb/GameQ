@@ -45,9 +45,6 @@ class Codmw2 extends Quake3
     
     protected function processPlayers(Buffer $buffer)
     {
-        // Some games do not have a number of current players
-        $playerCount = 0;
-
         // Temporarily cache players in order to remove last
         $players = [];
 
@@ -68,8 +65,8 @@ class Codmw2 extends Quake3
             // Add player name, encoded
             $player['name'] = utf8_encode(trim(($playerInfo->readString('"'))));
 
-            // Increment
-            $playerCount++;
+            // Add player
+            $players[] = $player;
         }
 
         // Remove last, empty player
@@ -85,7 +82,7 @@ class Codmw2 extends Quake3
         $result->add('clients', count($players));
         
         // Clear
-        unset($buffer, $playerCount, $players);
+        unset($buffer, $players);
 
         return $result->fetch();
     }
