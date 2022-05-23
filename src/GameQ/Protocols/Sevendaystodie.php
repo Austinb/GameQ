@@ -41,9 +41,9 @@ class Sevendaystodie extends Source
     protected $name_long = "7 Days to Die";
 
     /**
-     * query_port = client_port + 1
+     * query_port = client_port + 0
      *
      * @type int
      */
-    protected $port_diff = 1;
+    protected $port_diff = 0;
 }
