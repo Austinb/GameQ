@@ -37,8 +37,6 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           extensions: ${{ matrix.extensions }}
-        env:
-          runner: ubuntu-22.04
 
       - name: Checkout
         uses: actions/checkout@v2
