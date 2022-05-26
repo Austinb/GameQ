@@ -1,0 +1,21 @@
+changelog:
+  exclude:
+    authors:
+      - dependabot
+      - octocat
+  categories:
+    - title: Added
+      labels:
+        - Enhancement
+    - title: Removed
+      labels:
+        - Deprecated
+    - title: Fixed
+      labels:
+        - Bug
+    - title: Security
+      labels:
+        - Security
+    - title: Changed
+      labels:
+        - "*"
