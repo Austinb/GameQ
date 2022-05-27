@@ -40,6 +40,12 @@
       "name": "Sebastian Weidenbach",
       "role": "Developer",
       "homepage": "http://sebastianwe.users.sourceforge.net/"
+    },
+    {
+      "name": "Patrick Henninger",
+      "email": "privat@skyraptor.eu",
+      "role": "Developer",
+      "homepage": "https://skyraptor.eu"
     }
   ],
   "support": {
