@@ -1,0 +1,9 @@
+ÿÿÿÿstatusResponse
+\challenge\\checksum\2AEED8CB\g_gametype\war\g_hardcore\1\gamename\IW4\isPrivate\0\mapname\mp_complex\matchtype\2\protocol\149\scr_game_allowkillcam\1\scr_team_fftype\0\shortversion\0.6.6\sv_allowAnonymous\0\sv_allowClientConsole\1\sv_floodProtect\1\sv_hostname\^7RUSWARS ^2HARD^1#2^7^//cardicon_harrier\sv_maxPing\0\sv_maxRate\25000\sv_maxclients\18\sv_minPing\0\sv_privateClients\0\sv_privateClientsForClients\0\sv_pure\0\sv_securityLevel\23
+800 181 "Khan"
+3700 12 "^:freysan"
+120 78 "Kakarotto"
+100 25 "^4Barsik"
+1300 17 "CAHEK"
+820 32 "WOLFHARD"
+
