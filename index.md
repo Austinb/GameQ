@@ -41,10 +41,10 @@ Need more?  See [Examples](https://github.com/Austinb/GameQ/wiki/Examples-v3).
 
 ## Contributing 
  
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+Please see [CONTRIBUTING](https://github.com/Austinb/GameQ/blob/v3/CONTRIBUTING.md) for details.
 
 ## License
-See [LICENSE](LICENSE.lgpl) for more information
+See [LICENSE](https://github.com/Austinb/GameQ/blob/v3/LICENSE.lgpl) for more information
 
 ## Third Party Provider
 
