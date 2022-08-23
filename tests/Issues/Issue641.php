@@ -1,5 +1,3 @@
-
-
 <?php
 /**
  * This file is part of GameQ.
@@ -23,9 +21,9 @@ namespace GameQ\Tests\Issues;
 use GameQ\Tests\TestBase;
 
 /**
- * Class Issue588
+ * Class Issue641
  *
- * Test for issue #588 - https://github.com/Austinb/GameQ/issues/588
+ * Test for issue #641 - https://github.com/Austinb/GameQ/issues/641
  *
  * @package GameQ\Tests\Issues
  */
