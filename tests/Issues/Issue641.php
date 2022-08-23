@@ -53,7 +53,7 @@ class Issue641 extends TestBase
         $servers = $this->stub->getServers();
         $this->assertCount(1, $servers);
 
-        $result = $this->stub->process()[0];
+        $result = array_pop(array_reverse($this->stub->process()));
 
         // Check that the server resolved hostname
         $this->assertTrue($result['gq_online']);
