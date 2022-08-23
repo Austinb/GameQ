@@ -60,15 +60,20 @@ class Normalize extends Base
         // Do general information
         $result = array_merge($result, $this->check('general', $result));
 
-        // Do player information
-        if (isset($result['players']) && count($result['players']) > 0) {
-            // Iterate
-            foreach ($result['players'] as $key => $player) {
-                $result['players'][$key] = array_merge($player, $this->check('player', $player));
+        // Check FiveM Player List
+	    if ($result['gq_protocol'] == "gta5m") {
+		    $result = $this->getFiveMPlayerList($result, sprintf('%s:%s', (isset($result['gq_address'])) ? $result['gq_address'] : $server->ip(), $result['gq_port_client']));
+	    }else{
+            // Do player information
+            if (isset($result['players']) && count($result['players']) > 0) {
+                // Iterate
+                foreach ($result['players'] as $key => $player) {
+                    $result['players'][$key] = array_merge($player, $this->check('player', $player));
+            	}
+            } else {
+                $result['players'] = [];
             }
-        } else {
-            $result['players'] = [];
-        }
+	    }
 
         // Do team information
         if (isset($result['teams']) && count($result['teams']) > 0) {
@@ -88,6 +93,25 @@ class Normalize extends Base
 
         // Return the normalized result
         return $result;
+    }
+    
+    /**
+     * Get FiveM Players
+     */
+    protected function getFiveMPlayerList($result, $connection)
+    {
+        $json = @file_get_contents(sprintf('http://%s/players.json', $connection));
+        if ($json) {
+            $players = [];
+            $data = json_decode($json);
+
+            foreach ($data as $player) {
+                $players[] = $player->name;
+            }
+	        $result['players'] = $players;
+            return $result;
+        }
+        return [];
     }
 
     /**
