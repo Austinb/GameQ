@@ -60,6 +60,11 @@ class Normalize extends Base
         // Do general information
         $result = array_merge($result, $this->check('general', $result));
 
+        // Check FiveM Player List
+        if ($result['gq_protocol'] == "gta5m") {
+            $result['players'] = $this->getFiveMPlayerList(sprintf('%s:%s', $result['gq_address'], $result['gq_port_client']));
+        }
+
         // Do player information
         if (isset($result['players']) && count($result['players']) > 0) {
             // Iterate
@@ -88,6 +93,23 @@ class Normalize extends Base
 
         // Return the normalized result
         return $result;
+    }
+
+    /**
+     * Get FiveM Players
+     */
+    protected function getFiveMPlayerList($connection)
+    {
+        $json = @file_get_contents(sprintf('http://%s/players.json', $connection));
+        if ($json) {
+            $players = [];
+            $data = json_decode($json);
+            foreach ($data as $player) {
+                $players[] = array("id"=>$player->id,"name"=>$player->name,"ping"=>$player->ping,"identifiers"=>$player->identifiers);
+            }
+            return $players;
+        }
+        return [];
     }
 
     /**
