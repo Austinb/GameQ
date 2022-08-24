@@ -45,7 +45,7 @@ class Issue641 extends TestBase
     {
         // Test single add server
         $this->stub->addServer([
-            \GameQ\Server::SERVER_HOST => '141.95.59.103:25565',
+            \GameQ\Server::SERVER_HOST => '185.228.178.88:25565',
             \GameQ\Server::SERVER_TYPE => 'minecraft',
         ]);
 
