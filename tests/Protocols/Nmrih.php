@@ -40,7 +40,7 @@ class Nmrih extends Base
 
         $testResult = $this->queryTest(
             $server,
-            'of',
+            'nmrih',
             $responses
         );
 
