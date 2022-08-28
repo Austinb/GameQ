@@ -16,33 +16,34 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace GameQ\Protocols;
+namespace GameQ\Tests\Protocols;
 
 /**
- * Citadel Protocol Class
+ * Test Class for Citadel
  *
- * @package GameQ\Protocols
+ * @package GameQ\Tests\Protocols
  */
-class Citadel extends Source
+class Citadel extends Base
 {
     /**
-     * String name of this protocol class
+     * Test responses for Citadel
      *
-     * @type string
+     * @dataProvider loadData
+     *
+     * @param $responses
+     * @param $result
      */
-    protected $name = 'citadel';
+    public function testResponses($responses, $result)
+    {
+        // Pull the first key off the array this is the server ip:port
+        $server = key($result);
 
-    /**
-     * Longer string name of this protocol class
-     *
-     * @type string
-     */
-    protected $name_long = "Citadel";
+        $testResult = $this->queryTest(
+            $server,
+            'citadel',
+            $responses
+        );
 
-    /**
-     * query_port = client_port + 1
-     *
-     * @type int
-     * protected $port_diff = 1;
-     */
+        $this->assertEquals($result[$server], $testResult);
+    }
 }

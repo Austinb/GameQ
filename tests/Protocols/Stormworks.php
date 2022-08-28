@@ -35,10 +35,6 @@ class Stormworks extends Base
      */
     public function testResponses($responses, $result)
     {
-        \GameQ\Tests\MockDNS::mockHosts([
-            'g-one.org' => '23.88.96.146:28015'
-        ]);
-
         // Pull the first key off the array this is the server ip:port
         $server = key($result);
 

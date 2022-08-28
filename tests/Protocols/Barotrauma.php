@@ -16,33 +16,34 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace GameQ\Protocols;
+namespace GameQ\Tests\Protocols;
 
 /**
- * Barotrauma Protocol Class
+ * Test Class for Barotrauma
  *
- * @package GameQ\Protocols
+ * @package GameQ\Tests\Protocols
  */
-class Barotrauma extends Source
+class Barotrauma extends Base
 {
     /**
-     * String name of this protocol class
+     * Test responses for Barotrauma
      *
-     * @type string
+     * @dataProvider loadData
+     *
+     * @param $responses
+     * @param $result
      */
-    protected $name = 'barotrauma';
+    public function testResponses($responses, $result)
+    {
+        // Pull the first key off the array this is the server ip:port
+        $server = key($result);
 
-    /**
-     * Longer string name of this protocol class
-     *
-     * @type string
-     */
-    protected $name_long = "Barotrauma";
+        $testResult = $this->queryTest(
+            $server,
+            'barotrauma',
+            $responses
+        );
 
-    /**
-     * query_port = client_port + 1
-     *
-     * @type int
-     */
-    protected $port_diff = 1;
+        $this->assertEquals($result[$server], $testResult);
+    }
 }

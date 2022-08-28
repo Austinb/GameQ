@@ -39,11 +39,4 @@ class Citadel extends Source
      * @type string
      */
     protected $name_long = "Citadel";
-
-    /**
-     * query_port = client_port + 1
-     *
-     * @type int
-     * protected $port_diff = 1;
-     */
 }

@@ -35,10 +35,6 @@ class Hl1 extends Base
      */
     public function testResponses($responses, $result)
     {
-        \GameQ\Tests\MockDNS::mockHosts([
-            'g-one.org' => '46.174.52.4:27222'
-        ]);
-
         // Pull the first key off the array this is the server ip:port
         $server = key($result);
 

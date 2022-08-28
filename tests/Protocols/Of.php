@@ -35,10 +35,6 @@ class Of extends Base
      */
     public function testResponses($responses, $result)
     {
-        \GameQ\Tests\MockDNS::mockHosts([
-            'g-one.org' => '74.91.127.161:27015'
-        ]);
-
         // Pull the first key off the array this is the server ip:port
         $server = key($result);
 
