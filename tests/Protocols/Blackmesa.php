@@ -42,8 +42,7 @@ class Blackmesa extends Source
     /**
      * query_port = client_port + 1
      *
-     * @type int 
+     * @type int
      * protected $port_diff = 1;
      */
-    
 }
