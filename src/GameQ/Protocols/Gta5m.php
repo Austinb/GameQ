@@ -22,6 +22,7 @@ use GameQ\Buffer;
 use GameQ\Exception\Protocol as Exception;
 use GameQ\Protocol;
 use GameQ\Result;
+use GameQ\Server;
 
 /**
  * GTA Five M Protocol Class
@@ -76,6 +77,13 @@ class Gta5m extends Protocol
     protected $name_long = "GTA Five M";
 
     /**
+     * Holds the Player List so we can overwrite it back
+     *
+     * @var string
+     */
+    protected $PlayerList = [];
+
+    /**
      * Normalize settings for this protocol
      *
      * @type array
@@ -93,6 +101,17 @@ class Gta5m extends Protocol
             'password'   => 'privateClients',
         ],
     ];
+
+    /**
+     * 
+     * Get FiveM Players List
+     * 
+     */
+    public function beforeSend(Server $server)
+    {
+        $connection = sprintf('%s:%s', $server->ip, $server->port_query);
+        $this->PlayerList = @file_get_contents(sprintf('http://%s/players.json', $connection));
+    }
 
     /**
      * Process the response
@@ -161,6 +180,15 @@ class Gta5m extends Protocol
 
             // Regular variable so just add the value.
             $result->add($key, $val);
+        }
+
+        if ($this->PlayerList) {
+            $players = [];
+            $data = json_decode($this->PlayerList);
+            foreach ($data as $player) {
+                $players[] = array("id"=>$player->id,"name"=>$player->name,"ping"=>$player->ping,"identifiers"=>$player->identifiers);
+            }
+            $result->add('players', $players);
         }
 
         /*var_dump($data);
