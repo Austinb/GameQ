@@ -32,6 +32,9 @@ use GameQ\Server;
  * Based on code found at https://github.com/LiquidObsidian/fivereborn-query
  *
  * @author Austin Bischoff <austin@codebeard.com>
+ *
+ * Adding FiveM Player List by
+ * @author Jesse Lukas <eranio@g.one.org>
  */
 class Gta5m extends Protocol
 {
