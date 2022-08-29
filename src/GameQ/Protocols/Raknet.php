@@ -147,8 +147,8 @@ class Raknet extends Protocol
         $result->add('motd_line_1', $info[1]);
         $result->add('protocol_version', (int)$info[2]);
         $result->add('version', $info[3]);
-        $result->add('num_players', $info[4]);
-        $result->add('max_players', $info[5]);
+        $result->add('num_players', (int)$info[4]);
+        $result->add('max_players', (int)$info[5]);
         $result->add('server_uid', $info[6]);
         $result->add('motd_line_2', $info[7]);
         $result->add('gamemode', $info[8]);
