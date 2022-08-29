@@ -112,8 +112,8 @@ class Gta5m extends Protocol
      */
     public function beforeSend(Server $server)
     {
-        $connection = sprintf('%s:%s', $server->ip, $server->port_query);
-        $this->PlayerList = @file_get_contents(sprintf('http://%s/players.json', $connection));
+        $connection = sprintf('http://%s:%s/players.json', $server->ip, $server->port_query);
+        $this->PlayerList = (@file_get_contents(sprintf('%s', $connection)))?@file_get_contents(sprintf('%s', $connection)):[];
     }
 
     /**
