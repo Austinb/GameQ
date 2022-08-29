@@ -84,8 +84,11 @@ class Raknet extends Protocol
     public function beforeSend(Server $server)
     {
         // Update the server status packet before it is sent
-        $this->packets[self::PACKET_STATUS] = sprintf($this->packets[self::PACKET_STATUS], pack('Q', time()),
-            self::OFFLINE_MESSAGE_DATA_ID);
+        $this->packets[self::PACKET_STATUS] = sprintf(
+            $this->packets[self::PACKET_STATUS],
+            pack('Q', time()),
+            self::OFFLINE_MESSAGE_DATA_ID
+        );
     }
 
     /**
@@ -104,8 +107,11 @@ class Raknet extends Protocol
 
         // Check first character to make sure the header matches
         if ($header !== self::ID_UNCONNECTED_PONG) {
-            throw new Exception(sprintf('The header returned "%s" does not match the expected header of "%s"!', $header,
-                self::ID_UNCONNECTED_PONG));
+            throw new Exception(sprintf(
+                'The header returned "%s" does not match the expected header of "%s"!',
+                $header,
+                self::ID_UNCONNECTED_PONG
+            ));
         }
 
         // Burn the time section
@@ -119,11 +125,15 @@ class Raknet extends Protocol
 
         // Magic check fails
         if ($magicCheck !== self::OFFLINE_MESSAGE_DATA_ID) {
-            throw new Exception(sprintf('The magic value returned "%s" does not match the expected value of "%s"!',
-                $magicCheck, self::OFFLINE_MESSAGE_DATA_ID));
+            throw new Exception(sprintf(
+                'The magic value returned "%s" does not match the expected value of "%s"!',
+                $magicCheck,
+                self::OFFLINE_MESSAGE_DATA_ID
+            ));
         }
 
-        // According to docs the next character is supposed to be used for a length and string for the following character for the MOTD but it appears to be implemented incorrectly
+        // According to docs the next character is supposed to be used for a length and string for the following
+        // character for the MOTD but it appears to be implemented incorrectly
         // Burn the next two characters instead of trying to do anything useful with them
         $buffer->skip(2);
 
