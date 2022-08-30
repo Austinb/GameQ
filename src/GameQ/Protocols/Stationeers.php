@@ -42,6 +42,20 @@ class Stationeers extends Http
     const SERVER_LIST_PORT = 8081;
 
     /**
+     * Holds the real ip so we can overwrite it back
+     *
+     * @var string
+     */
+    protected $realIp = null;
+
+    /**
+     * Holds the real port so we can overwrite it back
+     *
+     * @var int
+     */
+    protected $realPortQuery = null;
+
+    /**
      * Packets to send
      *
      * @var array
