@@ -77,7 +77,7 @@ class Gta5m extends Protocol
      *
      * @type string
      */
-    protected $name_long = "GTA FiveM";
+    protected $name_long = "GTA Five M";
 
     /**
      * Holds the Player List so we can overwrite it back
