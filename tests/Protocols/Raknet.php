@@ -127,7 +127,7 @@ class Raknet extends Base
     {
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage(
-            "GameQ\Protocols\Raknet::processResponse The magic value returned \"ff00bc4d4350453bc2a772c2a761c2a7\" "
+            "GameQ\Protocols\Raknet::processResponse The magic value returned \"ffff00bc4d4350453bc2a772c2a761c2\" "
             . "does not match the expected value of \"00ffff00fefefefefdfdfdfd12345678\""
         );
 
