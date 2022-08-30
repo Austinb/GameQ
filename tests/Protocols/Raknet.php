@@ -65,7 +65,7 @@ class Raknet extends Base
         $source = file_get_contents(sprintf('%s/Providers/Minecraftbe/1_response.txt', __DIR__));
 
         // Change the first packet to some unknown header
-        $source = str_replace($this->stub::ID_UNCONNECTED_PONG, "\x1D", $source);
+        $source = str_replace(\GameQ\Protocols\Raknet::ID_UNCONNECTED_PONG, "\x1D", $source);
 
         // Should show up as offline
         $testResult = $this->queryTest(
@@ -92,7 +92,7 @@ class Raknet extends Base
         $source = file_get_contents(sprintf('%s/Providers/Minecraftbe/1_response.txt', __DIR__));
 
         // Change the first packet to some unknown header
-        $source = str_replace($this->stub::ID_UNCONNECTED_PONG, "\x1D", $source);
+        $source = str_replace(\GameQ\Protocols\Raknet::ID_UNCONNECTED_PONG, "\x1D", $source);
 
         // Should fail out
         $this->queryTest('127.0.0.1:19132', 'minecraftbe', explode(PHP_EOL . '||' . PHP_EOL, $source), true);
@@ -107,7 +107,7 @@ class Raknet extends Base
         $source = file_get_contents(sprintf('%s/Providers/Minecraftbe/1_response.txt', __DIR__));
 
         // Change the first packet to some unknown header
-        $source = str_replace($this->stub::OFFLINE_MESSAGE_DATA_ID, "\xFF\xFF", $source);
+        $source = str_replace(\GameQ\Protocols\Raknet::OFFLINE_MESSAGE_DATA_ID, "\xFF\xFF", $source);
 
         // Should show up as offline
         $testResult = $this->queryTest(
@@ -135,7 +135,7 @@ class Raknet extends Base
         $source = file_get_contents(sprintf('%s/Providers/Minecraftbe/1_response.txt', __DIR__));
 
         // Change the first packet to some unknown header
-        $source = str_replace($this->stub::OFFLINE_MESSAGE_DATA_ID, "\xFF", $source);
+        $source = str_replace(\GameQ\Protocols\Raknet::OFFLINE_MESSAGE_DATA_ID, "\xFF\xFF", $source);
 
         // Should fail out
         $this->queryTest('127.0.0.1:19132', 'minecraftbe', explode(PHP_EOL . '||' . PHP_EOL, $source), true);
