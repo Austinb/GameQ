@@ -34,7 +34,7 @@ use GameQ\Server;
  * @author Austin Bischoff <austin@codebeard.com>
  *
  * Adding FiveM Player List by
- * @author Jesse Lukas <eranio@g.one.org>
+ * @author Jesse Lukas <eranio@g-one.org>
  */
 class Gta5m extends Protocol
 {
@@ -77,7 +77,7 @@ class Gta5m extends Protocol
      *
      * @type string
      */
-    protected $name_long = "GTA Five M";
+    protected $name_long = "GTA FiveM";
 
     /**
      * Holds the Player List so we can overwrite it back
@@ -193,11 +193,6 @@ class Gta5m extends Protocol
             }
             $result->add('players', $players);
         }
-
-        /*var_dump($data);
-        var_dump($result->fetch());
-
-        exit;*/
 
         return $result->fetch();
     }
