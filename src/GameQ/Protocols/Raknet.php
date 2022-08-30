@@ -153,8 +153,8 @@ class Raknet extends Protocol
         $result->add('motd_line_2', $info[7]);
         $result->add('gamemode', $info[8]);
         $result->add('gamemode_numeric', (int)$info[9]);
-        $result->add('port_ipv4', (int)$info[10]);
-        $result->add('port_ipv6', (int)$info[11]);
+        $result->add('port_ipv4', (isset($info[10])) ? (int)$info[10] : null);
+        $result->add('port_ipv6', (isset($info[11])) ? (int)$info[11] : null);
         $result->add('dedicated', 1);
 
         unset($header, $serverGUID, $magicCheck, $info);
