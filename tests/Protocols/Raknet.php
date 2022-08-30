@@ -55,4 +55,89 @@ class Raknet extends Base
         // Test to make sure packets are defined properly
         $this->assertEquals($this->packets, $this->stub->getPacket());
     }
+
+    /**
+     * Test invalid packet type without debug
+     */
+    public function testInvalidPacketType()
+    {
+        // Read in a Minecraft BE source file
+        $source = file_get_contents(sprintf('%s/Providers/Minecraftbe/1_response.txt', __DIR__));
+
+        // Change the first packet to some unknown header
+        $source = str_replace($this->stub::ID_UNCONNECTED_PONG, "\x1D", $source);
+
+        // Should show up as offline
+        $testResult = $this->queryTest(
+            '127.0.0.1:19132',
+            'minecraftbe',
+            explode(PHP_EOL . '||' . PHP_EOL, $source),
+            false
+        );
+
+        $this->assertFalse($testResult['gq_online']);
+    }
+
+    /**
+     * Test for invalid packet type in response
+     */
+    public function testInvalidPacketTypeDebug()
+    {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage(
+            "GameQ\Protocols\Raknet::processResponse The header returned \"1d\" does not match the expected header of \"1c\""
+        );
+
+        // Read in a Minecraft BE source file
+        $source = file_get_contents(sprintf('%s/Providers/Minecraftbe/1_response.txt', __DIR__));
+
+        // Change the first packet to some unknown header
+        $source = str_replace($this->stub::ID_UNCONNECTED_PONG, "\x1D", $source);
+
+        // Should fail out
+        $this->queryTest('127.0.0.1:19132', 'minecraftbe', explode(PHP_EOL . '||' . PHP_EOL, $source), true);
+    }
+
+    /**
+     * Test invalid magic without debug
+     */
+    public function testInvalidMagic()
+    {
+        // Read in a Minecraft BE source file
+        $source = file_get_contents(sprintf('%s/Providers/Minecraftbe/1_response.txt', __DIR__));
+
+        // Change the first packet to some unknown header
+        $source = str_replace($this->stub::OFFLINE_MESSAGE_DATA_ID, "\xFF\xFF", $source);
+
+        // Should show up as offline
+        $testResult = $this->queryTest(
+            '127.0.0.1:19132',
+            'minecraftbe',
+            explode(PHP_EOL . '||' . PHP_EOL, $source),
+            false
+        );
+
+        $this->assertFalse($testResult['gq_online']);
+    }
+
+    /**
+     * Test invalid magic with debug
+     */
+    public function testInvalidMagicDebug()
+    {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage(
+            "GameQ\Protocols\Raknet::processResponse The magic value returned \"ff00bc4d4350453bc2a772c2a761c2a7\" "
+            . "does not match the expected value of \"00ffff00fefefefefdfdfdfd12345678\""
+        );
+
+        // Read in a Minecraft BE source file
+        $source = file_get_contents(sprintf('%s/Providers/Minecraftbe/1_response.txt', __DIR__));
+
+        // Change the first packet to some unknown header
+        $source = str_replace($this->stub::OFFLINE_MESSAGE_DATA_ID, "\xFF", $source);
+
+        // Should fail out
+        $this->queryTest('127.0.0.1:19132', 'minecraftbe', explode(PHP_EOL . '||' . PHP_EOL, $source), true);
+    }
 }

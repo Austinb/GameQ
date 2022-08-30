@@ -108,9 +108,10 @@ class Raknet extends Protocol
         // Check first character to make sure the header matches
         if ($header !== self::ID_UNCONNECTED_PONG) {
             throw new Exception(sprintf(
-                'The header returned "%s" does not match the expected header of "%s"!',
-                $header,
-                self::ID_UNCONNECTED_PONG
+                '%s The header returned "%s" does not match the expected header of "%s"',
+                __METHOD__,
+                bin2hex($header),
+                bin2hex(self::ID_UNCONNECTED_PONG)
             ));
         }
 
@@ -126,9 +127,10 @@ class Raknet extends Protocol
         // Magic check fails
         if ($magicCheck !== self::OFFLINE_MESSAGE_DATA_ID) {
             throw new Exception(sprintf(
-                'The magic value returned "%s" does not match the expected value of "%s"!',
-                $magicCheck,
-                self::OFFLINE_MESSAGE_DATA_ID
+                '%s The magic value returned "%s" does not match the expected value of "%s"',
+                __METHOD__,
+                bin2hex($magicCheck),
+                bin2hex(self::OFFLINE_MESSAGE_DATA_ID)
             ));
         }
 
