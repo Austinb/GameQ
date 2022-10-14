@@ -67,7 +67,7 @@ jobs:
       - name: Upload Coveralls coverage
         if: github.repository == 'Austinb/GameQ'
         env:
-          NODE_COVERALLS_DEBUG: 1
+          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           composer global require php-coveralls/php-coveralls
           php ~/.composer/vendor/bin/php-coveralls --coverage_clover=build/logs/clover.xml -v
