@@ -68,6 +68,7 @@ jobs:
         if: github.repository == 'Austinb/GameQ'
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_COVERALLS_DEBUG: 1
         run: |
           composer global require php-coveralls/php-coveralls
           php ~/.composer/vendor/bin/php-coveralls --coverage_clover=build/logs/clover.xml -v
