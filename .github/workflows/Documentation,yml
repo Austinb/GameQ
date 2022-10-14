@@ -1,0 +1,40 @@
+name: Documentation
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - v3
+
+jobs:
+  apigen:
+    runs-on: ubuntu-22.04
+    name: ApiGen
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 10
+          path: source
+          
+      - name: Checkout gh-pages
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 10
+          ref: gh-pages
+          path: gh-pages
+          
+      - name: ApiGen
+        run: |
+             rm -rf ../gh-pages/api
+             mkdir -p ../gh-pages/api
+             docker run --rm --interactive --tty --volume "$PWD:$PWD" --workdir "$PWD/source" apigen/apigen:edge src --output ../gh-pages/api
+             cd ../gh-pages
+             git add .
+             git commit -am "Regenerated ApiGen documentation."
+
+     - name: Push
+       uses: ad-m/github-push-action@v0.6.0
+       with:
+          branch: gh-pages
+          directory: gh-pages
