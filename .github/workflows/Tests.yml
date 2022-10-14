@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [7.0, 7.1, 7.2, 7.3, 7.4, 8.0, 8.1.9]
+        php: [7.0, 7.1, 7.2, 7.3, 7.4, 8.0, 8.1]
         ocular: [^1.9]
         experimental: [false]
         composer-extra: ['']
@@ -62,7 +62,7 @@ jobs:
           vendor/bin/phpmd src,tests xml build/config/phpmd.xml
 
       - name: Run PHPUnit
-        run: vendor/bin/phpunit -c phpunit.xml --verbose
+        run: php -d precision=10 -d serialize_precision=10 vendor/bin/phpunit -c phpunit.xml --verbose
 
       - name: Upload Coveralls coverage
         if: github.repository == 'Austinb/GameQ'
