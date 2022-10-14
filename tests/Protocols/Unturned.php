@@ -44,6 +44,6 @@ class Unturned extends Base
             $responses
         );
 
-        $this->assertEquals($result[$server], $testResult);
+        $this->assertEqualsDelta($result[$server], $testResult, 0.000000001);
     }
 }
