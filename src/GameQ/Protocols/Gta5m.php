@@ -29,7 +29,7 @@ namespace GameQ\Protocols;
  *
  * Adding FiveM Player List by
  * @author Jesse Lukas <eranio@g-one.org>
- * 
+ *
  * @deprecated Use protocol CFX for querying your CitizenFX server
  */
 class Gta5m extends Cfx
