@@ -64,21 +64,21 @@ class Cfx extends Protocol
      *
      * @type string
      */
-    protected $protocol = 'gta5m';
+    protected $protocol = 'cfx';
 
     /**
      * String name of this protocol class
      *
      * @type string
      */
-    protected $name = 'gta5m';
+    protected $name = 'cfx';
 
     /**
      * Longer string name of this protocol class
      *
      * @type string
      */
-    protected $name_long = "GTA Five M";
+    protected $name_long = "CitizenFX";
 
     /**
      * Holds the Player list so we can overwrite it back
