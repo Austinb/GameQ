@@ -65,21 +65,21 @@ class CFXPlayers extends Http
      *
      * @var string
      */
-    protected $protocol = 'cfx-players';
+    protected $protocol = 'cfxplayers';
 
     /**
      * String name of this protocol class
      *
      * @var string
      */
-    protected $name = 'cfx-players';
+    protected $name = 'cfxplayers';
 
     /**
      * Longer string name of this protocol class
      *
      * @var string
      */
-    protected $name_long = "citizenfx-players";
+    protected $name_long = "cfxplayers";
 
     /**
      * Process the response
