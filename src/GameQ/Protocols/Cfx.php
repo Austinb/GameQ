@@ -113,7 +113,7 @@ class Cfx extends Protocol
     {
         $GameQ = new \GameQ\GameQ();
         $GameQ->addServer($this->options, [
-            'host' => "$server->ip:$server->port_query"
+            'host' => "$server->ip:$server->port_query",
             'type' => 'cfx-players',
         ]);
         $this->PlayerList = reset(reset($GameQ->process() ?: [])) ?: [];
