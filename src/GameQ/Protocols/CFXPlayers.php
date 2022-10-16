@@ -91,7 +91,7 @@ class CFXPlayers extends Http
     {
         // Make sure we have any players
         if (empty($this->packets_response)) {
-            return $players;
+            return [];
         }
 
         // Implode and rip out the JSON
