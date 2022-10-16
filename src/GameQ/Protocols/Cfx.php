@@ -115,7 +115,7 @@ class Cfx extends Protocol
         $GameQ->addServer(array_merge($this->options, [
             'type' => 'cfx-players',
         ]));
-        $this->PlayerList = reset(reset($GameQ->process()) ?: [])) ?: [];
+        $this->PlayerList = reset(reset($GameQ->process() ?: [])) ?: [];
     }
 
     /**
