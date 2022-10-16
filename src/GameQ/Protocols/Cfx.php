@@ -112,9 +112,10 @@ class Cfx extends Protocol
     public function beforeSend(Server $server)
     {
         $GameQ = new \GameQ\GameQ();
-        $GameQ->addServer(array_merge($this->options, [
+        $GameQ->addServer($this->options, [
+            'host' => "$server->ip:$server->port_query"
             'type' => 'cfx-players',
-        ]));
+        ]);
         $this->PlayerList = reset(reset($GameQ->process() ?: [])) ?: [];
     }
 
