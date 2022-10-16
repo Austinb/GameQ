@@ -34,5 +34,24 @@ namespace GameQ\Protocols;
  */
 class Gta5m extends Cfx
 {
-    //
+    /**
+     * The query protocol used to make the call
+     *
+     * @type string
+     */
+    protected $protocol = 'gta5m';
+
+    /**
+     * String name of this protocol class
+     *
+     * @type string
+     */
+    protected $name = 'gta5m';
+
+    /**
+     * Longer string name of this protocol class
+     *
+     * @type string
+     */
+    protected $name_long = "GTA Five M";
 }
