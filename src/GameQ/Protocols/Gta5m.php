@@ -106,9 +106,7 @@ class Gta5m extends Protocol
     ];
 
     /**
-     *
      * Get FiveM Players List
-     *
      */
     public function beforeSend(Server $server)
     {
