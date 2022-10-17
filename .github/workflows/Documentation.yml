@@ -39,18 +39,19 @@ jobs:
         run: |
              cd source
              composer install --prefer-dist --no-interaction ${{ matrix.composer-extra }}
+       
+      - name: Clean old ApiGen
+        run: |
+             rm -rf gh-pages/api
+             mkdir -p gh-pages/api
           
       - name: ApiGen
-        run: |
-             rm -rf ../gh-pages/api
-             mkdir -p ../gh-pages/api
-             docker run --rm --interactive --volume "$PWD:$PWD" --workdir "$PWD/source" apigen/apigen:edge src --output ../gh-pages/api
-             cd ../gh-pages
-             git add .
-             git commit -am "Regenerated ApiGen documentation."
-
-      - name: Push
-        uses: ad-m/github-push-action@v0.6.0
+        run: docker run --rm --interactive --user $(id -u):$(id -g) --volume "$PWD:$PWD" --workdir "$PWD/source" apigen/apigen:edge src --output ../gh-pages/api
+        
+      - name: Commit & Push updated file
+        if: always()
+        uses: EndBug/add-and-commit@v9
         with:
-           branch: gh-pages
-           directory: gh-pages
+          default_author: github_actor
+          message: 'Regenerated ApiGen documentation.'
+          cwd: gh-pages
