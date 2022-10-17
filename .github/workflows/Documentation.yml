@@ -33,8 +33,8 @@ jobs:
              git add .
              git commit -am "Regenerated ApiGen documentation."
 
-     - name: Push
-       uses: ad-m/github-push-action@v0.6.0
-       with:
-          branch: gh-pages
-          directory: gh-pages
+      - name: Push
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+           branch: gh-pages
+           directory: gh-pages
