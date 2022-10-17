@@ -24,6 +24,22 @@ jobs:
           ref: gh-pages
           path: gh-pages
           
+      - name: Validate composer.json
+        run: |
+             cd source
+             composer validate
+        
+      - name: Cache composer files
+        uses: actions/cache@v3
+        with:
+          path: ~/.composer/cache/files
+          key: dependencies-php-${{ matrix.php }}-composer-${{ hashFiles('source/composer.json') }}
+
+      - name: Install dependencies using composer
+        run: |
+             cd source
+             composer install --prefer-dist --no-interaction ${{ matrix.composer-extra }}
+          
       - name: ApiGen
         run: |
              rm -rf ../gh-pages/api
