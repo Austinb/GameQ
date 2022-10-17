@@ -1,190 +1,947 @@
-<!DOCTYPE html>
-<html>
+
+<!doctype html>
+<html lang="en">
 <head>
 	<meta charset="utf-8">
-
-	<title>Tree</title>
-
-	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
-
+	<meta name="viewport" content="width=device-width">
+	<title>Tree |  API</title>
+	<link rel="stylesheet" href="assets/main.css">
+	<script src="assets/main.js" defer></script>
 </head>
 
-<body>
-<div id="left">
-	<div id="menu">
-		<a href="index.html" title="Overview"><span>Overview</span></a>
-
-
-		<div id="groups">
+<body class="layout">
+	<div class="layout-aside">
+	<div class="menu">
+			<div class="menu-section">
 				<h3>Namespaces</h3>
-			<ul>
-				<li>
-					<a href="namespace-GameQ.html">
-						GameQ<span></span>
-					</a>
+	<ul>
+			<li class="menuGroup-item">
+				<a href="namespace-GameQ.html">GameQ</a>
+	<ul>
+			<li class="menuGroup-item">
+				<a href="namespace-GameQ.Exception.html">Exception</a>
+			</li>
+			<li class="menuGroup-item">
+				<a href="namespace-GameQ.Filters.html">Filters</a>
+			</li>
+			<li class="menuGroup-item">
+				<a href="namespace-GameQ.Protocols.html">Protocols</a>
+			</li>
+			<li class="menuGroup-item">
+				<a href="namespace-GameQ.Query.html">Query</a>
+			</li>
+	</ul>
+			</li>
+	</ul>
+			</div>
 
-						<ul>
-				<li>
-					<a href="namespace-GameQ.Exception.html">
-						Exception					</a>
+	</div>
+	</div>
 
-						</li>
+	<div class="layout-main">
+		<div class="layout-navbar">
+	<nav class="navbar">
+		<div class="navbar-left">
+			<ul class="navbar-links">
 				<li>
-					<a href="namespace-GameQ.Filters.html">
-						Filters					</a>
-
-						</li>
+					<a href="index.html">Overview</a>
+				</li>
 				<li>
-					<a href="namespace-GameQ.Protocols.html">
-						Protocols					</a>
-
-						</li>
-				<li>
-					<a href="namespace-GameQ.Query.html">
-						Query					</a>
-
-						</li>
-							</ul></li>
+					<span>
+						Namespace
+					</span>
+				</li>
+<li><span>Class</span></li>				<li class="active">
+					<a href="tree.html">Tree</a>
+				</li>
 			</ul>
 		</div>
+		<div class="navbar-right">
+	<div class="search" data-elements="assets/elements.js">
+		<input class="search-input" placeholder="Search class, function or namespace" autofocus>
+		<ul class="search-results"></ul>
+	</div>
+		</div>
+	</nav>
+		</div>
 
-		<hr>
+		<div class="layout-content">
+		<h1>Tree</h1>
 
-
-		<div id="elements">
 			<h3>Classes</h3>
-			<ul>
-				<li><a href="class-GameQ.Query.Core.html">GameQ\Query\Core</a></li>
-				<li><a href="class-GameQ.Query.Native.html">GameQ\Query\Native</a></li>
-			</ul>
+	<ul class="classTree">
+	<li>
+<a href="Exception.html"><span>Exception</span></a>
+
+		implements
+			<a href="Throwable.html"><span title="Throwable">Throwable</span></a>
+
+	<ul class="classTree">
+	<li>
+<a href="GameQ.Exception.Protocol.html"><span>GameQ\Exception\Protocol</span></a>
 
 
+	</li>
+	<li>
+<a href="GameQ.Exception.Query.html"><span>GameQ\Exception\Query</span></a>
 
+
+	</li>
+	<li>
+<a href="GameQ.Exception.Server.html"><span>GameQ\Exception\Server</span></a>
+
+
+	</li>
+	</ul>
+	</li>
+	<li>
+<a href="GameQ.Buffer.html"><span>GameQ\Buffer</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Filters.Base.html"><span>GameQ\Filters\Base</span></a>
+
+
+	<ul class="classTree">
+	<li>
+<a href="GameQ.Filters.Normalize.html"><span>GameQ\Filters\Normalize</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Filters.Secondstohuman.html"><span>GameQ\Filters\Secondstohuman</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Filters.Stripcolors.html"><span>GameQ\Filters\Stripcolors</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Filters.Test.html"><span>GameQ\Filters\Test</span></a>
+
+
+	</li>
+	</ul>
+	</li>
+	<li>
+<a href="GameQ.GameQ.html"><span>GameQ\GameQ</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocol.html"><span>GameQ\Protocol</span></a>
+
+
+	<ul class="classTree">
+	<li>
+<a href="GameQ.Protocols.Ase.html"><span>GameQ\Protocols\Ase</span></a>
+
+
+	<ul class="classTree">
+	<li>
+<a href="GameQ.Protocols.Mta.html"><span>GameQ\Protocols\Mta</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Soldat.html"><span>GameQ\Protocols\Soldat</span></a>
+
+
+	</li>
+	</ul>
+	</li>
+	<li>
+<a href="GameQ.Protocols.Bf3.html"><span>GameQ\Protocols\Bf3</span></a>
+
+
+	<ul class="classTree">
+	<li>
+<a href="GameQ.Protocols.Bf4.html"><span>GameQ\Protocols\Bf4</span></a>
+
+
+	<ul class="classTree">
+	<li>
+<a href="GameQ.Protocols.Bfh.html"><span>GameQ\Protocols\Bfh</span></a>
+
+
+	</li>
+	</ul>
+	</li>
+	</ul>
+	</li>
+	<li>
+<a href="GameQ.Protocols.Bfbc2.html"><span>GameQ\Protocols\Bfbc2</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Cs2d.html"><span>GameQ\Protocols\Cs2d</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Doom3.html"><span>GameQ\Protocols\Doom3</span></a>
+
+
+	<ul class="classTree">
+	<li>
+<a href="GameQ.Protocols.Quake4.html"><span>GameQ\Protocols\Quake4</span></a>
+
+
+	</li>
+	</ul>
+	</li>
+	<li>
+<a href="GameQ.Protocols.Etqw.html"><span>GameQ\Protocols\Etqw</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Ffow.html"><span>GameQ\Protocols\Ffow</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Gamespy.html"><span>GameQ\Protocols\Gamespy</span></a>
+
+
+	<ul class="classTree">
+	<li>
+<a href="GameQ.Protocols.Bf1942.html"><span>GameQ\Protocols\Bf1942</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Mohaa.html"><span>GameQ\Protocols\Mohaa</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Serioussam.html"><span>GameQ\Protocols\Serioussam</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Ut.html"><span>GameQ\Protocols\Ut</span></a>
+
+
+	</li>
+	</ul>
+	</li>
+	<li>
+<a href="GameQ.Protocols.Gamespy2.html"><span>GameQ\Protocols\Gamespy2</span></a>
+
+
+	<ul class="classTree">
+	<li>
+<a href="GameQ.Protocols.Arma.html"><span>GameQ\Protocols\Arma</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Had2.html"><span>GameQ\Protocols\Had2</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Halo.html"><span>GameQ\Protocols\Halo</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Swat4.html"><span>GameQ\Protocols\Swat4</span></a>
+
+
+	</li>
+	</ul>
+	</li>
+	<li>
+<a href="GameQ.Protocols.Gamespy3.html"><span>GameQ\Protocols\Gamespy3</span></a>
+
+
+	<ul class="classTree">
+	<li>
+<a href="GameQ.Protocols.Bf2.html"><span>GameQ\Protocols\Bf2</span></a>
+
+
+	<ul class="classTree">
+	<li>
+<a href="GameQ.Protocols.Projectrealitybf2.html"><span>GameQ\Protocols\Projectrealitybf2</span></a>
+
+
+	</li>
+	</ul>
+	</li>
+	<li>
+<a href="GameQ.Protocols.Crysis.html"><span>GameQ\Protocols\Crysis</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Crysis2.html"><span>GameQ\Protocols\Crysis2</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Crysiswars.html"><span>GameQ\Protocols\Crysiswars</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Gamespy4.html"><span>GameQ\Protocols\Gamespy4</span></a>
+
+
+	<ul class="classTree">
+	<li>
+<a href="GameQ.Protocols.Justcause2.html"><span>GameQ\Protocols\Justcause2</span></a>
+
+
+	</li>
+	</ul>
+	</li>
+	<li>
+<a href="GameQ.Protocols.Minecraft.html"><span>GameQ\Protocols\Minecraft</span></a>
+
+
+	<ul class="classTree">
+	<li>
+<a href="GameQ.Protocols.Minecraftpe.html"><span>GameQ\Protocols\Minecraftpe</span></a>
+
+
+	</li>
+	</ul>
+	</li>
+	<li>
+<a href="GameQ.Protocols.Ut3.html"><span>GameQ\Protocols\Ut3</span></a>
+
+
+	</li>
+	</ul>
+	</li>
+	<li>
+<a href="GameQ.Protocols.Gta5m.html"><span>GameQ\Protocols\Gta5m</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Http.html"><span>GameQ\Protocols\Http</span></a>
+
+
+	<ul class="classTree">
+	<li>
+<a href="GameQ.Protocols.Eco.html"><span>GameQ\Protocols\Eco</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Gtan.html"><span>GameQ\Protocols\Gtan</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Gtar.html"><span>GameQ\Protocols\Gtar</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Tshock.html"><span>GameQ\Protocols\Tshock</span></a>
+
+
+	<ul class="classTree">
+	<li>
+<a href="GameQ.Protocols.Terraria.html"><span>GameQ\Protocols\Terraria</span></a>
+
+
+	</li>
+	</ul>
+	</li>
+	</ul>
+	</li>
+	<li>
+<a href="GameQ.Protocols.Lhmp.html"><span>GameQ\Protocols\Lhmp</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.M2mp.html"><span>GameQ\Protocols\M2mp</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Mumble.html"><span>GameQ\Protocols\Mumble</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Openttd.html"><span>GameQ\Protocols\Openttd</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Quake2.html"><span>GameQ\Protocols\Quake2</span></a>
+
+
+	<ul class="classTree">
+	<li>
+<a href="GameQ.Protocols.Kingpin.html"><span>GameQ\Protocols\Kingpin</span></a>
+
+
+	</li>
+	</ul>
+	</li>
+	<li>
+<a href="GameQ.Protocols.Quake3.html"><span>GameQ\Protocols\Quake3</span></a>
+
+
+	<ul class="classTree">
+	<li>
+<a href="GameQ.Protocols.Cod.html"><span>GameQ\Protocols\Cod</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Cod2.html"><span>GameQ\Protocols\Cod2</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Cod4.html"><span>GameQ\Protocols\Cod4</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Codmw2.html"><span>GameQ\Protocols\Codmw2</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Coduo.html"><span>GameQ\Protocols\Coduo</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Codwaw.html"><span>GameQ\Protocols\Codwaw</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Et.html"><span>GameQ\Protocols\Et</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Jediacademy.html"><span>GameQ\Protocols\Jediacademy</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Jedioutcast.html"><span>GameQ\Protocols\Jedioutcast</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Sof2.html"><span>GameQ\Protocols\Sof2</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Urbanterror.html"><span>GameQ\Protocols\Urbanterror</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Warsow.html"><span>GameQ\Protocols\Warsow</span></a>
+
+
+	</li>
+	</ul>
+	</li>
+	<li>
+<a href="GameQ.Protocols.Samp.html"><span>GameQ\Protocols\Samp</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Source.html"><span>GameQ\Protocols\Source</span></a>
+
+
+	<ul class="classTree">
+	<li>
+<a href="GameQ.Protocols.Aa3.html"><span>GameQ\Protocols\Aa3</span></a>
+
+
+	<ul class="classTree">
+	<li>
+<a href="GameQ.Protocols.Aapg.html"><span>GameQ\Protocols\Aapg</span></a>
+
+
+	</li>
+	</ul>
+	</li>
+	<li>
+<a href="GameQ.Protocols.Arkse.html"><span>GameQ\Protocols\Arkse</span></a>
+
+
+	<ul class="classTree">
+	<li>
+<a href="GameQ.Protocols.Dal.html"><span>GameQ\Protocols\Dal</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Pixark.html"><span>GameQ\Protocols\Pixark</span></a>
+
+
+	</li>
+	</ul>
+	</li>
+	<li>
+<a href="GameQ.Protocols.Arma3.html"><span>GameQ\Protocols\Arma3</span></a>
+
+
+	<ul class="classTree">
+	<li>
+<a href="GameQ.Protocols.Armedassault3.html"><span class="deprecated">GameQ\Protocols\Armedassault3</span></a>
+
+
+	</li>
+	</ul>
+	</li>
+	<li>
+<a href="GameQ.Protocols.Armedassault2oa.html"><span>GameQ\Protocols\Armedassault2oa</span></a>
+
+
+	<ul class="classTree">
+	<li>
+<a href="GameQ.Protocols.Dayzmod.html"><span>GameQ\Protocols\Dayzmod</span></a>
+
+
+	</li>
+	</ul>
+	</li>
+	<li>
+<a href="GameQ.Protocols.Atlas.html"><span>GameQ\Protocols\Atlas</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Avorion.html"><span>GameQ\Protocols\Avorion</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Barotrauma.html"><span>GameQ\Protocols\Barotrauma</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Batt1944.html"><span>GameQ\Protocols\Batt1944</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Blackmesa.html"><span>GameQ\Protocols\Blackmesa</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Brink.html"><span>GameQ\Protocols\Brink</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Citadel.html"><span>GameQ\Protocols\Citadel</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Codmw3.html"><span>GameQ\Protocols\Codmw3</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Conanexiles.html"><span>GameQ\Protocols\Conanexiles</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Contagion.html"><span>GameQ\Protocols\Contagion</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Cs16.html"><span>GameQ\Protocols\Cs16</span></a>
+
+
+	<ul class="classTree">
+	<li>
+<a href="GameQ.Protocols.Cscz.html"><span>GameQ\Protocols\Cscz</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Dod.html"><span>GameQ\Protocols\Dod</span></a>
+
+
+	</li>
+	</ul>
+	</li>
+	<li>
+<a href="GameQ.Protocols.Csgo.html"><span>GameQ\Protocols\Csgo</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Css.html"><span>GameQ\Protocols\Css</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Dayz.html"><span>GameQ\Protocols\Dayz</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Dods.html"><span>GameQ\Protocols\Dods</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Dow.html"><span>GameQ\Protocols\Dow</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Egs.html"><span>GameQ\Protocols\Egs</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Ffe.html"><span>GameQ\Protocols\Ffe</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Fof.html"><span>GameQ\Protocols\Fof</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Gmod.html"><span>GameQ\Protocols\Gmod</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Grav.html"><span>GameQ\Protocols\Grav</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Hl1.html"><span>GameQ\Protocols\Hl1</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Hl2dm.html"><span>GameQ\Protocols\Hl2dm</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Hll.html"><span>GameQ\Protocols\Hll</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Hurtworld.html"><span>GameQ\Protocols\Hurtworld</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Insurgency.html"><span>GameQ\Protocols\Insurgency</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Insurgencysand.html"><span>GameQ\Protocols\Insurgencysand</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Justcause3.html"><span>GameQ\Protocols\Justcause3</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Killingfloor2.html"><span>GameQ\Protocols\Killingfloor2</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.L4d.html"><span>GameQ\Protocols\L4d</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.L4d2.html"><span>GameQ\Protocols\L4d2</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Miscreated.html"><span>GameQ\Protocols\Miscreated</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Modiverse.html"><span>GameQ\Protocols\Modiverse</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Mordhau.html"><span>GameQ\Protocols\Mordhau</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Nmrih.html"><span>GameQ\Protocols\Nmrih</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Ns2.html"><span>GameQ\Protocols\Ns2</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Of.html"><span>GameQ\Protocols\Of</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Postscriptum.html"><span>GameQ\Protocols\Postscriptum</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Quakelive.html"><span>GameQ\Protocols\Quakelive</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Redorchestra2.html"><span>GameQ\Protocols\Redorchestra2</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Redorchestraostfront.html"><span>GameQ\Protocols\Redorchestraostfront</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Rf2.html"><span>GameQ\Protocols\Rf2</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Rfactor.html"><span>GameQ\Protocols\Rfactor</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Rfactor2.html"><span>GameQ\Protocols\Rfactor2</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Risingstorm2.html"><span>GameQ\Protocols\Risingstorm2</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Rust.html"><span>GameQ\Protocols\Rust</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Sco.html"><span>GameQ\Protocols\Sco</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Sevendaystodie.html"><span>GameQ\Protocols\Sevendaystodie</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Ship.html"><span>GameQ\Protocols\Ship</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Spaceengineers.html"><span>GameQ\Protocols\Spaceengineers</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Squad.html"><span>GameQ\Protocols\Squad</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Stormworks.html"><span>GameQ\Protocols\Stormworks</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Tf2.html"><span>GameQ\Protocols\Tf2</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Theforrest.html"><span>GameQ\Protocols\Theforrest</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Unturned.html"><span>GameQ\Protocols\Unturned</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Valheim.html"><span>GameQ\Protocols\Valheim</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Vrising.html"><span>GameQ\Protocols\Vrising</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Won.html"><span>GameQ\Protocols\Won</span></a>
+
+
+	<ul class="classTree">
+	<li>
+<a href="GameQ.Protocols.Cs15.html"><span>GameQ\Protocols\Cs15</span></a>
+
+
+	</li>
+	</ul>
+	</li>
+	<li>
+<a href="GameQ.Protocols.Wurm.html"><span>GameQ\Protocols\Wurm</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Zomboid.html"><span>GameQ\Protocols\Zomboid</span></a>
+
+
+	</li>
+	</ul>
+	</li>
+	<li>
+<a href="GameQ.Protocols.Starmade.html"><span>GameQ\Protocols\Starmade</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Teamspeak2.html"><span>GameQ\Protocols\Teamspeak2</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Teamspeak3.html"><span>GameQ\Protocols\Teamspeak3</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Teeworlds.html"><span>GameQ\Protocols\Teeworlds</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Tibia.html"><span>GameQ\Protocols\Tibia</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Unreal2.html"><span>GameQ\Protocols\Unreal2</span></a>
+
+
+	<ul class="classTree">
+	<li>
+<a href="GameQ.Protocols.Killingfloor.html"><span>GameQ\Protocols\Killingfloor</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Protocols.Ut2004.html"><span>GameQ\Protocols\Ut2004</span></a>
+
+
+	</li>
+	</ul>
+	</li>
+	<li>
+<a href="GameQ.Protocols.Ventrilo.html"><span>GameQ\Protocols\Ventrilo</span></a>
+
+
+	</li>
+	</ul>
+	</li>
+	<li>
+<a href="GameQ.Query.Core.html"><span>GameQ\Query\Core</span></a>
+
+
+	<ul class="classTree">
+	<li>
+<a href="GameQ.Query.Native.html"><span>GameQ\Query\Native</span></a>
+
+
+	</li>
+	</ul>
+	</li>
+	<li>
+<a href="GameQ.Result.html"><span>GameQ\Result</span></a>
+
+
+	</li>
+	<li>
+<a href="GameQ.Server.html"><span>GameQ\Server</span></a>
+
+
+	</li>
+	</ul>
+
+			<h3>Interfaces</h3>
+	<ul class="classTree">
+	<li>
+<a href="Stringable.html"><span>Stringable</span></a>
+
+
+	</li>
+	<li>
+<a href="Throwable.html"><span>Throwable</span></a>
+		extends
+			<a href="Stringable.html"><span title="Stringable">Stringable</span></a>
+
+
+	</li>
+	</ul>
 
 
 		</div>
-	</div>
-</div>
 
-<div id="splitter"></div>
-
-<div id="right">
-<div id="rightInner">
-	<form id="search">
-		<input type="hidden" name="cx" value="">
-		<input type="hidden" name="ie" value="UTF-8">
-		<input type="text" name="q" class="text" placeholder="Search">
-	</form>
-
-	<div id="navigation">
-		<ul>
-			<li>
-				<a href="index.html" title="Overview"><span>Overview</span></a>
-			</li>
-			<li>
-<span>Namespace</span>			</li>
-			<li>
-				<a href="class-GameQ.Exception.Server.html" title="Summary of GameQ\Exception\Server"><span>Class</span></a>
-			</li>
-		</ul>
-		<ul>
-			<li class="active">
-<span>Tree</span>			</li>
-			<li>
-				<a href="deprecated.html" title="List of deprecated elements"><span>Deprecated</span></a>
-			</li>
-			<li>
-				<a href="todo.html" title="Todo list"><span>Todo</span></a>
-			</li>
-		</ul>
-		<ul>
-			<li>
-				<a href="API-documentation.zip" title="Download documentation as ZIP archive"><span>Download</span></a>
-			</li>
-		</ul>
+		<div class="layout-footer">
+			 API documentation generated by <a href="https://www.apigen.org">ApiGen dev-master</a>
+		</div>
 	</div>
 
-<div id="content">
-	<h1>Tree</h1>
-
-		<h3>Classes</h3>
-<div class="tree">
-	<ul>
-
-			<li><div class="notlast"><a href="class-GameQ.Buffer.html"><span>GameQ\Buffer</span></a>
-			
-			
-			</div>
-
-				</li>
-
-			<li><div class="notlast"><a href="class-GameQ.Filters.Base.html"><span>GameQ\Filters\Base</span></a>
-			
-			
-			</div>
-
-				</li>
-
-			<li><div class="notlast"><a href="class-GameQ.GameQ.html"><span>GameQ\GameQ</span></a>
-			
-			
-			</div>
-
-				</li>
-
-			<li><div class="notlast"><a href="class-GameQ.Protocol.html"><span>GameQ\Protocol</span></a>
-			
-			
-			</div>
-
-				</li>
-
-			<li><div class="notlast"><a href="class-GameQ.Query.Core.html"><span>GameQ\Query\Core</span></a>
-			
-			
-			</div>
-
-				</li>
-
-			<li><div class="notlast"><a href="class-GameQ.Result.html"><span>GameQ\Result</span></a>
-			
-			
-			</div>
-
-				</li>
-
-			<li class="last"><div class="last"><a href="class-GameQ.Server.html"><span>GameQ\Server</span></a>
-			
-			
-			</div>
-
-		</li>
-		
-	</ul>
-</div>
-
-
-
-		<h3>Exceptions</h3>
-<div class="tree">
-	<ul>
-
-			<li class="last"><div class="last"><span>Exception</span>			
-			
-			</div>
-
-		</li>
-		
-	</ul>
-</div>
-</div>
-
-	<div id="footer">
-		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	<div class="layout-rest">
+		<div class="navbar"></div>
 	</div>
-</div>
-</div>
-<script src="resources/combined.js?44e93de8fc3b749f55d0fae2da59a38c45b15f0b"></script>
-<script src="elementlist.js?4101db1e0b6c89fe6d1074e11932ce42688f0b3e"></script>
 </body>
 </html>

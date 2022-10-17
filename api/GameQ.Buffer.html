@@ -1,0 +1,993 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Class GameQ\Buffer |  API</title>
+	<link rel="stylesheet" href="assets/main.css">
+	<script src="assets/main.js" defer></script>
+</head>
+
+<body class="layout">
+	<div class="layout-aside">
+	<div class="menu">
+			<div class="menu-section">
+				<h3>Namespaces</h3>
+	<ul>
+			<li class="menuGroup-item active">
+				<a href="namespace-GameQ.html">GameQ</a>
+	<ul>
+			<li class="menuGroup-item">
+				<a href="namespace-GameQ.Exception.html">Exception</a>
+			</li>
+			<li class="menuGroup-item">
+				<a href="namespace-GameQ.Filters.html">Filters</a>
+			</li>
+			<li class="menuGroup-item">
+				<a href="namespace-GameQ.Protocols.html">Protocols</a>
+			</li>
+			<li class="menuGroup-item">
+				<a href="namespace-GameQ.Query.html">Query</a>
+			</li>
+	</ul>
+			</li>
+	</ul>
+			</div>
+
+		<div class="menu-section">
+			<h3>Classes</h3>
+			<ul>
+					<li class="active">
+						<a href="GameQ.Buffer.html">
+							Buffer
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.GameQ.html">
+							GameQ
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocol.html">
+							Protocol
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Result.html">
+							Result
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Server.html">
+							Server
+						</a>
+					</li>
+			</ul>
+		</div>
+
+
+
+
+
+	</div>
+	</div>
+
+	<div class="layout-main">
+		<div class="layout-navbar">
+	<nav class="navbar">
+		<div class="navbar-left">
+			<ul class="navbar-links">
+				<li>
+					<a href="index.html">Overview</a>
+				</li>
+				<li>
+					
+						<a href="namespace-GameQ.html">Namespace</a>
+					
+				</li>
+<li class="active"><a href="GameQ.Buffer.html">Class</a></li>				<li>
+					<a href="tree.html">Tree</a>
+				</li>
+			</ul>
+		</div>
+		<div class="navbar-right">
+	<div class="search" data-elements="assets/elements.js">
+		<input class="search-input" placeholder="Search class, function or namespace" autofocus>
+		<ul class="search-results"></ul>
+	</div>
+		</div>
+	</nav>
+		</div>
+
+		<div class="layout-content">
+		<h1>
+			Class <a href="namespace-GameQ.html">GameQ</a>\<a href="GameQ.Buffer.html">Buffer</a>
+		</h1>
+
+
+	<table class="classLikeSignatureTable">
+
+
+
+
+	</table>
+		<div class="classLikeDescription">
+	<div class="description"><p>Class Buffer</p>
+<p>Read specific byte sequences from a provided string or Buffer</p>
+</div>
+		</div>
+
+
+		<div class="classLikeSection">
+			<b>Located at</b> <a href="source-GameQ.Buffer.html#36" title="Go to source code">GameQ/Buffer.php</a><br>
+		</div>
+
+
+		<table class="table" id="methods">
+			<tr>
+				<th class="table-heading sortable" colspan="3" title="Switch between natural and alphabetical order">Methods</th>
+			</tr>
+
+	<tr class="expandable collapsed" data-order="__construct" id="___construct">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-GameQ.Buffer.html#74-86" title="Go to source code">__construct</a>(<span>string <var>$data</var></span>, <span>string <var>$number_type</var> = <b><span class="active" title="GameQ\Buffer">self</span></b>::<a href="GameQ.Buffer.html#NUMBER_TYPE_LITTLEENDIAN">NUMBER_TYPE_LITTLEENDIAN</a></span>)</code>
+
+
+	<div class="expandable-collapsedView">
+		Constructor
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Constructor</p>
+</div>
+
+
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#___construct">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="getData" id="_getData">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-GameQ.Buffer.html#88-97" title="Go to source code">getData</a>(): string</code>
+
+
+	<div class="expandable-collapsedView">
+		Return all the data
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Return all the data</p>
+</div>
+
+
+							<h4>Returns</h4>
+							<div><p>The data</p>
+</div>
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_getData">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="getBuffer" id="_getBuffer">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-GameQ.Buffer.html#99-108" title="Go to source code">getBuffer</a>(): string</code>
+
+
+	<div class="expandable-collapsedView">
+		Return data currently in the buffer
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Return data currently in the buffer</p>
+</div>
+
+
+							<h4>Returns</h4>
+							<div><p>The data currently in the buffer</p>
+</div>
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_getBuffer">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="getLength" id="_getLength">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-GameQ.Buffer.html#110-119" title="Go to source code">getLength</a>(): int</code>
+
+
+	<div class="expandable-collapsedView">
+		Returns the number of bytes in the buffer
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Returns the number of bytes in the buffer</p>
+</div>
+
+
+							<h4>Returns</h4>
+							<div><p>Length of the buffer</p>
+</div>
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_getLength">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="read" id="_read">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-GameQ.Buffer.html#121-140" title="Go to source code">read</a>(<span>int <var>$length</var> = <span class="php-num">1</span></span>): string</code>
+
+
+	<div class="expandable-collapsedView">
+		Read from the buffer
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Read from the buffer</p>
+</div>
+
+
+
+							<h4>Throws</h4>
+							<table>
+									<tr>
+										<td><code><a href="GameQ.Exception.Protocol.html"><span>GameQ\Exception\Protocol</span></a></code>&nbsp;</td>
+										<td></td>
+									</tr>
+							</table>
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_read">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="readLast" id="_readLast">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-GameQ.Buffer.html#142-159" title="Go to source code">readLast</a>(): string</code>
+
+
+	<div class="expandable-collapsedView">
+		Read the last character from the buffer
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Read the last character from the buffer</p>
+<p>Unlike the other read functions, this function actually removes
+the character from the buffer.</p>
+</div>
+
+
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_readLast">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="lookAhead" id="_lookAhead">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-GameQ.Buffer.html#161-172" title="Go to source code">lookAhead</a>(<span>int <var>$length</var> = <span class="php-num">1</span></span>): string</code>
+
+
+	<div class="expandable-collapsedView">
+		Look at the buffer, but don't remove
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Look at the buffer, but don't remove</p>
+</div>
+
+
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_lookAhead">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="skip" id="_skip">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-GameQ.Buffer.html#174-183" title="Go to source code">skip</a>(<span>int <var>$length</var> = <span class="php-num">1</span></span>)</code>
+
+
+	<div class="expandable-collapsedView">
+		Skip forward in the buffer
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Skip forward in the buffer</p>
+</div>
+
+
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_skip">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="jumpto" id="_jumpto">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-GameQ.Buffer.html#185-195" title="Go to source code">jumpto</a>(<span><var>$index</var></span>)</code>
+
+
+	<div class="expandable-collapsedView">
+		Jump to a specific position in the buffer,
+will not jump past end of buffer
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Jump to a specific position in the buffer,
+will not jump past end of buffer</p>
+</div>
+
+
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_jumpto">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="getPosition" id="_getPosition">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-GameQ.Buffer.html#197-206" title="Go to source code">getPosition</a>(): int</code>
+
+
+	<div class="expandable-collapsedView">
+		Get the current pointer position
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Get the current pointer position</p>
+</div>
+
+
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_getPosition">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="readString" id="_readString">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-GameQ.Buffer.html#208-234" title="Go to source code">readString</a>(<span>string <var>$delim</var> = <span class="php-str">"\x00"</span></span>): string</code>
+
+
+	<div class="expandable-collapsedView">
+		Read from buffer until delimiter is reached
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Read from buffer until delimiter is reached</p>
+<p>If not found, return everything</p>
+</div>
+
+
+
+							<h4>Throws</h4>
+							<table>
+									<tr>
+										<td><code><a href="GameQ.Exception.Protocol.html"><span>GameQ\Exception\Protocol</span></a></code>&nbsp;</td>
+										<td></td>
+									</tr>
+							</table>
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_readString">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="readPascalString" id="_readPascalString">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-GameQ.Buffer.html#236-258" title="Go to source code">readPascalString</a>(<span>int <var>$offset</var> = <span class="php-num">0</span></span>, <span>bool <var>$read_offset</var> = <span class="php-kw">false</span></span>): string</code>
+
+
+	<div class="expandable-collapsedView">
+		Reads a pascal string from the buffer
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Reads a pascal string from the buffer</p>
+</div>
+
+							<h4>Parameters</h4>
+							<table>
+									<tr>
+										<td><var>$offset</var>&nbsp;&nbsp;</td>
+										<td><p>Number of bits to cut off the end</p>
+</td>
+									</tr>
+									<tr>
+										<td><var>$read_offset</var>&nbsp;&nbsp;</td>
+										<td><p>True if the data after the offset is to be read</p>
+</td>
+									</tr>
+							</table>
+
+
+							<h4>Throws</h4>
+							<table>
+									<tr>
+										<td><code><a href="GameQ.Exception.Protocol.html"><span>GameQ\Exception\Protocol</span></a></code>&nbsp;</td>
+										<td></td>
+									</tr>
+							</table>
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_readPascalString">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="readStringMulti" id="_readStringMulti">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-GameQ.Buffer.html#260-295" title="Go to source code">readStringMulti</a>(<span><var>$delims</var></span>, <span>null|string &amp;<var>$delimfound</var> = <span class="php-kw">null</span></span>): string</code>
+
+
+	<div class="expandable-collapsedView">
+		Read from buffer until any of the delimiters is reached
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Read from buffer until any of the delimiters is reached</p>
+<p>If not found, return everything</p>
+</div>
+
+
+
+							<h4>Throws</h4>
+							<table>
+									<tr>
+										<td><code><a href="GameQ.Exception.Protocol.html"><span>GameQ\Exception\Protocol</span></a></code>&nbsp;</td>
+										<td></td>
+									</tr>
+							</table>
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_readStringMulti">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="readInt8" id="_readInt8">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-GameQ.Buffer.html#297-309" title="Go to source code">readInt8</a>(): int</code>
+
+
+	<div class="expandable-collapsedView">
+		Read an 8-bit unsigned integer
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Read an 8-bit unsigned integer</p>
+</div>
+
+
+
+							<h4>Throws</h4>
+							<table>
+									<tr>
+										<td><code><a href="GameQ.Exception.Protocol.html"><span>GameQ\Exception\Protocol</span></a></code>&nbsp;</td>
+										<td></td>
+									</tr>
+							</table>
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_readInt8">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="readInt8Signed" id="_readInt8Signed">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-GameQ.Buffer.html#311-323" title="Go to source code">readInt8Signed</a>(): int</code>
+
+
+	<div class="expandable-collapsedView">
+		Read and 8-bit signed integer
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Read and 8-bit signed integer</p>
+</div>
+
+
+
+							<h4>Throws</h4>
+							<table>
+									<tr>
+										<td><code><a href="GameQ.Exception.Protocol.html"><span>GameQ\Exception\Protocol</span></a></code>&nbsp;</td>
+										<td></td>
+									</tr>
+							</table>
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_readInt8Signed">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="readInt16" id="_readInt16">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-GameQ.Buffer.html#325-351" title="Go to source code">readInt16</a>(): int</code>
+
+
+	<div class="expandable-collapsedView">
+		Read a 16-bit unsigned integer
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Read a 16-bit unsigned integer</p>
+</div>
+
+
+
+							<h4>Throws</h4>
+							<table>
+									<tr>
+										<td><code><a href="GameQ.Exception.Protocol.html"><span>GameQ\Exception\Protocol</span></a></code>&nbsp;</td>
+										<td></td>
+									</tr>
+							</table>
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_readInt16">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="readInt16Signed" id="_readInt16Signed">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-GameQ.Buffer.html#353-375" title="Go to source code">readInt16Signed</a>(): int</code>
+
+
+	<div class="expandable-collapsedView">
+		Read a 16-bit signed integer
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Read a 16-bit signed integer</p>
+</div>
+
+
+
+							<h4>Throws</h4>
+							<table>
+									<tr>
+										<td><code><a href="GameQ.Exception.Protocol.html"><span>GameQ\Exception\Protocol</span></a></code>&nbsp;</td>
+										<td></td>
+									</tr>
+							</table>
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_readInt16Signed">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="readInt32" id="_readInt32">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-GameQ.Buffer.html#377-409" title="Go to source code">readInt32</a>(<span><var>$length</var> = <span class="php-num">4</span></span>): int</code>
+
+
+	<div class="expandable-collapsedView">
+		Read a 32-bit unsigned integer
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Read a 32-bit unsigned integer</p>
+</div>
+
+
+
+							<h4>Throws</h4>
+							<table>
+									<tr>
+										<td><code><a href="GameQ.Exception.Protocol.html"><span>GameQ\Exception\Protocol</span></a></code>&nbsp;</td>
+										<td></td>
+									</tr>
+							</table>
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_readInt32">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="readInt32Signed" id="_readInt32Signed">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-GameQ.Buffer.html#411-433" title="Go to source code">readInt32Signed</a>(): int</code>
+
+
+	<div class="expandable-collapsedView">
+		Read a 32-bit signed integer
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Read a 32-bit signed integer</p>
+</div>
+
+
+
+							<h4>Throws</h4>
+							<table>
+									<tr>
+										<td><code><a href="GameQ.Exception.Protocol.html"><span>GameQ\Exception\Protocol</span></a></code>&nbsp;</td>
+										<td></td>
+									</tr>
+							</table>
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_readInt32Signed">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="readInt64" id="_readInt64">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-GameQ.Buffer.html#435-481" title="Go to source code">readInt64</a>(): int</code>
+
+
+	<div class="expandable-collapsedView">
+		Read a 64-bit unsigned integer
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Read a 64-bit unsigned integer</p>
+</div>
+
+
+
+							<h4>Throws</h4>
+							<table>
+									<tr>
+										<td><code><a href="GameQ.Exception.Protocol.html"><span>GameQ\Exception\Protocol</span></a></code>&nbsp;</td>
+										<td></td>
+									</tr>
+							</table>
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_readInt64">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="readFloat32" id="_readFloat32">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-GameQ.Buffer.html#483-505" title="Go to source code">readFloat32</a>(): float</code>
+
+
+	<div class="expandable-collapsedView">
+		Read a 32-bit float
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Read a 32-bit float</p>
+</div>
+
+
+
+							<h4>Throws</h4>
+							<table>
+									<tr>
+										<td><code><a href="GameQ.Exception.Protocol.html"><span>GameQ\Exception\Protocol</span></a></code>&nbsp;</td>
+										<td></td>
+									</tr>
+							</table>
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_readFloat32">#</a>
+		</td>
+	</tr>
+		</table>
+
+
+
+		<table class="table" id="constants">
+			<tr>
+				<th class="table-heading sortable" colspan="3" title="Switch between natural and alphabetical order">Constants</th>
+			</tr>
+
+	<tr class="expandable collapsed" data-order="NUMBER_TYPE_BIGENDIAN" id="NUMBER_TYPE_BIGENDIAN">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+				</code>
+			</td>
+
+			<td class="table-cell">
+<code><a href="source-GameQ.Buffer.html#39-44" title="Go to source code">NUMBER_TYPE_BIGENDIAN</a> = <span class="php-str">'be'</span></code>
+
+	<div class="expandable-collapsedView">
+		Constants for the byte code types we need to read as
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Constants for the byte code types we need to read as</p>
+</div>
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#NUMBER_TYPE_BIGENDIAN">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="NUMBER_TYPE_LITTLEENDIAN" id="NUMBER_TYPE_LITTLEENDIAN">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+				</code>
+			</td>
+
+			<td class="table-cell">
+<code><a href="source-GameQ.Buffer.html#39-44" title="Go to source code">NUMBER_TYPE_LITTLEENDIAN</a> = <span class="php-str">'le'</span></code>
+
+	<div class="expandable-collapsedView">
+		Constants for the byte code types we need to read as
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Constants for the byte code types we need to read as</p>
+</div>
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#NUMBER_TYPE_LITTLEENDIAN">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="NUMBER_TYPE_MACHINE" id="NUMBER_TYPE_MACHINE">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+				</code>
+			</td>
+
+			<td class="table-cell">
+<code><a href="source-GameQ.Buffer.html#39-44" title="Go to source code">NUMBER_TYPE_MACHINE</a> = <span class="php-str">'m'</span></code>
+
+	<div class="expandable-collapsedView">
+		Constants for the byte code types we need to read as
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>Constants for the byte code types we need to read as</p>
+</div>
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#NUMBER_TYPE_MACHINE">#</a>
+		</td>
+	</tr>
+		</table>
+
+
+
+
+
+		</div>
+
+		<div class="layout-footer">
+			 API documentation generated by <a href="https://www.apigen.org">ApiGen dev-master</a>
+		</div>
+	</div>
+
+	<div class="layout-rest">
+		<div class="navbar"></div>
+	</div>
+</body>
+</html>
