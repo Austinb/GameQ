@@ -1,4 +1,4 @@
-# Use a ubuntu base image
+# Use a devcontainer base image
 ARG TAG=8-bullseye
 FROM mcr.microsoft.com/vscode/devcontainers/php:$TAG
 
