@@ -105,6 +105,7 @@
 			<url><loc>GameQ.Protocols.Lifeisfeudal.html</loc></url>
 			<url><loc>GameQ.Protocols.M2mp.html</loc></url>
 			<url><loc>GameQ.Protocols.Minecraft.html</loc></url>
+			<url><loc>GameQ.Protocols.Minecraftbe.html</loc></url>
 			<url><loc>GameQ.Protocols.Minecraftpe.html</loc></url>
 			<url><loc>GameQ.Protocols.Miscreated.html</loc></url>
 			<url><loc>GameQ.Protocols.Modiverse.html</loc></url>
@@ -123,6 +124,7 @@
 			<url><loc>GameQ.Protocols.Quake3.html</loc></url>
 			<url><loc>GameQ.Protocols.Quake4.html</loc></url>
 			<url><loc>GameQ.Protocols.Quakelive.html</loc></url>
+			<url><loc>GameQ.Protocols.Raknet.html</loc></url>
 			<url><loc>GameQ.Protocols.Redorchestra2.html</loc></url>
 			<url><loc>GameQ.Protocols.Redorchestraostfront.html</loc></url>
 			<url><loc>GameQ.Protocols.Rf2.html</loc></url>
@@ -265,6 +267,7 @@
 			<url><loc>source-GameQ.Protocols.Lifeisfeudal.html</loc></url>
 			<url><loc>source-GameQ.Protocols.M2mp.html</loc></url>
 			<url><loc>source-GameQ.Protocols.Minecraft.html</loc></url>
+			<url><loc>source-GameQ.Protocols.Minecraftbe.html</loc></url>
 			<url><loc>source-GameQ.Protocols.Minecraftpe.html</loc></url>
 			<url><loc>source-GameQ.Protocols.Miscreated.html</loc></url>
 			<url><loc>source-GameQ.Protocols.Modiverse.html</loc></url>
@@ -283,6 +286,7 @@
 			<url><loc>source-GameQ.Protocols.Quake3.html</loc></url>
 			<url><loc>source-GameQ.Protocols.Quake4.html</loc></url>
 			<url><loc>source-GameQ.Protocols.Quakelive.html</loc></url>
+			<url><loc>source-GameQ.Protocols.Raknet.html</loc></url>
 			<url><loc>source-GameQ.Protocols.Redorchestra2.html</loc></url>
 			<url><loc>source-GameQ.Protocols.Redorchestraostfront.html</loc></url>
 			<url><loc>source-GameQ.Protocols.Rf2.html</loc></url>
