@@ -107,7 +107,7 @@ class Cfx extends Protocol
     ];
 
     /**
-     * Get FiveM players list with sub query
+     * Get FiveM players list using a sub query
      */
     public function beforeSend(Server $server)
     {
