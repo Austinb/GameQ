@@ -117,7 +117,7 @@ class Cfx extends Protocol
             'host' => "$server->ip:$server->port_query",
         ]);
         $results = $GameQ->process();
-        $this->PlayerList = ($results[0] ?? [])[0] ?? [];
+        $this->PlayerList = isset($results[0]) && isset($results[0][0]) ? $results[0][0] : [];
     }
 
     /**
