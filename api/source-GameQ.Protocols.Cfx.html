@@ -1,0 +1,822 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+
+	<title>File GameQ/Protocols/Cfx.php |  API</title>
+	<link rel="stylesheet" href="assets/main.css">
+	<script src="assets/main.js" defer></script>
+</head>
+
+<body class="layout">
+	<div class="layout-aside">
+	<div class="menu">
+			<div class="menu-section">
+				<h3>Namespaces</h3>
+	<ul>
+			<li class="menuGroup-item active">
+				<a href="namespace-GameQ.html">GameQ</a>
+	<ul>
+			<li class="menuGroup-item">
+				<a href="namespace-GameQ.Exception.html">Exception</a>
+			</li>
+			<li class="menuGroup-item">
+				<a href="namespace-GameQ.Filters.html">Filters</a>
+			</li>
+			<li class="menuGroup-item active">
+				<a href="namespace-GameQ.Protocols.html">Protocols</a>
+			</li>
+			<li class="menuGroup-item">
+				<a href="namespace-GameQ.Query.html">Query</a>
+			</li>
+	</ul>
+			</li>
+	</ul>
+			</div>
+
+		<div class="menu-section">
+			<h3>Classes</h3>
+			<ul>
+					<li>
+						<a href="GameQ.Protocols.Aa3.html">
+							Aa3
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Aapg.html">
+							Aapg
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Arkse.html">
+							Arkse
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Arma.html">
+							Arma
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Arma3.html">
+							Arma3
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Armedassault2oa.html">
+							Armedassault2oa
+						</a>
+					</li>
+					<li>
+						<a class="deprecated" href="GameQ.Protocols.Armedassault3.html">
+							Armedassault3
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Ase.html">
+							Ase
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Atlas.html">
+							Atlas
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Avorion.html">
+							Avorion
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Barotrauma.html">
+							Barotrauma
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Batt1944.html">
+							Batt1944
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Bf1942.html">
+							Bf1942
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Bf2.html">
+							Bf2
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Bf3.html">
+							Bf3
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Bf4.html">
+							Bf4
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Bfbc2.html">
+							Bfbc2
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Bfh.html">
+							Bfh
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Blackmesa.html">
+							Blackmesa
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Brink.html">
+							Brink
+						</a>
+					</li>
+					<li class="active">
+						<a href="GameQ.Protocols.Cfx.html">
+							Cfx
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.CFXPlayers.html">
+							CFXPlayers
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Citadel.html">
+							Citadel
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Cod.html">
+							Cod
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Cod2.html">
+							Cod2
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Cod4.html">
+							Cod4
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Codmw2.html">
+							Codmw2
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Codmw3.html">
+							Codmw3
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Coduo.html">
+							Coduo
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Codwaw.html">
+							Codwaw
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Conanexiles.html">
+							Conanexiles
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Contagion.html">
+							Contagion
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Crysis.html">
+							Crysis
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Crysis2.html">
+							Crysis2
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Crysiswars.html">
+							Crysiswars
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Cs15.html">
+							Cs15
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Cs16.html">
+							Cs16
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Cs2d.html">
+							Cs2d
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Cscz.html">
+							Cscz
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Csgo.html">
+							Csgo
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Css.html">
+							Css
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Dal.html">
+							Dal
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Dayz.html">
+							Dayz
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Dayzmod.html">
+							Dayzmod
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Dod.html">
+							Dod
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Dods.html">
+							Dods
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Doom3.html">
+							Doom3
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Dow.html">
+							Dow
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Eco.html">
+							Eco
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Egs.html">
+							Egs
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Et.html">
+							Et
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Etqw.html">
+							Etqw
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Ffe.html">
+							Ffe
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Ffow.html">
+							Ffow
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Fof.html">
+							Fof
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Gamespy.html">
+							Gamespy
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Gamespy2.html">
+							Gamespy2
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Gamespy3.html">
+							Gamespy3
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Gamespy4.html">
+							Gamespy4
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Gmod.html">
+							Gmod
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Grav.html">
+							Grav
+						</a>
+					</li>
+					<li>
+						<a class="deprecated" href="GameQ.Protocols.Gta5m.html">
+							Gta5m
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Gtan.html">
+							Gtan
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Gtar.html">
+							Gtar
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Had2.html">
+							Had2
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Halo.html">
+							Halo
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Hl1.html">
+							Hl1
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Hl2dm.html">
+							Hl2dm
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Hll.html">
+							Hll
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Http.html">
+							Http
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Hurtworld.html">
+							Hurtworld
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Insurgency.html">
+							Insurgency
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Insurgencysand.html">
+							Insurgencysand
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Jediacademy.html">
+							Jediacademy
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Jedioutcast.html">
+							Jedioutcast
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Justcause2.html">
+							Justcause2
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Justcause3.html">
+							Justcause3
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Killingfloor.html">
+							Killingfloor
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Killingfloor2.html">
+							Killingfloor2
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Kingpin.html">
+							Kingpin
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.L4d.html">
+							L4d
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.L4d2.html">
+							L4d2
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Lhmp.html">
+							Lhmp
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Lifeisfeudal.html">
+							Lifeisfeudal
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.M2mp.html">
+							M2mp
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Minecraft.html">
+							Minecraft
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Minecraftbe.html">
+							Minecraftbe
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Minecraftpe.html">
+							Minecraftpe
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Miscreated.html">
+							Miscreated
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Modiverse.html">
+							Modiverse
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Mohaa.html">
+							Mohaa
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Mordhau.html">
+							Mordhau
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Mta.html">
+							Mta
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Mumble.html">
+							Mumble
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Nmrih.html">
+							Nmrih
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Ns2.html">
+							Ns2
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Of.html">
+							Of
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Openttd.html">
+							Openttd
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Pixark.html">
+							Pixark
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Postscriptum.html">
+							Postscriptum
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Projectrealitybf2.html">
+							Projectrealitybf2
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Quake2.html">
+							Quake2
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Quake3.html">
+							Quake3
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Quake4.html">
+							Quake4
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Quakelive.html">
+							Quakelive
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Raknet.html">
+							Raknet
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Redorchestra2.html">
+							Redorchestra2
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Redorchestraostfront.html">
+							Redorchestraostfront
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Rf2.html">
+							Rf2
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Rfactor.html">
+							Rfactor
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Rfactor2.html">
+							Rfactor2
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Risingstorm2.html">
+							Risingstorm2
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Rust.html">
+							Rust
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Samp.html">
+							Samp
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Sco.html">
+							Sco
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Serioussam.html">
+							Serioussam
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Sevendaystodie.html">
+							Sevendaystodie
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Ship.html">
+							Ship
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Sof2.html">
+							Sof2
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Soldat.html">
+							Soldat
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Source.html">
+							Source
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Spaceengineers.html">
+							Spaceengineers
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Squad.html">
+							Squad
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Starmade.html">
+							Starmade
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Stormworks.html">
+							Stormworks
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Swat4.html">
+							Swat4
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Teamspeak2.html">
+							Teamspeak2
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Teamspeak3.html">
+							Teamspeak3
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Teeworlds.html">
+							Teeworlds
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Terraria.html">
+							Terraria
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Tf2.html">
+							Tf2
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Theforrest.html">
+							Theforrest
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Tibia.html">
+							Tibia
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Tshock.html">
+							Tshock
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Unreal2.html">
+							Unreal2
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Unturned.html">
+							Unturned
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Urbanterror.html">
+							Urbanterror
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Ut.html">
+							Ut
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Ut2004.html">
+							Ut2004
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Ut3.html">
+							Ut3
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Valheim.html">
+							Valheim
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Ventrilo.html">
+							Ventrilo
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Vrising.html">
+							Vrising
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Warsow.html">
+							Warsow
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Won.html">
+							Won
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Wurm.html">
+							Wurm
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Protocols.Zomboid.html">
+							Zomboid
+						</a>
+					</li>
+			</ul>
+		</div>
+	</div>
+	</div>
+
+	<div class="layout-main">
+		<div class="layout-navbar">
+	<nav class="navbar">
+		<div class="navbar-left">
+			<ul class="navbar-links">
+				<li>
+					<a href="index.html">Overview</a>
+				</li>
+				<li>
+					
+						<a href="namespace-GameQ.Protocols.html">Namespace</a>
+					
+				</li>
+<li class="active"><a href="GameQ.Protocols.Cfx.html">Class</a></li>				<li>
+					<a href="tree.html">Tree</a>
+				</li>
+			</ul>
+		</div>
+		<div class="navbar-right">
+	<div class="search" data-elements="assets/elements.js">
+		<input class="search-input" placeholder="Search class, function or namespace" autofocus>
+		<ul class="search-results"></ul>
+	</div>
+		</div>
+	</nav>
+		</div>
+
+		<div class="layout-content">
+	<table class="source"><tr id="1" class="source-line"><td><a class="source-lineNum" href="#1">  1: </a></td><td><span class="php-tag">&lt;?php</span></td></tr><tr id="2" class="source-line"><td><a class="source-lineNum" href="#2">  2: </a></td><td><span class="php-tag"></span><span class="php-comment">/**</span></td></tr><tr id="3" class="source-line"><td><a class="source-lineNum" href="#3">  3: </a></td><td><span class="php-comment"> * This file is part of GameQ.</span></td></tr><tr id="4" class="source-line"><td><a class="source-lineNum" href="#4">  4: </a></td><td><span class="php-comment"> *</span></td></tr><tr id="5" class="source-line"><td><a class="source-lineNum" href="#5">  5: </a></td><td><span class="php-comment"> * GameQ is free software; you can redistribute it and/or modify</span></td></tr><tr id="6" class="source-line"><td><a class="source-lineNum" href="#6">  6: </a></td><td><span class="php-comment"> * it under the terms of the GNU Lesser General Public License as published by</span></td></tr><tr id="7" class="source-line"><td><a class="source-lineNum" href="#7">  7: </a></td><td><span class="php-comment"> * the Free Software Foundation; either version 3 of the License, or</span></td></tr><tr id="8" class="source-line"><td><a class="source-lineNum" href="#8">  8: </a></td><td><span class="php-comment"> * (at your option) any later version.</span></td></tr><tr id="9" class="source-line"><td><a class="source-lineNum" href="#9">  9: </a></td><td><span class="php-comment"> *</span></td></tr><tr id="10" class="source-line"><td><a class="source-lineNum" href="#10"> 10: </a></td><td><span class="php-comment"> * GameQ is distributed in the hope that it will be useful,</span></td></tr><tr id="11" class="source-line"><td><a class="source-lineNum" href="#11"> 11: </a></td><td><span class="php-comment"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</span></td></tr><tr id="12" class="source-line"><td><a class="source-lineNum" href="#12"> 12: </a></td><td><span class="php-comment"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span></td></tr><tr id="13" class="source-line"><td><a class="source-lineNum" href="#13"> 13: </a></td><td><span class="php-comment"> * GNU Lesser General Public License for more details.</span></td></tr><tr id="14" class="source-line"><td><a class="source-lineNum" href="#14"> 14: </a></td><td><span class="php-comment"> *</span></td></tr><tr id="15" class="source-line"><td><a class="source-lineNum" href="#15"> 15: </a></td><td><span class="php-comment"> * You should have received a copy of the GNU Lesser General Public License</span></td></tr><tr id="16" class="source-line"><td><a class="source-lineNum" href="#16"> 16: </a></td><td><span class="php-comment"> * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></td></tr><tr id="17" class="source-line"><td><a class="source-lineNum" href="#17"> 17: </a></td><td><span class="php-comment"> */</span></td></tr><tr id="18" class="source-line"><td><a class="source-lineNum" href="#18"> 18: </a></td><td></td></tr><tr id="19" class="source-line"><td><a class="source-lineNum" href="#19"> 19: </a></td><td><span class="php-kw">namespace</span> GameQ\Protocols;</td></tr><tr id="20" class="source-line"><td><a class="source-lineNum" href="#20"> 20: </a></td><td></td></tr><tr id="21" class="source-line"><td><a class="source-lineNum" href="#21"> 21: </a></td><td><span class="php-kw">use</span> GameQ\Buffer;</td></tr><tr id="22" class="source-line"><td><a class="source-lineNum" href="#22"> 22: </a></td><td><span class="php-kw">use</span> GameQ\Exception\Protocol <span class="php-kw">as</span> Exception;</td></tr><tr id="23" class="source-line"><td><a class="source-lineNum" href="#23"> 23: </a></td><td><span class="php-kw">use</span> GameQ\Protocol;</td></tr><tr id="24" class="source-line"><td><a class="source-lineNum" href="#24"> 24: </a></td><td><span class="php-kw">use</span> GameQ\Result;</td></tr><tr id="25" class="source-line"><td><a class="source-lineNum" href="#25"> 25: </a></td><td><span class="php-kw">use</span> GameQ\Server;</td></tr><tr id="26" class="source-line"><td><a class="source-lineNum" href="#26"> 26: </a></td><td><span class="php-kw">use</span> GameQ\Protocols\Http;</td></tr><tr id="27" class="source-line"><td><a class="source-lineNum" href="#27"> 27: </a></td><td></td></tr><tr id="28" class="source-line"><td><a class="source-lineNum" href="#28"> 28: </a></td><td><span class="php-comment">/**</span></td></tr><tr id="29" class="source-line"><td><a class="source-lineNum" href="#29"> 29: </a></td><td><span class="php-comment"> * GTA Five M Protocol Class</span></td></tr><tr id="30" class="source-line"><td><a class="source-lineNum" href="#30"> 30: </a></td><td><span class="php-comment"> *</span></td></tr><tr id="31" class="source-line"><td><a class="source-lineNum" href="#31"> 31: </a></td><td><span class="php-comment"> * Server base can be found at https://fivem.net/</span></td></tr><tr id="32" class="source-line"><td><a class="source-lineNum" href="#32"> 32: </a></td><td><span class="php-comment"> *</span></td></tr><tr id="33" class="source-line"><td><a class="source-lineNum" href="#33"> 33: </a></td><td><span class="php-comment"> * Based on code found at https://github.com/LiquidObsidian/fivereborn-query</span></td></tr><tr id="34" class="source-line"><td><a class="source-lineNum" href="#34"> 34: </a></td><td><span class="php-comment"> *</span></td></tr><tr id="35" class="source-line"><td><a class="source-lineNum" href="#35"> 35: </a></td><td><span class="php-comment"> * @author Austin Bischoff &lt;austin@codebeard.com&gt;</span></td></tr><tr id="36" class="source-line"><td><a class="source-lineNum" href="#36"> 36: </a></td><td><span class="php-comment"> *</span></td></tr><tr id="37" class="source-line"><td><a class="source-lineNum" href="#37"> 37: </a></td><td><span class="php-comment"> * Adding FiveM Player List by</span></td></tr><tr id="38" class="source-line"><td><a class="source-lineNum" href="#38"> 38: </a></td><td><span class="php-comment"> * @author Jesse Lukas &lt;eranio@g-one.org&gt;</span></td></tr><tr id="39" class="source-line"><td><a class="source-lineNum" href="#39"> 39: </a></td><td><span class="php-comment"> */</span></td></tr><tr id="40" class="source-line"><td><a class="source-lineNum" href="#40"> 40: </a></td><td><span class="php-kw">class</span> Cfx <span class="php-kw">extends</span> Protocol</td></tr><tr id="41" class="source-line"><td><a class="source-lineNum" href="#41"> 41: </a></td><td>{</td></tr><tr id="42" class="source-line"><td><a class="source-lineNum" href="#42"> 42: </a></td><td></td></tr><tr id="43" class="source-line"><td><a class="source-lineNum" href="#43"> 43: </a></td><td>    <span class="php-comment">/**</span></td></tr><tr id="44" class="source-line"><td><a class="source-lineNum" href="#44"> 44: </a></td><td><span class="php-comment">     * Array of packets we want to look up.</span></td></tr><tr id="45" class="source-line"><td><a class="source-lineNum" href="#45"> 45: </a></td><td><span class="php-comment">     * Each key should correspond to a defined method in this or a parent class</span></td></tr><tr id="46" class="source-line"><td><a class="source-lineNum" href="#46"> 46: </a></td><td><span class="php-comment">     *</span></td></tr><tr id="47" class="source-line"><td><a class="source-lineNum" href="#47"> 47: </a></td><td><span class="php-comment">     * @type array</span></td></tr><tr id="48" class="source-line"><td><a class="source-lineNum" href="#48"> 48: </a></td><td><span class="php-comment">     */</span></td></tr><tr id="49" class="source-line"><td><a class="source-lineNum" href="#49"> 49: </a></td><td>    <span class="php-kw">protected</span> <span class="php-var">$packets</span> = [</td></tr><tr id="50" class="source-line"><td><a class="source-lineNum" href="#50"> 50: </a></td><td>        self::PACKET_STATUS =&gt; <span class="php-str">&quot;\xFF\xFF\xFF\xFFgetinfo xxx&quot;</span>,</td></tr><tr id="51" class="source-line"><td><a class="source-lineNum" href="#51"> 51: </a></td><td>    ];</td></tr><tr id="52" class="source-line"><td><a class="source-lineNum" href="#52"> 52: </a></td><td></td></tr><tr id="53" class="source-line"><td><a class="source-lineNum" href="#53"> 53: </a></td><td>    <span class="php-comment">/**</span></td></tr><tr id="54" class="source-line"><td><a class="source-lineNum" href="#54"> 54: </a></td><td><span class="php-comment">     * Use the response flag to figure out what method to run</span></td></tr><tr id="55" class="source-line"><td><a class="source-lineNum" href="#55"> 55: </a></td><td><span class="php-comment">     *</span></td></tr><tr id="56" class="source-line"><td><a class="source-lineNum" href="#56"> 56: </a></td><td><span class="php-comment">     * @type array</span></td></tr><tr id="57" class="source-line"><td><a class="source-lineNum" href="#57"> 57: </a></td><td><span class="php-comment">     */</span></td></tr><tr id="58" class="source-line"><td><a class="source-lineNum" href="#58"> 58: </a></td><td>    <span class="php-kw">protected</span> <span class="php-var">$responses</span> = [</td></tr><tr id="59" class="source-line"><td><a class="source-lineNum" href="#59"> 59: </a></td><td>        <span class="php-str">&quot;\xFF\xFF\xFF\xFFinfoResponse&quot;</span> =&gt; <span class="php-str">&quot;processStatus&quot;</span>,</td></tr><tr id="60" class="source-line"><td><a class="source-lineNum" href="#60"> 60: </a></td><td>    ];</td></tr><tr id="61" class="source-line"><td><a class="source-lineNum" href="#61"> 61: </a></td><td></td></tr><tr id="62" class="source-line"><td><a class="source-lineNum" href="#62"> 62: </a></td><td>    <span class="php-comment">/**</span></td></tr><tr id="63" class="source-line"><td><a class="source-lineNum" href="#63"> 63: </a></td><td><span class="php-comment">     * The query protocol used to make the call</span></td></tr><tr id="64" class="source-line"><td><a class="source-lineNum" href="#64"> 64: </a></td><td><span class="php-comment">     *</span></td></tr><tr id="65" class="source-line"><td><a class="source-lineNum" href="#65"> 65: </a></td><td><span class="php-comment">     * @type string</span></td></tr><tr id="66" class="source-line"><td><a class="source-lineNum" href="#66"> 66: </a></td><td><span class="php-comment">     */</span></td></tr><tr id="67" class="source-line"><td><a class="source-lineNum" href="#67"> 67: </a></td><td>    <span class="php-kw">protected</span> <span class="php-var">$protocol</span> = <span class="php-str">&#039;cfx&#039;</span>;</td></tr><tr id="68" class="source-line"><td><a class="source-lineNum" href="#68"> 68: </a></td><td></td></tr><tr id="69" class="source-line"><td><a class="source-lineNum" href="#69"> 69: </a></td><td>    <span class="php-comment">/**</span></td></tr><tr id="70" class="source-line"><td><a class="source-lineNum" href="#70"> 70: </a></td><td><span class="php-comment">     * String name of this protocol class</span></td></tr><tr id="71" class="source-line"><td><a class="source-lineNum" href="#71"> 71: </a></td><td><span class="php-comment">     *</span></td></tr><tr id="72" class="source-line"><td><a class="source-lineNum" href="#72"> 72: </a></td><td><span class="php-comment">     * @type string</span></td></tr><tr id="73" class="source-line"><td><a class="source-lineNum" href="#73"> 73: </a></td><td><span class="php-comment">     */</span></td></tr><tr id="74" class="source-line"><td><a class="source-lineNum" href="#74"> 74: </a></td><td>    <span class="php-kw">protected</span> <span class="php-var">$name</span> = <span class="php-str">&#039;cfx&#039;</span>;</td></tr><tr id="75" class="source-line"><td><a class="source-lineNum" href="#75"> 75: </a></td><td></td></tr><tr id="76" class="source-line"><td><a class="source-lineNum" href="#76"> 76: </a></td><td>    <span class="php-comment">/**</span></td></tr><tr id="77" class="source-line"><td><a class="source-lineNum" href="#77"> 77: </a></td><td><span class="php-comment">     * Longer string name of this protocol class</span></td></tr><tr id="78" class="source-line"><td><a class="source-lineNum" href="#78"> 78: </a></td><td><span class="php-comment">     *</span></td></tr><tr id="79" class="source-line"><td><a class="source-lineNum" href="#79"> 79: </a></td><td><span class="php-comment">     * @type string</span></td></tr><tr id="80" class="source-line"><td><a class="source-lineNum" href="#80"> 80: </a></td><td><span class="php-comment">     */</span></td></tr><tr id="81" class="source-line"><td><a class="source-lineNum" href="#81"> 81: </a></td><td>    <span class="php-kw">protected</span> <span class="php-var">$name_long</span> = <span class="php-str">&quot;CitizenFX&quot;</span>;</td></tr><tr id="82" class="source-line"><td><a class="source-lineNum" href="#82"> 82: </a></td><td></td></tr><tr id="83" class="source-line"><td><a class="source-lineNum" href="#83"> 83: </a></td><td>    <span class="php-comment">/**</span></td></tr><tr id="84" class="source-line"><td><a class="source-lineNum" href="#84"> 84: </a></td><td><span class="php-comment">     * Holds the Player list so we can overwrite it back</span></td></tr><tr id="85" class="source-line"><td><a class="source-lineNum" href="#85"> 85: </a></td><td><span class="php-comment">     *</span></td></tr><tr id="86" class="source-line"><td><a class="source-lineNum" href="#86"> 86: </a></td><td><span class="php-comment">     * @var string</span></td></tr><tr id="87" class="source-line"><td><a class="source-lineNum" href="#87"> 87: </a></td><td><span class="php-comment">     */</span></td></tr><tr id="88" class="source-line"><td><a class="source-lineNum" href="#88"> 88: </a></td><td>    <span class="php-kw">protected</span> <span class="php-var">$PlayerList</span> = [];</td></tr><tr id="89" class="source-line"><td><a class="source-lineNum" href="#89"> 89: </a></td><td></td></tr><tr id="90" class="source-line"><td><a class="source-lineNum" href="#90"> 90: </a></td><td>    <span class="php-comment">/**</span></td></tr><tr id="91" class="source-line"><td><a class="source-lineNum" href="#91"> 91: </a></td><td><span class="php-comment">     * Normalize settings for this protocol</span></td></tr><tr id="92" class="source-line"><td><a class="source-lineNum" href="#92"> 92: </a></td><td><span class="php-comment">     *</span></td></tr><tr id="93" class="source-line"><td><a class="source-lineNum" href="#93"> 93: </a></td><td><span class="php-comment">     * @type array</span></td></tr><tr id="94" class="source-line"><td><a class="source-lineNum" href="#94"> 94: </a></td><td><span class="php-comment">     */</span></td></tr><tr id="95" class="source-line"><td><a class="source-lineNum" href="#95"> 95: </a></td><td>    <span class="php-kw">protected</span> <span class="php-var">$normalize</span> = [</td></tr><tr id="96" class="source-line"><td><a class="source-lineNum" href="#96"> 96: </a></td><td>        <span class="php-comment">// General</span></td></tr><tr id="97" class="source-line"><td><a class="source-lineNum" href="#97"> 97: </a></td><td>        <span class="php-str">&#039;general&#039;</span> =&gt; [</td></tr><tr id="98" class="source-line"><td><a class="source-lineNum" href="#98"> 98: </a></td><td>            <span class="php-comment">// target       =&gt; source</span></td></tr><tr id="99" class="source-line"><td><a class="source-lineNum" href="#99"> 99: </a></td><td>            <span class="php-str">&#039;gametype&#039;</span>   =&gt; <span class="php-str">&#039;gametype&#039;</span>,</td></tr><tr id="100" class="source-line"><td><a class="source-lineNum" href="#100">100: </a></td><td>            <span class="php-str">&#039;hostname&#039;</span>   =&gt; <span class="php-str">&#039;hostname&#039;</span>,</td></tr><tr id="101" class="source-line"><td><a class="source-lineNum" href="#101">101: </a></td><td>            <span class="php-str">&#039;mapname&#039;</span>    =&gt; <span class="php-str">&#039;mapname&#039;</span>,</td></tr><tr id="102" class="source-line"><td><a class="source-lineNum" href="#102">102: </a></td><td>            <span class="php-str">&#039;maxplayers&#039;</span> =&gt; <span class="php-str">&#039;sv_maxclients&#039;</span>,</td></tr><tr id="103" class="source-line"><td><a class="source-lineNum" href="#103">103: </a></td><td>            <span class="php-str">&#039;mod&#039;</span>        =&gt; <span class="php-str">&#039;gamename&#039;</span>,</td></tr><tr id="104" class="source-line"><td><a class="source-lineNum" href="#104">104: </a></td><td>            <span class="php-str">&#039;numplayers&#039;</span> =&gt; <span class="php-str">&#039;clients&#039;</span>,</td></tr><tr id="105" class="source-line"><td><a class="source-lineNum" href="#105">105: </a></td><td>            <span class="php-str">&#039;password&#039;</span>   =&gt; <span class="php-str">&#039;privateClients&#039;</span>,</td></tr><tr id="106" class="source-line"><td><a class="source-lineNum" href="#106">106: </a></td><td>        ],</td></tr><tr id="107" class="source-line"><td><a class="source-lineNum" href="#107">107: </a></td><td>    ];</td></tr><tr id="108" class="source-line"><td><a class="source-lineNum" href="#108">108: </a></td><td></td></tr><tr id="109" class="source-line"><td><a class="source-lineNum" href="#109">109: </a></td><td>    <span class="php-comment">/**</span></td></tr><tr id="110" class="source-line"><td><a class="source-lineNum" href="#110">110: </a></td><td><span class="php-comment">     * Get FiveM players list using a sub query</span></td></tr><tr id="111" class="source-line"><td><a class="source-lineNum" href="#111">111: </a></td><td><span class="php-comment">     */</span></td></tr><tr id="112" class="source-line"><td><a class="source-lineNum" href="#112">112: </a></td><td>    <span class="php-kw">public</span> <span class="php-kw">function</span> beforeSend(Server <span class="php-var">$server</span>)</td></tr><tr id="113" class="source-line"><td><a class="source-lineNum" href="#113">113: </a></td><td>    {</td></tr><tr id="114" class="source-line"><td><a class="source-lineNum" href="#114">114: </a></td><td>        <span class="php-var">$GameQ</span> = <span class="php-kw">new</span> \GameQ\GameQ();</td></tr><tr id="115" class="source-line"><td><a class="source-lineNum" href="#115">115: </a></td><td>        <span class="php-var">$GameQ</span>-&gt;addServer([</td></tr><tr id="116" class="source-line"><td><a class="source-lineNum" href="#116">116: </a></td><td>            <span class="php-str">&#039;type&#039;</span> =&gt; <span class="php-str">&#039;cfxplayers&#039;</span>,</td></tr><tr id="117" class="source-line"><td><a class="source-lineNum" href="#117">117: </a></td><td>            <span class="php-str">&#039;host&#039;</span> =&gt; &quot;<span class="php-var">$server</span>-&gt;ip<span class="php-str">:</span><span class="php-var">$server</span>-&gt;port_query&quot;,</td></tr><tr id="118" class="source-line"><td><a class="source-lineNum" href="#118">118: </a></td><td>        ]);</td></tr><tr id="119" class="source-line"><td><a class="source-lineNum" href="#119">119: </a></td><td>        <span class="php-var">$results</span> = <span class="php-var">$GameQ</span>-&gt;process();</td></tr><tr id="120" class="source-line"><td><a class="source-lineNum" href="#120">120: </a></td><td>        <span class="php-var">$this</span>-&gt;PlayerList = <span class="php-kw">isset</span>(<span class="php-var">$results</span>[<span class="php-num">0</span>]) &amp;&amp; <span class="php-kw">isset</span>(<span class="php-var">$results</span>[<span class="php-num">0</span>][<span class="php-num">0</span>]) ? <span class="php-var">$results</span>[<span class="php-num">0</span>][<span class="php-num">0</span>] : [];</td></tr><tr id="121" class="source-line"><td><a class="source-lineNum" href="#121">121: </a></td><td>    }</td></tr><tr id="122" class="source-line"><td><a class="source-lineNum" href="#122">122: </a></td><td></td></tr><tr id="123" class="source-line"><td><a class="source-lineNum" href="#123">123: </a></td><td>    <span class="php-comment">/**</span></td></tr><tr id="124" class="source-line"><td><a class="source-lineNum" href="#124">124: </a></td><td><span class="php-comment">     * Process the response</span></td></tr><tr id="125" class="source-line"><td><a class="source-lineNum" href="#125">125: </a></td><td><span class="php-comment">     *</span></td></tr><tr id="126" class="source-line"><td><a class="source-lineNum" href="#126">126: </a></td><td><span class="php-comment">     * @return array</span></td></tr><tr id="127" class="source-line"><td><a class="source-lineNum" href="#127">127: </a></td><td><span class="php-comment">     * @throws \GameQ\Exception\Protocol</span></td></tr><tr id="128" class="source-line"><td><a class="source-lineNum" href="#128">128: </a></td><td><span class="php-comment">     */</span></td></tr><tr id="129" class="source-line"><td><a class="source-lineNum" href="#129">129: </a></td><td>    <span class="php-kw">public</span> <span class="php-kw">function</span> processResponse()</td></tr><tr id="130" class="source-line"><td><a class="source-lineNum" href="#130">130: </a></td><td>    {</td></tr><tr id="131" class="source-line"><td><a class="source-lineNum" href="#131">131: </a></td><td>        <span class="php-comment">// In case it comes back as multiple packets (it shouldn&#039;t)</span></td></tr><tr id="132" class="source-line"><td><a class="source-lineNum" href="#132">132: </a></td><td>        <span class="php-var">$buffer</span> = <span class="php-kw">new</span> Buffer(implode(<span class="php-str">&#039;&#039;</span>, <span class="php-var">$this</span>-&gt;packets_response));</td></tr><tr id="133" class="source-line"><td><a class="source-lineNum" href="#133">133: </a></td><td></td></tr><tr id="134" class="source-line"><td><a class="source-lineNum" href="#134">134: </a></td><td>        <span class="php-comment">// Figure out what packet response this is for</span></td></tr><tr id="135" class="source-line"><td><a class="source-lineNum" href="#135">135: </a></td><td>        <span class="php-var">$response_type</span> = <span class="php-var">$buffer</span>-&gt;readString(PHP_EOL);</td></tr><tr id="136" class="source-line"><td><a class="source-lineNum" href="#136">136: </a></td><td></td></tr><tr id="137" class="source-line"><td><a class="source-lineNum" href="#137">137: </a></td><td>        <span class="php-comment">// Figure out which packet response this is</span></td></tr><tr id="138" class="source-line"><td><a class="source-lineNum" href="#138">138: </a></td><td>        <span class="php-kw">if</span> (<span class="php-kw">empty</span>(<span class="php-var">$response_type</span>) || !array_key_exists(<span class="php-var">$response_type</span>, <span class="php-var">$this</span>-&gt;responses)) {</td></tr><tr id="139" class="source-line"><td><a class="source-lineNum" href="#139">139: </a></td><td>            <span class="php-kw">throw</span> <span class="php-kw">new</span> Exception(__METHOD__ . &quot;<span class="php-str"> response type &#039;</span>{<span class="php-var">$response_type</span>}<span class="php-str">&#039; is not valid</span>&quot;);</td></tr><tr id="140" class="source-line"><td><a class="source-lineNum" href="#140">140: </a></td><td>        }</td></tr><tr id="141" class="source-line"><td><a class="source-lineNum" href="#141">141: </a></td><td></td></tr><tr id="142" class="source-line"><td><a class="source-lineNum" href="#142">142: </a></td><td>        <span class="php-comment">// Offload the call</span></td></tr><tr id="143" class="source-line"><td><a class="source-lineNum" href="#143">143: </a></td><td>        <span class="php-var">$results</span> = call_user_func_array([<span class="php-var">$this</span>, <span class="php-var">$this</span>-&gt;responses[<span class="php-var">$response_type</span>]], [<span class="php-var">$buffer</span>]);</td></tr><tr id="144" class="source-line"><td><a class="source-lineNum" href="#144">144: </a></td><td></td></tr><tr id="145" class="source-line"><td><a class="source-lineNum" href="#145">145: </a></td><td>        <span class="php-kw">return</span> <span class="php-var">$results</span>;</td></tr><tr id="146" class="source-line"><td><a class="source-lineNum" href="#146">146: </a></td><td>    }</td></tr><tr id="147" class="source-line"><td><a class="source-lineNum" href="#147">147: </a></td><td></td></tr><tr id="148" class="source-line"><td><a class="source-lineNum" href="#148">148: </a></td><td>    <span class="php-comment">/*</span></td></tr><tr id="149" class="source-line"><td><a class="source-lineNum" href="#149">149: </a></td><td><span class="php-comment">     * Internal methods</span></td></tr><tr id="150" class="source-line"><td><a class="source-lineNum" href="#150">150: </a></td><td><span class="php-comment">     */</span></td></tr><tr id="151" class="source-line"><td><a class="source-lineNum" href="#151">151: </a></td><td></td></tr><tr id="152" class="source-line"><td><a class="source-lineNum" href="#152">152: </a></td><td>    <span class="php-comment">/**</span></td></tr><tr id="153" class="source-line"><td><a class="source-lineNum" href="#153">153: </a></td><td><span class="php-comment">     * Handle processing the status response</span></td></tr><tr id="154" class="source-line"><td><a class="source-lineNum" href="#154">154: </a></td><td><span class="php-comment">     *</span></td></tr><tr id="155" class="source-line"><td><a class="source-lineNum" href="#155">155: </a></td><td><span class="php-comment">     * @param Buffer $buffer</span></td></tr><tr id="156" class="source-line"><td><a class="source-lineNum" href="#156">156: </a></td><td><span class="php-comment">     *</span></td></tr><tr id="157" class="source-line"><td><a class="source-lineNum" href="#157">157: </a></td><td><span class="php-comment">     * @return array</span></td></tr><tr id="158" class="source-line"><td><a class="source-lineNum" href="#158">158: </a></td><td><span class="php-comment">     */</span></td></tr><tr id="159" class="source-line"><td><a class="source-lineNum" href="#159">159: </a></td><td>    <span class="php-kw">protected</span> <span class="php-kw">function</span> processStatus(Buffer <span class="php-var">$buffer</span>)</td></tr><tr id="160" class="source-line"><td><a class="source-lineNum" href="#160">160: </a></td><td>    {</td></tr><tr id="161" class="source-line"><td><a class="source-lineNum" href="#161">161: </a></td><td>        <span class="php-comment">// Set the result to a new result instance</span></td></tr><tr id="162" class="source-line"><td><a class="source-lineNum" href="#162">162: </a></td><td>        <span class="php-var">$result</span> = <span class="php-kw">new</span> Result();</td></tr><tr id="163" class="source-line"><td><a class="source-lineNum" href="#163">163: </a></td><td></td></tr><tr id="164" class="source-line"><td><a class="source-lineNum" href="#164">164: </a></td><td>        <span class="php-comment">// Lets peek and see if the data starts with a \</span></td></tr><tr id="165" class="source-line"><td><a class="source-lineNum" href="#165">165: </a></td><td>        <span class="php-kw">if</span> (<span class="php-var">$buffer</span>-&gt;lookAhead(<span class="php-num">1</span>) == <span class="php-str">&#039;\\&#039;</span>) {</td></tr><tr id="166" class="source-line"><td><a class="source-lineNum" href="#166">166: </a></td><td>            <span class="php-comment">// Burn the first one</span></td></tr><tr id="167" class="source-line"><td><a class="source-lineNum" href="#167">167: </a></td><td>            <span class="php-var">$buffer</span>-&gt;skip(<span class="php-num">1</span>);</td></tr><tr id="168" class="source-line"><td><a class="source-lineNum" href="#168">168: </a></td><td>        }</td></tr><tr id="169" class="source-line"><td><a class="source-lineNum" href="#169">169: </a></td><td></td></tr><tr id="170" class="source-line"><td><a class="source-lineNum" href="#170">170: </a></td><td>        <span class="php-comment">// Explode the data</span></td></tr><tr id="171" class="source-line"><td><a class="source-lineNum" href="#171">171: </a></td><td>        <span class="php-var">$data</span> = explode(<span class="php-str">&#039;\\&#039;</span>, <span class="php-var">$buffer</span>-&gt;getBuffer());</td></tr><tr id="172" class="source-line"><td><a class="source-lineNum" href="#172">172: </a></td><td></td></tr><tr id="173" class="source-line"><td><a class="source-lineNum" href="#173">173: </a></td><td>        <span class="php-comment">// No longer needed</span></td></tr><tr id="174" class="source-line"><td><a class="source-lineNum" href="#174">174: </a></td><td>        <span class="php-kw">unset</span>(<span class="php-var">$buffer</span>);</td></tr><tr id="175" class="source-line"><td><a class="source-lineNum" href="#175">175: </a></td><td></td></tr><tr id="176" class="source-line"><td><a class="source-lineNum" href="#176">176: </a></td><td>        <span class="php-var">$itemCount</span> = count(<span class="php-var">$data</span>);</td></tr><tr id="177" class="source-line"><td><a class="source-lineNum" href="#177">177: </a></td><td></td></tr><tr id="178" class="source-line"><td><a class="source-lineNum" href="#178">178: </a></td><td>        <span class="php-comment">// Now lets loop the array</span></td></tr><tr id="179" class="source-line"><td><a class="source-lineNum" href="#179">179: </a></td><td>        <span class="php-kw">for</span> (<span class="php-var">$x</span> = <span class="php-num">0</span>; <span class="php-var">$x</span> &lt; <span class="php-var">$itemCount</span>; <span class="php-var">$x</span> += <span class="php-num">2</span>) {</td></tr><tr id="180" class="source-line"><td><a class="source-lineNum" href="#180">180: </a></td><td>            <span class="php-comment">// Set some local vars</span></td></tr><tr id="181" class="source-line"><td><a class="source-lineNum" href="#181">181: </a></td><td>            <span class="php-var">$key</span> = <span class="php-var">$data</span>[<span class="php-var">$x</span>];</td></tr><tr id="182" class="source-line"><td><a class="source-lineNum" href="#182">182: </a></td><td>            <span class="php-var">$val</span> = <span class="php-var">$data</span>[<span class="php-var">$x</span> + <span class="php-num">1</span>];</td></tr><tr id="183" class="source-line"><td><a class="source-lineNum" href="#183">183: </a></td><td></td></tr><tr id="184" class="source-line"><td><a class="source-lineNum" href="#184">184: </a></td><td>            <span class="php-kw">if</span> (in_array(<span class="php-var">$key</span>, [<span class="php-str">&#039;challenge&#039;</span>])) {</td></tr><tr id="185" class="source-line"><td><a class="source-lineNum" href="#185">185: </a></td><td>                <span class="php-kw">continue</span>; <span class="php-comment">// skip</span></td></tr><tr id="186" class="source-line"><td><a class="source-lineNum" href="#186">186: </a></td><td>            }</td></tr><tr id="187" class="source-line"><td><a class="source-lineNum" href="#187">187: </a></td><td></td></tr><tr id="188" class="source-line"><td><a class="source-lineNum" href="#188">188: </a></td><td>            <span class="php-comment">// Regular variable so just add the value.</span></td></tr><tr id="189" class="source-line"><td><a class="source-lineNum" href="#189">189: </a></td><td>            <span class="php-var">$result</span>-&gt;add(<span class="php-var">$key</span>, <span class="php-var">$val</span>);</td></tr><tr id="190" class="source-line"><td><a class="source-lineNum" href="#190">190: </a></td><td>        }</td></tr><tr id="191" class="source-line"><td><a class="source-lineNum" href="#191">191: </a></td><td></td></tr><tr id="192" class="source-line"><td><a class="source-lineNum" href="#192">192: </a></td><td>        <span class="php-comment">// Add result of sub http-protocol if available</span></td></tr><tr id="193" class="source-line"><td><a class="source-lineNum" href="#193">193: </a></td><td>        <span class="php-kw">if</span> (<span class="php-var">$this</span>-&gt;PlayerList) {</td></tr><tr id="194" class="source-line"><td><a class="source-lineNum" href="#194">194: </a></td><td>            <span class="php-var">$result</span>-&gt;add(<span class="php-str">&#039;players&#039;</span>, <span class="php-var">$this</span>-&gt;PlayerList);</td></tr><tr id="195" class="source-line"><td><a class="source-lineNum" href="#195">195: </a></td><td>        }</td></tr><tr id="196" class="source-line"><td><a class="source-lineNum" href="#196">196: </a></td><td></td></tr><tr id="197" class="source-line"><td><a class="source-lineNum" href="#197">197: </a></td><td>        <span class="php-kw">return</span> <span class="php-var">$result</span>-&gt;fetch();</td></tr><tr id="198" class="source-line"><td><a class="source-lineNum" href="#198">198: </a></td><td>    }</td></tr><tr id="199" class="source-line"><td><a class="source-lineNum" href="#199">199: </a></td><td>}</td></tr><tr id="200" class="source-line"><td><a class="source-lineNum" href="#200">200: </a></td><td></td></tr></table>
+		</div>
+
+		<div class="layout-footer">
+			 API documentation generated by <a href="https://www.apigen.org">ApiGen dev-master</a>
+		</div>
+	</div>
+
+	<div class="layout-rest">
+		<div class="navbar"></div>
+	</div>
+</body>
+</html>
