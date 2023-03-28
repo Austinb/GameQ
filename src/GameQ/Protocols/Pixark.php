@@ -40,4 +40,11 @@ class Pixark extends Arkse
      * @type string
      */
     protected $name_long = "PixARK";
+
+    /**
+     * Query port = client_port + 1
+     *
+     * @type int
+     */
+    protected $port_diff = 1;
 }
