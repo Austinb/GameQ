@@ -38,6 +38,8 @@ class Server
 
     const SERVER_OPTIONS = 'options';
 
+    const SERVER_CUSTOM = 'custom';
+
     /*
      * Server options keys
      */
@@ -81,6 +83,13 @@ class Server
      * @type int
      */
     public $port_query = null;
+
+    /**
+     * The server's custom data
+     *
+     * @type array
+     */
+    public $custom = [];
 
     /**
      * Holds other server specific options
@@ -132,6 +141,12 @@ class Server
         if (array_key_exists(self::SERVER_OPTIONS, $server_info)) {
             // Set the options
             $this->options = $server_info[self::SERVER_OPTIONS];
+        }
+
+        // Check and set custom parameters
+        if (array_key_exists(self::SERVER_CUSTOM, $server_info)) {
+            // Set the parameters
+            $this->custom = $server_info[self::SERVER_CUSTOM];
         }
 
         try {
@@ -385,5 +400,15 @@ class Server
 
         // Reset the sockets list
         $this->sockets = [];
+    }
+
+    /**
+     * Get custom parameters
+     *
+     * @return array
+     */
+    public function getCustom()
+    {
+        return $this->custom;
     }
 }

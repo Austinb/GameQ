@@ -616,6 +616,7 @@ class GameQ
         $results['gq_type'] = (string)$server->protocol();
         $results['gq_name'] = $server->protocol()->nameLong();
         $results['gq_transport'] = $server->protocol()->transport();
+        $results['gq_custom'] = $server->getCustom();
 
         // Process the join link
         if (!isset($results['gq_joinlink']) || empty($results['gq_joinlink'])) {
