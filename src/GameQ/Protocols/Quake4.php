@@ -67,7 +67,7 @@ class Quake4 extends Doom3
             $result->addPlayer('ping', $buffer->readInt16());
             $result->addPlayer('rate', $buffer->readInt32());
             // Add player name, encoded
-            $result->addPlayer('name', utf8_encode(trim($buffer->readString())));
+            $result->addPlayer('name', mb_convert_encoding($buffer->readString(), 'UTF-8'));
             $result->addPlayer('clantag', $buffer->readString());
             // Increment
             $playerCount++;

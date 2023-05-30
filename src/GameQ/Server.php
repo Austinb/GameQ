@@ -126,7 +126,7 @@ class Server
         }
 
         // IP address and port check
-        $this->checkAndSetIpPort($server_info[self::SERVER_HOST]);
+        $this->checkAndSetIpPort($server_info[self::SERVER_HOST], $server_info[self::SERVER_TYPE]);
 
         // Check for server id
         if (array_key_exists(self::SERVER_ID, $server_info) && !empty($server_info[self::SERVER_ID])) {
@@ -173,11 +173,10 @@ class Server
      *
      * @throws \GameQ\Exception\Server
      */
-    protected function checkAndSetIpPort($ip_address)
+    protected function checkAndSetIpPort($ip_address, &$type)
     {
-
         // Test for IPv6
-        if (substr_count($ip_address, ':') > 1) {
+        if (substr_count($ip_address, ':') > 1 & $type != 'discord') {
             // See if we have a port, input should be in the format [::1]:27015 or similar
             if (strstr($ip_address, ']:')) {
                 // Explode to get port
@@ -202,7 +201,8 @@ class Server
             if (!filter_var(trim($this->ip, '[]'), FILTER_VALIDATE_IP, ['flags' => FILTER_FLAG_IPV6,])) {
                 throw new Exception("The IPv6 address '{$this->ip}' is invalid.");
             }
-        } else {
+        } 
+        else if($type != 'discord') {
             // We have IPv4 with a port defined
             if (strstr($ip_address, ':')) {
                 list($this->ip, $this->port_client) = explode(':', $ip_address);
@@ -230,6 +230,25 @@ class Server
                     $this->ip = $resolved;
                 }
             }
+
+        // ! HURAAYYY, IGNORE IF TYPE IS DISCORD
+        // ! AND SET PORT/QPORT AS 1 AND ONLY 1
+        }else{
+            if (strstr($ip_address, ':')) {
+                list($this->ip, $this->port_client) = explode(':', $ip_address);
+
+                // Type case the port
+                $this->options['invite'] = $this->port_client;
+                if(is_string($this->port_client)){
+                    $this->port_client = 1;
+                }
+            } else {
+                // No port, fail
+                throw new Exception(
+                    "The host address '{$ip_address}' is missing the invite."
+                    ."All discord servers must have invite like: discord.gg:<invite>"
+                );
+            }
         }
     }
 
@@ -242,7 +261,7 @@ class Server
         // Specific query port defined
         if (array_key_exists(self::SERVER_OPTIONS_QUERY_PORT, $this->options)) {
             $this->port_query = (int)$this->options[self::SERVER_OPTIONS_QUERY_PORT];
-        } else {
+        }else{
             // Do math based on the protocol class
             $this->port_query = $this->protocol->findQueryPort($this->port_client);
         }
@@ -345,7 +364,7 @@ class Server
     public function getJoinLink()
     {
 
-        return sprintf($this->protocol->joinLink(), $this->ip, $this->portClient());
+        return @sprintf($this->protocol->joinLink(), $this->ip, $this->portClient());
     }
 
     /*

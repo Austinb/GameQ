@@ -253,8 +253,11 @@ abstract class Protocol
      */
     public function findQueryPort($clientPort)
     {
-
-        return $clientPort + $this->port_diff;
+        if(!$this->protocol != 'discord'){
+            return $clientPort + $this->port_diff;
+        }else{
+            return 1;
+        }
     }
 
     /**

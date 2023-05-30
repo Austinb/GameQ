@@ -171,10 +171,10 @@ class Lhmp extends Protocol
         $result->add('password', $buffer->readString());
         $result->add('numplayers', $buffer->readInt16());
         $result->add('maxplayers', $buffer->readInt16());
-        $result->add('servername', utf8_encode($buffer->readPascalString()));
+        $result->add('servername',  mb_convert_encoding($buffer->readPascalString(), 'UTF-8'));
         $result->add('gamemode', $buffer->readPascalString());
-        $result->add('website', utf8_encode($buffer->readPascalString()));
-        $result->add('mapname', utf8_encode($buffer->readPascalString()));
+        $result->add('website',  mb_convert_encoding($buffer->readPascalString(), 'UTF-8'));
+        $result->add('mapname',  mb_convert_encoding($buffer->readPascalString(), 'UTF-8'));
 
         unset($buffer);
 
@@ -203,7 +203,7 @@ class Lhmp extends Protocol
             if (($id = $buffer->readInt16()) !== 0) {
                 // Add the results
                 $result->addPlayer('id', $id);
-                $result->addPlayer('name', utf8_encode($buffer->readPascalString()));
+                $result->addPlayer('name', mb_convert_encoding($buffer->readPascalString(), 'UTF-8'));
             }
         }
 

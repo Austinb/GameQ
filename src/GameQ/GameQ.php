@@ -125,8 +125,10 @@ class GameQ
     public function __construct()
     {
         // Check for missing utf8_encode function
-        if (!function_exists('utf8_encode')) {
-            throw new \Exception("PHP's utf8_encode() function is required - "
+
+        // Deprecached utf8_encode
+        if (!function_exists('mb_convert_encoding')) {
+            throw new \Exception("PHP's mb_convert_encoding() function is required - "
                 . "http://php.net/manual/en/function.utf8-encode.php.  Check your php installation.");
         }
     }

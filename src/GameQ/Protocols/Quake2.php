@@ -154,7 +154,7 @@ class Quake2 extends Protocol
             // Add result
             $result->add(
                 trim($buffer->readString('\\')),
-                utf8_encode(trim($buffer->readStringMulti(['\\', "\x0a"])))
+                mb_convert_encoding(trim($buffer->readStringMulti(['\\', "\x0a"])), 'UTF-8')
             );
         }
 
@@ -194,8 +194,8 @@ class Quake2 extends Protocol
             $playerInfo->skip(1);
 
             // Add player name, encoded
-            $result->addPlayer('name', utf8_encode(trim(($playerInfo->readString('"')))));
-
+            $result->addPlayer('name', mb_convert_encoding(trim(($playerInfo->readString('"'))), 'UTF-8'));
+            
             // Skip first "
             $playerInfo->skip(2);
 

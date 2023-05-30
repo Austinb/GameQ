@@ -252,7 +252,7 @@ class Gamespy3 extends Protocol
             if (strlen($key) == 0) {
                 break;
             }
-            $result->add($key, utf8_encode($buffer->readString()));
+            $result->add($key, mb_convert_encoding($buffer->readString(), 'UTF-8'));
         }
     }
 
@@ -328,7 +328,7 @@ class Gamespy3 extends Protocol
                         break;
                     }
                     // Add the value to the proper item in the correct group
-                    $result->addSub($item_group, $item_type, utf8_encode(trim($val)));
+                    $result->addSub($item_group, $item_type, mb_convert_encoding(trim($val), 'UTF-8'));
                 }
                 // Unset our buffer
                 unset($buf_temp);

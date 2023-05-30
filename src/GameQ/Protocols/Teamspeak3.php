@@ -231,7 +231,7 @@ class Teamspeak3 extends Protocol
             list($key, $value) = array_pad(explode('=', $item, 2), 2, '');
 
             // Convert spaces and other character changes
-            $properties[$key] = utf8_encode(str_replace(
+            $properties[$key] = mb_convert_encoding(str_replace(
                 [
                     '\\s', // Translate spaces
                 ],
@@ -239,7 +239,7 @@ class Teamspeak3 extends Protocol
                     ' ',
                 ],
                 $value
-            ));
+            ), 'UTF-8');
         }
 
         return $properties;
