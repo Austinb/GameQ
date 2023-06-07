@@ -95,7 +95,7 @@ class CFXPlayers extends Http
         }
 
         // Implode and rip out the JSON
-        preg_match('/\{(.*)\}/ms', implode('', $this->packets_response), $matches);
+        preg_match('/\[\{(.*)\}\]/ms', implode('', $this->packets_response), $matches);
 
         // Return should be JSON, let's validate
         if (!isset($matches[0]) || ($json = json_decode($matches[0], true)) === null) {
