@@ -140,7 +140,7 @@ class Beammp extends Protocol
         if (empty($this->packets_response)) {
             $result->add('online', false);
         } else {
-            $this->packets_response['players_list'] = explode(';', preg_replace('/;$/u', '', $this->packets_response['playerslist']));
+            $this->packets_response['players_list'] = explode(';', $this->packets_response['playerslist'], -1);
             $this->packets_response['players_count'] = count($this->packets_response['players_list']);
             unset($this->packets_response['players']);
 
