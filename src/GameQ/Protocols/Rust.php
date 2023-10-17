@@ -123,51 +123,61 @@ class Rust extends Source
     protected function processDetails(Buffer $buffer)
     {
         $results = parent::processDetails($buffer);
-
         if (isset($results['keywords']) and strlen($results['keywords']) > 0) {
             $keywords = explode(',', $results['keywords']);
             if (sizeof($keywords) > 0) {
-                $results['server.keywords'] = [];
-                $results['unhandled.tags'] = [];
-                $results['server.tags'] = [];
-
-                foreach ($keywords as $gametag) {
-                    $parsed = false;
-                    $gametag = trim(mb_strtolower($gametag));
-                    if (in_array($gametag, $this->server_tags)) {
-                        $parsed = true;
-                        $results['server.tags'][] = $gametag;
-                    } elseif (in_array($gametag, $this->region_tags)) {
-                        $parsed = true;
-                        $results['region'] = mb_strtoupper($gametag);
-                    } else {
-                        foreach ($this->server_keywords as $server_keyword) {
-                            if (strpos($gametag, $server_keyword) === 0) {
-                                $parsed = true;
-                                if ($gametag == $server_keyword) {
-                                    $results['server.keywords'][$gametag] = true;
-                                } else {
-                                    $results['server.keywords'][$server_keyword] = mb_substr($gametag, mb_strlen($server_keyword));
-                                }
-                            }
-                        }
+                $results = array_merge($results, $this->parseKeywords($keywords));
+                foreach (['cp' => 'num_players', 'mp' => 'max_players'] as $keyword => $key) {
+                    if (isset($results['server.keywords'][$keyword])) {
+                        $results[$key] = intval($results['server.keywords'][$keyword]);
                     }
-
-                    if (!$parsed) {
-                        $results['unhandled.tags'][] = $gametag;
-                    }
-                }
-
-                if (isset($results['server.keywords']['cp'])) {
-                    $results['num_players'] = intval($results['server.keywords']['cp']);
-                }
-
-                if (isset($results['server.keywords']['mp'])) {
-                    $results['max_players'] = intval($results['server.keywords']['mp']);
                 }
             }
         }
 
         return $results;
+    }
+
+    /**
+     * Parse keywords
+     *
+     * @param array $keywords
+     */
+    protected function parseKeywords(array $keywords = [])
+    {
+        $result = [
+            'server.keywords' => [],
+            'unhandled.tags' => [],
+            'server.tags' = []
+        ];
+
+        foreach ($keywords as $gametag) {
+            $parsed = false;
+            $gametag = trim(mb_strtolower($gametag));
+            if (in_array($gametag, $this->server_tags)) {
+                $parsed = true;
+                $result['server.tags'][] = $gametag;
+            } elseif (in_array($gametag, $this->region_tags)) {
+                $parsed = true;
+                $result['region'] = mb_strtoupper($gametag);
+            } else {
+                foreach ($this->server_keywords as $server_keyword) {
+                    if (strpos($gametag, $server_keyword) === 0) {
+                        $parsed = true;
+                        if ($gametag == $server_keyword) {
+                            $result['server.keywords'][$gametag] = true;
+                        } else {
+                            $result['server.keywords'][$server_keyword] = mb_substr($gametag, mb_strlen($server_keyword));
+                        }
+                    }
+                }
+            }
+
+            if (!$parsed) {
+                $result['unhandled.tags'][] = $gametag;
+            }
+        }
+
+        return $result;
     }
 }
