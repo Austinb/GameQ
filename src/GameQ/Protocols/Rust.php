@@ -99,6 +99,7 @@ class Rust extends Source
                 foreach ($keywords as $gametag)
                 {
                     $parsed = FALSE;
+                    $gametag = trim(mb_strtolower($gametag));
 
                     if (in_array($gametag, $this->server_tags))
                     {
@@ -106,7 +107,7 @@ class Rust extends Source
 
                         $results['server.tags'][] = $gametag;
                     }
-                    elseif (in_array(mb_strtolower($gametag), $this->region_tags))
+                    elseif (in_array($gametag, $this->region_tags))
                     {
                         $parsed = TRUE;
 
