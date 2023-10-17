@@ -134,26 +134,19 @@ class Rust extends Source
                 foreach ($keywords as $gametag) {
                     $parsed = false;
                     $gametag = trim(mb_strtolower($gametag));
-
                     if (in_array($gametag, $this->server_tags)) {
                         $parsed = true;
-
                         $results['server.tags'][] = $gametag;
                     } elseif (in_array($gametag, $this->region_tags)) {
                         $parsed = true;
-
                         $results['region'] = mb_strtoupper($gametag);
                     } else {
-                        foreach ($this->server_keywords as $server_keyword)
-                        {
-                            if (strpos($gametag, $server_keyword) === 0)
-                            {
+                        foreach ($this->server_keywords as $server_keyword) {
+                            if (strpos($gametag, $server_keyword) === 0) {
                                 $parsed = true;
-
                                 if ($gametag == $server_keyword) {
                                     $results['server.keywords'][$gametag] = true;
-                                }
-                                else {
+                                } else {
                                     $results['server.keywords'][$server_keyword] = mb_substr($gametag, mb_strlen($server_keyword));
                                 }
                             }
