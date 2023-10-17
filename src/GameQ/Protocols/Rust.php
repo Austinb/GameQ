@@ -62,7 +62,7 @@ class Rust extends Source
      *
      * @type array
      */
-    private $region_tags = ['NA', 'SA', 'EU', 'WA', 'EA', 'OC', 'AF'];
+    private $region_tags = ['na', 'sa', 'eu', 'wa', 'ea', 'oc', 'af'];
 
     /**
      * String name of this protocol class
@@ -106,11 +106,11 @@ class Rust extends Source
 
                         $results['server.tags'][] = $gametag;
                     }
-                    elseif (in_array($gametag, $this->region_tags))
+                    elseif (in_array(mb_strtolower($gametag), $this->region_tags))
                     {
                         $parsed = TRUE;
 
-                        $results['region'] = $gametag;
+                        $results['region'] = mb_strtoupper($gametag);
                     }
                     else
                     {
