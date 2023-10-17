@@ -48,8 +48,7 @@ class Rust extends Source
      *
      * @type array
      */
-    private $server_keywords = 
-    [
+    private $server_keywords = [
         'mp',
         'cp',
         'qp',
@@ -70,8 +69,7 @@ class Rust extends Source
      *
      * @type array
      */
-    private $server_tags = 
-    [
+    private $server_tags = [
         'monthly',
         'biweekly',
         'weekly',
@@ -93,8 +91,7 @@ class Rust extends Source
      *
      * @type array
      */
-    private $region_tags = 
-    [
+    private $region_tags = [
         'na',
         'sa',
         'eu',
@@ -142,13 +139,11 @@ class Rust extends Source
                         $parsed = true;
 
                         $results['server.tags'][] = $gametag;
-                    }
-                    elseif (in_array($gametag, $this->region_tags)) {
+                    } elseif (in_array($gametag, $this->region_tags)) {
                         $parsed = true;
 
                         $results['region'] = mb_strtoupper($gametag);
-                    }
-                    else {
+                    } else {
                         foreach ($this->server_keywords as $server_keyword)
                         {
                             if (strpos($gametag, $server_keyword) === 0)
