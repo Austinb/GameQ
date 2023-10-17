@@ -114,7 +114,7 @@ class Rust extends Source
      * @type string
      */
     protected $name_long = "Rust";
-    
+
     /**
      * Processing of server tags and more correct indication of the current number of players and the maximum number of players
      *
@@ -158,10 +158,12 @@ class Rust extends Source
                     }
                 }
 
-                foreach (['cp' => 'num_players', 'mp' => 'max_players'] as $keyword => $key) {
-                    if (isset($results['server.keywords'][$keyword])) {
-                        $results[$key] = intval($results['server.keywords'][$keyword]);
-                    }
+                if (isset($results['server.keywords']['cp'])) {
+                    $results['num_players'] = intval($results['server.keywords']['cp']);
+                }
+
+                if (isset($results['server.keywords']['mp'])) {
+                    $results['max_players'] = intval($results['server.keywords']['mp']);
                 }
             }
         }
