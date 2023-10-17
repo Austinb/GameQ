@@ -148,7 +148,7 @@ class Rust extends Source
         $result = [
             'server.keywords' => [],
             'unhandled.tags' => [],
-            'server.tags' = []
+            'server.tags' => []
         ];
 
         foreach ($keywords as $gametag) {
