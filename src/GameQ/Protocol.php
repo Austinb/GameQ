@@ -440,7 +440,6 @@ abstract class Protocol
      */
     public function challengeParseAndApply(Buffer $challenge_buffer)
     {
-
         return true;
     }
 

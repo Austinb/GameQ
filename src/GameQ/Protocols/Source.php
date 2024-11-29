@@ -138,7 +138,11 @@ class Source extends Protocol
     public function challengeParseAndApply(Buffer $challenge_buffer)
     {
         // Skip the header
-        $challenge_buffer->skip(5);
+        $challenge_buffer->skip(4);
+
+        if ($challenge_buffer->read() !== "\x41") {
+            return true;
+        }
 
         // Apply the challenge and return
         return $this->challengeApply($challenge_buffer->read(4));
