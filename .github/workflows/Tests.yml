@@ -60,6 +60,11 @@ jobs:
         run: vendor/bin/phpunit -c phpunit.xml --verbose
 
       - name: Upload Coveralls coverage
+        uses: coverallsapp/github-action@v2
+        with:
+          parallel: true
+
+      - name: Upload Coveralls coverage
         if: github.repository == 'Austinb/GameQ'
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -72,3 +77,13 @@ jobs:
         if: github.repository == 'Austinb/GameQ'
         with:
             cli-args: "--format=php-clover build/logs/clover.xml --revision=${{ github.event.pull_request.head.sha || github.sha }}"
+
+  Finish:
+    needs: CI
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Coveralls Finished
+      uses: coverallsapp/github-action@v2
+      with:
+        parallel-finished: true
