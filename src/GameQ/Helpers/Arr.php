@@ -56,7 +56,7 @@ class Arr
             /* Wrap the implementation to handle PHP < 8.1 behaviour */
             static::handleArrayIteratorCopyOrReference(
                 $data,
-                $recursiveIterator, 
+                $recursiveIterator,
                 $subIterator,
                 /* Update the current value */
                 fn () => $subIterator->offsetSet(
@@ -82,9 +82,9 @@ class Arr
      * @return void
      */
     protected static function handleArrayIteratorCopyOrReference(
-        array &$data, 
-        RecursiveIteratorIterator $recursiveIterator, 
-        RecursiveArrayIterator $iterator, 
+        array &$data,
+        RecursiveIteratorIterator $recursiveIterator,
+        RecursiveArrayIterator $iterator,
         Closure $callback
     ) {
         /* ArrayIterator before PHP 8.1 does use a copy instead of reference */
