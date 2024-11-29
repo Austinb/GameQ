@@ -200,10 +200,11 @@ class Teamspeak2 extends Protocol
      *
      * @param string        $data
      * @param \GameQ\Result $result
+     * @return void
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processDetails($data, Result &$result)
     {
-
         // Create a buffer
         $buffer = new Buffer($data);
 
@@ -230,10 +231,11 @@ class Teamspeak2 extends Protocol
      *
      * @param string        $data
      * @param \GameQ\Result $result
+     * @return void
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processChannels($data, Result &$result)
     {
-
         // Create a buffer
         $buffer = new Buffer($data);
 
@@ -262,6 +264,8 @@ class Teamspeak2 extends Protocol
      *
      * @param string        $data
      * @param \GameQ\Result $result
+     * @return void
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processPlayers($data, Result &$result)
     {

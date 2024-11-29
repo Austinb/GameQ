@@ -87,6 +87,7 @@ class Openttd extends Protocol
      *
      * @return mixed
      * @throws Exception
+     * @throws \GameQ\Exception\Protocol
      */
     public function processResponse()
     {
@@ -114,8 +115,8 @@ class Openttd extends Protocol
      * Handle processing the server information
      *
      * @param Buffer $buffer
-     *
      * @return array
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processServerInfo(Buffer $buffer)
     {

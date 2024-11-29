@@ -62,10 +62,10 @@ class Ut3 extends Gamespy3
      * Overload the response process so we can make some changes
      *
      * @return array
+     * @throws \GameQ\Exception\Protocol
      */
     public function processResponse()
     {
-
         // Grab the result from the parent
         /** @var array $result */
         $result = parent::processResponse();

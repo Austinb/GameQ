@@ -47,6 +47,8 @@ class Rust extends Source
      * Overload so we can get max players from mp of keywords and num players from cp keyword
      *
      * @param Buffer $buffer
+     * @return mixed
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processDetails(Buffer $buffer)
     {

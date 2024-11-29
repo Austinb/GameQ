@@ -158,9 +158,9 @@ class Lhmp extends Protocol
      * Handles processing the details data into a usable format
      *
      * @param Buffer $buffer
-     *
      * @return array
      * @throws Exception
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processDetails(Buffer $buffer)
     {
@@ -186,8 +186,8 @@ class Lhmp extends Protocol
      * Handles processing the player data into a usable format
      *
      * @param Buffer $buffer
-     *
      * @return array
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processPlayers(Buffer $buffer)
     {

@@ -88,6 +88,7 @@ class Quake2 extends Protocol
      *
      * @return mixed
      * @throws Exception
+     * @throws \GameQ\Exception\Protocol
      */
     public function processResponse()
     {
@@ -109,8 +110,8 @@ class Quake2 extends Protocol
      * Process the status response
      *
      * @param Buffer $buffer
-     *
      * @return array
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processStatus(Buffer $buffer)
     {
@@ -132,8 +133,8 @@ class Quake2 extends Protocol
      * Handle processing the server information
      *
      * @param Buffer $buffer
-     *
      * @return array
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processServerInfo(Buffer $buffer)
     {
@@ -164,8 +165,8 @@ class Quake2 extends Protocol
      * Handle processing of player data
      *
      * @param Buffer $buffer
-     *
      * @return array
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processPlayers(Buffer $buffer)
     {

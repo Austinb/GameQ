@@ -65,6 +65,7 @@ class Killingfloor extends Unreal2
      * @param \GameQ\Buffer $buffer
      *
      * @return array
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processDetails(Buffer $buffer)
     {

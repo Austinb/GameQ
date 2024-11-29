@@ -132,6 +132,7 @@ class Etqw extends Protocol
      * @param Buffer $buffer
      *
      * @return array
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processStatus(Buffer $buffer)
     {
@@ -186,6 +187,8 @@ class Etqw extends Protocol
      *
      * @param Buffer $buffer
      * @param Result $result
+     * @return void
+     * @throws \GameQ\Exception\Protocol
      */
     protected function parsePlayers(Buffer &$buffer, Result &$result)
     {
@@ -215,6 +218,8 @@ class Etqw extends Protocol
      *
      * @param Buffer $buffer
      * @param Result $result
+     * @return void
+     * @throws \GameQ\Exception\Protocol
      */
     protected function parsePlayersExtra(Buffer &$buffer, Result &$result)
     {

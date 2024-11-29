@@ -49,8 +49,8 @@ class Quake4 extends Doom3
      * Handle processing of player data
      *
      * @param \GameQ\Buffer $buffer
-     *
      * @return array
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processPlayers(Buffer $buffer)
     {

@@ -129,7 +129,6 @@ class Bfbc2 extends Protocol
      */
     public function processResponse()
     {
-
         //print_r($this->packets_response);
 
         // Holds the results sent back
@@ -175,10 +174,10 @@ class Bfbc2 extends Protocol
      * @param \GameQ\Buffer $buffer
      *
      * @return array
+     * @throws \GameQ\Exception\Protocol
      */
     protected function decode(Buffer $buffer)
     {
-
         $items = [];
 
         // Get the number of words in this buffer
@@ -202,10 +201,10 @@ class Bfbc2 extends Protocol
      * @param \GameQ\Buffer $buffer
      *
      * @return array
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processDetails(Buffer $buffer)
     {
-
         // Decode into items
         $items = $this->decode($buffer);
 
@@ -265,6 +264,7 @@ class Bfbc2 extends Protocol
      * @param \GameQ\Buffer $buffer
      *
      * @return array
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processVersion(Buffer $buffer)
     {
@@ -287,10 +287,10 @@ class Bfbc2 extends Protocol
      * @param \GameQ\Buffer $buffer
      *
      * @return array
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processPlayers(Buffer $buffer)
     {
-
         // Decode into items
         $items = $this->decode($buffer);
 

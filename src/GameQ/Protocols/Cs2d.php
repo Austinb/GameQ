@@ -118,7 +118,6 @@ class Cs2d extends Protocol
      */
     public function processResponse()
     {
-
         // We have a merged packet, try to split it back up
         if (count($this->packets_response) == 1) {
             // Temp buffer to make string manipulation easier
@@ -182,7 +181,8 @@ class Cs2d extends Protocol
      * @param Buffer $buffer
      *
      * @return array
-     * @throws Exception
+     * @throws \Exception
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processDetails(Buffer $buffer)
     {
@@ -220,7 +220,8 @@ class Cs2d extends Protocol
      * @param Buffer $buffer
      *
      * @return array
-     * @throws Exception
+     * @throws \Exception
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processPlayers(Buffer $buffer)
     {

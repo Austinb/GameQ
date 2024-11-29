@@ -163,6 +163,7 @@ class Gamespy2 extends Protocol
      *
      * @return array
      * @throws Exception
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processDetails(Buffer $buffer)
     {
@@ -191,6 +192,7 @@ class Gamespy2 extends Protocol
      *
      * @return array
      * @throws Exception
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processPlayers(Buffer $buffer)
     {
@@ -220,6 +222,7 @@ class Gamespy2 extends Protocol
      * @param \GameQ\Result $result
      *
      * @throws Exception
+     * @throws \GameQ\Exception\Protocol
      */
     protected function parsePlayerTeam($dataType, Buffer &$buffer, Result &$result)
     {

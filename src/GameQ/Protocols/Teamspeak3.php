@@ -116,7 +116,7 @@ class Teamspeak3 extends Protocol
      * Before we send off the queries we need to update the packets
      *
      * @param \GameQ\Server $server
-     *
+     * @return void
      * @throws \GameQ\Exception\Protocol
      */
     public function beforeSend(Server $server)
@@ -214,7 +214,6 @@ class Teamspeak3 extends Protocol
      * Takes data in "key1=value1 key2=value2 ..." and processes it into a usable format
      *
      * @param $data
-     *
      * @return array
      */
     protected function processProperties($data)
@@ -251,6 +250,7 @@ class Teamspeak3 extends Protocol
      *
      * @param string        $data
      * @param \GameQ\Result $result
+     * @return void
      */
     protected function processDetails($data, Result &$result)
     {
@@ -280,6 +280,7 @@ class Teamspeak3 extends Protocol
      *
      * @param string        $data
      * @param \GameQ\Result $result
+     * @return void
      */
     protected function processChannels($data, Result &$result)
     {
@@ -306,6 +307,7 @@ class Teamspeak3 extends Protocol
      *
      * @param string        $data
      * @param \GameQ\Result $result
+     * @return void
      */
     protected function processPlayers($data, Result &$result)
     {

@@ -184,8 +184,8 @@ class Unreal2 extends Protocol
      * Handles processing the player data into a usable format
      *
      * @param \GameQ\Buffer $buffer
-     *
      * @return mixed
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processPlayers(Buffer $buffer)
     {
@@ -217,8 +217,8 @@ class Unreal2 extends Protocol
      * Handles processing the rules data into a usable format
      *
      * @param \GameQ\Buffer $buffer
-     *
      * @return mixed
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processRules(Buffer $buffer)
     {

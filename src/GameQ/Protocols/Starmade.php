@@ -34,7 +34,6 @@ use GameQ\Exception\Protocol as Exception;
  */
 class Starmade extends Protocol
 {
-
     /**
      * Array of packets we want to query.
      *
@@ -97,7 +96,6 @@ class Starmade extends Protocol
      */
     public function processResponse()
     {
-
         // Implode the packets, not sure if there is any split logic for multiple packets
         $buffer = new Buffer(implode('', $this->packets_response), Buffer::NUMBER_TYPE_BIGENDIAN);
 
@@ -147,7 +145,6 @@ class Starmade extends Protocol
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      *
      * @param \GameQ\Buffer $buffer
-     *
      * @return array
      * @throws \GameQ\Exception\Protocol
      */

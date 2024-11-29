@@ -55,7 +55,6 @@ class Warsow extends Quake3
      * Handle player info, different than quake3 base
      *
      * @param Buffer $buffer
-     *
      * @return array
      * @throws \GameQ\Exception\Protocol
      */

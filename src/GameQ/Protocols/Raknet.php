@@ -78,7 +78,6 @@ class Raknet extends Protocol
      * Do some work to build the packet we need to send out to query
      *
      * @param Server $server
-     *
      * @return void
      */
     public function beforeSend(Server $server)

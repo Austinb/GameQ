@@ -109,6 +109,7 @@ class Teeworlds extends Protocol
      *
      * @return array
      * @throws Exception
+     * @throws \GameQ\Exception\Protocol
      */
     public function processResponse()
     {
@@ -144,8 +145,8 @@ class Teeworlds extends Protocol
      * Handle processing all of the data returned
      *
      * @param Buffer $buffer
-     *
      * @return array
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processAll(Buffer $buffer)
     {

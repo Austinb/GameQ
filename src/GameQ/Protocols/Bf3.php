@@ -193,6 +193,7 @@ class Bf3 extends Protocol
      * @param \GameQ\Buffer $buffer
      *
      * @return array
+     * @throws \GameQ\Exception\Protocol
      */
     protected function decode(Buffer $buffer)
     {
@@ -286,6 +287,7 @@ class Bf3 extends Protocol
      * @param \GameQ\Buffer $buffer
      *
      * @return array
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processVersion(Buffer $buffer)
     {
@@ -309,6 +311,7 @@ class Bf3 extends Protocol
      * @param \GameQ\Buffer $buffer
      *
      * @return array
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processPlayers(Buffer $buffer)
     {

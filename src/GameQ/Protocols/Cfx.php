@@ -23,7 +23,6 @@ use GameQ\Exception\Protocol as Exception;
 use GameQ\Protocol;
 use GameQ\Result;
 use GameQ\Server;
-use GameQ\Protocols\Http;
 
 /**
  * GTA Five M Protocol Class
@@ -108,6 +107,8 @@ class Cfx extends Protocol
 
     /**
      * Get FiveM players list using a sub query
+     * 
+     * @throws \Exception
      */
     public function beforeSend(Server $server)
     {

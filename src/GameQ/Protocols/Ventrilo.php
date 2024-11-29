@@ -745,7 +745,6 @@ class Ventrilo extends Protocol
      * @codeCoverageIgnore
      *
      * @param array $packets
-     *
      * @return string
      * @throws \GameQ\Exception\Protocol
      */
@@ -838,6 +837,7 @@ class Ventrilo extends Protocol
      * @param string        $data
      * @param int           $fieldCount
      * @param \GameQ\Result $result
+     * @return void
      */
     protected function processChannel($data, $fieldCount, Result &$result)
     {
@@ -860,6 +860,7 @@ class Ventrilo extends Protocol
      * @param string        $data
      * @param int           $fieldCount
      * @param \GameQ\Result $result
+     * @return void
      */
     protected function processPlayer($data, $fieldCount, Result &$result)
     {

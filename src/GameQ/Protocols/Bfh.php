@@ -26,7 +26,6 @@ namespace GameQ\Protocols;
  */
 class Bfh extends Bf4
 {
-
     /**
      * String name of this protocol class
      *

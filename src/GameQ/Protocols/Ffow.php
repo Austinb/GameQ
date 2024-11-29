@@ -154,6 +154,7 @@ class Ffow extends Protocol
      * @param Buffer $buffer
      *
      * @return array
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processInfo(Buffer $buffer)
     {
@@ -189,6 +190,7 @@ class Ffow extends Protocol
      * @param Buffer $buffer
      *
      * @return array
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processRules(Buffer $buffer)
     {

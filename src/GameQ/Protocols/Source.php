@@ -132,13 +132,11 @@ class Source extends Protocol
      * Parse the challenge response and apply it to all the packet types
      *
      * @param \GameQ\Buffer $challenge_buffer
-     *
      * @return bool
      * @throws \GameQ\Exception\Protocol
      */
     public function challengeParseAndApply(Buffer $challenge_buffer)
     {
-
         // Skip the header
         $challenge_buffer->skip(5);
 
@@ -233,7 +231,6 @@ class Source extends Protocol
      *
      * @param       $packet_id
      * @param array $packets
-     *
      * @return string
      * @throws \GameQ\Exception\Protocol
      */
@@ -337,7 +334,6 @@ class Source extends Protocol
      * Handles processing the details data into a usable format
      *
      * @param \GameQ\Buffer $buffer
-     *
      * @return mixed
      * @throws \GameQ\Exception\Protocol
      */
@@ -410,13 +406,11 @@ class Source extends Protocol
      * Handles processing the server details from goldsource response
      *
      * @param \GameQ\Buffer $buffer
-     *
      * @return array
      * @throws \GameQ\Exception\Protocol
      */
     protected function processDetailsGoldSource(Buffer $buffer)
     {
-
         // Set the result to a new result instance
         $result = new Result();
 
@@ -458,8 +452,8 @@ class Source extends Protocol
      * Handles processing the player data into a usable format
      *
      * @param \GameQ\Buffer $buffer
-     *
      * @return mixed
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processPlayers(Buffer $buffer)
     {
@@ -495,8 +489,8 @@ class Source extends Protocol
      * Handles processing the rules data into a usable format
      *
      * @param \GameQ\Buffer $buffer
-     *
      * @return mixed
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processRules(Buffer $buffer)
     {

@@ -38,11 +38,4 @@ class Avorion extends Source
      * @var string
      */
     protected $name_long = "Avorion";
-
-    /**
-     * query_port = client_port + 1
-     *
-     * @var int
-     * protected $port_diff = 1;
-     */
 }

@@ -111,6 +111,7 @@ class Gamespy3 extends Protocol
      * Process the response
      *
      * @return array
+     * @throws \GameQ\Exception\Protocol
      */
     public function processResponse()
     {
@@ -183,6 +184,7 @@ class Gamespy3 extends Protocol
      * @param array $packets
      *
      * @return array
+     * @throws \GameQ\Exception\Protocol
      */
     protected function cleanPackets(array $packets = [])
     {
@@ -236,6 +238,8 @@ class Gamespy3 extends Protocol
      *
      * @param \GameQ\Buffer $buffer
      * @param \GameQ\Result $result
+     * @return void
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processDetails(Buffer &$buffer, Result &$result)
     {
@@ -258,7 +262,6 @@ class Gamespy3 extends Protocol
      */
     protected function processPlayersAndTeams(Buffer &$buffer, Result &$result)
     {
-
         /*
          * Explode the data into groups. First is player, next is team (item_t)
          * Each group should be as follows:

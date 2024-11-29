@@ -28,7 +28,6 @@ namespace GameQ\Protocols;
  */
 class Squad extends Source
 {
-
     /**
      * String name of this protocol class
      *

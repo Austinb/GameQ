@@ -97,6 +97,8 @@ class Justcause2 extends Gamespy4
      *
      * @param Buffer $buffer
      * @param Result $result
+     * @return void
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processDetails(Buffer &$buffer, Result &$result)
     {
@@ -112,6 +114,8 @@ class Justcause2 extends Gamespy4
      *
      * @param Buffer $buffer
      * @param Result $result
+     * @return void
+     * @throws \GameQ\Exception\Protocol
      *
      * @see Gamespy3::processPlayersAndTeams()
      */

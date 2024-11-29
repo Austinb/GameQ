@@ -52,12 +52,11 @@ class Ship extends Source
      * Player response has unknown data after the last real player
      *
      * @param \GameQ\Buffer $buffer
-     *
      * @return array
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processPlayers(Buffer $buffer)
     {
-
         // Set the result to a new result instance
         $result = new Result();
 

@@ -35,7 +35,6 @@ use GameQ\Helpers\Str;
  */
 class Samp extends Protocol
 {
-
     /**
      * Array of packets we want to look up.
      * Each key should correspond to a defined method in this or a parent class
@@ -125,7 +124,6 @@ class Samp extends Protocol
      */
     public function beforeSend(Server $server)
     {
-
         // Build the server code
         $this->server_code = implode('', array_map('chr', explode('.', $server->ip()))) .
             pack("S", $server->portClient());
@@ -195,7 +193,6 @@ class Samp extends Protocol
      * Handles processing the server status data
      *
      * @param \GameQ\Buffer $buffer
-     *
      * @return array
      * @throws \GameQ\Exception\Protocol
      */
@@ -227,12 +224,11 @@ class Samp extends Protocol
      * Handles processing the player data into a usable format
      *
      * @param \GameQ\Buffer $buffer
-     *
      * @return array
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processPlayers(Buffer $buffer)
     {
-
         // Set the result to a new result instance
         $result = new Result();
 
@@ -256,12 +252,11 @@ class Samp extends Protocol
      * Handles processing the rules data into a usable format
      *
      * @param \GameQ\Buffer $buffer
-     *
      * @return array
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processRules(Buffer $buffer)
     {
-
         // Set the result to a new result instance
         $result = new Result();
 
