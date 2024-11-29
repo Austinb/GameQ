@@ -38,7 +38,6 @@ use GameQ\Server;
  */
 class Cfx extends Protocol
 {
-
     /**
      * Array of packets we want to look up.
      * Each key should correspond to a defined method in this or a parent class
@@ -107,7 +106,7 @@ class Cfx extends Protocol
 
     /**
      * Get FiveM players list using a sub query
-     * 
+     *
      * @throws \Exception
      */
     public function beforeSend(Server $server)
