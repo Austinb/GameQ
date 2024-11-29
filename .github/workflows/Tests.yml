@@ -63,6 +63,7 @@ jobs:
         uses: coverallsapp/github-action@v2
         with:
           parallel: true
+          file: build/logs/clover.xml
 
       - name: Upload Scrutinizer coverage
         uses: sudo-bot/action-scrutinizer@latest
