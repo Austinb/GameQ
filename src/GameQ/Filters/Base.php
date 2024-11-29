@@ -28,8 +28,6 @@ use GameQ\Server;
  */
 abstract class Base
 {
-    use WithArrayHelpers;
-
     /**
      * Holds the options for this instance of the filter
      *

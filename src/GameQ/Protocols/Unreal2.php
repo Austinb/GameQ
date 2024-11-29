@@ -22,6 +22,7 @@ use GameQ\Protocol;
 use GameQ\Buffer;
 use GameQ\Result;
 use GameQ\Exception\Protocol as Exception;
+use GameQ\Helpers\Str;
 
 /**
  * Unreal 2 Protocol class
@@ -167,8 +168,8 @@ class Unreal2 extends Protocol
         $result->add('serverip', $buffer->readPascalString(1)); // empty
         $result->add('gameport', $buffer->readInt32());
         $result->add('queryport', $buffer->readInt32()); // 0
-        $result->add('servername', static::isoToUtf8($buffer->readPascalString(1)));
-        $result->add('mapname', static::isoToUtf8($buffer->readPascalString(1)));
+        $result->add('servername', Str::isoToUtf8($buffer->readPascalString(1)));
+        $result->add('mapname', Str::isoToUtf8($buffer->readPascalString(1)));
         $result->add('gametype', $buffer->readPascalString(1));
         $result->add('numplayers', $buffer->readInt32());
         $result->add('maxplayers', $buffer->readInt32());
@@ -198,7 +199,7 @@ class Unreal2 extends Protocol
             if (($id = $buffer->readInt32()) !== 0) {
                 // Add the results
                 $result->addPlayer('id', $id);
-                $result->addPlayer('name', static::isoToUtf8($buffer->readPascalString(1)));
+                $result->addPlayer('name', Str::isoToUtf8($buffer->readPascalString(1)));
                 $result->addPlayer('ping', $buffer->readInt32());
                 $result->addPlayer('score', $buffer->readInt32());
 
@@ -236,7 +237,7 @@ class Unreal2 extends Protocol
                 $key .= ++$inc;
             }
 
-            $result->add(strtolower($key), static::isoToUtf8($buffer->readPascalString(1)));
+            $result->add(strtolower($key), Str::isoToUtf8($buffer->readPascalString(1)));
         }
 
         unset($buffer);

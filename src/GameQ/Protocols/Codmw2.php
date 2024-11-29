@@ -19,6 +19,7 @@
 namespace GameQ\Protocols;
 
 use GameQ\Buffer;
+use GameQ\Helpers\Str;
 use GameQ\Result;
 
 /**
@@ -63,7 +64,7 @@ class Codmw2 extends Quake3
             $playerInfo->skip(1);
 
             // Add player name, encoded
-            $player['name'] = static::isoToUtf8(trim(($playerInfo->readString('"'))));
+            $player['name'] = Str::isoToUtf8(trim(($playerInfo->readString('"'))));
 
             // Add player
             $players[] = $player;

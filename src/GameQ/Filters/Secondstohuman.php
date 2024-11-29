@@ -18,6 +18,7 @@
 
 namespace GameQ\Filters;
 
+use GameQ\Helpers\Arr;
 use GameQ\Server;
 use RecursiveArrayIterator;
 
@@ -82,7 +83,7 @@ class Secondstohuman extends Base
      */
     public function apply(array $result, Server $server)
     {
-        return static::applyRecursively($result, function ($value, $key, RecursiveArrayIterator $iterator) {
+        return Arr::recursively($result, function ($value, $key, RecursiveArrayIterator $iterator) {
             if (
                 /* Only process whitelisted keys */
                 (in_array($key, $this->options[self::OPTION_TIMEKEYS])) &&

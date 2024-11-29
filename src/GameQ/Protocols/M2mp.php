@@ -22,6 +22,7 @@ use GameQ\Protocol;
 use GameQ\Buffer;
 use GameQ\Result;
 use GameQ\Exception\Protocol as Exception;
+use GameQ\Helpers\Str;
 
 /**
  * Mafia 2 Multiplayer Protocol Class
@@ -201,7 +202,7 @@ class M2mp extends Protocol
 
             // Only player name information is available
             // Add player name, encoded
-            $result->addPlayer('name', static::isoToUtf8(trim($buffer->readPascalString(1, true))));
+            $result->addPlayer('name', Str::isoToUtf8(trim($buffer->readPascalString(1, true))));
         }
 
         // Clear

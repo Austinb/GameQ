@@ -22,6 +22,7 @@ use GameQ\Protocol;
 use GameQ\Buffer;
 use GameQ\Result;
 use \GameQ\Exception\Protocol as Exception;
+use GameQ\Helpers\Str;
 
 /**
  * GameSpy Protocol class
@@ -152,7 +153,7 @@ class Gamespy extends Protocol
                         if (substr($key, 0, $suffix) == 'playername') {
                             $numPlayers++;
                         }
-                        $result->addPlayer(substr($key, 0, $suffix), static::isoToUtf8($val));
+                        $result->addPlayer(substr($key, 0, $suffix), Str::isoToUtf8($val));
                     }
                 } else {
                     // Regular variable so just add the value.

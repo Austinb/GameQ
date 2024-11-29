@@ -18,10 +18,11 @@
 
 namespace GameQ\Protocols;
 
-use GameQ\Protocol;
 use GameQ\Buffer;
-use GameQ\Result;
 use GameQ\Exception\Protocol as Exception;
+use GameQ\Helpers\Str;
+use GameQ\Protocol;
+use GameQ\Result;
 
 /**
  * Doom3 Protocol Class
@@ -159,7 +160,7 @@ class Doom3 extends Protocol
         // Key / value pairs, delimited by an empty pair
         while ($buffer->getLength()) {
             $key = trim($buffer->readString());
-            $val = static::isoToUtf8(trim($buffer->readString()));
+            $val = Str::isoToUtf8(trim($buffer->readString()));
 
             // Something is empty so we are done
             if (empty($key) && empty($val)) {
@@ -197,7 +198,7 @@ class Doom3 extends Protocol
             $result->addPlayer('ping', $buffer->readInt16());
             $result->addPlayer('rate', $buffer->readInt32());
             // Add player name, encoded
-            $result->addPlayer('name', static::isoToUtf8(trim($buffer->readString())));
+            $result->addPlayer('name', Str::isoToUtf8(trim($buffer->readString())));
 
             // Increment
             $playerCount++;

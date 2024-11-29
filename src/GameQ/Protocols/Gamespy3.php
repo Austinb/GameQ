@@ -21,13 +21,14 @@ namespace GameQ\Protocols;
 use GameQ\Protocol;
 use GameQ\Buffer;
 use GameQ\Result;
+use GameQ\Helpers\Str;
 
 /**
  * GameSpy3 Protocol class
  *
  * Given the ability for non utf-8 characters to be used as hostnames, player names, etc... this
  * version returns all strings utf-8 encoded.  To access the proper version of a
- * string response you must use static::utf8ToIso() on the specific response.
+ * string response you must use Str::utf8ToIso() on the specific response.
  *
  * @author Austin Bischoff <austin@codebeard.com>
  */
@@ -245,7 +246,7 @@ class Gamespy3 extends Protocol
             if (strlen($key) == 0) {
                 break;
             }
-            $result->add($key, static::isoToUtf8($buffer->readString()));
+            $result->add($key, Str::isoToUtf8($buffer->readString()));
         }
     }
 
@@ -321,7 +322,7 @@ class Gamespy3 extends Protocol
                         break;
                     }
                     // Add the value to the proper item in the correct group
-                    $result->addSub($item_group, $item_type, static::isoToUtf8(trim($val)));
+                    $result->addSub($item_group, $item_type, Str::isoToUtf8(trim($val)));
                 }
                 // Unset our buffer
                 unset($buf_temp);

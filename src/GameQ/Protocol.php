@@ -29,8 +29,6 @@ namespace GameQ;
  */
 abstract class Protocol
 {
-    use Concerns\WithStringHelpers;
-
     /**
      * Constants for class states
      */

@@ -23,6 +23,7 @@ use GameQ\Buffer;
 use GameQ\Result;
 use GameQ\Server;
 use GameQ\Exception\Protocol as Exception;
+use GameQ\Helpers\Str;
 
 /**
  * Teamspeak 2 Protocol Class
@@ -218,7 +219,7 @@ class Teamspeak2 extends Protocol
             list($key, $value) = explode('=', $row, 2);
 
             // Add this to the result
-            $result->add($key, static::isoToUtf8($value));
+            $result->add($key, Str::isoToUtf8($value));
         }
 
         unset($data, $buffer, $row, $key, $value);
@@ -249,7 +250,7 @@ class Teamspeak2 extends Protocol
 
             foreach ($data as $key => $value) {
                 // Now add the data to the result
-                $result->addTeam($key, static::isoToUtf8($value));
+                $result->addTeam($key, Str::isoToUtf8($value));
             }
         }
 
@@ -281,7 +282,7 @@ class Teamspeak2 extends Protocol
 
             foreach ($data as $key => $value) {
                 // Now add the data to the result
-                $result->addPlayer($key, static::isoToUtf8($value));
+                $result->addPlayer($key, Str::isoToUtf8($value));
             }
         }
 

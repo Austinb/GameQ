@@ -20,6 +20,7 @@ namespace GameQ\Protocols;
 
 use GameQ\Buffer;
 use GameQ\Result;
+use GameQ\Helpers\Str;
 
 /**
  * Class Killing floor
@@ -80,10 +81,10 @@ class Killingfloor extends Unreal2
         $buffer->skip(1);
 
         // Read as a regular string since the length is incorrect (what we skipped earlier)
-        $result->add('servername', static::isoToUtf8($buffer->readString()));
+        $result->add('servername', Str::isoToUtf8($buffer->readString()));
 
         // The rest is read as normal
-        $result->add('mapname', static::isoToUtf8($buffer->readPascalString(1)));
+        $result->add('mapname', Str::isoToUtf8($buffer->readPascalString(1)));
         $result->add('gametype', $buffer->readPascalString(1));
         $result->add('numplayers', $buffer->readInt32());
         $result->add('maxplayers', $buffer->readInt32());

@@ -23,6 +23,7 @@ use GameQ\Buffer;
 use GameQ\Result;
 use GameQ\Server;
 use GameQ\Exception\Protocol as Exception;
+use GameQ\Helpers\Str;
 
 /**
  * Teamspeak 3 Protocol Class
@@ -231,7 +232,7 @@ class Teamspeak3 extends Protocol
             list($key, $value) = array_pad(explode('=', $item, 2), 2, '');
 
             // Convert spaces and other character changes
-            $properties[$key] = static::isoToUtf8(str_replace(
+            $properties[$key] = Str::isoToUtf8(str_replace(
                 [
                     '\\s', // Translate spaces
                 ],

@@ -22,6 +22,7 @@ use GameQ\Protocol;
 use GameQ\Buffer;
 use GameQ\Result;
 use GameQ\Exception\Protocol as Exception;
+use GameQ\Helpers\Str;
 
 /**
  * Lost Heaven Protocol class
@@ -171,10 +172,10 @@ class Lhmp extends Protocol
         $result->add('password', $buffer->readString());
         $result->add('numplayers', $buffer->readInt16());
         $result->add('maxplayers', $buffer->readInt16());
-        $result->add('servername', static::isoToUtf8($buffer->readPascalString()));
+        $result->add('servername', Str::isoToUtf8($buffer->readPascalString()));
         $result->add('gamemode', $buffer->readPascalString());
-        $result->add('website', static::isoToUtf8($buffer->readPascalString()));
-        $result->add('mapname', static::isoToUtf8($buffer->readPascalString()));
+        $result->add('website', Str::isoToUtf8($buffer->readPascalString()));
+        $result->add('mapname', Str::isoToUtf8($buffer->readPascalString()));
 
         unset($buffer);
 
@@ -203,7 +204,7 @@ class Lhmp extends Protocol
             if (($id = $buffer->readInt16()) !== 0) {
                 // Add the results
                 $result->addPlayer('id', $id);
-                $result->addPlayer('name', static::isoToUtf8($buffer->readPascalString()));
+                $result->addPlayer('name', Str::isoToUtf8($buffer->readPascalString()));
             }
         }
 

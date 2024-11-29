@@ -7,6 +7,7 @@ use GameQ\Protocol;
 use GameQ\Buffer;
 use GameQ\Result;
 use GameQ\Exception\Protocol as Exception;
+use GameQ\Helpers\Str;
 
 /**
  * Quake2 Protocol Class
@@ -147,7 +148,7 @@ class Quake2 extends Protocol
             // Add result
             $result->add(
                 trim($buffer->readString('\\')),
-                static::isoToUtf8(trim($buffer->readStringMulti(['\\', "\x0a"])))
+                Str::isoToUtf8(trim($buffer->readStringMulti(['\\', "\x0a"])))
             );
         }
 
@@ -187,7 +188,7 @@ class Quake2 extends Protocol
             $playerInfo->skip(1);
 
             // Add player name, encoded
-            $result->addPlayer('name', static::isoToUtf8(trim(($playerInfo->readString('"')))));
+            $result->addPlayer('name', Str::isoToUtf8(trim(($playerInfo->readString('"')))));
 
             // Skip first "
             $playerInfo->skip(2);

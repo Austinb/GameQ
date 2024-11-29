@@ -20,6 +20,7 @@ namespace GameQ\Protocols;
 
 use GameQ\Buffer;
 use GameQ\Result;
+use GameQ\Helpers\Str;
 
 /**
  * Quake 4 Protocol Class
@@ -67,7 +68,7 @@ class Quake4 extends Doom3
             $result->addPlayer('ping', $buffer->readInt16());
             $result->addPlayer('rate', $buffer->readInt32());
             // Add player name, encoded
-            $result->addPlayer('name', static::isoToUtf8(trim($buffer->readString())));
+            $result->addPlayer('name', Str::isoToUtf8(trim($buffer->readString())));
             $result->addPlayer('clantag', $buffer->readString());
             // Increment
             $playerCount++;

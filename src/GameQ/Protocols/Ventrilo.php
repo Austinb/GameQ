@@ -21,6 +21,7 @@ namespace GameQ\Protocols;
 use GameQ\Protocol;
 use GameQ\Result;
 use GameQ\Exception\Protocol as Exception;
+use GameQ\Helpers\Str;
 
 /**
  * Ventrilo Protocol Class
@@ -723,7 +724,7 @@ class Ventrilo extends Protocol
 
                     // By default we just add they key as an item
                     default:
-                        $result->add($key, static::isoToUtf8($value));
+                        $result->add($key, Str::isoToUtf8($value));
                         break;
                 }
             }
@@ -849,7 +850,7 @@ class Ventrilo extends Protocol
             // Split the key=value pair
             list($key, $value) = explode("=", $item, 2);
 
-            $result->addTeam(strtolower($key), static::isoToUtf8($value));
+            $result->addTeam(strtolower($key), Str::isoToUtf8($value));
         }
     }
 
@@ -871,7 +872,7 @@ class Ventrilo extends Protocol
             // Split the key=value pair
             list($key, $value) = explode("=", $item, 2);
 
-            $result->addPlayer(strtolower($key), static::isoToUtf8($value));
+            $result->addPlayer(strtolower($key), Str::isoToUtf8($value));
         }
     }
 }

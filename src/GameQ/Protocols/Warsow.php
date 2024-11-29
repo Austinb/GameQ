@@ -20,6 +20,7 @@ namespace GameQ\Protocols;
 
 use GameQ\Buffer;
 use GameQ\Result;
+use GameQ\Helpers\Str;
 
 /**
  * Warsow Protocol Class
@@ -76,7 +77,7 @@ class Warsow extends Quake3
             $playerInfo->skip(1);
 
             // Add player name, encoded
-            $result->addPlayer('name', static::isoToUtf8(trim(($playerInfo->readString('"')))));
+            $result->addPlayer('name', Str::isoToUtf8(trim(($playerInfo->readString('"')))));
 
             // Skip space
             $playerInfo->skip(1);

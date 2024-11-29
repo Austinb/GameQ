@@ -22,13 +22,14 @@ use GameQ\Exception\Protocol as Exception;
 use GameQ\Protocol;
 use GameQ\Buffer;
 use GameQ\Result;
+use GameQ\Helpers\Str;
 
 /**
  * GameSpy2 Protocol class
  *
  * Given the ability for non utf-8 characters to be used as hostnames, player names, etc... this
  * version returns all strings utf-8 encoded.  To access the proper version of a
- * string response you must use static::utf8ToIso() on the specific response.
+ * string response you must use Str::utf8ToIso() on the specific response.
  *
  * @author Austin Bischoff <austin@codebeard.com>
  */
@@ -175,7 +176,7 @@ class Gamespy2 extends Protocol
             if (strlen($key) == 0) {
                 break;
             }
-            $result->add($key, static::isoToUtf8($buffer->readString()));
+            $result->add($key, Str::isoToUtf8($buffer->readString()));
         }
 
         unset($buffer);
@@ -249,7 +250,7 @@ class Gamespy2 extends Protocol
         // Get the values
         while ($buffer->getLength() > 4) {
             foreach ($varNames as $varName) {
-                $result->addSub($dataType, static::isoToUtf8($varName), static::isoToUtf8($buffer->readString()));
+                $result->addSub($dataType, Str::isoToUtf8($varName), Str::isoToUtf8($buffer->readString()));
             }
             if ($buffer->lookAhead() === "\x00") {
                 $buffer->skip();
