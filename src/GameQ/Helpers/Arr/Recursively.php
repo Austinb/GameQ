@@ -73,7 +73,7 @@ trait Recursively
         }
     }
 
-    protected function getArrayIteratorCopyOrReference(array &$data, ArrayIterator $arrayIterator)
+    protected static function getArrayIteratorCopyOrReference(array &$data, ArrayIterator $arrayIterator)
     {
         if (PHP_VERSION_ID < 80100) {
             /* Return the actual array reference */
