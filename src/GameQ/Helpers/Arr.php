@@ -57,7 +57,7 @@ class Arr
             static::handleArrayIteratorCopyOrReference(
                 $data,
                 $recursiveIterator, 
-                $subIterator, 
+                $subIterator,
                 /* Update the current value */
                 fn () => $subIterator->offsetSet(
                     /* Keep the original key */
@@ -75,14 +75,18 @@ class Arr
     /**
      * This function is responsible for handling behaivour specific to PHP versions before 8.1.
      *
-     * @param array &$data 
-     * @param RecursiveIteratorIterator $recursiveIterator 
-     * @param RecursiveArrayIterator $iterator 
-     * @param Closure $callback 
-     * @return void 
+     * @param array &$data
+     * @param RecursiveIteratorIterator $recursiveIterator
+     * @param RecursiveArrayIterator $iterator
+     * @param Closure $callback
+     * @return void
      */
-    protected static function handleArrayIteratorCopyOrReference(array &$data, RecursiveIteratorIterator $recursiveIterator, RecursiveArrayIterator $iterator, Closure $callback)
-    {
+    protected static function handleArrayIteratorCopyOrReference(
+        array &$data, 
+        RecursiveIteratorIterator $recursiveIterator, 
+        RecursiveArrayIterator $iterator, 
+        Closure $callback
+    ) {
         /* ArrayIterator before PHP 8.1 does use a copy instead of reference */
         if (PHP_VERSION_ID < 80100) {
             /* Hash the current state of the iterator */
@@ -115,8 +119,8 @@ class Arr
      * This helper is intended to hash the provided array's values
      * and return it back as key => hash.
      *
-     * @param array $array 
-     * @return array<string|int, string> 
+     * @param array $array
+     * @return array<string|int, string>
      */
     public static function hashes(array $array)
     {
