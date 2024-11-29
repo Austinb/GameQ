@@ -25,7 +25,7 @@ use RecursiveIteratorIterator;
 
 /**
  * This helper contains functions to work with arrays.
- * 
+ *
  * @mixin \GameQ\Helpers\Arr
  *
  * @package GameQ\Helpers
