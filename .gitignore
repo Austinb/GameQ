@@ -17,4 +17,5 @@ composer.phar
 # PHPUnit
 .phpunit.result.cache
 coverage/
-build/logs/
+build/logs/*
+!build/logs/.gitkeep

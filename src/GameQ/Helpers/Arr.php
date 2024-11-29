@@ -58,18 +58,20 @@ class Arr
                 $data,
                 $recursiveIterator,
                 $subIterator,
-                /* Update the current value */
-                fn () => $subIterator->offsetSet(
-                    /* Keep the original key */
-                    $key,
-                    /* Execute the callback and use the return / modified value */
-                    $callback($value, $key, $subIterator) ?? $value
-                )
+                function () use ($callback, &$value, $key, $subIterator) {
+                    /* Update the current value */
+                    $subIterator->offsetSet(
+                        /* Keep the original key */
+                        $key,
+                        /* Execute the callback and use the return / modified value */
+                        $callback($value, $key, $subIterator) ?? $value
+                    );
+                }
             );
         }
 
         /* Return the processed data */
-        return $data;
+        return $arrayIterator->getArrayCopy();
     }
 
     /**
@@ -106,7 +108,7 @@ class Arr
                 /* Process all modified values */
                 foreach (array_keys($diff) as $modified) {
                     /* Write the modified value to the original array */
-                    $data = static::set($data, [...$path, $modified], $iterator->offsetGet($modified));
+                    static::set($data, array_merge($path, [$modified]), $iterator->offsetGet($modified));
                 }
             }
         } else {
