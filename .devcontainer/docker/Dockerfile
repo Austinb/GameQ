@@ -1,5 +1,5 @@
 # Define the DevContainer template to be used as the base
-ARG PHP=8.0
+ARG PHP=8.3
 ARG DISTRO=bullseye
 
 FROM mcr.microsoft.com/vscode/devcontainers/php:$PHP-$DISTRO

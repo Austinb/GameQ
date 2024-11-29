@@ -29,6 +29,8 @@ use RecursiveIteratorIterator;
  */
 class Arr
 {
+    use Arr\Recursively;
+
     /**
      * This helper does process each element of the provided array recursively.
      * It does so allowing for modifications to the provided array and without
@@ -59,62 +61,17 @@ class Arr
                 $recursiveIterator,
                 $subIterator,
                 function () use ($callback, &$value, $key, $subIterator) {
-                    /* Update the current value */
-                    $subIterator->offsetSet(
-                        /* Keep the original key */
-                        $key,
-                        /* Execute the callback and use the return / modified value */
-                        $callback($value, $key, $subIterator) ?? $value
-                    );
+                    /* Execute the callback */
+                    $callback($value, $key, $subIterator);
+
+                    /* Update the modified value */
+                    $subIterator->offsetSet($key, $value);
                 }
             );
         }
 
         /* Return the processed data */
-        return $arrayIterator->getArrayCopy();
-    }
-
-    /**
-     * This function is responsible for handling behaivour specific to PHP versions before 8.1.
-     *
-     * @param array &$data
-     * @param RecursiveIteratorIterator $recursiveIterator
-     * @param RecursiveArrayIterator $iterator
-     * @param Closure $callback
-     * @return void
-     */
-    protected static function handleArrayIteratorCopyOrReference(
-        array &$data,
-        RecursiveIteratorIterator $recursiveIterator,
-        RecursiveArrayIterator $iterator,
-        Closure $callback
-    ) {
-        /* ArrayIterator before PHP 8.1 does use a copy instead of reference */
-        if (PHP_VERSION_ID < 80100) {
-            /* Hash the current state of the iterator */
-            $hashes = static::hashes((array) $iterator);
-
-            /* Continue with the provided callback */
-            $callback();
-
-            /* Determine if the current iterator has been modified */
-            if (! empty($diff = array_diff_assoc(static::hashes((array) $iterator), $hashes))) {
-                /* Determine path to the current iterator */
-                $path = [];
-                for ($depth = 0; $depth < $recursiveIterator->getDepth(); $depth++) {
-                    $path[] = $recursiveIterator->getSubIterator($depth)->key();
-                }
-
-                /* Process all modified values */
-                foreach (array_keys($diff) as $modified) {
-                    /* Write the modified value to the original array */
-                    static::set($data, array_merge($path, [$modified]), $iterator->offsetGet($modified));
-                }
-            }
-        } else {
-            /* There is no need to write back any changes when ArrayIterator does use a reference */
-            $callback();
-        }
+        return static::getArrayIteratorCopyOrReference($data, $arrayIterator);
     }
 
     /**
