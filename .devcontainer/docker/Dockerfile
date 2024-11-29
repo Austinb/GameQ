@@ -13,4 +13,4 @@ RUN apt-get install -y libbz2-dev \
     && docker-php-ext-install bz2
 
 # Install act
-RUN curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/nektos/act/master/install.sh | sudo bash
+RUN curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/nektos/act/master/install.sh | sudo bash -s -- -b /usr/local/bin
