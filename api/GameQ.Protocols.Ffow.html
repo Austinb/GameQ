@@ -25,6 +25,9 @@
 			<li class="menuGroup-item">
 				<a href="namespace-GameQ.Filters.html">Filters</a>
 			</li>
+			<li class="menuGroup-item">
+				<a href="namespace-GameQ.Helpers.html">Helpers</a>
+			</li>
 			<li class="menuGroup-item active">
 				<a href="namespace-GameQ.Protocols.html">Protocols</a>
 			</li>
@@ -868,7 +871,7 @@
 			</td>
 
 			<td class="table-cell">
-				<code><a href="source-GameQ.Protocols.Ffow.html#107-122" title="Go to source code">challengeParseAndApply</a>(<span><a href="GameQ.Buffer.html"><span title="GameQ\Buffer">Buffer</span></a> <var>$challenge_buffer</var></span>): bool</code>
+				<code><a href="source-GameQ.Protocols.Ffow.html#100-115" title="Go to source code">challengeParseAndApply</a>(<span><a href="GameQ.Buffer.html"><span title="GameQ\Buffer">Buffer</span></a> <var>$challenge_buffer</var></span>): bool</code>
 
 
 	<div class="expandable-collapsedView">
@@ -912,7 +915,7 @@
 			</td>
 
 			<td class="table-cell">
-				<code><a href="source-GameQ.Protocols.Ffow.html#124-156" title="Go to source code">processResponse</a>(): mixed</code>
+				<code><a href="source-GameQ.Protocols.Ffow.html#117-149" title="Go to source code">processResponse</a>(): mixed</code>
 
 
 	<div class="expandable-collapsedView">
@@ -956,7 +959,7 @@
 			</td>
 
 			<td class="table-cell">
-				<code><a href="source-GameQ.Protocols.Ffow.html#158-191" title="Go to source code">processInfo</a>(<span><a href="GameQ.Buffer.html"><span title="GameQ\Buffer">Buffer</span></a> <var>$buffer</var></span>): array</code>
+				<code><a href="source-GameQ.Protocols.Ffow.html#151-185" title="Go to source code">processInfo</a>(<span><a href="GameQ.Buffer.html"><span title="GameQ\Buffer">Buffer</span></a> <var>$buffer</var></span>): array</code>
 
 
 	<div class="expandable-collapsedView">
@@ -970,6 +973,13 @@
 
 
 
+							<h4>Throws</h4>
+							<table>
+									<tr>
+										<td><code><a href="GameQ.Exception.Protocol.html"><span>GameQ\Exception\Protocol</span></a></code>&nbsp;</td>
+										<td></td>
+									</tr>
+							</table>
 
 	</div>
 			</td>
@@ -988,7 +998,7 @@
 			</td>
 
 			<td class="table-cell">
-				<code><a href="source-GameQ.Protocols.Ffow.html#193-223" title="Go to source code">processRules</a>(<span><a href="GameQ.Buffer.html"><span title="GameQ\Buffer">Buffer</span></a> <var>$buffer</var></span>): array</code>
+				<code><a href="source-GameQ.Protocols.Ffow.html#187-218" title="Go to source code">processRules</a>(<span><a href="GameQ.Buffer.html"><span title="GameQ\Buffer">Buffer</span></a> <var>$buffer</var></span>): array</code>
 
 
 	<div class="expandable-collapsedView">
@@ -1002,6 +1012,13 @@
 
 
 
+							<h4>Throws</h4>
+							<table>
+									<tr>
+										<td><code><a href="GameQ.Exception.Protocol.html"><span>GameQ\Exception\Protocol</span></a></code>&nbsp;</td>
+										<td></td>
+									</tr>
+							</table>
 
 	</div>
 			</td>
@@ -1020,7 +1037,7 @@
 			</td>
 
 			<td class="table-cell">
-				<code><a href="source-GameQ.Protocols.Ffow.html#225-242" title="Go to source code">processPlayers</a>(<span><a href="GameQ.Buffer.html"><span title="GameQ\Buffer">Buffer</span></a> <var>$buffer</var></span>): array</code>
+				<code><a href="source-GameQ.Protocols.Ffow.html#220-237" title="Go to source code">processPlayers</a>(<span><a href="GameQ.Buffer.html"><span title="GameQ\Buffer">Buffer</span></a> <var>$buffer</var></span>): array</code>
 
 
 	<div class="expandable-collapsedView">
@@ -1088,7 +1105,7 @@
 			</td>
 
 			<td class="table-cell table-shrink">
-				<code class="nowrap"></code>
+				<code class="nowrap">array</code>
 			</td>
 
 			<td class="table-cell">
@@ -1117,7 +1134,7 @@
 			</td>
 
 			<td class="table-cell table-shrink">
-				<code class="nowrap"></code>
+				<code class="nowrap">array</code>
 			</td>
 
 			<td class="table-cell">
@@ -1145,7 +1162,7 @@
 			</td>
 
 			<td class="table-cell table-shrink">
-				<code class="nowrap"></code>
+				<code class="nowrap">string</code>
 			</td>
 
 			<td class="table-cell">
@@ -1169,7 +1186,7 @@
 			</td>
 
 			<td class="table-cell table-shrink">
-				<code class="nowrap"></code>
+				<code class="nowrap">string</code>
 			</td>
 
 			<td class="table-cell">
@@ -1193,7 +1210,7 @@
 			</td>
 
 			<td class="table-cell table-shrink">
-				<code class="nowrap"></code>
+				<code class="nowrap">string</code>
 			</td>
 
 			<td class="table-cell">
@@ -1207,30 +1224,6 @@
 			<a href="#$name_long">#</a>
 		</td>
 	</tr>
-	<tr class="expandable collapsed" data-order="join_link" id="$join_link">
-			<td class="table-cell table-shrink">
-				<code class="nowrap">
-	protected
-					
-					
-				</code>
-			</td>
-
-			<td class="table-cell table-shrink">
-				<code class="nowrap"></code>
-			</td>
-
-			<td class="table-cell">
-<code><var><a href="source-GameQ.Protocols.Ffow.html#68-73" title="Go to source code">$join_link</a></var> = <span class="php-kw">null</span></code>
-				
-
-	<div class="expandable-expandedView">
-	</div>
-			</td>
-		<td class="table-anchor">
-			<a href="#$join_link">#</a>
-		</td>
-	</tr>
 	<tr class="expandable collapsed" data-order="port_diff" id="$port_diff">
 			<td class="table-cell table-shrink">
 				<code class="nowrap">
@@ -1241,11 +1234,11 @@
 			</td>
 
 			<td class="table-cell table-shrink">
-				<code class="nowrap"></code>
+				<code class="nowrap">int</code>
 			</td>
 
 			<td class="table-cell">
-<code><var><a href="source-GameQ.Protocols.Ffow.html#75-80" title="Go to source code">$port_diff</a></var> = <span class="php-num">2</span></code>
+<code><var><a href="source-GameQ.Protocols.Ffow.html#68-73" title="Go to source code">$port_diff</a></var> = <span class="php-num">2</span></code>
 				
 
 	<div class="expandable-expandedView">
@@ -1265,11 +1258,11 @@
 			</td>
 
 			<td class="table-cell table-shrink">
-				<code class="nowrap"></code>
+				<code class="nowrap">array</code>
 			</td>
 
 			<td class="table-cell">
-<code><var><a href="source-GameQ.Protocols.Ffow.html#82-105" title="Go to source code">$normalize</a></var> = [
+<code><var><a href="source-GameQ.Protocols.Ffow.html#75-98" title="Go to source code">$normalize</a></var> = [
 	<span class="php-str">'general'</span> =&gt; [
 		<span class="php-str">'gametype'</span> =&gt; <span class="php-str">'gamemode'</span>,
 		<span class="php-str">'hostname'</span> =&gt; <span class="php-str">'servername'</span>,
@@ -1297,7 +1290,7 @@
 			</tr>
 			<tr>
 				<td class="table-cell">
-<code><var><a href="GameQ.Protocol.html#$transport">$transport</a></var>, <var><a href="GameQ.Protocol.html#$process_methods">$process_methods</a></var>, <var><a href="GameQ.Protocol.html#$packets_response">$packets_response</a></var>, <var><a href="GameQ.Protocol.html#$result">$result</a></var>, <var><a href="GameQ.Protocol.html#$options">$options</a></var>, <var><a href="GameQ.Protocol.html#$state">$state</a></var>, </code>				</td>
+<code><var><a href="GameQ.Protocol.html#$transport">$transport</a></var>, <var><a href="GameQ.Protocol.html#$process_methods">$process_methods</a></var>, <var><a href="GameQ.Protocol.html#$packets_response">$packets_response</a></var>, <var><a href="GameQ.Protocol.html#$result">$result</a></var>, <var><a href="GameQ.Protocol.html#$options">$options</a></var>, <var><a href="GameQ.Protocol.html#$state">$state</a></var>, <var><a href="GameQ.Protocol.html#$join_link">$join_link</a></var></code>				</td>
 			</tr>
 		</table>
 

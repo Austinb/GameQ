@@ -25,6 +25,9 @@
 			<li class="menuGroup-item">
 				<a href="namespace-GameQ.Filters.html">Filters</a>
 			</li>
+			<li class="menuGroup-item">
+				<a href="namespace-GameQ.Helpers.html">Helpers</a>
+			</li>
 			<li class="menuGroup-item active">
 				<a href="namespace-GameQ.Protocols.html">Protocols</a>
 			</li>
@@ -847,7 +850,7 @@ work within this new system.</p>
 			</div>
 
 		<div class="classLikeSection">
-			<b>Located at</b> <a href="source-GameQ.Protocols.Teamspeak2.html#37" title="Go to source code">GameQ/Protocols/Teamspeak2.php</a><br>
+			<b>Located at</b> <a href="source-GameQ.Protocols.Teamspeak2.html#38" title="Go to source code">GameQ/Protocols/Teamspeak2.php</a><br>
 		</div>
 
 
@@ -868,7 +871,7 @@ work within this new system.</p>
 			</td>
 
 			<td class="table-cell">
-				<code><a href="source-GameQ.Protocols.Teamspeak2.html#114-136" title="Go to source code">beforeSend</a>(<span><a href="GameQ.Server.html"><span title="GameQ\Server">Server</span></a> <var>$server</var></span>)</code>
+				<code><a href="source-GameQ.Protocols.Teamspeak2.html#115-137" title="Go to source code">beforeSend</a>(<span><a href="GameQ.Server.html"><span title="GameQ\Server">Server</span></a> <var>$server</var></span>)</code>
 
 
 	<div class="expandable-collapsedView">
@@ -912,7 +915,7 @@ work within this new system.</p>
 			</td>
 
 			<td class="table-cell">
-				<code><a href="source-GameQ.Protocols.Teamspeak2.html#138-190" title="Go to source code">processResponse</a>(): array</code>
+				<code><a href="source-GameQ.Protocols.Teamspeak2.html#139-191" title="Go to source code">processResponse</a>(): array</code>
 
 
 	<div class="expandable-collapsedView">
@@ -956,7 +959,7 @@ work within this new system.</p>
 			</td>
 
 			<td class="table-cell">
-				<code><a href="source-GameQ.Protocols.Teamspeak2.html#192-225" title="Go to source code">processDetails</a>(<span>string <var>$data</var></span>, <span><a href="GameQ.Result.html"><span title="GameQ\Result">Result</span></a> &amp;<var>$result</var></span>)</code>
+				<code><a href="source-GameQ.Protocols.Teamspeak2.html#193-227" title="Go to source code">processDetails</a>(<span>string <var>$data</var></span>, <span><a href="GameQ.Result.html"><span title="GameQ\Result">Result</span></a> &amp;<var>$result</var></span>): void</code>
 
 
 	<div class="expandable-collapsedView">
@@ -970,6 +973,13 @@ work within this new system.</p>
 
 
 
+							<h4>Throws</h4>
+							<table>
+									<tr>
+										<td><code><a href="GameQ.Exception.Protocol.html"><span>GameQ\Exception\Protocol</span></a></code>&nbsp;</td>
+										<td></td>
+									</tr>
+							</table>
 
 	</div>
 			</td>
@@ -988,7 +998,7 @@ work within this new system.</p>
 			</td>
 
 			<td class="table-cell">
-				<code><a href="source-GameQ.Protocols.Teamspeak2.html#227-257" title="Go to source code">processChannels</a>(<span>string <var>$data</var></span>, <span><a href="GameQ.Result.html"><span title="GameQ\Result">Result</span></a> &amp;<var>$result</var></span>)</code>
+				<code><a href="source-GameQ.Protocols.Teamspeak2.html#229-260" title="Go to source code">processChannels</a>(<span>string <var>$data</var></span>, <span><a href="GameQ.Result.html"><span title="GameQ\Result">Result</span></a> &amp;<var>$result</var></span>): void</code>
 
 
 	<div class="expandable-collapsedView">
@@ -1002,6 +1012,13 @@ work within this new system.</p>
 
 
 
+							<h4>Throws</h4>
+							<table>
+									<tr>
+										<td><code><a href="GameQ.Exception.Protocol.html"><span>GameQ\Exception\Protocol</span></a></code>&nbsp;</td>
+										<td></td>
+									</tr>
+							</table>
 
 	</div>
 			</td>
@@ -1020,7 +1037,7 @@ work within this new system.</p>
 			</td>
 
 			<td class="table-cell">
-				<code><a href="source-GameQ.Protocols.Teamspeak2.html#259-289" title="Go to source code">processPlayers</a>(<span>string <var>$data</var></span>, <span><a href="GameQ.Result.html"><span title="GameQ\Result">Result</span></a> &amp;<var>$result</var></span>)</code>
+				<code><a href="source-GameQ.Protocols.Teamspeak2.html#262-294" title="Go to source code">processPlayers</a>(<span>string <var>$data</var></span>, <span><a href="GameQ.Result.html"><span title="GameQ\Result">Result</span></a> &amp;<var>$result</var></span>): void</code>
 
 
 	<div class="expandable-collapsedView">
@@ -1034,6 +1051,13 @@ work within this new system.</p>
 
 
 
+							<h4>Throws</h4>
+							<table>
+									<tr>
+										<td><code><a href="GameQ.Exception.Protocol.html"><span>GameQ\Exception\Protocol</span></a></code>&nbsp;</td>
+										<td></td>
+									</tr>
+							</table>
 
 	</div>
 			</td>
@@ -1088,11 +1112,11 @@ work within this new system.</p>
 			</td>
 
 			<td class="table-cell table-shrink">
-				<code class="nowrap"></code>
+				<code class="nowrap">array</code>
 			</td>
 
 			<td class="table-cell">
-<code><var><a href="source-GameQ.Protocols.Teamspeak2.html#40-50" title="Go to source code">$packets</a></var> = [
+<code><var><a href="source-GameQ.Protocols.Teamspeak2.html#41-51" title="Go to source code">$packets</a></var> = [
 	<b><span class="active" title="GameQ\Protocols\Teamspeak2">self</span></b>::PACKET_DETAILS =&gt; <span class="php-str">"sel %d\x0asi\x0a"</span>,
 	<b><span class="active" title="GameQ\Protocols\Teamspeak2">self</span></b>::PACKET_CHANNELS =&gt; <span class="php-str">"sel %d\x0acl\x0a"</span>,
 	<b><span class="active" title="GameQ\Protocols\Teamspeak2">self</span></b>::PACKET_PLAYERS =&gt; <span class="php-str">"sel %d\x0apl\x0a"</span>,
@@ -1116,11 +1140,11 @@ work within this new system.</p>
 			</td>
 
 			<td class="table-cell table-shrink">
-				<code class="nowrap"></code>
+				<code class="nowrap">string</code>
 			</td>
 
 			<td class="table-cell">
-<code><var><a href="source-GameQ.Protocols.Teamspeak2.html#52-57" title="Go to source code">$transport</a></var> = <b><span class="active" title="GameQ\Protocols\Teamspeak2">self</span></b>::TRANSPORT_TCP</code>
+<code><var><a href="source-GameQ.Protocols.Teamspeak2.html#53-58" title="Go to source code">$transport</a></var> = <b><span class="active" title="GameQ\Protocols\Teamspeak2">self</span></b>::TRANSPORT_TCP</code>
 				
 
 	<div class="expandable-expandedView">
@@ -1140,11 +1164,11 @@ work within this new system.</p>
 			</td>
 
 			<td class="table-cell table-shrink">
-				<code class="nowrap"></code>
+				<code class="nowrap">string</code>
 			</td>
 
 			<td class="table-cell">
-<code><var><a href="source-GameQ.Protocols.Teamspeak2.html#59-64" title="Go to source code">$protocol</a></var> = <span class="php-str">'teamspeak2'</span></code>
+<code><var><a href="source-GameQ.Protocols.Teamspeak2.html#60-65" title="Go to source code">$protocol</a></var> = <span class="php-str">'teamspeak2'</span></code>
 				
 
 	<div class="expandable-expandedView">
@@ -1164,11 +1188,11 @@ work within this new system.</p>
 			</td>
 
 			<td class="table-cell table-shrink">
-				<code class="nowrap"></code>
+				<code class="nowrap">string</code>
 			</td>
 
 			<td class="table-cell">
-<code><var><a href="source-GameQ.Protocols.Teamspeak2.html#66-71" title="Go to source code">$name</a></var> = <span class="php-str">'teamspeak2'</span></code>
+<code><var><a href="source-GameQ.Protocols.Teamspeak2.html#67-72" title="Go to source code">$name</a></var> = <span class="php-str">'teamspeak2'</span></code>
 				
 
 	<div class="expandable-expandedView">
@@ -1188,11 +1212,11 @@ work within this new system.</p>
 			</td>
 
 			<td class="table-cell table-shrink">
-				<code class="nowrap"></code>
+				<code class="nowrap">string</code>
 			</td>
 
 			<td class="table-cell">
-<code><var><a href="source-GameQ.Protocols.Teamspeak2.html#73-78" title="Go to source code">$name_long</a></var> = <span class="php-str">"Teamspeak 2"</span></code>
+<code><var><a href="source-GameQ.Protocols.Teamspeak2.html#74-79" title="Go to source code">$name_long</a></var> = <span class="php-str">"Teamspeak 2"</span></code>
 				
 
 	<div class="expandable-expandedView">
@@ -1212,11 +1236,11 @@ work within this new system.</p>
 			</td>
 
 			<td class="table-cell table-shrink">
-				<code class="nowrap"></code>
+				<code class="nowrap">string</code>
 			</td>
 
 			<td class="table-cell">
-<code><var><a href="source-GameQ.Protocols.Teamspeak2.html#80-85" title="Go to source code">$join_link</a></var> = <span class="php-str">"teamspeak://%s:%d/"</span></code>
+<code><var><a href="source-GameQ.Protocols.Teamspeak2.html#81-86" title="Go to source code">$join_link</a></var> = <span class="php-str">"teamspeak://%s:%d/"</span></code>
 				
 
 	<div class="expandable-expandedView">
@@ -1236,11 +1260,11 @@ work within this new system.</p>
 			</td>
 
 			<td class="table-cell table-shrink">
-				<code class="nowrap"></code>
+				<code class="nowrap">array</code>
 			</td>
 
 			<td class="table-cell">
-<code><var><a href="source-GameQ.Protocols.Teamspeak2.html#87-112" title="Go to source code">$normalize</a></var> = [
+<code><var><a href="source-GameQ.Protocols.Teamspeak2.html#88-113" title="Go to source code">$normalize</a></var> = [
 	<span class="php-str">'general'</span> =&gt; [
 		<span class="php-str">'dedicated'</span> =&gt; <span class="php-str">'dedicated'</span>,
 		<span class="php-str">'hostname'</span> =&gt; <span class="php-str">'server_name'</span>,

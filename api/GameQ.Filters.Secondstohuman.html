@@ -26,6 +26,9 @@
 				<a href="namespace-GameQ.Filters.html">Filters</a>
 			</li>
 			<li class="menuGroup-item">
+				<a href="namespace-GameQ.Helpers.html">Helpers</a>
+			</li>
+			<li class="menuGroup-item">
 				<a href="namespace-GameQ.Protocols.html">Protocols</a>
 			</li>
 			<li class="menuGroup-item">
@@ -114,7 +117,7 @@
 
 	</table>
 		<div class="classLikeDescription">
-	<div class="description"><p>Class Secondstohuman This class converts seconds into a human readable time string 'hh:mm:ss'. This is mainly for converting
+	<div class="description"><p>Class Secondstohuman This Filter converts seconds into a human readable time string 'hh:mm:ss'. This is mainly for converting
 a player's connected time into a readable string. Note that most game servers DO NOT return a player's connected
 time. Source (A2S) based games generally do but not always. This class can also be used to convert other time
 responses into readable time</p>
@@ -139,7 +142,7 @@ responses into readable time</p>
 			</div>
 
 		<div class="classLikeSection">
-			<b>Located at</b> <a href="source-GameQ.Filters.Secondstohuman.html#34" title="Go to source code">GameQ/Filters/Secondstohuman.php</a><br>
+			<b>Located at</b> <a href="source-GameQ.Filters.Secondstohuman.html#36" title="Go to source code">GameQ/Filters/Secondstohuman.php</a><br>
 		</div>
 
 
@@ -160,7 +163,7 @@ responses into readable time</p>
 			</td>
 
 			<td class="table-cell">
-				<code><a href="source-GameQ.Filters.Secondstohuman.html#54-72" title="Go to source code">__construct</a>(<span>array <var>$options</var> = []</span>)</code>
+				<code><a href="source-GameQ.Filters.Secondstohuman.html#56-74" title="Go to source code">__construct</a>(<span>array <var>$options</var> = []</span>)</code>
 
 
 	<div class="expandable-collapsedView">
@@ -197,7 +200,7 @@ responses into readable time</p>
 			</td>
 
 			<td class="table-cell">
-				<code><a href="source-GameQ.Filters.Secondstohuman.html#74-86" title="Go to source code">apply</a>(<span>array <var>$result</var></span>, <span><a href="GameQ.Server.html"><span title="GameQ\Server">Server</span></a> <var>$server</var></span>): array</code>
+				<code><a href="source-GameQ.Filters.Secondstohuman.html#76-112" title="Go to source code">apply</a>(<span>array <var>$result</var></span>, <span><a href="GameQ.Server.html"><span title="GameQ\Server">Server</span></a> <var>$server</var></span>): array</code>
 
 
 	<div class="expandable-collapsedView">
@@ -221,40 +224,6 @@ responses into readable time</p>
 			</td>
 		<td class="table-anchor">
 			<a href="#_apply">#</a>
-		</td>
-	</tr>
-	<tr class="expandable collapsed" data-order="iterate" id="_iterate">
-			<td class="table-cell table-shrink">
-				<code class="nowrap">
-					
-	protected
-					
-					
-				</code>
-			</td>
-
-			<td class="table-cell">
-				<code><a href="source-GameQ.Filters.Secondstohuman.html#88-120" title="Go to source code">iterate</a>(<span>array &amp;<var>$result</var></span>): array</code>
-
-
-	<div class="expandable-collapsedView">
-		<p>Home grown iterate function.  Would like to replace this with an internal PHP method(s) but could not find a way
-to make the iterate classes add new keys to the response.  They all seemed to be read-only.</p>
-
-	</div>
-
-	<div class="expandable-expandedView">
-	<div class="description"><p>Home grown iterate function.  Would like to replace this with an internal PHP method(s) but could not find a way
-to make the iterate classes add new keys to the response.  They all seemed to be read-only.</p>
-</div>
-
-
-
-
-	</div>
-			</td>
-		<td class="table-anchor">
-			<a href="#_iterate">#</a>
 		</td>
 	</tr>
 		</table>
@@ -289,7 +258,7 @@ to make the iterate classes add new keys to the response.  They all seemed to be
 
 <td class="table-cell table-shrink"></td>
 			<td class="table-cell">
-<code><a href="source-GameQ.Filters.Secondstohuman.html#37-40" title="Go to source code">OPTION_TIMEKEYS</a> = <span class="php-str">'timekeys'</span></code>
+<code><a href="source-GameQ.Filters.Secondstohuman.html#39-42" title="Go to source code">OPTION_TIMEKEYS</a> = <span class="php-str">'timekeys'</span></code>
 
 	<div class="expandable-collapsedView">
 		<p>The options key for setting the data key(s) to look for to convert</p>
@@ -315,7 +284,7 @@ to make the iterate classes add new keys to the response.  They all seemed to be
 
 <td class="table-cell table-shrink"></td>
 			<td class="table-cell">
-<code><a href="source-GameQ.Filters.Secondstohuman.html#42-45" title="Go to source code">RESULT_KEY</a> = <span class="php-str">'gq_%s_human'</span></code>
+<code><a href="source-GameQ.Filters.Secondstohuman.html#44-47" title="Go to source code">RESULT_KEY</a> = <span class="php-str">'gq_%s_human'</span></code>
 
 	<div class="expandable-collapsedView">
 		<p>The result key added when applying this filter to a result</p>
@@ -357,7 +326,7 @@ to make the iterate classes add new keys to the response.  They all seemed to be
 			</td>
 
 			<td class="table-cell">
-<code><var><a href="source-GameQ.Filters.Secondstohuman.html#47-52" title="Go to source code">$timeKeysDefault</a></var> = [<span class="php-str">'time'</span>]</code>
+<code><var><a href="source-GameQ.Filters.Secondstohuman.html#49-54" title="Go to source code">$timeKeysDefault</a></var> = [<span class="php-str">'time'</span>]</code>
 				
 
 	<div class="expandable-expandedView">

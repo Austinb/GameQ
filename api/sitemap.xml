@@ -7,6 +7,8 @@
 			<url><loc>namespace-GameQ.html</loc></url>
 			<url><loc>namespace-GameQ.Exception.html</loc></url>
 			<url><loc>namespace-GameQ.Filters.html</loc></url>
+			<url><loc>namespace-GameQ.Helpers.html</loc></url>
+			<url><loc>namespace-GameQ.Helpers.Arr.html</loc></url>
 			<url><loc>namespace-GameQ.Protocols.html</loc></url>
 			<url><loc>namespace-GameQ.Query.html</loc></url>
 
@@ -20,6 +22,9 @@
 			<url><loc>GameQ.Filters.Stripcolors.html</loc></url>
 			<url><loc>GameQ.Filters.Test.html</loc></url>
 			<url><loc>GameQ.GameQ.html</loc></url>
+			<url><loc>GameQ.Helpers.Arr.html</loc></url>
+			<url><loc>GameQ.Helpers.Arr.Recursively.html</loc></url>
+			<url><loc>GameQ.Helpers.Str.html</loc></url>
 			<url><loc>GameQ.Protocol.html</loc></url>
 			<url><loc>GameQ.Protocols.Aa3.html</loc></url>
 			<url><loc>GameQ.Protocols.Aapg.html</loc></url>
@@ -184,6 +189,9 @@
 			<url><loc>source-GameQ.Filters.Stripcolors.html</loc></url>
 			<url><loc>source-GameQ.Filters.Test.html</loc></url>
 			<url><loc>source-GameQ.GameQ.html</loc></url>
+			<url><loc>source-GameQ.Helpers.Arr.html</loc></url>
+			<url><loc>source-GameQ.Helpers.Arr.Recursively.html</loc></url>
+			<url><loc>source-GameQ.Helpers.Str.html</loc></url>
 			<url><loc>source-GameQ.Protocol.html</loc></url>
 			<url><loc>source-GameQ.Protocols.Aa3.html</loc></url>
 			<url><loc>source-GameQ.Protocols.Aapg.html</loc></url>

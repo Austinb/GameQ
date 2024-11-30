@@ -26,6 +26,9 @@
 				<a href="namespace-GameQ.Filters.html">Filters</a>
 			</li>
 			<li class="menuGroup-item">
+				<a href="namespace-GameQ.Helpers.html">Helpers</a>
+			</li>
+			<li class="menuGroup-item">
 				<a href="namespace-GameQ.Protocols.html">Protocols</a>
 			</li>
 			<li class="menuGroup-item">
@@ -114,7 +117,8 @@
 
 	</table>
 		<div class="classLikeDescription">
-	<div class="description"><p>Class Strip Colors Strip color codes from UT and Quake based games</p>
+	<div class="description"><p>Class Strip Colors This Filter is responsible for removing
+color codes from the provided result.</p>
 </div>
 		</div>
 
@@ -136,7 +140,7 @@
 			</div>
 
 		<div class="classLikeSection">
-			<b>Located at</b> <a href="source-GameQ.Filters.Stripcolors.html#30" title="Go to source code">GameQ/Filters/Stripcolors.php</a><br>
+			<b>Located at</b> <a href="source-GameQ.Filters.Stripcolors.html#34" title="Go to source code">GameQ/Filters/Stripcolors.php</a><br>
 		</div>
 
 
@@ -157,7 +161,7 @@
 			</td>
 
 			<td class="table-cell">
-				<code><a href="source-GameQ.Filters.Stripcolors.html#33-87" title="Go to source code">apply</a>(<span>array <var>$result</var></span>, <span><a href="GameQ.Server.html"><span title="GameQ\Server">Server</span></a> <var>$server</var></span>): array</code>
+				<code><a href="source-GameQ.Filters.Stripcolors.html#43-99" title="Go to source code">apply</a>(<span>array <var>$result</var></span>, <span><a href="GameQ.Server.html"><span title="GameQ\Server">Server</span></a> <var>$server</var></span>): array</code>
 
 
 	<div class="expandable-collapsedView">
@@ -194,16 +198,16 @@
 			</td>
 
 			<td class="table-cell">
-				<code><a href="source-GameQ.Filters.Stripcolors.html#89-97" title="Go to source code">stripQuake</a>(<span>string &amp;<var>$string</var></span>)</code>
+				<code><a href="source-GameQ.Filters.Stripcolors.html#101-109" title="Go to source code">stripQuake</a>(<span>string <var>$string</var></span>)</code>
 
 
 	<div class="expandable-collapsedView">
-		<p>Strip color codes from quake based games</p>
+		<p>Strip color codes from quake based games.</p>
 
 	</div>
 
 	<div class="expandable-expandedView">
-	<div class="description"><p>Strip color codes from quake based games</p>
+	<div class="description"><p>Strip color codes from quake based games.</p>
 </div>
 
 
@@ -226,16 +230,16 @@
 			</td>
 
 			<td class="table-cell">
-				<code><a href="source-GameQ.Filters.Stripcolors.html#99-107" title="Go to source code">stripSource</a>(<span>string &amp;<var>$string</var></span>)</code>
+				<code><a href="source-GameQ.Filters.Stripcolors.html#111-119" title="Go to source code">stripSource</a>(<span>string <var>$string</var></span>)</code>
 
 
 	<div class="expandable-collapsedView">
-		<p>Strip color codes from Source based games</p>
+		<p>Strip color codes from Source based games.</p>
 
 	</div>
 
 	<div class="expandable-expandedView">
-	<div class="description"><p>Strip color codes from Source based games</p>
+	<div class="description"><p>Strip color codes from Source based games.</p>
 </div>
 
 
@@ -258,16 +262,16 @@
 			</td>
 
 			<td class="table-cell">
-				<code><a href="source-GameQ.Filters.Stripcolors.html#109-117" title="Go to source code">stripUnreal</a>(<span>string &amp;<var>$string</var></span>)</code>
+				<code><a href="source-GameQ.Filters.Stripcolors.html#121-129" title="Go to source code">stripUnreal</a>(<span>string <var>$string</var></span>)</code>
 
 
 	<div class="expandable-collapsedView">
-		<p>Strip color codes from Unreal based games</p>
+		<p>Strip color codes from Unreal based games.</p>
 
 	</div>
 
 	<div class="expandable-expandedView">
-	<div class="description"><p>Strip color codes from Unreal based games</p>
+	<div class="description"><p>Strip color codes from Unreal based games.</p>
 </div>
 
 
@@ -277,6 +281,40 @@
 			</td>
 		<td class="table-anchor">
 			<a href="#_stripUnreal">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="getExecutor" id="_getExecutor">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	protected
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-GameQ.Filters.Stripcolors.html#131-164" title="Go to source code">getExecutor</a>(<span><a href="GameQ.Server.html"><span title="GameQ\Server">Server</span></a> <var>$server</var></span>): null|<a href="Closure.html"><span title="Closure">Closure</span></a>&lt;string&gt;</code>
+
+
+	<div class="expandable-collapsedView">
+		<p>This helper determines the correct executor to
+be used with the current Protocl instance.</p>
+
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>This helper determines the correct executor to
+be used with the current Protocl instance.</p>
+</div>
+
+
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_getExecutor">#</a>
 		</td>
 	</tr>
 		</table>
@@ -302,6 +340,36 @@
 
 
 
+		<table class="table" id="properties">
+			<tr>
+				<th class="table-heading sortable" colspan="4" title="Switch between natural and alphabetical order">Properties</th>
+			</tr>
+
+	<tr class="expandable collapsed" data-order="writeTestData" id="$writeTestData">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+	protected
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell table-shrink">
+				<code class="nowrap">bool</code>
+			</td>
+
+			<td class="table-cell">
+<code><var><a href="source-GameQ.Filters.Stripcolors.html#36-41" title="Go to source code">$writeTestData</a></var> = <span class="php-kw">false</span></code>
+				
+
+	<div class="expandable-expandedView">
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#$writeTestData">#</a>
+		</td>
+	</tr>
+		</table>
 		<table class="table">
 			<tr>
 				<th class="table-heading">Properties inherited from <a href="GameQ.Filters.Base.html"><span>GameQ\Filters\Base</span></a></th>

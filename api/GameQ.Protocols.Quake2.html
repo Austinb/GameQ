@@ -25,6 +25,9 @@
 			<li class="menuGroup-item">
 				<a href="namespace-GameQ.Filters.html">Filters</a>
 			</li>
+			<li class="menuGroup-item">
+				<a href="namespace-GameQ.Helpers.html">Helpers</a>
+			</li>
 			<li class="menuGroup-item active">
 				<a href="namespace-GameQ.Protocols.html">Protocols</a>
 			</li>
@@ -853,7 +856,7 @@
 			</div>
 
 		<div class="classLikeSection">
-			<b>Located at</b> <a href="source-GameQ.Protocols.Quake2.html#18" title="Go to source code">GameQ/Protocols/Quake2.php</a><br>
+			<b>Located at</b> <a href="source-GameQ.Protocols.Quake2.html#19" title="Go to source code">GameQ/Protocols/Quake2.php</a><br>
 		</div>
 
 
@@ -874,7 +877,7 @@
 			</td>
 
 			<td class="table-cell">
-				<code><a href="source-GameQ.Protocols.Quake2.html#92-112" title="Go to source code">processResponse</a>(): mixed</code>
+				<code><a href="source-GameQ.Protocols.Quake2.html#86-107" title="Go to source code">processResponse</a>(): mixed</code>
 
 
 	<div class="expandable-collapsedView">
@@ -890,6 +893,10 @@
 
 							<h4>Throws</h4>
 							<table>
+									<tr>
+										<td><code><a href="GameQ.Exception.Protocol.html"><span>GameQ\Exception\Protocol</span></a></code>&nbsp;</td>
+										<td></td>
+									</tr>
 									<tr>
 										<td><code><a href="GameQ.Exception.Protocol.html"><span>GameQ\Exception\Protocol</span></a></code>&nbsp;</td>
 										<td></td>
@@ -918,7 +925,7 @@
 			</td>
 
 			<td class="table-cell">
-				<code><a href="source-GameQ.Protocols.Quake2.html#114-135" title="Go to source code">processStatus</a>(<span><a href="GameQ.Buffer.html"><span title="GameQ\Buffer">Buffer</span></a> <var>$buffer</var></span>): array</code>
+				<code><a href="source-GameQ.Protocols.Quake2.html#109-130" title="Go to source code">processStatus</a>(<span><a href="GameQ.Buffer.html"><span title="GameQ\Buffer">Buffer</span></a> <var>$buffer</var></span>): array</code>
 
 
 	<div class="expandable-collapsedView">
@@ -932,6 +939,13 @@
 
 
 
+							<h4>Throws</h4>
+							<table>
+									<tr>
+										<td><code><a href="GameQ.Exception.Protocol.html"><span>GameQ\Exception\Protocol</span></a></code>&nbsp;</td>
+										<td></td>
+									</tr>
+							</table>
 
 	</div>
 			</td>
@@ -950,7 +964,7 @@
 			</td>
 
 			<td class="table-cell">
-				<code><a href="source-GameQ.Protocols.Quake2.html#137-167" title="Go to source code">processServerInfo</a>(<span><a href="GameQ.Buffer.html"><span title="GameQ\Buffer">Buffer</span></a> <var>$buffer</var></span>): array</code>
+				<code><a href="source-GameQ.Protocols.Quake2.html#132-162" title="Go to source code">processServerInfo</a>(<span><a href="GameQ.Buffer.html"><span title="GameQ\Buffer">Buffer</span></a> <var>$buffer</var></span>): array</code>
 
 
 	<div class="expandable-collapsedView">
@@ -964,6 +978,13 @@
 
 
 
+							<h4>Throws</h4>
+							<table>
+									<tr>
+										<td><code><a href="GameQ.Exception.Protocol.html"><span>GameQ\Exception\Protocol</span></a></code>&nbsp;</td>
+										<td></td>
+									</tr>
+							</table>
 
 	</div>
 			</td>
@@ -982,7 +1003,7 @@
 			</td>
 
 			<td class="table-cell">
-				<code><a href="source-GameQ.Protocols.Quake2.html#169-218" title="Go to source code">processPlayers</a>(<span><a href="GameQ.Buffer.html"><span title="GameQ\Buffer">Buffer</span></a> <var>$buffer</var></span>): array</code>
+				<code><a href="source-GameQ.Protocols.Quake2.html#164-213" title="Go to source code">processPlayers</a>(<span><a href="GameQ.Buffer.html"><span title="GameQ\Buffer">Buffer</span></a> <var>$buffer</var></span>): array</code>
 
 
 	<div class="expandable-collapsedView">
@@ -996,6 +1017,13 @@
 
 
 
+							<h4>Throws</h4>
+							<table>
+									<tr>
+										<td><code><a href="GameQ.Exception.Protocol.html"><span>GameQ\Exception\Protocol</span></a></code>&nbsp;</td>
+										<td></td>
+									</tr>
+							</table>
 
 	</div>
 			</td>
@@ -1050,11 +1078,11 @@
 			</td>
 
 			<td class="table-cell table-shrink">
-				<code class="nowrap"></code>
+				<code class="nowrap">array</code>
 			</td>
 
 			<td class="table-cell">
-<code><var><a href="source-GameQ.Protocols.Quake2.html#20-28" title="Go to source code">$packets</a></var> = [<b><span class="active" title="GameQ\Protocols\Quake2">self</span></b>::PACKET_STATUS =&gt; <span class="php-str">"\xFF\xFF\xFF\xFFstatus\x00"</span>]</code>
+<code><var><a href="source-GameQ.Protocols.Quake2.html#21-29" title="Go to source code">$packets</a></var> = [<b><span class="active" title="GameQ\Protocols\Quake2">self</span></b>::PACKET_STATUS =&gt; <span class="php-str">"\xFF\xFF\xFF\xFFstatus\x00"</span>]</code>
 				
 
 	<div class="expandable-expandedView">
@@ -1074,11 +1102,11 @@
 			</td>
 
 			<td class="table-cell table-shrink">
-				<code class="nowrap"></code>
+				<code class="nowrap">array</code>
 			</td>
 
 			<td class="table-cell">
-<code><var><a href="source-GameQ.Protocols.Quake2.html#30-37" title="Go to source code">$responses</a></var> = [<span class="php-str">"\xFF\xFF\xFF\xFF\x70\x72\x69\x6e\x74"</span> =&gt; <span class="php-str">'processStatus'</span>]</code>
+<code><var><a href="source-GameQ.Protocols.Quake2.html#31-38" title="Go to source code">$responses</a></var> = [<span class="php-str">"\xFF\xFF\xFF\xFF\x70\x72\x69\x6e\x74"</span> =&gt; <span class="php-str">'processStatus'</span>]</code>
 				
 
 	<div class="expandable-expandedView">
@@ -1098,11 +1126,11 @@
 			</td>
 
 			<td class="table-cell table-shrink">
-				<code class="nowrap"></code>
+				<code class="nowrap">string</code>
 			</td>
 
 			<td class="table-cell">
-<code><var><a href="source-GameQ.Protocols.Quake2.html#39-44" title="Go to source code">$protocol</a></var> = <span class="php-str">'quake2'</span></code>
+<code><var><a href="source-GameQ.Protocols.Quake2.html#40-45" title="Go to source code">$protocol</a></var> = <span class="php-str">'quake2'</span></code>
 				
 
 	<div class="expandable-expandedView">
@@ -1122,11 +1150,11 @@
 			</td>
 
 			<td class="table-cell table-shrink">
-				<code class="nowrap"></code>
+				<code class="nowrap">string</code>
 			</td>
 
 			<td class="table-cell">
-<code><var><a href="source-GameQ.Protocols.Quake2.html#46-51" title="Go to source code">$name</a></var> = <span class="php-str">'quake2'</span></code>
+<code><var><a href="source-GameQ.Protocols.Quake2.html#47-52" title="Go to source code">$name</a></var> = <span class="php-str">'quake2'</span></code>
 				
 
 	<div class="expandable-expandedView">
@@ -1146,11 +1174,11 @@
 			</td>
 
 			<td class="table-cell table-shrink">
-				<code class="nowrap"></code>
+				<code class="nowrap">string</code>
 			</td>
 
 			<td class="table-cell">
-<code><var><a href="source-GameQ.Protocols.Quake2.html#53-58" title="Go to source code">$name_long</a></var> = <span class="php-str">"Quake 2 Server"</span></code>
+<code><var><a href="source-GameQ.Protocols.Quake2.html#54-59" title="Go to source code">$name_long</a></var> = <span class="php-str">"Quake 2 Server"</span></code>
 				
 
 	<div class="expandable-expandedView">
@@ -1158,30 +1186,6 @@
 			</td>
 		<td class="table-anchor">
 			<a href="#$name_long">#</a>
-		</td>
-	</tr>
-	<tr class="expandable collapsed" data-order="join_link" id="$join_link">
-			<td class="table-cell table-shrink">
-				<code class="nowrap">
-	protected
-					
-					
-				</code>
-			</td>
-
-			<td class="table-cell table-shrink">
-				<code class="nowrap"></code>
-			</td>
-
-			<td class="table-cell">
-<code><var><a href="source-GameQ.Protocols.Quake2.html#60-65" title="Go to source code">$join_link</a></var> = <span class="php-kw">null</span></code>
-				
-
-	<div class="expandable-expandedView">
-	</div>
-			</td>
-		<td class="table-anchor">
-			<a href="#$join_link">#</a>
 		</td>
 	</tr>
 	<tr class="expandable collapsed" data-order="normalize" id="$normalize">
@@ -1194,11 +1198,11 @@
 			</td>
 
 			<td class="table-cell table-shrink">
-				<code class="nowrap"></code>
+				<code class="nowrap">array</code>
 			</td>
 
 			<td class="table-cell">
-<code><var><a href="source-GameQ.Protocols.Quake2.html#67-90" title="Go to source code">$normalize</a></var> = [
+<code><var><a href="source-GameQ.Protocols.Quake2.html#61-84" title="Go to source code">$normalize</a></var> = [
 	<span class="php-str">'general'</span> =&gt; [
 		<span class="php-str">'gametype'</span> =&gt; <span class="php-str">'gamename'</span>,
 		<span class="php-str">'hostname'</span> =&gt; <span class="php-str">'hostname'</span>,
@@ -1226,7 +1230,7 @@
 			</tr>
 			<tr>
 				<td class="table-cell">
-<code><var><a href="GameQ.Protocol.html#$port_diff">$port_diff</a></var>, <var><a href="GameQ.Protocol.html#$transport">$transport</a></var>, <var><a href="GameQ.Protocol.html#$process_methods">$process_methods</a></var>, <var><a href="GameQ.Protocol.html#$packets_response">$packets_response</a></var>, <var><a href="GameQ.Protocol.html#$result">$result</a></var>, <var><a href="GameQ.Protocol.html#$options">$options</a></var>, <var><a href="GameQ.Protocol.html#$state">$state</a></var>, </code>				</td>
+<code><var><a href="GameQ.Protocol.html#$port_diff">$port_diff</a></var>, <var><a href="GameQ.Protocol.html#$transport">$transport</a></var>, <var><a href="GameQ.Protocol.html#$process_methods">$process_methods</a></var>, <var><a href="GameQ.Protocol.html#$packets_response">$packets_response</a></var>, <var><a href="GameQ.Protocol.html#$result">$result</a></var>, <var><a href="GameQ.Protocol.html#$options">$options</a></var>, <var><a href="GameQ.Protocol.html#$state">$state</a></var>, <var><a href="GameQ.Protocol.html#$join_link">$join_link</a></var></code>				</td>
 			</tr>
 		</table>
 

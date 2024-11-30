@@ -25,6 +25,9 @@
 			<li class="menuGroup-item">
 				<a href="namespace-GameQ.Filters.html">Filters</a>
 			</li>
+			<li class="menuGroup-item">
+				<a href="namespace-GameQ.Helpers.html">Helpers</a>
+			</li>
 			<li class="menuGroup-item active">
 				<a href="namespace-GameQ.Protocols.html">Protocols</a>
 			</li>
@@ -825,8 +828,8 @@
 	</table>
 		<div class="classLikeDescription">
 	<div class="description"><p>GameSpy2 Protocol class Given the ability for non utf-8 characters to be used as hostnames, player names, etc... this
-version returns all strings utf-8 encoded (utf8_encode).  To access the proper version of a
-string response you must use utf8_decode() on the specific response.</p>
+version returns all strings utf-8 encoded.  To access the proper version of a
+string response you must use Str::utf8ToIso() on the specific response.</p>
 </div>
 		</div>
 
@@ -870,7 +873,7 @@ string response you must use utf8_decode() on the specific response.</p>
 			</div>
 
 		<div class="classLikeSection">
-			<b>Located at</b> <a href="source-GameQ.Protocols.Gamespy2.html#35" title="Go to source code">GameQ/Protocols/Gamespy2.php</a><br>
+			<b>Located at</b> <a href="source-GameQ.Protocols.Gamespy2.html#36" title="Go to source code">GameQ/Protocols/Gamespy2.php</a><br>
 		</div>
 
 
@@ -891,7 +894,7 @@ string response you must use utf8_decode() on the specific response.</p>
 			</td>
 
 			<td class="table-cell">
-				<code><a href="source-GameQ.Protocols.Gamespy2.html#115-159" title="Go to source code">processResponse</a>(): array</code>
+				<code><a href="source-GameQ.Protocols.Gamespy2.html#109-153" title="Go to source code">processResponse</a>(): array</code>
 
 
 	<div class="expandable-collapsedView">
@@ -935,7 +938,7 @@ string response you must use utf8_decode() on the specific response.</p>
 			</td>
 
 			<td class="table-cell">
-				<code><a href="source-GameQ.Protocols.Gamespy2.html#161-191" title="Go to source code">processDetails</a>(<span><a href="GameQ.Buffer.html"><span title="GameQ\Buffer">Buffer</span></a> <var>$buffer</var></span>): array</code>
+				<code><a href="source-GameQ.Protocols.Gamespy2.html#155-186" title="Go to source code">processDetails</a>(<span><a href="GameQ.Buffer.html"><span title="GameQ\Buffer">Buffer</span></a> <var>$buffer</var></span>): array</code>
 
 
 	<div class="expandable-collapsedView">
@@ -951,6 +954,10 @@ string response you must use utf8_decode() on the specific response.</p>
 
 							<h4>Throws</h4>
 							<table>
+									<tr>
+										<td><code><a href="GameQ.Exception.Protocol.html"><span>GameQ\Exception\Protocol</span></a></code>&nbsp;</td>
+										<td></td>
+									</tr>
 									<tr>
 										<td><code><a href="GameQ.Exception.Protocol.html"><span>GameQ\Exception\Protocol</span></a></code>&nbsp;</td>
 										<td></td>
@@ -974,7 +981,7 @@ string response you must use utf8_decode() on the specific response.</p>
 			</td>
 
 			<td class="table-cell">
-				<code><a href="source-GameQ.Protocols.Gamespy2.html#193-219" title="Go to source code">processPlayers</a>(<span><a href="GameQ.Buffer.html"><span title="GameQ\Buffer">Buffer</span></a> <var>$buffer</var></span>): array</code>
+				<code><a href="source-GameQ.Protocols.Gamespy2.html#188-215" title="Go to source code">processPlayers</a>(<span><a href="GameQ.Buffer.html"><span title="GameQ\Buffer">Buffer</span></a> <var>$buffer</var></span>): array</code>
 
 
 	<div class="expandable-collapsedView">
@@ -990,6 +997,10 @@ string response you must use utf8_decode() on the specific response.</p>
 
 							<h4>Throws</h4>
 							<table>
+									<tr>
+										<td><code><a href="GameQ.Exception.Protocol.html"><span>GameQ\Exception\Protocol</span></a></code>&nbsp;</td>
+										<td></td>
+									</tr>
 									<tr>
 										<td><code><a href="GameQ.Exception.Protocol.html"><span>GameQ\Exception\Protocol</span></a></code>&nbsp;</td>
 										<td></td>
@@ -1013,7 +1024,7 @@ string response you must use utf8_decode() on the specific response.</p>
 			</td>
 
 			<td class="table-cell">
-				<code><a href="source-GameQ.Protocols.Gamespy2.html#221-268" title="Go to source code">parsePlayerTeam</a>(<span>string <var>$dataType</var></span>, <span><a href="GameQ.Buffer.html"><span title="GameQ\Buffer">Buffer</span></a> &amp;<var>$buffer</var></span>, <span><a href="GameQ.Result.html"><span title="GameQ\Result">Result</span></a> &amp;<var>$result</var></span>)</code>
+				<code><a href="source-GameQ.Protocols.Gamespy2.html#217-265" title="Go to source code">parsePlayerTeam</a>(<span>string <var>$dataType</var></span>, <span><a href="GameQ.Buffer.html"><span title="GameQ\Buffer">Buffer</span></a> &amp;<var>$buffer</var></span>, <span><a href="GameQ.Result.html"><span title="GameQ\Result">Result</span></a> &amp;<var>$result</var></span>)</code>
 
 
 	<div class="expandable-collapsedView">
@@ -1029,6 +1040,10 @@ string response you must use utf8_decode() on the specific response.</p>
 
 							<h4>Throws</h4>
 							<table>
+									<tr>
+										<td><code><a href="GameQ.Exception.Protocol.html"><span>GameQ\Exception\Protocol</span></a></code>&nbsp;</td>
+										<td></td>
+									</tr>
 									<tr>
 										<td><code><a href="GameQ.Exception.Protocol.html"><span>GameQ\Exception\Protocol</span></a></code>&nbsp;</td>
 										<td></td>
@@ -1088,11 +1103,11 @@ string response you must use utf8_decode() on the specific response.</p>
 			</td>
 
 			<td class="table-cell table-shrink">
-				<code class="nowrap"></code>
+				<code class="nowrap">int</code>
 			</td>
 
 			<td class="table-cell">
-<code><var><a href="source-GameQ.Protocols.Gamespy2.html#38-43" title="Go to source code">$state</a></var> = <b><span class="active" title="GameQ\Protocols\Gamespy2">self</span></b>::STATE_BETA</code>
+<code><var><a href="source-GameQ.Protocols.Gamespy2.html#39-44" title="Go to source code">$state</a></var> = <b><span class="active" title="GameQ\Protocols\Gamespy2">self</span></b>::STATE_BETA</code>
 				
 
 	<div class="expandable-expandedView">
@@ -1112,11 +1127,11 @@ string response you must use utf8_decode() on the specific response.</p>
 			</td>
 
 			<td class="table-cell table-shrink">
-				<code class="nowrap"></code>
+				<code class="nowrap">array</code>
 			</td>
 
 			<td class="table-cell">
-<code><var><a href="source-GameQ.Protocols.Gamespy2.html#45-54" title="Go to source code">$packets</a></var> = [
+<code><var><a href="source-GameQ.Protocols.Gamespy2.html#46-55" title="Go to source code">$packets</a></var> = [
 	<b><span class="active" title="GameQ\Protocols\Gamespy2">self</span></b>::PACKET_DETAILS =&gt; <span class="php-str">"\xFE\xFD\x00\x43\x4F\x52\x59\xFF\x00\x00"</span>,
 	<b><span class="active" title="GameQ\Protocols\Gamespy2">self</span></b>::PACKET_PLAYERS =&gt; <span class="php-str">"\xFE\xFD\x00\x43\x4F\x52\x58\x00\xFF\xFF"</span>,
 ]</code>
@@ -1139,11 +1154,11 @@ string response you must use utf8_decode() on the specific response.</p>
 			</td>
 
 			<td class="table-cell table-shrink">
-				<code class="nowrap"></code>
+				<code class="nowrap">array</code>
 			</td>
 
 			<td class="table-cell">
-<code><var><a href="source-GameQ.Protocols.Gamespy2.html#56-64" title="Go to source code">$responses</a></var> = [<span class="php-str">"\x00\x43\x4F\x52\x59"</span> =&gt; <span class="php-str">"processDetails"</span>, <span class="php-str">"\x00\x43\x4F\x52\x58"</span> =&gt; <span class="php-str">"processPlayers"</span>]</code>
+<code><var><a href="source-GameQ.Protocols.Gamespy2.html#57-65" title="Go to source code">$responses</a></var> = [<span class="php-str">"\x00\x43\x4F\x52\x59"</span> =&gt; <span class="php-str">"processDetails"</span>, <span class="php-str">"\x00\x43\x4F\x52\x58"</span> =&gt; <span class="php-str">"processPlayers"</span>]</code>
 				
 
 	<div class="expandable-expandedView">
@@ -1163,11 +1178,11 @@ string response you must use utf8_decode() on the specific response.</p>
 			</td>
 
 			<td class="table-cell table-shrink">
-				<code class="nowrap"></code>
+				<code class="nowrap">string</code>
 			</td>
 
 			<td class="table-cell">
-<code><var><a href="source-GameQ.Protocols.Gamespy2.html#66-71" title="Go to source code">$protocol</a></var> = <span class="php-str">'gamespy2'</span></code>
+<code><var><a href="source-GameQ.Protocols.Gamespy2.html#67-72" title="Go to source code">$protocol</a></var> = <span class="php-str">'gamespy2'</span></code>
 				
 
 	<div class="expandable-expandedView">
@@ -1187,11 +1202,11 @@ string response you must use utf8_decode() on the specific response.</p>
 			</td>
 
 			<td class="table-cell table-shrink">
-				<code class="nowrap"></code>
+				<code class="nowrap">string</code>
 			</td>
 
 			<td class="table-cell">
-<code><var><a href="source-GameQ.Protocols.Gamespy2.html#73-78" title="Go to source code">$name</a></var> = <span class="php-str">'gamespy2'</span></code>
+<code><var><a href="source-GameQ.Protocols.Gamespy2.html#74-79" title="Go to source code">$name</a></var> = <span class="php-str">'gamespy2'</span></code>
 				
 
 	<div class="expandable-expandedView">
@@ -1211,11 +1226,11 @@ string response you must use utf8_decode() on the specific response.</p>
 			</td>
 
 			<td class="table-cell table-shrink">
-				<code class="nowrap"></code>
+				<code class="nowrap">string</code>
 			</td>
 
 			<td class="table-cell">
-<code><var><a href="source-GameQ.Protocols.Gamespy2.html#80-85" title="Go to source code">$name_long</a></var> = <span class="php-str">"GameSpy2 Server"</span></code>
+<code><var><a href="source-GameQ.Protocols.Gamespy2.html#81-86" title="Go to source code">$name_long</a></var> = <span class="php-str">"GameSpy2 Server"</span></code>
 				
 
 	<div class="expandable-expandedView">
@@ -1223,30 +1238,6 @@ string response you must use utf8_decode() on the specific response.</p>
 			</td>
 		<td class="table-anchor">
 			<a href="#$name_long">#</a>
-		</td>
-	</tr>
-	<tr class="expandable collapsed" data-order="join_link" id="$join_link">
-			<td class="table-cell table-shrink">
-				<code class="nowrap">
-	protected
-					
-					
-				</code>
-			</td>
-
-			<td class="table-cell table-shrink">
-				<code class="nowrap"></code>
-			</td>
-
-			<td class="table-cell">
-<code><var><a href="source-GameQ.Protocols.Gamespy2.html#87-92" title="Go to source code">$join_link</a></var> = <span class="php-kw">null</span></code>
-				
-
-	<div class="expandable-expandedView">
-	</div>
-			</td>
-		<td class="table-anchor">
-			<a href="#$join_link">#</a>
 		</td>
 	</tr>
 	<tr class="expandable collapsed" data-order="normalize" id="$normalize">
@@ -1259,11 +1250,11 @@ string response you must use utf8_decode() on the specific response.</p>
 			</td>
 
 			<td class="table-cell table-shrink">
-				<code class="nowrap"></code>
+				<code class="nowrap">array</code>
 			</td>
 
 			<td class="table-cell">
-<code><var><a href="source-GameQ.Protocols.Gamespy2.html#94-112" title="Go to source code">$normalize</a></var> = [
+<code><var><a href="source-GameQ.Protocols.Gamespy2.html#88-106" title="Go to source code">$normalize</a></var> = [
 	<span class="php-str">'general'</span> =&gt; [
 		<span class="php-str">'dedicated'</span> =&gt; <span class="php-str">'dedicated'</span>,
 		<span class="php-str">'gametype'</span> =&gt; <span class="php-str">'gametype'</span>,
@@ -1291,7 +1282,7 @@ string response you must use utf8_decode() on the specific response.</p>
 			</tr>
 			<tr>
 				<td class="table-cell">
-<code><var><a href="GameQ.Protocol.html#$port_diff">$port_diff</a></var>, <var><a href="GameQ.Protocol.html#$transport">$transport</a></var>, <var><a href="GameQ.Protocol.html#$process_methods">$process_methods</a></var>, <var><a href="GameQ.Protocol.html#$packets_response">$packets_response</a></var>, <var><a href="GameQ.Protocol.html#$result">$result</a></var>, <var><a href="GameQ.Protocol.html#$options">$options</a></var>, </code>				</td>
+<code><var><a href="GameQ.Protocol.html#$port_diff">$port_diff</a></var>, <var><a href="GameQ.Protocol.html#$transport">$transport</a></var>, <var><a href="GameQ.Protocol.html#$process_methods">$process_methods</a></var>, <var><a href="GameQ.Protocol.html#$packets_response">$packets_response</a></var>, <var><a href="GameQ.Protocol.html#$result">$result</a></var>, <var><a href="GameQ.Protocol.html#$options">$options</a></var>, <var><a href="GameQ.Protocol.html#$join_link">$join_link</a></var></code>				</td>
 			</tr>
 		</table>
 

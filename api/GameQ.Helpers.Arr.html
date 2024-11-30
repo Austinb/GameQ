@@ -1,0 +1,259 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+
+	<title>Class GameQ\Helpers\Arr |  API</title>
+	<link rel="stylesheet" href="assets/main.css">
+	<script src="assets/main.js" defer></script>
+</head>
+
+<body class="layout">
+	<div class="layout-aside">
+	<div class="menu">
+			<div class="menu-section">
+				<h3>Namespaces</h3>
+	<ul>
+			<li class="menuGroup-item active">
+				<a href="namespace-GameQ.html">GameQ</a>
+	<ul>
+			<li class="menuGroup-item">
+				<a href="namespace-GameQ.Exception.html">Exception</a>
+			</li>
+			<li class="menuGroup-item">
+				<a href="namespace-GameQ.Filters.html">Filters</a>
+			</li>
+			<li class="menuGroup-item active">
+				<a href="namespace-GameQ.Helpers.html">Helpers</a>
+	<ul>
+			<li class="menuGroup-item">
+				<a href="namespace-GameQ.Helpers.Arr.html">Arr</a>
+			</li>
+	</ul>
+			</li>
+			<li class="menuGroup-item">
+				<a href="namespace-GameQ.Protocols.html">Protocols</a>
+			</li>
+			<li class="menuGroup-item">
+				<a href="namespace-GameQ.Query.html">Query</a>
+			</li>
+	</ul>
+			</li>
+	</ul>
+			</div>
+
+		<div class="menu-section">
+			<h3>Classes</h3>
+			<ul>
+					<li class="active">
+						<a href="GameQ.Helpers.Arr.html">
+							Arr
+						</a>
+					</li>
+					<li>
+						<a href="GameQ.Helpers.Str.html">
+							Str
+						</a>
+					</li>
+			</ul>
+		</div>
+	</div>
+	</div>
+
+	<div class="layout-main">
+		<div class="layout-navbar">
+	<nav class="navbar">
+		<div class="navbar-left">
+			<ul class="navbar-links">
+				<li>
+					<a href="index.html">Overview</a>
+				</li>
+				<li>
+					
+						<a href="namespace-GameQ.Helpers.html">Namespace</a>
+					
+				</li>
+<li class="active"><a href="GameQ.Helpers.Arr.html">Class</a></li>				<li>
+					<a href="tree.html">Tree</a>
+				</li>
+			</ul>
+		</div>
+		<div class="navbar-right">
+	<div class="search" data-elements="assets/elements.js">
+		<input class="search-input" placeholder="Search class, function or namespace" autofocus>
+		<ul class="search-results"></ul>
+	</div>
+		</div>
+	</nav>
+		</div>
+
+		<div class="layout-content">
+		<h1>
+			Class <a href="namespace-GameQ.html">GameQ</a>\<a href="namespace-GameQ.Helpers.html">Helpers</a>\<a href="GameQ.Helpers.Arr.html">Arr</a>
+		</h1>
+
+
+	<table class="classLikeSignatureTable">
+
+
+
+		<tr>
+			<th><code>uses</code></th>
+			<td>
+<code><a href="GameQ.Helpers.Arr.Recursively.html"><span title="GameQ\Helpers\Arr\Recursively">Recursively</span></a></code>			</td>
+		</tr>
+
+	</table>
+		<div class="classLikeDescription">
+	<div class="description"><p>This helper contains functions to work with arrays.</p>
+</div>
+		</div>
+
+
+		<div class="classLikeSection">
+			<b>Located at</b> <a href="source-GameQ.Helpers.Arr.html#30" title="Go to source code">GameQ/Helpers/Arr.php</a><br>
+		</div>
+
+
+
+		<table class="table" id="methods">
+			<tr>
+				<th class="table-heading sortable" colspan="3" title="Switch between natural and alphabetical order">Methods</th>
+			</tr>
+
+	<tr class="expandable collapsed" data-order="recursively" id="_recursively">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					static
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-GameQ.Helpers.Arr.html#34-75" title="Go to source code">recursively</a>(<span>array <var>$data</var></span>, <span><a href="Closure.html"><span title="Closure">Closure</span></a> <var>$callback</var></span>): array</code>
+
+
+	<div class="expandable-collapsedView">
+		<p>This helper does process each element of the provided array recursively.
+It does so allowing for modifications to the provided array and without
+using actual recursive calls.</p>
+
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>This helper does process each element of the provided array recursively.
+It does so allowing for modifications to the provided array and without
+using actual recursive calls.</p>
+</div>
+
+
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_recursively">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="hashes" id="_hashes">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					static
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-GameQ.Helpers.Arr.html#77-96" title="Go to source code">hashes</a>(<span>array <var>$array</var></span>): array&lt;string|int, string&gt;</code>
+
+
+	<div class="expandable-collapsedView">
+		<p>This helper is intended to hash the provided array's values
+and return it back as key =&gt; hash.</p>
+
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>This helper is intended to hash the provided array's values
+and return it back as key =&gt; hash.</p>
+</div>
+
+
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_hashes">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="set" id="_set">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					static
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code><a href="source-GameQ.Helpers.Arr.html#98-129" title="Go to source code">set</a>(<span>array &amp;<var>$array</var></span>, <span>array <var>$path</var></span>, <span>mixed <var>$value</var></span>): array</code>
+
+
+	<div class="expandable-collapsedView">
+		<p>This helper is intended to set a value inside the provided array.</p>
+
+	</div>
+
+	<div class="expandable-expandedView">
+	<div class="description"><p>This helper is intended to set a value inside the provided array.</p>
+</div>
+
+
+
+
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_set">#</a>
+		</td>
+	</tr>
+		</table>
+
+		<table class="table">
+			<tr>
+				<th class="table-heading">Methods used from <a href="GameQ.Helpers.Arr.Recursively.html"><span>GameQ\Helpers\Arr\Recursively</span></a></th>
+			</tr>
+			<tr>
+				<td class="table-cell">
+<code><a href="GameQ.Helpers.Arr.Recursively.html#_handleArrayIteratorCopyOrReference">handleArrayIteratorCopyOrReference()</a>, <a href="GameQ.Helpers.Arr.Recursively.html#_getArrayIteratorCopyOrReference">getArrayIteratorCopyOrReference()</a></code>				</td>
+			</tr>
+		</table>
+
+
+
+
+
+
+
+
+
+		</div>
+
+		<div class="layout-footer">
+			 API documentation generated by <a href="https://www.apigen.org">ApiGen dev-master</a>
+		</div>
+	</div>
+
+	<div class="layout-rest">
+		<div class="navbar"></div>
+	</div>
+</body>
+</html>

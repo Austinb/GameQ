@@ -1,0 +1,453 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<meta name="robots" content="noindex">
+	<title>Interface Iterator |  API</title>
+	<link rel="stylesheet" href="assets/main.css">
+	<script src="assets/main.js" defer></script>
+</head>
+
+<body class="layout">
+	<div class="layout-aside">
+	<div class="menu">
+			<div class="menu-section">
+				<h3>Namespaces</h3>
+	<ul>
+			<li class="menuGroup-item">
+				<a href="namespace-GameQ.html">GameQ</a>
+	<ul>
+			<li class="menuGroup-item">
+				<a href="namespace-GameQ.Exception.html">Exception</a>
+			</li>
+			<li class="menuGroup-item">
+				<a href="namespace-GameQ.Filters.html">Filters</a>
+			</li>
+			<li class="menuGroup-item">
+				<a href="namespace-GameQ.Helpers.html">Helpers</a>
+			</li>
+			<li class="menuGroup-item">
+				<a href="namespace-GameQ.Protocols.html">Protocols</a>
+			</li>
+			<li class="menuGroup-item">
+				<a href="namespace-GameQ.Query.html">Query</a>
+			</li>
+	</ul>
+			</li>
+			<li class="menuGroup-item active">
+				<a href="namespace-none.html">none</a>
+			</li>
+	</ul>
+			</div>
+
+		<div class="menu-section">
+			<h3>Classes</h3>
+			<ul>
+					<li>
+						<a href="ArrayIterator.html">
+							ArrayIterator
+						</a>
+					</li>
+					<li>
+						<a href="Closure.html">
+							Closure
+						</a>
+					</li>
+					<li>
+						<a href="RecursiveArrayIterator.html">
+							RecursiveArrayIterator
+						</a>
+					</li>
+					<li>
+						<a href="RecursiveIteratorIterator.html">
+							RecursiveIteratorIterator
+						</a>
+					</li>
+			</ul>
+		</div>
+		<div class="menu-section">
+			<h3>Interfaces</h3>
+			<ul>
+					<li>
+						<a href="ArrayAccess.html">
+							ArrayAccess
+						</a>
+					</li>
+					<li>
+						<a href="Countable.html">
+							Countable
+						</a>
+					</li>
+					<li class="active">
+						<a href="Iterator.html">
+							Iterator
+						</a>
+					</li>
+					<li>
+						<a href="OuterIterator.html">
+							OuterIterator
+						</a>
+					</li>
+					<li>
+						<a href="RecursiveIterator.html">
+							RecursiveIterator
+						</a>
+					</li>
+					<li>
+						<a href="SeekableIterator.html">
+							SeekableIterator
+						</a>
+					</li>
+					<li>
+						<a href="Serializable.html">
+							Serializable
+						</a>
+					</li>
+					<li>
+						<a href="Stringable.html">
+							Stringable
+						</a>
+					</li>
+					<li>
+						<a href="Throwable.html">
+							Throwable
+						</a>
+					</li>
+					<li>
+						<a href="Traversable.html">
+							Traversable
+						</a>
+					</li>
+			</ul>
+		</div>
+		<div class="menu-section">
+			<h3>Exceptions</h3>
+			<ul>
+					<li>
+						<a href="Exception.html">
+							Exception
+						</a>
+					</li>
+			</ul>
+		</div>
+	</div>
+	</div>
+
+	<div class="layout-main">
+		<div class="layout-navbar">
+	<nav class="navbar">
+		<div class="navbar-left">
+			<ul class="navbar-links">
+				<li>
+					<a href="index.html">Overview</a>
+				</li>
+				<li>
+					
+						<a href="namespace-none.html">Namespace</a>
+					
+				</li>
+<li class="active"><a href="Iterator.html">Interface</a></li>				<li>
+					<a href="tree.html">Tree</a>
+				</li>
+			</ul>
+		</div>
+		<div class="navbar-right">
+	<div class="search" data-elements="assets/elements.js">
+		<input class="search-input" placeholder="Search class, function or namespace" autofocus>
+		<ul class="search-results"></ul>
+	</div>
+		</div>
+	</nav>
+		</div>
+
+		<div class="layout-content">
+		<h1>
+			Interface <a href="Iterator.html">Iterator</a>
+		</h1>
+
+
+	<table class="classLikeSignatureTable">
+		<tr>
+			<th><code>extends</code></th>
+			<td>
+<code><a href="Traversable.html"><span title="Traversable">Traversable</span></a></code>			</td>
+		</tr>
+
+	</table>
+
+			<div class="classLikeSection">
+	<ul class="classTree">
+	<li>
+<b><span class="active">Iterator</span></b>
+		extends
+			<a href="Traversable.html"><span title="Traversable">Traversable</span></a>
+
+
+	<ul class="classTree">
+	<li>
+<a href="OuterIterator.html"><span>OuterIterator</span></a>
+		extends
+			<b><span class="active" title="Iterator">Iterator</span></b>
+
+
+	<ul class="classTree">
+	<li>
+<a href="RecursiveIteratorIterator.html"><span>RecursiveIteratorIterator</span></a>
+
+		implements
+			<a href="OuterIterator.html"><span title="OuterIterator">OuterIterator</span></a>
+
+	</li>
+	</ul>
+	</li>
+	<li>
+<a href="RecursiveIterator.html"><span>RecursiveIterator</span></a>
+		extends
+			<b><span class="active" title="Iterator">Iterator</span></b>
+
+
+	<ul class="classTree">
+	<li>
+<a href="RecursiveArrayIterator.html"><span>RecursiveArrayIterator</span></a>
+
+		implements
+			<a href="RecursiveIterator.html"><span title="RecursiveIterator">RecursiveIterator</span></a>
+
+	</li>
+	</ul>
+	</li>
+	<li>
+<a href="SeekableIterator.html"><span>SeekableIterator</span></a>
+		extends
+			<b><span class="active" title="Iterator">Iterator</span></b>
+
+
+	<ul class="classTree">
+	<li>
+<a href="ArrayIterator.html"><span>ArrayIterator</span></a>
+
+		implements
+			<a href="SeekableIterator.html"><span title="SeekableIterator">SeekableIterator</span></a>, 
+			<a href="ArrayAccess.html"><span title="ArrayAccess">ArrayAccess</span></a>, 
+			<a href="Serializable.html"><span title="Serializable">Serializable</span></a>, 
+			<a href="Countable.html"><span title="Countable">Countable</span></a>
+
+	<ul class="classTree">
+	<li>
+<a href="RecursiveArrayIterator.html"><span>RecursiveArrayIterator</span></a>
+
+		implements
+			<a href="RecursiveIterator.html"><span title="RecursiveIterator">RecursiveIterator</span></a>
+
+	</li>
+	</ul>
+	</li>
+	</ul>
+	</li>
+	</ul>
+	</li>
+	</ul>
+			</div>
+
+		<div class="classLikeSection">
+
+		</div>
+
+
+
+		<table class="table" id="methods">
+			<tr>
+				<th class="table-heading sortable" colspan="3" title="Switch between natural and alphabetical order">Methods</th>
+			</tr>
+
+	<tr class="expandable collapsed" data-order="current" id="_current">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code>current(): mixed</code>
+
+
+
+	<div class="expandable-expandedView">
+
+
+
+
+		<h4>Implemented by</h4>
+		<ul>
+				<li>
+<a href="ArrayIterator.html#_current">						<code>ArrayIterator::current()</code></a>				</li>
+				<li>
+<a href="RecursiveIteratorIterator.html#_current">						<code>RecursiveIteratorIterator::current()</code></a>				</li>
+		</ul>
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_current">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="next" id="_next">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code>next(): void</code>
+
+
+
+	<div class="expandable-expandedView">
+
+
+
+
+		<h4>Implemented by</h4>
+		<ul>
+				<li>
+<a href="ArrayIterator.html#_next">						<code>ArrayIterator::next()</code></a>				</li>
+				<li>
+<a href="RecursiveIteratorIterator.html#_next">						<code>RecursiveIteratorIterator::next()</code></a>				</li>
+		</ul>
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_next">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="key" id="_key">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code>key(): mixed</code>
+
+
+
+	<div class="expandable-expandedView">
+
+
+
+
+		<h4>Implemented by</h4>
+		<ul>
+				<li>
+<a href="ArrayIterator.html#_key">						<code>ArrayIterator::key()</code></a>				</li>
+				<li>
+<a href="RecursiveIteratorIterator.html#_key">						<code>RecursiveIteratorIterator::key()</code></a>				</li>
+		</ul>
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_key">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="valid" id="_valid">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code>valid(): bool</code>
+
+
+
+	<div class="expandable-expandedView">
+
+
+
+
+		<h4>Implemented by</h4>
+		<ul>
+				<li>
+<a href="ArrayIterator.html#_valid">						<code>ArrayIterator::valid()</code></a>				</li>
+				<li>
+<a href="RecursiveIteratorIterator.html#_valid">						<code>RecursiveIteratorIterator::valid()</code></a>				</li>
+		</ul>
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_valid">#</a>
+		</td>
+	</tr>
+	<tr class="expandable collapsed" data-order="rewind" id="_rewind">
+			<td class="table-cell table-shrink">
+				<code class="nowrap">
+					
+	public
+					
+					
+				</code>
+			</td>
+
+			<td class="table-cell">
+				<code>rewind(): void</code>
+
+
+
+	<div class="expandable-expandedView">
+
+
+
+
+		<h4>Implemented by</h4>
+		<ul>
+				<li>
+<a href="ArrayIterator.html#_rewind">						<code>ArrayIterator::rewind()</code></a>				</li>
+				<li>
+<a href="RecursiveIteratorIterator.html#_rewind">						<code>RecursiveIteratorIterator::rewind()</code></a>				</li>
+		</ul>
+	</div>
+			</td>
+		<td class="table-anchor">
+			<a href="#_rewind">#</a>
+		</td>
+	</tr>
+		</table>
+
+
+
+
+
+
+
+
+
+
+
+		</div>
+
+		<div class="layout-footer">
+			 API documentation generated by <a href="https://www.apigen.org">ApiGen dev-master</a>
+		</div>
+	</div>
+
+	<div class="layout-rest">
+		<div class="navbar"></div>
+	</div>
+</body>
+</html>
