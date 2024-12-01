@@ -133,8 +133,8 @@ class Arr
      *
      * **Example:** foo, bar, baz becomes bar, baz, baz
      *
-     * @param mixed &...$args 
-     * @return void 
+     * @param mixed &...$args
+     * @return void
      */
     public static function shift(&...$args)
     {

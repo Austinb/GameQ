@@ -26,7 +26,8 @@ use GameQ\Server;
 /**
  * Stationeers Protocol Class
  *
- * This protocol uses a server list from a JSON response to find the server and parse the server's status information
+ * **Note:** This protocol does use the offical, centralized "Metaserver" to query the list of all available servers. This
+ * is effectively a host controlled by a third party which could interfere with the functionality of this protocol.
  *
  * @author Austin Bischoff <austin@codebeard.com>
  */
