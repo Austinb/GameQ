@@ -23,14 +23,14 @@ class Tibia extends Base
     /**
      * Holds stub on setup
      *
-     * @type \GameQ\Protocols\Tibia
+     * @var \GameQ\Protocols\Tibia
      */
     protected $stub;
 
     /**
      * Holds the expected packets for this protocol class
      *
-     * @type array
+     * @var array
      */
     protected $packets = [
         \GameQ\Protocol::PACKET_STATUS => "\x06\x00\xFF\xFF\x69\x6E\x66\x6F",

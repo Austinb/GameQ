@@ -15,17 +15,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [7.0, 7.1, 7.2, 7.3, 7.4, 8.0, 8.1]
-        ocular: [^1.9]
+        php: [5.6, 7.0, 7.1, 7.2, 7.3, 7.4, 8.0, 8.1, 8.2, 8.3]
         experimental: [false]
         composer-extra: ['']
         include:
-          - php: 5.6
-            experimental: false
-            ocular: ~1.8.1
-          - php: 8.2
+          - php: 8.4
             experimental: true
-            ocular: ^1.9
             composer-extra: '--ignore-platform-req=php+'
     env:
       PHP_VERSION: ${{ matrix.php }}
@@ -39,7 +34,7 @@ jobs:
           extensions: bz2,xml,curl
 
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 10
 
@@ -65,15 +60,23 @@ jobs:
         run: vendor/bin/phpunit -c phpunit.xml --verbose
 
       - name: Upload Coveralls coverage
-        if: github.repository == 'Austinb/GameQ'
-        env:
-          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          composer global require php-coveralls/php-coveralls
-          php ~/.composer/vendor/bin/php-coveralls --coverage_clover=build/logs/clover.xml -v
-        
+        uses: coverallsapp/github-action@v2
+        with:
+          parallel: true
+          file: build/logs/clover.xml
+
       - name: Upload Scrutinizer coverage
+        uses: sudo-bot/action-scrutinizer@latest
         if: github.repository == 'Austinb/GameQ'
-        run: |
-          composer global require scrutinizer/ocular ${{ matrix.ocular }}
-          php ~/.composer/vendor/bin/ocular code-coverage:upload --format=php-clover build/logs/clover.xml --revision=${{ github.event.pull_request.head.sha || github.sha }}
+        with:
+            cli-args: "--format=php-clover build/logs/clover.xml --revision=${{ github.event.pull_request.head.sha || github.sha }}"
+
+  Finish:
+    needs: CI
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Coveralls Finished
+      uses: coverallsapp/github-action@v2
+      with:
+        parallel-finished: true

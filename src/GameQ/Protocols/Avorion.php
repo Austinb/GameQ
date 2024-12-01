@@ -28,21 +28,14 @@ class Avorion extends Source
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'avorion';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "Avorion";
-
-    /**
-     * query_port = client_port + 1
-     *
-     * @type int
-     * protected $port_diff = 1;
-     */
 }

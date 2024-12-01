@@ -30,21 +30,21 @@ class Armedassault2oa extends Source
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = "armedassault2oa";
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "Armed Assault 2: Operation Arrowhead";
 
     /**
      * Query port = client_port + 1
      *
-     * @type int
+     * @var int
      */
     protected $port_diff = 1;
 }

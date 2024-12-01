@@ -28,21 +28,21 @@ class Vrising extends Source
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'vrising';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "V Rising";
 
     /**
      * query_port = client_port + 1
      *
-     * @type int
+     * @var int
      */
     protected $port_diff = 1;
 }

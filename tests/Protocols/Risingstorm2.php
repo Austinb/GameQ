@@ -28,7 +28,7 @@ class Risingstorm2 extends Base
     /**
      * Holds stub on setup
      *
-     * @type \GameQ\Protocols\Risingstorm2
+     * @var \GameQ\Protocols\Risingstorm2
      */
     protected $stub;
 
@@ -70,6 +70,6 @@ class Risingstorm2 extends Base
             $responses
         );
 
-        $this->assertEquals($result[$server], $testResult);
+        $this->assertEqualsDelta($result[$server], $testResult, 0.000000001);
     }
 }

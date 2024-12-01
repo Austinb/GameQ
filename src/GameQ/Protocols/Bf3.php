@@ -37,7 +37,7 @@ class Bf3 extends Protocol
     /**
      * Array of packets we want to query.
      *
-     * @type array
+     * @var array
      */
     protected $packets = [
         self::PACKET_STATUS  => "\x00\x00\x00\x21\x1b\x00\x00\x00\x01\x00\x00\x00\x0a\x00\x00\x00serverInfo\x00",
@@ -49,7 +49,7 @@ class Bf3 extends Protocol
     /**
      * Use the response flag to figure out what method to run
      *
-     * @type array
+     * @var array
      */
     protected $responses = [
         1627389952 => "processDetails", // a
@@ -60,50 +60,43 @@ class Bf3 extends Protocol
     /**
      * The transport mode for this protocol is TCP
      *
-     * @type string
+     * @var string
      */
     protected $transport = self::TRANSPORT_TCP;
 
     /**
      * The query protocol used to make the call
      *
-     * @type string
+     * @var string
      */
     protected $protocol = 'bf3';
 
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'bf3';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "Battlefield 3";
-
-    /**
-     * The client join link
-     *
-     * @type string
-     */
-    protected $join_link = null;
 
     /**
      * query_port = client_port + 22000
      * 47200 = 25200 + 22000
      *
-     * @type int
+     * @var int
      */
     protected $port_diff = 22000;
 
     /**
      * Normalize settings for this protocol
      *
-     * @type array
+     * @var array
      */
     protected $normalize = [
         // General
@@ -200,6 +193,7 @@ class Bf3 extends Protocol
      * @param \GameQ\Buffer $buffer
      *
      * @return array
+     * @throws \GameQ\Exception\Protocol
      */
     protected function decode(Buffer $buffer)
     {
@@ -293,6 +287,7 @@ class Bf3 extends Protocol
      * @param \GameQ\Buffer $buffer
      *
      * @return array
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processVersion(Buffer $buffer)
     {
@@ -316,6 +311,7 @@ class Bf3 extends Protocol
      * @param \GameQ\Buffer $buffer
      *
      * @return array
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processPlayers(Buffer $buffer)
     {

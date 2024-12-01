@@ -18,6 +18,7 @@
 
 namespace GameQ\Filters;
 
+use GameQ\Concerns\WithArrayHelpers;
 use GameQ\Server;
 
 /**
@@ -27,11 +28,10 @@ use GameQ\Server;
  */
 abstract class Base
 {
-
     /**
      * Holds the options for this instance of the filter
      *
-     * @type array
+     * @var array
      */
     protected $options = [];
 

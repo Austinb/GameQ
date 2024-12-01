@@ -32,14 +32,14 @@ class Rust extends Source
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'rust';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "Rust";
     
@@ -47,6 +47,8 @@ class Rust extends Source
      * Overload so we can get max players from mp of keywords and num players from cp keyword
      *
      * @param Buffer $buffer
+     * @return mixed
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processDetails(Buffer $buffer)
     {

@@ -31,14 +31,14 @@ class Terraria extends Tshock
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'terraria';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "Terraria";
 
@@ -46,14 +46,14 @@ class Terraria extends Tshock
      * query_port = client_port + 101
      * 7878 = 7777 + 101
      *
-     * @type int
+     * @var int
      */
     protected $port_diff = 101;
 
     /**
      * The client join link
      *
-     * @type string
+     * @var string
      */
     protected $join_link = "steam://connect/%s:%d/";
 }

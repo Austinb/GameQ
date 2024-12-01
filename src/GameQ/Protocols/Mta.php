@@ -32,28 +32,28 @@ class Mta extends Ase
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'mta';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "Multi Theft Auto";
 
     /**
      * query_port = client_port + 123
      *
-     * @type int
+     * @var int
      */
     protected $port_diff = 123;
 
     /**
      * The client join link
      *
-     * @type string
+     * @var string
      */
     protected $join_link = "mtasa://%s:%d/";
 }

@@ -18,12 +18,14 @@
 
 namespace GameQ\Filters;
 
+use GameQ\Helpers\Arr;
 use GameQ\Server;
+use RecursiveArrayIterator;
 
 /**
  * Class Secondstohuman
  *
- * This class converts seconds into a human readable time string 'hh:mm:ss'. This is mainly for converting
+ * This Filter converts seconds into a human readable time string 'hh:mm:ss'. This is mainly for converting
  * a player's connected time into a readable string. Note that most game servers DO NOT return a player's connected
  * time. Source (A2S) based games generally do but not always. This class can also be used to convert other time
  * responses into readable time
@@ -59,7 +61,7 @@ class Secondstohuman extends Base
     public function __construct(array $options = [])
     {
         // Check for passed keys
-        if (!array_key_exists(self::OPTION_TIMEKEYS, $options)) {
+        if (! array_key_exists(self::OPTION_TIMEKEYS, $options)) {
             // Use default
             $options[self::OPTION_TIMEKEYS] = $this->timeKeysDefault;
         } else {
@@ -81,41 +83,31 @@ class Secondstohuman extends Base
      */
     public function apply(array $result, Server $server)
     {
-        // Send the results off to be iterated and return the updated result
-        return $this->iterate($result);
-    }
+        return Arr::recursively($result, function ($value, $key, RecursiveArrayIterator $iterator) {
+            if (
+                /* Only process whitelisted keys */
+                (in_array($key, $this->options[self::OPTION_TIMEKEYS])) &&
+                /* Only process numeric values (float, integer, string) */
+                (is_numeric($value))
+            ) {
+                /* Ensure the value is float */
+                if (! is_float($value)) {
+                    $value = floatval($value);
+                }
 
-    /**
-     * Home grown iterate function.  Would like to replace this with an internal PHP method(s) but could not find a way
-     * to make the iterate classes add new keys to the response.  They all seemed to be read-only.
-     *
-     * @todo: See if there is a more internal way of handling this instead of foreach looping and recursive calling
-     *
-     * @param array $result
-     *
-     * @return array
-     */
-    protected function iterate(array &$result)
-    {
-        // Iterate over the results
-        foreach ($result as $key => $value) {
-            // Offload to itself if we have another array
-            if (is_array($value)) {
-                // Iterate and update the result
-                $result[$key] = $this->iterate($value);
-            } elseif (in_array($key, $this->options[self::OPTION_TIMEKEYS])) {
-                // Make sure the value is a float (throws E_WARNING in PHP 7.1+)
-                $value = floatval($value);
-                // We match one of the keys we are wanting to convert so add it and move on
-                $result[sprintf(self::RESULT_KEY, $key)] = sprintf(
-                    "%02d:%02d:%02d",
-                    floor($value / 3600),
-                    ($value / 60) % 60,
-                    $value % 60
+                /* Add a new element to the result */
+                $iterator->offsetSet(
+                    /* Modify the current key */
+                    sprintf(self::RESULT_KEY, $key),
+                    /* Format the provided time */
+                    sprintf(
+                        '%02d:%02d:%02d',
+                        (int)floor($value / 3600),    // Hours
+                        (int)fmod(($value / 60), 60), // Minutes
+                        (int)fmod($value, 60)         // Seconds
+                    )
                 );
             }
-        }
-
-        return $result;
+        });
     }
 }

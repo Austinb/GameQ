@@ -29,7 +29,7 @@ class GameQ extends TestBase
     /**
      * Holds stub on setup
      *
-     * @type \GameQ\GameQ
+     * @var \GameQ\GameQ
      */
     protected $stub;
 

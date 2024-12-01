@@ -29,14 +29,14 @@ class Hll extends Source
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'hll';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "Hell Let Loose";
 
@@ -44,14 +44,14 @@ class Hll extends Source
      * query_port = client_port + 15
      * 64015 = 64000 + 15
      *
-     * @type int
+     * @var int
      */
     protected $port_diff = 15;
 
     /**
      * Normalize settings for this protocol
      *
-     * @type array
+     * @var array
      */
     /*protected $normalize = [
         'general' => [

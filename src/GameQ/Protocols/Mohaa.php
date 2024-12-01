@@ -30,21 +30,21 @@ class Mohaa extends Gamespy
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'mohaa';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "Medal of honor: Allied Assault";
 
     /**
      * Normalize settings for this protocol
      *
-     * @type array
+     * @var array
      */
     protected $normalize = [
         'general' => [

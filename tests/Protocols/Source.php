@@ -23,14 +23,14 @@ class Source extends Base
     /**
      * Holds stub on setup
      *
-     * @type \GameQ\Protocols\Source
+     * @var \GameQ\Protocols\Source
      */
     protected $stub;
 
     /**
      * Holds the expected packets for this protocol class
      *
-     * @type array
+     * @var array
      */
     protected $packets = [
         \GameQ\Protocol::PACKET_CHALLENGE => "\xFF\xFF\xFF\xFF\x56\x00\x00\x00\x00",
@@ -72,11 +72,30 @@ class Source extends Base
         $packets[\GameQ\Protocol::PACKET_RULES] = "\xFF\xFF\xFF\xFF\x56test";
 
         // Create a fake buffer
-        $challenge_buffer = new \GameQ\Buffer("\xFF\xFF\xFF\xFF\xFFtest");
+        $challenge_buffer = new \GameQ\Buffer("\xFF\xFF\xFF\xFF\x41test");
 
         // Apply the challenge
         $this->stub->challengeParseAndApply($challenge_buffer);
 
+        $this->assertEquals($packets, $this->stub->getPacket());
+    }
+
+    /**
+     * Test that the challenge application is skipped if packet is not a challenge
+     */
+    public function testSkipChallengeApply()
+    {
+        $packets = $this->packets;
+
+        // Set what the packets should look like
+        $packets[\GameQ\Protocol::PACKET_DETAILS] = "\xFF\xFF\xFF\xFFTSource Engine Query\x00%s";
+        $packets[\GameQ\Protocol::PACKET_PLAYERS] = "\xFF\xFF\xFF\xFF\x55%s";
+        $packets[\GameQ\Protocol::PACKET_RULES] = "\xFF\xFF\xFF\xFF\x56%s";
+
+        // Create a fake buffer
+        $challenge_buffer = new \GameQ\Buffer("\xFF\xFF\xFF\xFF\xFFtest");
+
+        $this->stub->challengeParseAndApply($challenge_buffer);
         $this->assertEquals($packets, $this->stub->getPacket());
     }
 

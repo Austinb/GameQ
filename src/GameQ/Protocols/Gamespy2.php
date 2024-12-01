@@ -22,13 +22,14 @@ use GameQ\Exception\Protocol as Exception;
 use GameQ\Protocol;
 use GameQ\Buffer;
 use GameQ\Result;
+use GameQ\Helpers\Str;
 
 /**
  * GameSpy2 Protocol class
  *
  * Given the ability for non utf-8 characters to be used as hostnames, player names, etc... this
- * version returns all strings utf-8 encoded (utf8_encode).  To access the proper version of a
- * string response you must use utf8_decode() on the specific response.
+ * version returns all strings utf-8 encoded.  To access the proper version of a
+ * string response you must use Str::utf8ToIso() on the specific response.
  *
  * @author Austin Bischoff <austin@codebeard.com>
  */
@@ -38,7 +39,7 @@ class Gamespy2 extends Protocol
     /**
      * Define the state of this class
      *
-     * @type int
+     * @var int
      */
     protected $state = self::STATE_BETA;
 
@@ -46,7 +47,7 @@ class Gamespy2 extends Protocol
      * Array of packets we want to look up.
      * Each key should correspond to a defined method in this or a parent class
      *
-     * @type array
+     * @var array
      */
     protected $packets = [
         self::PACKET_DETAILS => "\xFE\xFD\x00\x43\x4F\x52\x59\xFF\x00\x00",
@@ -56,7 +57,7 @@ class Gamespy2 extends Protocol
     /**
      * Use the response flag to figure out what method to run
      *
-     * @type array
+     * @var array
      */
     protected $responses = [
         "\x00\x43\x4F\x52\x59" => "processDetails",
@@ -66,35 +67,28 @@ class Gamespy2 extends Protocol
     /**
      * The query protocol used to make the call
      *
-     * @type string
+     * @var string
      */
     protected $protocol = 'gamespy2';
 
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'gamespy2';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "GameSpy2 Server";
 
     /**
-     * The client join link
-     *
-     * @type string
-     */
-    protected $join_link = null;
-
-    /**
      * Normalize settings for this protocol
      *
-     * @type array
+     * @var array
      */
     protected $normalize = [
         // General
@@ -169,6 +163,7 @@ class Gamespy2 extends Protocol
      *
      * @return array
      * @throws Exception
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processDetails(Buffer $buffer)
     {
@@ -182,7 +177,7 @@ class Gamespy2 extends Protocol
             if (strlen($key) == 0) {
                 break;
             }
-            $result->add($key, utf8_encode($buffer->readString()));
+            $result->add($key, Str::isoToUtf8($buffer->readString()));
         }
 
         unset($buffer);
@@ -197,6 +192,7 @@ class Gamespy2 extends Protocol
      *
      * @return array
      * @throws Exception
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processPlayers(Buffer $buffer)
     {
@@ -226,6 +222,7 @@ class Gamespy2 extends Protocol
      * @param \GameQ\Result $result
      *
      * @throws Exception
+     * @throws \GameQ\Exception\Protocol
      */
     protected function parsePlayerTeam($dataType, Buffer &$buffer, Result &$result)
     {
@@ -256,7 +253,7 @@ class Gamespy2 extends Protocol
         // Get the values
         while ($buffer->getLength() > 4) {
             foreach ($varNames as $varName) {
-                $result->addSub($dataType, utf8_encode($varName), utf8_encode($buffer->readString()));
+                $result->addSub($dataType, Str::isoToUtf8($varName), Str::isoToUtf8($buffer->readString()));
             }
             if ($buffer->lookAhead() === "\x00") {
                 $buffer->skip();

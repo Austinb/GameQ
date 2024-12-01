@@ -22,6 +22,7 @@ use GameQ\Protocol;
 use GameQ\Buffer;
 use GameQ\Result;
 use GameQ\Exception\Protocol as Exception;
+use GameQ\Helpers\Str;
 
 /**
  * Unreal 2 Protocol class
@@ -35,7 +36,7 @@ class Unreal2 extends Protocol
      * Array of packets we want to look up.
      * Each key should correspond to a defined method in this or a parent class
      *
-     * @type array
+     * @var array
      */
     protected $packets = [
         self::PACKET_DETAILS => "\x79\x00\x00\x00\x00",
@@ -46,7 +47,7 @@ class Unreal2 extends Protocol
     /**
      * Use the response flag to figure out what method to run
      *
-     * @type array
+     * @var array
      */
     protected $responses = [
         "\x80\x00\x00\x00\x00" => "processDetails", // 0
@@ -57,28 +58,28 @@ class Unreal2 extends Protocol
     /**
      * The query protocol used to make the call
      *
-     * @type string
+     * @var string
      */
     protected $protocol = 'unreal2';
 
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'unreal2';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "Unreal 2";
 
     /**
      * Normalize settings for this protocol
      *
-     * @type array
+     * @var array
      */
     protected $normalize = [
         // General
@@ -167,8 +168,8 @@ class Unreal2 extends Protocol
         $result->add('serverip', $buffer->readPascalString(1)); // empty
         $result->add('gameport', $buffer->readInt32());
         $result->add('queryport', $buffer->readInt32()); // 0
-        $result->add('servername', utf8_encode($buffer->readPascalString(1)));
-        $result->add('mapname', utf8_encode($buffer->readPascalString(1)));
+        $result->add('servername', Str::isoToUtf8($buffer->readPascalString(1)));
+        $result->add('mapname', Str::isoToUtf8($buffer->readPascalString(1)));
         $result->add('gametype', $buffer->readPascalString(1));
         $result->add('numplayers', $buffer->readInt32());
         $result->add('maxplayers', $buffer->readInt32());
@@ -183,8 +184,8 @@ class Unreal2 extends Protocol
      * Handles processing the player data into a usable format
      *
      * @param \GameQ\Buffer $buffer
-     *
      * @return mixed
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processPlayers(Buffer $buffer)
     {
@@ -198,7 +199,7 @@ class Unreal2 extends Protocol
             if (($id = $buffer->readInt32()) !== 0) {
                 // Add the results
                 $result->addPlayer('id', $id);
-                $result->addPlayer('name', utf8_encode($buffer->readPascalString(1)));
+                $result->addPlayer('name', Str::isoToUtf8($buffer->readPascalString(1)));
                 $result->addPlayer('ping', $buffer->readInt32());
                 $result->addPlayer('score', $buffer->readInt32());
 
@@ -216,8 +217,8 @@ class Unreal2 extends Protocol
      * Handles processing the rules data into a usable format
      *
      * @param \GameQ\Buffer $buffer
-     *
      * @return mixed
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processRules(Buffer $buffer)
     {
@@ -236,7 +237,7 @@ class Unreal2 extends Protocol
                 $key .= ++$inc;
             }
 
-            $result->add(strtolower($key), utf8_encode($buffer->readPascalString(1)));
+            $result->add(strtolower($key), Str::isoToUtf8($buffer->readPascalString(1)));
         }
 
         unset($buffer);

@@ -32,28 +32,28 @@ class Soldat extends Ase
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'soldat';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "Soldat";
 
     /**
      * query_port = client_port + 123
      *
-     * @type int
+     * @var int
      */
     protected $port_diff = 123;
 
     /**
      * The client join link
      *
-     * @type string
+     * @var string
      */
     protected $join_link = "soldat://%s:%d/";
 }

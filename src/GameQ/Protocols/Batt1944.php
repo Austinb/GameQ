@@ -30,21 +30,21 @@ class Batt1944 extends Source
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'batt1944';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "Battalion 1944";
 
     /**
      * query_port = client_port + 3
      *
-     * @type int
+     * @var int
      */
     protected $port_diff = 3;
 

@@ -28,7 +28,7 @@ class Mohaa extends Base
     /**
      * Holds stub on setup
      *
-     * @type \GameQ\Protocols\Mohaa
+     * @var \GameQ\Protocols\Mohaa
      */
     protected $stub;
 

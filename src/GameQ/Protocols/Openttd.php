@@ -37,7 +37,7 @@ class Openttd extends Protocol
      * Array of packets we want to look up.
      * Each key should correspond to a defined method in this or a parent class
      *
-     * @type array
+     * @var array
      */
     protected $packets = [
         self::PACKET_ALL => "\x03\x00\x00",
@@ -46,35 +46,28 @@ class Openttd extends Protocol
     /**
      * The query protocol used to make the call
      *
-     * @type string
+     * @var string
      */
     protected $protocol = 'openttd';
 
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'openttd';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "Open Transport Tycoon Deluxe";
 
     /**
-     * The client join link
-     *
-     * @type string
-     */
-    protected $join_link = null;
-
-    /**
      * Normalize settings for this protocol
      *
-     * @type array
+     * @var array
      */
     protected $normalize = [
         // General
@@ -94,6 +87,7 @@ class Openttd extends Protocol
      *
      * @return mixed
      * @throws Exception
+     * @throws \GameQ\Exception\Protocol
      */
     public function processResponse()
     {
@@ -121,8 +115,8 @@ class Openttd extends Protocol
      * Handle processing the server information
      *
      * @param Buffer $buffer
-     *
      * @return array
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processServerInfo(Buffer $buffer)
     {

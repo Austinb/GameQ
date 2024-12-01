@@ -33,21 +33,21 @@ abstract class Http extends Protocol
     /**
      * The query protocol used to make the call
      *
-     * @type string
+     * @var string
      */
     protected $protocol = 'http';
 
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'http';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "Generic HTTP protocol";
 
@@ -57,11 +57,4 @@ abstract class Http extends Protocol
      * @var string
      */
     protected $transport = self::TRANSPORT_TCP;
-
-    /**
-     * The client join link
-     *
-     * @type string
-     */
-    protected $join_link = null;
 }

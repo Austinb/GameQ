@@ -35,7 +35,7 @@ class Etqw extends Protocol
      * Array of packets we want to look up.
      * Each key should correspond to a defined method in this or a parent class
      *
-     * @type array
+     * @var array
      */
     protected $packets = [
         self::PACKET_STATUS => "\xFF\xFFgetInfoEx\x00\x00\x00\x00",
@@ -45,7 +45,7 @@ class Etqw extends Protocol
     /**
      * Use the response flag to figure out what method to run
      *
-     * @type array
+     * @var array
      */
     protected $responses = [
         "\xFF\xFFinfoExResponse" => "processStatus",
@@ -54,28 +54,28 @@ class Etqw extends Protocol
     /**
      * The query protocol used to make the call
      *
-     * @type string
+     * @var string
      */
     protected $protocol = 'etqw';
 
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'etqw';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "Enemy Territory Quake Wars";
 
     /**
      * Normalize settings for this protocol
      *
-     * @type array
+     * @var array
      */
     protected $normalize = [
         // General
@@ -132,6 +132,7 @@ class Etqw extends Protocol
      * @param Buffer $buffer
      *
      * @return array
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processStatus(Buffer $buffer)
     {
@@ -186,6 +187,8 @@ class Etqw extends Protocol
      *
      * @param Buffer $buffer
      * @param Result $result
+     * @return void
+     * @throws \GameQ\Exception\Protocol
      */
     protected function parsePlayers(Buffer &$buffer, Result &$result)
     {
@@ -215,6 +218,8 @@ class Etqw extends Protocol
      *
      * @param Buffer $buffer
      * @param Result $result
+     * @return void
+     * @throws \GameQ\Exception\Protocol
      */
     protected function parsePlayersExtra(Buffer &$buffer, Result &$result)
     {

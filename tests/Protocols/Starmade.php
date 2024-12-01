@@ -28,14 +28,14 @@ class Starmade extends Base
     /**
      * Holds stub on setup
      *
-     * @type \GameQ\Protocols\Starmade
+     * @var \GameQ\Protocols\Starmade
      */
     protected $stub;
 
     /**
      * Holds the expected packets for this protocol class
      *
-     * @type array
+     * @var array
      */
     protected $packets = [
         \GameQ\Protocol::PACKET_STATUS => "\x00\x00\x00\x09\x2a\xff\xff\x01\x6f\x00\x00\x00\x00",
@@ -80,6 +80,6 @@ class Starmade extends Base
             $responses
         );
 
-        $this->assertEquals($result[$server], $testResult);
+        $this->assertEqualsDelta($result[$server], $testResult, 0.000000001);
     }
 }

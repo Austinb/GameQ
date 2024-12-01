@@ -23,14 +23,14 @@ class Bf3 extends Base
     /**
      * Holds stub on setup
      *
-     * @type \GameQ\Protocols\Bf3
+     * @var \GameQ\Protocols\Bf3
      */
     protected $stub;
 
     /**
      * Holds the expected packets for this protocol class
      *
-     * @type array
+     * @var array
      */
     protected $packets = [
         \GameQ\Protocol::PACKET_STATUS  => "\x00\x00\x00\x21\x1b\x00\x00\x00\x01\x00\x00\x00\x0a\x00\x00\x00serverInfo\x00",

@@ -23,6 +23,7 @@ use GameQ\Buffer;
 use GameQ\Result;
 use GameQ\Server;
 use GameQ\Exception\Protocol as Exception;
+use GameQ\Helpers\Str;
 
 /**
  * San Andreas Multiplayer Protocol Class (samp)
@@ -34,12 +35,11 @@ use GameQ\Exception\Protocol as Exception;
  */
 class Samp extends Protocol
 {
-
     /**
      * Array of packets we want to look up.
      * Each key should correspond to a defined method in this or a parent class
      *
-     * @type array
+     * @var array
      */
     protected $packets = [
         self::PACKET_STATUS  => "SAMP%si",
@@ -50,7 +50,7 @@ class Samp extends Protocol
     /**
      * Use the response flag to figure out what method to run
      *
-     * @type array
+     * @var array
      */
     protected $responses = [
         "\x69" => "processStatus", // i
@@ -61,42 +61,42 @@ class Samp extends Protocol
     /**
      * The query protocol used to make the call
      *
-     * @type string
+     * @var string
      */
     protected $protocol = 'samp';
 
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'samp';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "San Andreas Multiplayer";
 
     /**
      * Holds the calculated server code that is passed when querying for information
      *
-     * @type string
+     * @var string
      */
     protected $server_code = null;
 
     /**
      * The client join link
      *
-     * @type string
+     * @var string
      */
     protected $join_link = "samp://%s:%d/";
 
     /**
      * Normalize settings for this protocol
      *
-     * @type array
+     * @var array
      */
     protected $normalize = [
         // General
@@ -124,7 +124,6 @@ class Samp extends Protocol
      */
     public function beforeSend(Server $server)
     {
-
         // Build the server code
         $this->server_code = implode('', array_map('chr', explode('.', $server->ip()))) .
             pack("S", $server->portClient());
@@ -194,7 +193,6 @@ class Samp extends Protocol
      * Handles processing the server status data
      *
      * @param \GameQ\Buffer $buffer
-     *
      * @return array
      * @throws \GameQ\Exception\Protocol
      */
@@ -213,7 +211,7 @@ class Samp extends Protocol
         $result->add('max_players', $buffer->readInt16());
 
         // These are read differently for these last 3
-        $result->add('servername', utf8_encode($buffer->read($buffer->readInt32())));
+        $result->add('servername', Str::isoToUtf8($buffer->read($buffer->readInt32())));
         $result->add('gametype', $buffer->read($buffer->readInt32()));
         $result->add('language', $buffer->read($buffer->readInt32()));
 
@@ -226,12 +224,11 @@ class Samp extends Protocol
      * Handles processing the player data into a usable format
      *
      * @param \GameQ\Buffer $buffer
-     *
      * @return array
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processPlayers(Buffer $buffer)
     {
-
         // Set the result to a new result instance
         $result = new Result();
 
@@ -241,7 +238,7 @@ class Samp extends Protocol
         // Run until we run out of buffer
         while ($buffer->getLength()) {
             $result->addPlayer('id', $buffer->readInt8());
-            $result->addPlayer('name', utf8_encode($buffer->readPascalString()));
+            $result->addPlayer('name', Str::isoToUtf8($buffer->readPascalString()));
             $result->addPlayer('score', $buffer->readInt32());
             $result->addPlayer('ping', $buffer->readInt32());
         }
@@ -255,12 +252,11 @@ class Samp extends Protocol
      * Handles processing the rules data into a usable format
      *
      * @param \GameQ\Buffer $buffer
-     *
      * @return array
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processRules(Buffer $buffer)
     {
-
         // Set the result to a new result instance
         $result = new Result();
 

@@ -28,14 +28,14 @@ class Teamspeak3 extends Base
     /**
      * Holds stub on setup
      *
-     * @type \GameQ\Protocols\Teamspeak3
+     * @var \GameQ\Protocols\Teamspeak3
      */
     protected $stub;
 
     /**
      * Holds the expected packets for this protocol class
      *
-     * @type array
+     * @var array
      */
     protected $packets = [
         \GameQ\Protocol::PACKET_DETAILS  => "use port=%d\x0Aserverinfo\x0A",

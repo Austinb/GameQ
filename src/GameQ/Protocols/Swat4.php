@@ -30,21 +30,21 @@ class Swat4 extends Gamespy2
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'swat4';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "SWAT 4";
 
     /**
      * query_port = client_port + 1
      *
-     * @type int
+     * @var int
      */
     protected $port_diff = 1;
 }

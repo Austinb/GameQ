@@ -30,14 +30,14 @@ class Dal extends Arkse
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'dal';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "Dark and Light";
 }

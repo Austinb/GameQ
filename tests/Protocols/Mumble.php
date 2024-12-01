@@ -28,14 +28,14 @@ class Mumble extends Base
     /**
      * Holds stub on setup
      *
-     * @type \GameQ\Protocols\Mumble
+     * @var \GameQ\Protocols\Mumble
      */
     protected $stub;
 
     /**
      * Holds the expected packets for this protocol class
      *
-     * @type array
+     * @var array
      */
     protected $packets = [
         \GameQ\Protocol::PACKET_ALL => "\x6A\x73\x6F\x6E",

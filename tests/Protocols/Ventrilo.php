@@ -28,14 +28,14 @@ class Ventrilo extends Base
     /**
      * Holds stub on setup
      *
-     * @type \GameQ\Protocols\Ventrilo
+     * @var \GameQ\Protocols\Ventrilo
      */
     protected $stub;
 
     /**
      * Holds the expected packets for this protocol class
      *
-     * @type array
+     * @var array
      */
     protected $packets = [
         \GameQ\Protocol::PACKET_ALL =>

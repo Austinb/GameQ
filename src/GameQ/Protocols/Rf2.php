@@ -29,14 +29,14 @@ class Rf2 extends Source
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'rf2';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "rFactor 2";
 
@@ -44,7 +44,7 @@ class Rf2 extends Source
      * query_port = client_port + 2
      * 64092 = 64090 + 2
      *
-     * @type int
+     * @var int
      */
     protected $port_diff = 2;
 }

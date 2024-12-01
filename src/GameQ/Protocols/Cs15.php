@@ -32,14 +32,14 @@ class Cs15 extends Won
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'cs15';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "Counter-Strike 1.5";
 }

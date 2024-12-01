@@ -39,7 +39,7 @@ class Tibia extends Protocol
     /**
      * Array of packets we want to query.
      *
-     * @type array
+     * @var array
      */
     protected $packets = [
         self::PACKET_STATUS => "\x06\x00\xFF\xFF\x69\x6E\x66\x6F",
@@ -48,42 +48,42 @@ class Tibia extends Protocol
     /**
      * The transport mode for this protocol is TCP
      *
-     * @type string
+     * @var string
      */
     protected $transport = self::TRANSPORT_TCP;
 
     /**
      * The query protocol used to make the call
      *
-     * @type string
+     * @var string
      */
     protected $protocol = 'tibia';
 
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'tibia';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "Tibia";
 
     /**
      * The client join link
      *
-     * @type string
+     * @var string
      */
     protected $join_link = "otserv://%s/%d/";
 
     /**
      * Normalize settings for this protocol
      *
-     * @type array
+     * @var array
      */
     protected $normalize = [
         // General

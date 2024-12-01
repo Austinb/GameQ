@@ -1,13 +1,21 @@
-
+# Development
+/remotes/
+test.php
 /.buildpath
 /.project
 /.settings/*
-vendor
+
+# JetBrains
 /.idea
+*.iml
+
+# Composer
+vendor
 composer.lock
 composer.phar
+
+# PHPUnit
+.phpunit.result.cache
 coverage/
-build/logs/
-test.php
-*.iml
-/remotes/
+build/logs/*
+!build/logs/.gitkeep

@@ -29,28 +29,28 @@ class Had2 extends Gamespy2
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'had2';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "Hidden & Dangerous 2";
 
     /**
      * The difference between the client port and query port
      *
-     * @type int
+     * @var int
      */
     protected $port_diff = 3;
 
     /**
      * Normalize settings for this protocol
      *
-     * @type array
+     * @var array
      */
     protected $normalize = [
         // General

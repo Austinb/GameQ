@@ -29,21 +29,21 @@ class Urbanterror extends Quake3
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'urbanterror';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "Urban Terror";
 
     /**
      * The client join link
      *
-     * @type string
+     * @var string
      */
     protected $join_link = "urt://%s:%d/";
 }

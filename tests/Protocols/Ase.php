@@ -23,14 +23,14 @@ class Ase extends Base
     /**
      * Holds stub on setup
      *
-     * @type \GameQ\Protocols\Ase
+     * @var \GameQ\Protocols\Ase
      */
     protected $stub;
 
     /**
      * Holds the expected packets for this protocol class
      *
-     * @type array
+     * @var array
      */
     protected $packets = [
         \GameQ\Protocol::PACKET_ALL => "s",

@@ -30,14 +30,14 @@ class Bf1942 extends Gamespy
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'bf1942';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "Battlefield 1942";
 
@@ -45,21 +45,21 @@ class Bf1942 extends Gamespy
      * query_port = client_port + 8433
      * 23000 = 14567 + 8433
      *
-     * @type int
+     * @var int
      */
     protected $port_diff = 8433;
 
     /**
      * The client join link
      *
-     * @type string
+     * @var string
      */
     protected $join_link = "bf1942://%s:%d";
 
     /**
      * Normalize settings for this protocol
      *
-     * @type array
+     * @var array
      */
     protected $normalize = [
         // General

@@ -51,7 +51,7 @@ class GameQ
     /**
      * Holds the instance of itself
      *
-     * @type self
+     * @var self
      */
     protected static $instance = null;
 
@@ -75,7 +75,7 @@ class GameQ
     /**
      * Default options
      *
-     * @type array
+     * @var array
      */
     protected $options = [
         'debug'                => false,
@@ -99,37 +99,23 @@ class GameQ
     /**
      * Array of servers being queried
      *
-     * @type array
+     * @var array
      */
     protected $servers = [];
 
     /**
      * The query library to use.  Default is Native
      *
-     * @type string
+     * @var string
      */
     protected $queryLibrary = 'GameQ\\Query\\Native';
 
     /**
      * Holds the instance of the queryLibrary
      *
-     * @type \GameQ\Query\Core|null
+     * @var \GameQ\Query\Core|null
      */
     protected $query = null;
-
-    /**
-     * GameQ constructor.
-     *
-     * Do some checks as needed so this will operate
-     */
-    public function __construct()
-    {
-        // Check for missing utf8_encode function
-        if (!function_exists('utf8_encode')) {
-            throw new \Exception("PHP's utf8_encode() function is required - "
-                . "http://php.net/manual/en/function.utf8-encode.php.  Check your php installation.");
-        }
-    }
 
     /**
      * Get an option's value

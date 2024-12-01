@@ -44,28 +44,28 @@ class Minecraft extends Gamespy3
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'minecraft';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "Minecraft";
 
     /**
      * The client join link
      *
-     * @type string
+     * @var string
      */
     protected $join_link = "minecraft://%s:%d/";
 
     /**
      * Normalize settings for this protocol
      *
-     * @type array
+     * @var array
      */
     protected $normalize = [
         // General

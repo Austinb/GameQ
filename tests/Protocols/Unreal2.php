@@ -23,14 +23,14 @@ class Unreal2 extends Base
     /**
      * Holds stub on setup
      *
-     * @type \GameQ\Protocols\Unreal2
+     * @var \GameQ\Protocols\Unreal2
      */
     protected $stub;
 
     /**
      * Holds the expected packets for this protocol class
      *
-     * @type array
+     * @var array
      */
     protected $packets = [
         \GameQ\Protocol::PACKET_DETAILS => "\x79\x00\x00\x00\x00",

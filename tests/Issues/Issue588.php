@@ -30,6 +30,11 @@ use GameQ\Tests\TestBase;
 class Issue588 extends TestBase
 {
     /**
+     * @var \GameQ\GameQ
+     */
+    protected $stub;
+    
+    /**
      * Setup to create our stub
      * @before
      */

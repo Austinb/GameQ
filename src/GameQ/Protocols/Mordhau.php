@@ -30,14 +30,14 @@ class Mordhau extends Source
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'mordhau';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "MORDHAU";
 
@@ -47,7 +47,7 @@ class Mordhau extends Source
      * query_port = client_port + 19238
      * 27015 = 7777 + 19238
      *
-     * @type int
+     * @var int
      */
     #protected $port_diff = 19238;
 }

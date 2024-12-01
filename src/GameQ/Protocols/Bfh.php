@@ -26,18 +26,17 @@ namespace GameQ\Protocols;
  */
 class Bfh extends Bf4
 {
-
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'bfh';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "Battlefield Hardline";
 }

@@ -38,7 +38,7 @@ class Teeworlds extends Protocol
      * Array of packets we want to look up.
      * Each key should correspond to a defined method in this or a parent class
      *
-     * @type array
+     * @var array
      */
     protected $packets = [
         self::PACKET_ALL => "\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\x67\x69\x65\x33\x05",
@@ -49,7 +49,7 @@ class Teeworlds extends Protocol
     /**
      * Use the response flag to figure out what method to run
      *
-     * @type array
+     * @var array
      */
     protected $responses = [
         "\xff\xff\xff\xff\xff\xff\xff\xff\xff\xffinf35" => "processAll",
@@ -58,35 +58,35 @@ class Teeworlds extends Protocol
     /**
      * The query protocol used to make the call
      *
-     * @type string
+     * @var string
      */
     protected $protocol = 'teeworlds';
 
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'teeworlds';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "Teeworlds Server";
 
     /**
      * The client join link
      *
-     * @type string
+     * @var string
      */
     protected $join_link = "steam://connect/%s:%d/";
 
     /**
      * Normalize settings for this protocol
      *
-     * @type array
+     * @var array
      */
     protected $normalize = [
         // General
@@ -109,6 +109,7 @@ class Teeworlds extends Protocol
      *
      * @return array
      * @throws Exception
+     * @throws \GameQ\Exception\Protocol
      */
     public function processResponse()
     {
@@ -144,8 +145,8 @@ class Teeworlds extends Protocol
      * Handle processing all of the data returned
      *
      * @param Buffer $buffer
-     *
      * @return array
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processAll(Buffer $buffer)
     {

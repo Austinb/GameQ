@@ -68,7 +68,7 @@ class Eco extends Http
     /**
      * query_port = client_port + 1
      *
-     * @type int
+     * @var int
      */
     protected $port_diff = 1;
 

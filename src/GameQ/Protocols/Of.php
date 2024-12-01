@@ -30,14 +30,14 @@ class Of extends Source
     /**
      * Open Fortress protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'of';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "Open Fortress";
 }

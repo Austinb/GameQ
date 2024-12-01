@@ -23,14 +23,14 @@ class Gtar extends Base
     /**
      * Holds stub on setup
      *
-     * @type \GameQ\Protocols\Gtan
+     * @var \GameQ\Protocols\Gtan
      */
     protected $stub;
 
     /**
      * Holds the expected packets for this protocol class
      *
-     * @type array
+     * @var array
      */
     protected $packets = [
         \GameQ\Protocol::PACKET_STATUS => "GET /master/ HTTP/1.0\r\nHost: cdn.rage.mp\r\nAccept: */*\r\n\r\n",

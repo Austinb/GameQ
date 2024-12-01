@@ -34,21 +34,21 @@ class Justcause2 extends Gamespy4
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'justcause2';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "Just Cause 2 Multiplayer";
 
     /**
      * The client join link
      *
-     * @type string
+     * @var string
      */
     protected $join_link = "steam://connect/%s:%d/";
 
@@ -72,7 +72,7 @@ class Justcause2 extends Gamespy4
     /**
      * Normalize settings for this protocol
      *
-     * @type array
+     * @var array
      */
     protected $normalize = [
         'general' => [
@@ -97,6 +97,8 @@ class Justcause2 extends Gamespy4
      *
      * @param Buffer $buffer
      * @param Result $result
+     * @return void
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processDetails(Buffer &$buffer, Result &$result)
     {
@@ -112,6 +114,8 @@ class Justcause2 extends Gamespy4
      *
      * @param Buffer $buffer
      * @param Result $result
+     * @return void
+     * @throws \GameQ\Exception\Protocol
      *
      * @see Gamespy3::processPlayersAndTeams()
      */

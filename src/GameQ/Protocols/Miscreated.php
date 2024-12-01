@@ -29,14 +29,14 @@ class Miscreated extends Source
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'miscreated';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "Miscreated";
 
@@ -44,14 +44,14 @@ class Miscreated extends Source
      * query_port = client_port + 2
      * 64092 = 64090 + 2
      *
-     * @type int
+     * @var int
      */
     protected $port_diff = 2;
 
     /**
      * Normalize settings for this protocol
      *
-     * @type array
+     * @var array
      */
     protected $normalize = [
         'general' => [

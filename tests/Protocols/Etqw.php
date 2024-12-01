@@ -23,14 +23,14 @@ class Etqw extends Base
     /**
      * Holds stub on setup
      *
-     * @type \GameQ\Protocols\Etqw
+     * @var \GameQ\Protocols\Etqw
      */
     protected $stub;
 
     /**
      * Holds the expected packets for this protocol class
      *
-     * @type array
+     * @var array
      */
     protected $packets = [
         \GameQ\Protocol::PACKET_STATUS => "\xFF\xFFgetInfoEx\x00\x00\x00\x00",

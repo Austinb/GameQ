@@ -50,49 +50,49 @@ class Server
     /**
      * The protocol class for this server
      *
-     * @type \GameQ\Protocol
+     * @var \GameQ\Protocol
      */
     protected $protocol = null;
 
     /**
      * Id of this server
      *
-     * @type string
+     * @var string
      */
     public $id = null;
 
     /**
      * IP Address of this server
      *
-     * @type string
+     * @var string
      */
     public $ip = null;
 
     /**
      * The server's client port (connect port)
      *
-     * @type int
+     * @var int
      */
     public $port_client = null;
 
     /**
      * The server's query port
      *
-     * @type int
+     * @var int
      */
     public $port_query = null;
 
     /**
      * Holds other server specific options
      *
-     * @type array
+     * @var array
      */
     protected $options = [];
 
     /**
      * Holds the sockets already open for this server
      *
-     * @type array
+     * @var array
      */
     protected $sockets = [];
 
@@ -105,7 +105,6 @@ class Server
      */
     public function __construct(array $server_info = [])
     {
-
         // Check for server type
         if (!array_key_exists(self::SERVER_TYPE, $server_info) || empty($server_info[self::SERVER_TYPE])) {
             throw new Exception("Missing server info key '" . self::SERVER_TYPE . "'!");
@@ -160,7 +159,6 @@ class Server
      */
     protected function checkAndSetIpPort($ip_address)
     {
-
         // Test for IPv6
         if (substr_count($ip_address, ':') > 1) {
             // See if we have a port, input should be in the format [::1]:27015 or similar
@@ -325,12 +323,20 @@ class Server
     /**
      * Get the join link for this server
      *
-     * @return string
+     * @return null|string
      */
     public function getJoinLink()
     {
+        /* Read the joinLink template defined by the Protocol */
+        $joinLink = $this->protocol->joinLink();
 
-        return sprintf($this->protocol->joinLink(), $this->ip, $this->portClient());
+        /* Ensure the Protocol provides a joinLink template */
+        if (is_null($joinLink)) {
+            return null;
+        }
+        
+        /* Fill the template to build the final joinLink */
+        return sprintf($joinLink, $this->ip, $this->portClient());
     }
 
     /*

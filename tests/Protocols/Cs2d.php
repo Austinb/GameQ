@@ -23,14 +23,14 @@ class Cs2d extends Base
     /**
      * Holds stub on setup
      *
-     * @type \GameQ\Protocols\Cs2d
+     * @var \GameQ\Protocols\Cs2d
      */
     protected $stub;
 
     /**
      * Holds the expected packets for this protocol class
      *
-     * @type array
+     * @var array
      */
     protected $packets = [
         \GameQ\Protocol::PACKET_STATUS => "\x01\x00\xFB\x01",

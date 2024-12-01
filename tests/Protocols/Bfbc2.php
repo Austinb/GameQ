@@ -23,14 +23,14 @@ class Bfbc2 extends Base
     /**
      * Holds stub on setup
      *
-     * @type \GameQ\Protocols\Bfbc2
+     * @var \GameQ\Protocols\Bfbc2
      */
     protected $stub;
 
     /**
      * Holds the expected packets for this protocol class
      *
-     * @type array
+     * @var array
      */
     protected $packets = [
         \GameQ\Protocol::PACKET_VERSION => "\x00\x00\x00\x00\x18\x00\x00\x00\x01\x00\x00\x00\x07\x00\x00\x00version\x00",

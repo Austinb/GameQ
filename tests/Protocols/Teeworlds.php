@@ -28,14 +28,14 @@ class Teeworlds extends Base
     /**
      * Holds stub on setup
      *
-     * @type \GameQ\Protocols\Teeworlds
+     * @var \GameQ\Protocols\Teeworlds
      */
     protected $stub;
 
     /**
      * Holds the expected packets for this protocol class
      *
-     * @type array
+     * @var array
      */
     protected $packets = [
         \GameQ\Protocol::PACKET_ALL => "\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\x67\x69\x65\x33\x05",

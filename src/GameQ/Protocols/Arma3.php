@@ -84,21 +84,21 @@ class Arma3 extends Source
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'arma3';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "Arma3";
 
     /**
      * Query port = client_port + 1
      *
-     * @type int
+     * @var int
      */
     protected $port_diff = 1;
 

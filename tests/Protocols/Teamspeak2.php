@@ -28,14 +28,14 @@ class Teamspeak2 extends Base
     /**
      * Holds stub on setup
      *
-     * @type \GameQ\Protocols\Teamspeak2
+     * @var \GameQ\Protocols\Teamspeak2
      */
     protected $stub;
 
     /**
      * Holds the expected packets for this protocol class
      *
-     * @type array
+     * @var array
      */
     protected $packets = [
         \GameQ\Protocol::PACKET_DETAILS  => "sel %d\x0asi\x0a",

@@ -23,14 +23,14 @@ class Gamespy extends Base
     /**
      * Holds stub on setup
      *
-     * @type \GameQ\Protocols\Gamespy
+     * @var \GameQ\Protocols\Gamespy
      */
     protected $stub;
 
     /**
      * Holds the expected packets for this protocol class
      *
-     * @type array
+     * @var array
      */
     protected $packets = [
         \GameQ\Protocol::PACKET_STATUS => "\x5C\x73\x74\x61\x74\x75\x73\x5C",

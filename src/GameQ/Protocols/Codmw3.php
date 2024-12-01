@@ -30,21 +30,21 @@ class Codmw3 extends Source
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'codmw3';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "Call of Duty: Modern Warfare 3";
 
     /**
      * query_port = client_port + 2
      *
-     * @type int
+     * @var int
      */
     protected $port_diff = 2;
 }

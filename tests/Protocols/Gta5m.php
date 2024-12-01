@@ -24,14 +24,14 @@ class Gta5m extends Base
     /**
      * Holds stub on setup
      *
-     * @type \GameQ\Protocols\Gta5m
+     * @var \GameQ\Protocols\Gta5m
      */
     protected $stub;
 
     /**
      * Holds the expected packets for this protocol class
      *
-     * @type array
+     * @var array
      */
     protected $packets = [
         \GameQ\Protocol::PACKET_STATUS => "\xFF\xFF\xFF\xFFgetinfo xxx",

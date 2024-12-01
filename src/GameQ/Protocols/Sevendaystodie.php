@@ -29,21 +29,21 @@ class Sevendaystodie extends Source
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'sevendaystodie';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "7 Days to Die";
 
     /**
      * query_port = client_port + 0
      *
-     * @type int
+     * @var int
      */
     protected $port_diff = 0;
 }

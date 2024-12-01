@@ -29,14 +29,14 @@ class Protocol extends TestBase
     /**
      * Holds stub on setup
      *
-     * @type \GameQ\Protocol
+     * @var \GameQ\Protocol
      */
     protected $stub;
 
     /**
      * Some dummy options
      *
-     * @type array
+     * @var array
      */
     protected $options = [
         'key1' => 'var1',

@@ -31,14 +31,14 @@ class Dayzmod extends Armedassault2oa
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'dayzmod';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "DayZ Mod";
 }

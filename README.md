@@ -8,12 +8,12 @@
 GameQ is a PHP library that allows you to query multiple types of multiplayer game & voice servers at the same time.
 
 ## Requirements
-* PHP 5.6.40+ - [Tested](https://github.com/Austinb/GameQ/actions/workflows/Tests.yml) in PHP 5.6, 7.0, 7.1, 7.2, 7.3, 7.4, 8.0, 8.1 & 8.2-dev
+* PHP 5.6.40+ - [Tested](https://github.com/Austinb/GameQ/actions/workflows/Tests.yml) in PHP 5.6, 7.0, 7.1, 7.2, 7.3, 7.4, 8.0, 8.1, 8.2, 8.3 & 8.4
 * [Bzip2](http://www.php.net/manual/en/book.bzip2.php) - Used for A2S Compressed responses
 
 ## Installation
 #### [Composer](https://getcomposer.org/)
-This method assumes you already have composer [installed](https://getcomposer.org/doc/00-intro.md) and working properly. Add `austinb/gameq` as a requirement to composer.json by using `composer require austinb/gameq:~3.0` or by manually adding the following to the *composer.json* file in the **require** section:
+This method assumes you already have composer [installed](https://getcomposer.org/doc/00-intro.md) and working properly. Add `austinb/gameq` as a requirement to composer.json by using `composer require austinb/gameq:~3.1` or by manually adding the following to the *composer.json* file in the **require** section:
 
 ```javascript
 "austinb/gameq": "~3.1"

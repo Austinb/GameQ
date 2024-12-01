@@ -46,28 +46,28 @@ class Buffer
     /**
      * The number type we use for reading integers.  Defaults to little endian
      *
-     * @type string
+     * @var string
      */
     private $number_type = self::NUMBER_TYPE_LITTLEENDIAN;
 
     /**
      * The original data
      *
-     * @type string
+     * @var string
      */
     private $data;
 
     /**
      * The original data
      *
-     * @type int
+     * @var int
      */
     private $length;
 
     /**
      * Position of pointer
      *
-     * @type int
+     * @var int
      */
     private $index = 0;
 

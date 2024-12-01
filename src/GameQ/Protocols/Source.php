@@ -46,7 +46,7 @@ class Source extends Protocol
      * Array of packets we want to look up.
      * Each key should correspond to a defined method in this or a parent class
      *
-     * @type array
+     * @var array
      */
     protected $packets = [
         self::PACKET_CHALLENGE => "\xFF\xFF\xFF\xFF\x56\x00\x00\x00\x00",
@@ -58,7 +58,7 @@ class Source extends Protocol
     /**
      * Use the response flag to figure out what method to run
      *
-     * @type array
+     * @var array
      */
     protected $responses = [
         "\x49" => "processDetails", // I
@@ -70,42 +70,42 @@ class Source extends Protocol
     /**
      * The query protocol used to make the call
      *
-     * @type string
+     * @var string
      */
     protected $protocol = 'source';
 
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'source';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "Source Server";
 
     /**
      * Define the Source engine type.  By default it is assumed to be Source
      *
-     * @type int
+     * @var int
      */
     protected $source_engine = self::SOURCE_ENGINE;
 
     /**
      * The client join link
      *
-     * @type string
+     * @var string
      */
     protected $join_link = "steam://connect/%s:%d/";
 
     /**
      * Normalize settings for this protocol
      *
-     * @type array
+     * @var array
      */
     protected $normalize = [
         // General
@@ -132,15 +132,17 @@ class Source extends Protocol
      * Parse the challenge response and apply it to all the packet types
      *
      * @param \GameQ\Buffer $challenge_buffer
-     *
      * @return bool
      * @throws \GameQ\Exception\Protocol
      */
     public function challengeParseAndApply(Buffer $challenge_buffer)
     {
-
         // Skip the header
-        $challenge_buffer->skip(5);
+        $challenge_buffer->skip(4);
+
+        if ($challenge_buffer->read() !== "\x41") {
+            return true;
+        }
 
         // Apply the challenge and return
         return $this->challengeApply($challenge_buffer->read(4));
@@ -233,7 +235,6 @@ class Source extends Protocol
      *
      * @param       $packet_id
      * @param array $packets
-     *
      * @return string
      * @throws \GameQ\Exception\Protocol
      */
@@ -337,7 +338,6 @@ class Source extends Protocol
      * Handles processing the details data into a usable format
      *
      * @param \GameQ\Buffer $buffer
-     *
      * @return mixed
      * @throws \GameQ\Exception\Protocol
      */
@@ -410,13 +410,11 @@ class Source extends Protocol
      * Handles processing the server details from goldsource response
      *
      * @param \GameQ\Buffer $buffer
-     *
      * @return array
      * @throws \GameQ\Exception\Protocol
      */
     protected function processDetailsGoldSource(Buffer $buffer)
     {
-
         // Set the result to a new result instance
         $result = new Result();
 
@@ -458,8 +456,8 @@ class Source extends Protocol
      * Handles processing the player data into a usable format
      *
      * @param \GameQ\Buffer $buffer
-     *
      * @return mixed
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processPlayers(Buffer $buffer)
     {
@@ -495,8 +493,8 @@ class Source extends Protocol
      * Handles processing the rules data into a usable format
      *
      * @param \GameQ\Buffer $buffer
-     *
      * @return mixed
+     * @throws \GameQ\Exception\Protocol
      */
     protected function processRules(Buffer $buffer)
     {

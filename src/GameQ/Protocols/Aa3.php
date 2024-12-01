@@ -30,14 +30,14 @@ class Aa3 extends Source
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'aa3';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "America's Army 3";
 
@@ -47,7 +47,7 @@ class Aa3 extends Source
      * client_port default 8777
      * query_port default 27020
      *
-     * @type int
+     * @var int
      */
     protected $port_diff = 18243;
 }

@@ -20,6 +20,7 @@ namespace GameQ\Protocols;
 
 use GameQ\Buffer;
 use GameQ\Result;
+use GameQ\Helpers\Str;
 
 /**
  * Warsow Protocol Class
@@ -32,21 +33,21 @@ class Warsow extends Quake3
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'warsow';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "Warsow";
 
     /**
      * The client join link
      *
-     * @type string
+     * @var string
      */
     protected $join_link = "warsow://%s:%d/";
 
@@ -54,7 +55,6 @@ class Warsow extends Quake3
      * Handle player info, different than quake3 base
      *
      * @param Buffer $buffer
-     *
      * @return array
      * @throws \GameQ\Exception\Protocol
      */
@@ -76,7 +76,7 @@ class Warsow extends Quake3
             $playerInfo->skip(1);
 
             // Add player name, encoded
-            $result->addPlayer('name', utf8_encode(trim(($playerInfo->readString('"')))));
+            $result->addPlayer('name', Str::isoToUtf8(trim(($playerInfo->readString('"')))));
 
             // Skip space
             $playerInfo->skip(1);

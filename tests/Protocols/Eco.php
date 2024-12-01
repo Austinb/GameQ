@@ -23,14 +23,14 @@ class Eco extends Base
     /**
      * Holds stub on setup
      *
-     * @type \GameQ\Protocols\Eco
+     * @var \GameQ\Protocols\Eco
      */
     protected $stub;
 
     /**
      * Holds the expected packets for this protocol class
      *
-     * @type array
+     * @var array
      */
     protected $packets = [
         \GameQ\Protocol::PACKET_STATUS => "GET /frontpage HTTP/1.0\r\nAccept: */*\r\n\r\n",

@@ -23,6 +23,7 @@ use GameQ\Buffer;
 use GameQ\Result;
 use GameQ\Server;
 use GameQ\Exception\Protocol as Exception;
+use GameQ\Helpers\Str;
 
 /**
  * Teamspeak 3 Protocol Class
@@ -41,7 +42,7 @@ class Teamspeak3 extends Protocol
      * Array of packets we want to look up.
      * Each key should correspond to a defined method in this or a parent class
      *
-     * @type array
+     * @var array
      */
     protected $packets = [
         self::PACKET_DETAILS  => "use port=%d\x0Aserverinfo\x0A",
@@ -52,42 +53,42 @@ class Teamspeak3 extends Protocol
     /**
      * The transport mode for this protocol is TCP
      *
-     * @type string
+     * @var string
      */
     protected $transport = self::TRANSPORT_TCP;
 
     /**
      * The query protocol used to make the call
      *
-     * @type string
+     * @var string
      */
     protected $protocol = 'teamspeak3';
 
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'teamspeak3';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "Teamspeak 3";
 
     /**
      * The client join link
      *
-     * @type string
+     * @var string
      */
     protected $join_link = "ts3server://%s?port=%d";
 
     /**
      * Normalize settings for this protocol
      *
-     * @type array
+     * @var array
      */
     protected $normalize = [
         // General
@@ -115,7 +116,7 @@ class Teamspeak3 extends Protocol
      * Before we send off the queries we need to update the packets
      *
      * @param \GameQ\Server $server
-     *
+     * @return void
      * @throws \GameQ\Exception\Protocol
      */
     public function beforeSend(Server $server)
@@ -213,7 +214,6 @@ class Teamspeak3 extends Protocol
      * Takes data in "key1=value1 key2=value2 ..." and processes it into a usable format
      *
      * @param $data
-     *
      * @return array
      */
     protected function processProperties($data)
@@ -231,7 +231,7 @@ class Teamspeak3 extends Protocol
             list($key, $value) = array_pad(explode('=', $item, 2), 2, '');
 
             // Convert spaces and other character changes
-            $properties[$key] = utf8_encode(str_replace(
+            $properties[$key] = Str::isoToUtf8(str_replace(
                 [
                     '\\s', // Translate spaces
                 ],
@@ -250,6 +250,7 @@ class Teamspeak3 extends Protocol
      *
      * @param string        $data
      * @param \GameQ\Result $result
+     * @return void
      */
     protected function processDetails($data, Result &$result)
     {
@@ -279,6 +280,7 @@ class Teamspeak3 extends Protocol
      *
      * @param string        $data
      * @param \GameQ\Result $result
+     * @return void
      */
     protected function processChannels($data, Result &$result)
     {
@@ -305,6 +307,7 @@ class Teamspeak3 extends Protocol
      *
      * @param string        $data
      * @param \GameQ\Result $result
+     * @return void
      */
     protected function processPlayers($data, Result &$result)
     {

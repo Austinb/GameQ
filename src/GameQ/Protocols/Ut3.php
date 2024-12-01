@@ -33,21 +33,21 @@ class Ut3 extends Gamespy3
     /**
      * String name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name = 'ut3';
 
     /**
      * Longer string name of this protocol class
      *
-     * @type string
+     * @var string
      */
     protected $name_long = "Unreal Tournament 3";
 
     /**
      * Normalize settings for this protocol
      *
-     * @type array
+     * @var array
      */
     protected $normalize = [
         // General
@@ -62,12 +62,12 @@ class Ut3 extends Gamespy3
      * Overload the response process so we can make some changes
      *
      * @return array
+     * @throws \GameQ\Exception\Protocol
      */
     public function processResponse()
     {
-
         // Grab the result from the parent
-        /** @type array $result */
+        /** @var array $result */
         $result = parent::processResponse();
 
         // Move some stuff around

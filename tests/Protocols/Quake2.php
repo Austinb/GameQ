@@ -24,14 +24,14 @@ class Quake2 extends Base
     /**
      * Holds stub on setup
      *
-     * @type \GameQ\Protocols\Quake2
+     * @var \GameQ\Protocols\Quake2
      */
     protected $stub;
 
     /**
      * Holds the expected packets for this protocol class
      *
-     * @type array
+     * @var array
      */
     protected $packets = [
         \GameQ\Protocol::PACKET_STATUS => "\xFF\xFF\xFF\xFFstatus\x00",
