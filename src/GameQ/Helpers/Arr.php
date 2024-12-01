@@ -127,4 +127,27 @@ class Arr
         /* Return the current, modified array (level) */
         return $array;
     }
+
+    /**
+     * This helper method is intended to shift the provided arguments to the left.
+     *
+     * **Example:** foo, bar, baz becomes bar, baz, baz
+     *
+     * @param mixed &...$args 
+     * @return void 
+     */
+    public static function shift(&...$args)
+    {
+        /* Get the array keys to ensure numeric index */
+        $keys = array_keys($args);
+
+        /* Iterate the provided arguments keys in order */
+        foreach ($keys as $i => $key) {
+            /* Process until the last argument */
+            if ($i < count($keys) - 1) {
+                /* Shift next into current */
+                $args[$key] = $args[$keys[$i + 1]];
+            }
+        }
+    }
 }

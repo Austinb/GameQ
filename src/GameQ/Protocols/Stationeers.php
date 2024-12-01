@@ -19,6 +19,7 @@
 namespace GameQ\Protocols;
 
 use GameQ\Exception\Protocol as Exception;
+use GameQ\Helpers\Arr;
 use GameQ\Result;
 use GameQ\Server;
 
@@ -32,28 +33,14 @@ use GameQ\Server;
 class Stationeers extends Http
 {
     /**
-     * The host (address) of the server to query to get the list of servers
+     * The host (address) of the "Metaserver" to query to get the list of servers
      */
     const SERVER_LIST_HOST = '40.82.200.175';
 
     /**
-     * The port of the server to query to get the list of servers
+     * The port of the "Metaserver" to query to get the list of servers
      */
     const SERVER_LIST_PORT = 8081;
-
-    /**
-     * Holds the real ip so we can overwrite it back
-     *
-     * @var string
-     */
-    protected $realIp = null;
-
-    /**
-     * Holds the real port so we can overwrite it back
-     *
-     * @var int
-     */
-    protected $realPortQuery = null;
 
     /**
      * Packets to send
@@ -86,13 +73,6 @@ class Stationeers extends Http
     protected $name_long = "Stationeers";
 
     /**
-     * The client join link
-     *
-     * @type string
-     */
-    protected $join_link = "";
-
-    /**
      * Normalize some items
      *
      * @var array
@@ -111,6 +91,24 @@ class Stationeers extends Http
     ];
 
     /**
+     * Holds the real ip so we can overwrite it back
+     *
+     * **NOTE:** These is used during the runtime.
+     *
+     * @var string
+     */
+    protected $realIp = null;
+
+    /**
+     * Holds the real port so we can overwrite it back
+     *
+     * **NOTE:** These is used during the runtime.
+     *
+     * @var int
+     */
+    protected $realPortQuery = null;
+
+    /**
      * Handle changing the call to call a central server rather than the server directly
      *
      * @param Server $server
@@ -119,13 +117,13 @@ class Stationeers extends Http
      */
     public function beforeSend(Server $server)
     {
-        // Save the passed IP information so we can use it later for the response
-        $this->realIp = $server->ip;
-        $this->realPortQuery = $server->port_query;
+        /* Determine the connection information to be used for the "Metaserver" */
+        $metaServerHost = $server->getOption('meta_host') ? $server->getOption('meta_host') : self::SERVER_LIST_HOST;
+        $metaServerPort = $server->getOption('meta_port') ? $server->getOption('meta_port') : self::SERVER_LIST_PORT;
 
-        // Override the existing settings with the query host information
-        $server->ip = self::SERVER_LIST_HOST;
-        $server->port_query = self::SERVER_LIST_PORT;
+        /* Save the real connection information and overwrite the properties with the "Metaserver" connection information */
+        Arr::shift($this->realIp, $server->ip, $metaServerHost);
+        Arr::shift($this->realPortQuery, $server->port_query, $metaServerPort);
     }
 
     /**
@@ -136,6 +134,7 @@ class Stationeers extends Http
      */
     public function processResponse()
     {
+        /* Ensure there is a reply from the "Metaserver" */
         if (empty($this->packets_response)) {
             return [];
         }
@@ -145,7 +144,7 @@ class Stationeers extends Http
 
         // Return should be JSON, let's validate
         if (!isset($matches[0]) || ($json = json_decode($matches[0])) === null) {
-            throw new Exception(__METHOD__ . " JSON response from Stationeers protocol is invalid.");
+            throw new Exception(__METHOD__ . " JSON response from Stationeers Metaserver is invalid.");
         }
 
         // By default no server is found
@@ -160,25 +159,22 @@ class Stationeers extends Http
             }
         }
 
-        // No longer needed, be free!
+        /* Send to the garbage collector */
         unset($matches, $serverEntry, $json);
 
-        // The server information passed was not found in this host's list
-        if (!$server) {
+        /* Ensure the provided Server has been found in the list provided by the "Metaserver" */
+        if (! $server) {
             throw new Exception(sprintf(
-                '%s Unable to find the server "%s:%d" in the Stationeers server list',
+                '%s Unable to find the server "%s:%d" in the Stationeer Metaservers server list',
                 __METHOD__,
                 $this->realIp,
                 $this->realPortQuery
             ));
         }
 
+        /* Build the Result from the parsed JSON */
         $result = new Result();
-
-        // Server is always dedicated
-        $result->add('dedicated', 1);
-
-        // Add server items
+        $result->add('dedicated', 1); // Server is always dedicated
         $result->add('hostname', $server->Name);
         $result->add('gq_address', $server->Address);
         $result->add('gq_port_query', $server->Port);
@@ -190,6 +186,7 @@ class Stationeers extends Http
         $result->add('maxplayers', $server->MaxPlayers);
         $result->add('type', $server->Type);
 
+        /* Send to the garbage collector */
         unset($server);
 
         return $result->fetch();

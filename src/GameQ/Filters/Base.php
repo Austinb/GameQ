@@ -18,7 +18,6 @@
 
 namespace GameQ\Filters;
 
-use GameQ\Concerns\WithArrayHelpers;
 use GameQ\Server;
 
 /**
