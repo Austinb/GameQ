@@ -18,7 +18,7 @@ Contributions are **welcome** and will be fully **credited**.
 - Use the following commands to check your code before committing it:
 
 ```sh
-$ vendor/bin/phpcs src tests --extensions=php --ignore=bootstrap --report=checkstyle --report-file=build/logs/checkstyle.xml --standard=build/config/phpcs.xml
+$ vendor/bin/phpcs src tests --extensions=php --ignore=bootstrap --report=checkstyle --report-file=build/logs/checkstyle.xml --standard=build/config/phpcs.xml -v
 $ vendor/bin/phpmd src,tests xml build/config/phpmd.xml
 ```
 

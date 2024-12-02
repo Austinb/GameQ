@@ -19,3 +19,6 @@ composer.phar
 coverage/
 build/logs/*
 !build/logs/.gitkeep
+
+# PHP Code Sniffer Fixer
+.php-cs-fixer.cache
