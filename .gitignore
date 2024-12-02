@@ -15,6 +15,7 @@ composer.lock
 composer.phar
 
 # PHPUnit
+phpunit.xml
 .phpunit.result.cache
 coverage/
 build/logs/*
