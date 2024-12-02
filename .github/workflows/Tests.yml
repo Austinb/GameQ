@@ -53,13 +53,14 @@ jobs:
       - name: PHP CodeStyle
         run: |
           mkdir -p build/logs
-          vendor/bin/phpcs src tests --extensions=php --ignore=bootstrap --report=checkstyle --report-file=build/logs/checkstyle.xml --standard=build/config/phpcs.xml -v
+          vendor/bin/phpcs src tests --extensions=php --ignore=bootstrap --report=checkstyle --report-file=build/logs/checkstyle.xml --standard=build/config/phpcs.xml
           vendor/bin/phpmd src,tests xml build/config/phpmd.xml
 
       - name: Run PHPUnit
         run: vendor/bin/phpunit -c phpunit.xml --verbose
 
       - name: Upload Coveralls coverage
+        if: env.ACT != 'true'
         uses: coverallsapp/github-action@v2
         with:
           parallel: true
@@ -67,16 +68,16 @@ jobs:
 
       - name: Upload Scrutinizer coverage
         uses: sudo-bot/action-scrutinizer@latest
-        if: github.repository == 'Austinb/GameQ'
+        if: env.ACT != 'true'
         with:
             cli-args: "--format=php-clover build/logs/clover.xml --revision=${{ github.event.pull_request.head.sha || github.sha }}"
 
   Finish:
     needs: CI
-    if: ${{ always() }}
+    if: ${{ always() }} && env.ACT != 'true'
     runs-on: ubuntu-latest
     steps:
     - name: Coveralls Finished
       uses: coverallsapp/github-action@v2
       with:
-        parallel-finished: true
+        parallel-finished: true 

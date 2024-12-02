@@ -1,0 +1,63 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Test",
+            "isTestCommand": true,
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "PHP Code Sniffer",
+                "PHP Mess Detector",
+                "PHPUnit"
+            ] 
+        },
+        {
+            "label": "PHP Code Sniffer",
+            "type": "shell",
+            "command": "vendor/bin/phpcs",
+            "args": [
+                "src",
+                "tests",
+                "--extensions=php",
+                "--ignore=bootstrap",
+                "--report=checkstyle",
+                "--report-file=build/logs/checkstyle.xml",
+                "--standard=build/config/phpcs.xml"
+            ]
+        },
+        {
+            "label": "PHP Mess Detector",
+            "type": "shell",
+            "command": "vendor/bin/phpmd",
+            "args": [
+                "src,tests",
+                "xml",
+                "build/config/phpmd.xml"
+            ]
+        },
+        {
+            "label": "PHPUnit",
+            "type": "shell",
+            "command": "vendor/bin/phpunit"
+        },
+        {
+            "label": "GitHub Workflows",
+            "type": "shell",
+            "command": "act",
+            "args": [
+                "--platform=ubuntu-latest=catthehacker/ubuntu:act-latest",
+                "--job=${input:GitHubWorkflowsJob}"
+            ] 
+        },
+    ],
+    "inputs": [
+        {
+            "id": "GitHubWorkflowsJob",
+            "type": "promptString",
+            "description": "Job:",
+            "default": "CI"
+        }
+    ]
+}
