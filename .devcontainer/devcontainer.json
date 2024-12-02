@@ -8,6 +8,19 @@
 	"features": {
 		"ghcr.io/devcontainers/features/docker-in-docker:2": {}
 	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"junstyle.php-cs-fixer"
+			],
+			"settings": {
+				"php-cs-fixer.onsave": true,
+				"[php]": {
+					"editor.defaultFormatter": "junstyle.php-cs-fixer"
+				}
+			}
+		}
+	},
 	"postCreateCommand": ".devcontainer/postCreate.sh",
 	"remoteUser": "vscode"
 }
