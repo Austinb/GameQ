@@ -18,10 +18,10 @@
 
 namespace GameQ\Protocols;
 
-use GameQ\Protocol;
 use GameQ\Buffer;
-use GameQ\Result;
 use GameQ\Helpers\Str;
+use GameQ\Protocol;
+use GameQ\Result;
 
 /**
  * GameSpy3 Protocol class
@@ -34,7 +34,6 @@ use GameQ\Helpers\Str;
  */
 class Gamespy3 extends Protocol
 {
-
     /**
      * Array of packets we want to look up.
      * Each key should correspond to a defined method in this or a parent class
@@ -115,7 +114,6 @@ class Gamespy3 extends Protocol
      */
     public function processResponse()
     {
-
         // Holds the processed packets
         $processed = [];
 
@@ -174,9 +172,7 @@ class Gamespy3 extends Protocol
         return $result->fetch();
     }
 
-    /*
-     * Internal methods
-     */
+    // Internal methods
 
     /**
      * Handles cleaning up packets since the responses can be a bit "dirty"
@@ -188,7 +184,6 @@ class Gamespy3 extends Protocol
      */
     protected function cleanPackets(array $packets = [])
     {
-
         // Get the number of packets
         $packetCount = count($packets);
 
@@ -243,7 +238,6 @@ class Gamespy3 extends Protocol
      */
     protected function processDetails(Buffer &$buffer, Result &$result)
     {
-
         // We go until we hit an empty key
         while ($buffer->getLength()) {
             $key = $buffer->readString();

@@ -47,30 +47,30 @@ trait Recursively
         RecursiveArrayIterator $iterator,
         Closure $callback
     ) {
-        /* ArrayIterator before PHP 8.1 does use a copy instead of reference */
+        // ArrayIterator before PHP 8.1 does use a copy instead of reference
         if (PHP_VERSION_ID < 80100) {
-            /* Hash the current state of the iterator */
+            // Hash the current state of the iterator
             $hashes = static::hashes((array) $iterator);
 
-            /* Continue with the provided callback */
+            // Continue with the provided callback
             $callback();
 
-            /* Determine if the current iterator has been modified */
+            // Determine if the current iterator has been modified
             if (! empty($diff = array_diff_assoc(static::hashes((array) $iterator), $hashes))) {
-                /* Determine path to the current iterator */
+                // Determine path to the current iterator
                 $path = [];
                 for ($depth = 0; $depth < $recursiveIterator->getDepth(); $depth++) {
                     $path[] = $recursiveIterator->getSubIterator($depth)->key();
                 }
 
-                /* Process all modified values */
+                // Process all modified values
                 foreach (array_keys($diff) as $modified) {
-                    /* Write the modified value to the original array */
+                    // Write the modified value to the original array
                     static::set($data, array_merge($path, [$modified]), $iterator->offsetGet($modified));
                 }
             }
         } else {
-            /* There is no need to write back any changes when ArrayIterator does use a reference */
+            // There is no need to write back any changes when ArrayIterator does use a reference
             $callback();
         }
     }
@@ -78,10 +78,10 @@ trait Recursively
     protected static function getArrayIteratorCopyOrReference(array &$data, ArrayIterator $arrayIterator)
     {
         if (PHP_VERSION_ID < 80100) {
-            /* Return the actual array reference */
+            // Return the actual array reference
             return $data;
         } else {
-            /* Return the ArrayIterator's internal reference */
+            // Return the ArrayIterator's internal reference
             return $arrayIterator->getArrayCopy();
         }
     }

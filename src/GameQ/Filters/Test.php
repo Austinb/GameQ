@@ -41,7 +41,6 @@ class Test extends Base
      */
     public function apply(array $result, Server $server)
     {
-
         return $result;
     }
 }

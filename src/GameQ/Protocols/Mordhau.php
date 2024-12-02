@@ -26,7 +26,6 @@ namespace GameQ\Protocols;
  */
 class Mordhau extends Source
 {
-
     /**
      * String name of this protocol class
      *
@@ -41,7 +40,7 @@ class Mordhau extends Source
      */
     protected $name_long = "MORDHAU";
 
-    #protected $port = 7777;
+    //protected $port = 7777;
 
     /**
      * query_port = client_port + 19238
@@ -49,5 +48,5 @@ class Mordhau extends Source
      *
      * @var int
      */
-    #protected $port_diff = 19238;
+    //protected $port_diff = 19238;
 }

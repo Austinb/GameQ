@@ -25,7 +25,6 @@ namespace GameQ\Protocols;
  */
 class Had2 extends Gamespy2
 {
-
     /**
      * String name of this protocol class
      *

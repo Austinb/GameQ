@@ -25,7 +25,6 @@ namespace GameQ\Protocols;
  */
 class Halo extends Gamespy2
 {
-
     /**
      * String name of this protocol class
      *

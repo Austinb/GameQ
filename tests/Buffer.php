@@ -35,7 +35,6 @@ class Buffer extends TestBase
      */
     protected function buildBuffer($data, $number_type = 'm')
     {
-
         return new \GameQ\Buffer($data, $number_type);
     }
 
@@ -47,7 +46,6 @@ class Buffer extends TestBase
      */
     public function integerDataProvider()
     {
-
         // Make the base path for the data to test since it has to be in ascii form
         $basePath = sprintf('%s/Providers/Buffer', __DIR__);
 

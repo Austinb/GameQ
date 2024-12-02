@@ -26,7 +26,6 @@ namespace GameQ\Protocols;
  */
 class Armedassault2oa extends Source
 {
-
     /**
      * String name of this protocol class
      *

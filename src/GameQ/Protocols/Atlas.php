@@ -26,7 +26,6 @@ namespace GameQ\Protocols;
  */
 class Atlas extends Source
 {
-
     /**
      * String name of this protocol class
      *

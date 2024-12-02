@@ -18,8 +18,6 @@
 
 namespace GameQ\Protocols;
 
-use GameQ\Buffer;
-
 /**
  * Class Dow
  *

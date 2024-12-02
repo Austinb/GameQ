@@ -25,7 +25,6 @@ namespace GameQ\Tests\Filters;
  */
 class Secondstohuman extends Base
 {
-
     /**
      * Test default filter settings
      */

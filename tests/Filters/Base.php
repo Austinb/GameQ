@@ -27,7 +27,6 @@ use GameQ\Tests\TestBase;
  */
 class Base extends TestBase
 {
-
     /**
      * Load up the provider data for the specific filter type
      *
@@ -35,7 +34,6 @@ class Base extends TestBase
      */
     public function loadData()
     {
-
         // Explode the class that called to avoid strict error
         $class = explode('\\', get_called_class());
 
@@ -82,16 +80,13 @@ class Base extends TestBase
         return $providers;
     }
 
-    /*
-     * Real Base tests here
-     */
+    // Real Base tests here
 
     /**
      * Test options setting on construct
      */
     public function testOptions()
     {
-
         $options = [
             'option1' => 'value1',
             'option2' => 'value2',

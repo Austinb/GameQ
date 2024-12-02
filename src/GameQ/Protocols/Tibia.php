@@ -18,10 +18,9 @@
 
 namespace GameQ\Protocols;
 
-use GameQ\Protocol;
-use GameQ\Buffer;
-use GameQ\Result;
 use GameQ\Exception\Protocol as Exception;
+use GameQ\Protocol;
+use GameQ\Result;
 
 /**
  * Tibia Protocol Class
@@ -35,7 +34,6 @@ use GameQ\Exception\Protocol as Exception;
  */
 class Tibia extends Protocol
 {
-
     /**
      * Array of packets we want to query.
      *

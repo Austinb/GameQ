@@ -27,7 +27,6 @@ namespace GameQ\Protocols;
  */
 class Egs extends Source
 {
-
     /**
      * String name of this protocol class
      *

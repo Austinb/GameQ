@@ -25,7 +25,6 @@ namespace GameQ\Protocols;
  */
 class Ut2004 extends Unreal2
 {
-
     /**
      * String name of this protocol class
      *

@@ -27,7 +27,6 @@ namespace GameQ\Protocols;
  */
 class Minecraftpe extends Minecraft
 {
-
     /**
      * String name of this protocol class
      *

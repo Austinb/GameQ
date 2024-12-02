@@ -19,8 +19,8 @@
 namespace GameQ\Protocols;
 
 use GameQ\Buffer;
-use GameQ\Result;
 use GameQ\Helpers\Str;
+use GameQ\Result;
 
 /**
  * Class Killing floor
@@ -30,7 +30,6 @@ use GameQ\Helpers\Str;
  */
 class Killingfloor extends Unreal2
 {
-
     /**
      * String name of this protocol class
      *
@@ -69,7 +68,6 @@ class Killingfloor extends Unreal2
      */
     protected function processDetails(Buffer $buffer)
     {
-
         // Set the result to a new result instance
         $result = new Result();
 

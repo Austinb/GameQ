@@ -35,7 +35,6 @@ use GameQ\Exception\Protocol as Exception;
  */
 class Buffer
 {
-
     /**
      * Constants for the byte code types we need to read as
      */
@@ -79,7 +78,6 @@ class Buffer
      */
     public function __construct($data, $number_type = self::NUMBER_TYPE_LITTLEENDIAN)
     {
-
         $this->number_type = $number_type;
         $this->data = $data;
         $this->length = strlen($data);
@@ -92,7 +90,6 @@ class Buffer
      */
     public function getData()
     {
-
         return $this->data;
     }
 
@@ -103,7 +100,6 @@ class Buffer
      */
     public function getBuffer()
     {
-
         return substr($this->data, $this->index);
     }
 
@@ -114,7 +110,6 @@ class Buffer
      */
     public function getLength()
     {
-
         return max($this->length - $this->index, 0);
     }
 
@@ -128,7 +123,6 @@ class Buffer
      */
     public function read($length = 1)
     {
-
         if (($length + $this->index) > $this->length) {
             throw new Exception("Unable to read length={$length} from buffer.  Bad protocol format or return?");
         }
@@ -149,7 +143,6 @@ class Buffer
      */
     public function readLast()
     {
-
         $len = strlen($this->data);
         $string = $this->data[strlen($this->data) - 1];
         $this->data = substr($this->data, 0, $len - 1);
@@ -167,7 +160,6 @@ class Buffer
      */
     public function lookAhead($length = 1)
     {
-
         return substr($this->data, $this->index, $length);
     }
 
@@ -178,7 +170,6 @@ class Buffer
      */
     public function skip($length = 1)
     {
-
         $this->index += $length;
     }
 
@@ -190,7 +181,6 @@ class Buffer
      */
     public function jumpto($index)
     {
-
         $this->index = min($index, $this->length - 1);
     }
 
@@ -201,7 +191,6 @@ class Buffer
      */
     public function getPosition()
     {
-
         return $this->index;
     }
 
@@ -217,7 +206,6 @@ class Buffer
      */
     public function readString($delim = "\x00")
     {
-
         // Get position of delimiter
         $len = strpos($this->data, $delim, min($this->index, $this->length));
 
@@ -244,7 +232,6 @@ class Buffer
      */
     public function readPascalString($offset = 0, $read_offset = false)
     {
-
         // Get the proper offset
         $len = $this->readInt8();
         $offset = max($len - $offset, 0);
@@ -272,7 +259,6 @@ class Buffer
      */
     public function readStringMulti($delims, &$delimfound = null)
     {
-
         // Get position of delimiters
         $pos = [];
         foreach ($delims as $delim) {
@@ -302,7 +288,6 @@ class Buffer
      */
     public function readInt8()
     {
-
         $int = unpack('Cint', $this->read(1));
 
         return $int['int'];
@@ -316,7 +301,6 @@ class Buffer
      */
     public function readInt8Signed()
     {
-
         $int = unpack('cint', $this->read(1));
 
         return $int['int'];
@@ -330,7 +314,6 @@ class Buffer
      */
     public function readInt16()
     {
-
         // Change the integer type we are looking up
         switch ($this->number_type) {
             case self::NUMBER_TYPE_BIGENDIAN:
@@ -358,7 +341,6 @@ class Buffer
      */
     public function readInt16Signed()
     {
-
         // Read the data into a string
         $string = $this->read(2);
 
@@ -416,7 +398,6 @@ class Buffer
      */
     public function readInt32Signed()
     {
-
         // Read the data into a string
         $string = $this->read(4);
 
@@ -440,7 +421,6 @@ class Buffer
      */
     public function readInt64()
     {
-
         // We have the pack 64-bit codes available. See: http://php.net/manual/en/function.pack.php
         if (version_compare(PHP_VERSION, '5.6.3') >= 0 && PHP_INT_SIZE == 8) {
             // Change the integer type we are looking up
@@ -488,7 +468,6 @@ class Buffer
      */
     public function readFloat32()
     {
-
         // Read the data into a string
         $string = $this->read(4);
 

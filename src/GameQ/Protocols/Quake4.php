@@ -19,8 +19,8 @@
 namespace GameQ\Protocols;
 
 use GameQ\Buffer;
-use GameQ\Result;
 use GameQ\Helpers\Str;
+use GameQ\Result;
 
 /**
  * Quake 4 Protocol Class

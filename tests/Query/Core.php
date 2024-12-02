@@ -32,7 +32,6 @@ class Core extends TestBase
      */
     public function testSet()
     {
-
         $stub = $this->getMockForAbstractClass('\GameQ\Query\Core', [ ]);
 
         // Set the properties

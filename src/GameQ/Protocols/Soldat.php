@@ -28,7 +28,6 @@ namespace GameQ\Protocols;
  */
 class Soldat extends Ase
 {
-
     /**
      * String name of this protocol class
      *

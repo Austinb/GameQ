@@ -26,7 +26,6 @@ namespace GameQ\Protocols;
  */
 class Risingstorm2 extends Source
 {
-
     /**
      * String name of this protocol class
      *

@@ -20,7 +20,6 @@ namespace GameQ\Tests;
 
 class TestBase extends \PHPUnit\Framework\TestCase
 {
-
     /**
      * TestBase constructor overload.
      *

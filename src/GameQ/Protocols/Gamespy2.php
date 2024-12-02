@@ -18,11 +18,11 @@
 
 namespace GameQ\Protocols;
 
-use GameQ\Exception\Protocol as Exception;
-use GameQ\Protocol;
 use GameQ\Buffer;
-use GameQ\Result;
+use GameQ\Exception\Protocol as Exception;
 use GameQ\Helpers\Str;
+use GameQ\Protocol;
+use GameQ\Result;
 
 /**
  * GameSpy2 Protocol class
@@ -35,7 +35,6 @@ use GameQ\Helpers\Str;
  */
 class Gamespy2 extends Protocol
 {
-
     /**
      * Define the state of this class
      *
@@ -114,7 +113,6 @@ class Gamespy2 extends Protocol
      */
     public function processResponse()
     {
-
         // Will hold the packets after sorting
         $packets = [];
 
@@ -152,9 +150,7 @@ class Gamespy2 extends Protocol
         return $results;
     }
 
-    /*
-     * Internal methods
-     */
+    // Internal methods
 
     /**
      * Handles processing the details data into a usable format
@@ -167,7 +163,6 @@ class Gamespy2 extends Protocol
      */
     protected function processDetails(Buffer $buffer)
     {
-
         // Set the result to a new result instance
         $result = new Result();
 
@@ -196,7 +191,6 @@ class Gamespy2 extends Protocol
      */
     protected function processPlayers(Buffer $buffer)
     {
-
         // Set the result to a new result instance
         $result = new Result();
 
@@ -226,7 +220,6 @@ class Gamespy2 extends Protocol
      */
     protected function parsePlayerTeam($dataType, Buffer &$buffer, Result &$result)
     {
-
         // Do count
         $result->add('num_' . $dataType, $buffer->readInt8());
 

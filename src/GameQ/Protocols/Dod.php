@@ -28,7 +28,6 @@ namespace GameQ\Protocols;
  */
 class Dod extends Cs16
 {
-
     /**
      * String name of this protocol class
      *

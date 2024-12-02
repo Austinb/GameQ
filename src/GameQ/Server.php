@@ -27,9 +27,7 @@ use GameQ\Exception\Server as Exception;
  */
 class Server
 {
-    /*
-     * Server array keys
-     */
+    // Server array keys
     const SERVER_TYPE = 'type';
 
     const SERVER_HOST = 'host';
@@ -38,13 +36,9 @@ class Server
 
     const SERVER_OPTIONS = 'options';
 
-    /*
-     * Server options keys
-     */
+    // Server options keys
 
-    /*
-     * Use this option when the query_port and client connect ports are different
-     */
+    // Use this option when the query_port and client connect ports are different
     const SERVER_OPTIONS_QUERY_PORT = 'query_port';
 
     /**
@@ -221,7 +215,6 @@ class Server
      */
     protected function checkAndSetServerOptions()
     {
-
         // Specific query port defined
         if (array_key_exists(self::SERVER_OPTIONS_QUERY_PORT, $this->options)) {
             $this->port_query = (int)$this->options[self::SERVER_OPTIONS_QUERY_PORT];
@@ -241,7 +234,6 @@ class Server
      */
     public function setOption($key, $value)
     {
-
         $this->options[$key] = $value;
 
         return $this; // Make chainable
@@ -256,7 +248,6 @@ class Server
      */
     public function getOption($key)
     {
-
         return (array_key_exists($key, $this->options)) ? $this->options[$key] : null;
     }
 
@@ -272,7 +263,6 @@ class Server
      */
     public function id()
     {
-
         return $this->id;
     }
 
@@ -283,7 +273,6 @@ class Server
      */
     public function ip()
     {
-
         return $this->ip;
     }
 
@@ -294,7 +283,6 @@ class Server
      */
     public function portClient()
     {
-
         return $this->port_client;
     }
 
@@ -305,7 +293,6 @@ class Server
      */
     public function portQuery()
     {
-
         return $this->port_query;
     }
 
@@ -316,7 +303,6 @@ class Server
      */
     public function protocol()
     {
-
         return $this->protocol;
     }
 
@@ -327,21 +313,19 @@ class Server
      */
     public function getJoinLink()
     {
-        /* Read the joinLink template defined by the Protocol */
+        // Read the joinLink template defined by the Protocol
         $joinLink = $this->protocol->joinLink();
 
-        /* Ensure the Protocol provides a joinLink template */
+        // Ensure the Protocol provides a joinLink template
         if (is_null($joinLink)) {
             return null;
         }
         
-        /* Fill the template to build the final joinLink */
+        // Fill the template to build the final joinLink
         return sprintf($joinLink, $this->ip, $this->portClient());
     }
 
-    /*
-     * Socket holding
-     */
+    // Socket holding
 
     /**
      * Add a socket for this server to be reused
@@ -352,7 +336,6 @@ class Server
      */
     public function socketAdd(Query\Core $socket)
     {
-
         $this->sockets[] = $socket;
     }
 
@@ -365,7 +348,6 @@ class Server
      */
     public function socketGet()
     {
-
         $socket = null;
 
         if (count($this->sockets) > 0) {
@@ -382,10 +364,9 @@ class Server
      */
     public function socketCleanse()
     {
-
         // Close all of the sockets available
         foreach ($this->sockets as $socket) {
-            /* @var $socket \GameQ\Query\Core */
+            // @var $socket \GameQ\Query\Core
             $socket->close();
         }
 

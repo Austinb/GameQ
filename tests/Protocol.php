@@ -25,7 +25,6 @@ namespace GameQ\Tests;
  */
 class Protocol extends TestBase
 {
-
     /**
      * Holds stub on setup
      *
@@ -49,7 +48,6 @@ class Protocol extends TestBase
      */
     public function customSetUp()
     {
-
         $this->stub = $this->getMockForAbstractClass('\GameQ\Protocol', [ $this->options ]);
     }
 
@@ -58,7 +56,6 @@ class Protocol extends TestBase
      */
     public function testGeneral()
     {
-
         $name = 'Test name';
         $nameLong = 'Test name bigger, longer';
         $portDiff = 5454;
@@ -102,7 +99,6 @@ class Protocol extends TestBase
      */
     public function testPackets()
     {
-
         $packets = [
             \GameQ\Protocol::PACKET_CHALLENGE => 'Do you even lift?',
             \GameQ\Protocol::PACKET_RULES     => 'There are no rules!!',

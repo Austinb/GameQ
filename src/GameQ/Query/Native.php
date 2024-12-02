@@ -35,7 +35,6 @@ class Native extends Core
      */
     public function get()
     {
-
         // No socket for this server, make one
         if (is_null($this->socket)) {
             $this->create();
@@ -54,7 +53,6 @@ class Native extends Core
      */
     public function write($data)
     {
-
         try {
             // No socket for this server, make one
             if (is_null($this->socket)) {
@@ -73,7 +71,6 @@ class Native extends Core
      */
     public function close()
     {
-
         if ($this->socket) {
             fclose($this->socket);
             $this->socket = null;
@@ -87,7 +84,6 @@ class Native extends Core
      */
     protected function create()
     {
-
         // Create the remote address
         $remote_addr = sprintf("%s://%s:%d", $this->transport, $this->ip, $this->port);
 
@@ -144,7 +140,6 @@ class Native extends Core
      */
     public function getResponses(array $sockets, $timeout, $stream_timeout)
     {
-
         // Set the loop to active
         $loop_active = true;
 
@@ -157,7 +152,7 @@ class Native extends Core
         // Loop and pull out all the actual sockets we need to listen on
         foreach ($sockets as $socket_id => $socket_data) {
             // Get the socket
-            /* @var $socket \GameQ\Query\Core */
+            // @var $socket \GameQ\Query\Core
             $socket = $socket_data['socket'];
 
             // Append the actual socket we are listening to
@@ -196,7 +191,7 @@ class Native extends Core
 
             // Loop the sockets that received data back
             foreach ($read as $socket) {
-                /* @var $socket resource */
+                // @var $socket resource
 
                 // See if we have a response
                 if (($response = fread($socket, 32768)) === false) {

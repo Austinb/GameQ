@@ -28,7 +28,6 @@ namespace GameQ\Protocols;
  */
 class Cs15 extends Won
 {
-
     /**
      * String name of this protocol class
      *

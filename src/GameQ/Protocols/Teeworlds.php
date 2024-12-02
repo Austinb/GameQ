@@ -18,10 +18,10 @@
 
 namespace GameQ\Protocols;
 
-use GameQ\Protocol;
 use GameQ\Buffer;
-use GameQ\Result;
 use GameQ\Exception\Protocol as Exception;
+use GameQ\Protocol;
+use GameQ\Result;
 
 /**
  * Teeworlds Protocol class
@@ -33,7 +33,6 @@ use GameQ\Exception\Protocol as Exception;
  */
 class Teeworlds extends Protocol
 {
-
     /**
      * Array of packets we want to look up.
      * Each key should correspond to a defined method in this or a parent class

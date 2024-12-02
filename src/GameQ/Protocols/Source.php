@@ -35,10 +35,7 @@ use GameQ\Result;
  */
 class Source extends Protocol
 {
-
-    /*
-     * Source engine type constants
-     */
+    // Source engine type constants
     const SOURCE_ENGINE = 0,
         GOLDSOURCE_ENGINE = 1;
 
@@ -224,9 +221,7 @@ class Source extends Protocol
         return $results;
     }
 
-    /*
-     * Internal methods
-     */
+    // Internal methods
 
     /**
      * Process the split packets and decompress if necessary
@@ -240,7 +235,6 @@ class Source extends Protocol
      */
     protected function processPackets($packet_id, array $packets = [])
     {
-
         // Init array so we can order
         $packs = [];
 
@@ -343,7 +337,6 @@ class Source extends Protocol
      */
     protected function processDetails(Buffer $buffer)
     {
-
         // Set the result to a new result instance
         $result = new Result();
 
@@ -461,7 +454,6 @@ class Source extends Protocol
      */
     protected function processPlayers(Buffer $buffer)
     {
-
         // Set the result to a new result instance
         $result = new Result();
 
@@ -498,7 +490,6 @@ class Source extends Protocol
      */
     protected function processRules(Buffer $buffer)
     {
-
         // Set the result to a new result instance
         $result = new Result();
 

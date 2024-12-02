@@ -26,7 +26,6 @@ namespace GameQ\Protocols;
  */
 class Theforrest extends Source
 {
-
     /**
      * String name of this protocol class
      *

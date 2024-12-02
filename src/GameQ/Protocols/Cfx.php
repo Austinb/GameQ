@@ -145,9 +145,7 @@ class Cfx extends Protocol
         return $results;
     }
 
-    /*
-     * Internal methods
-     */
+    // Internal methods
 
     /**
      * Handle processing the status response

@@ -18,10 +18,10 @@
 
 namespace GameQ\Protocols;
 
-use GameQ\Protocol;
 use GameQ\Buffer;
-use GameQ\Result;
 use GameQ\Exception\Protocol as Exception;
+use GameQ\Protocol;
+use GameQ\Result;
 
 /**
  * Battlefield Bad Company 2 Protocol Class
@@ -36,7 +36,6 @@ use GameQ\Exception\Protocol as Exception;
  */
 class Bfbc2 extends Protocol
 {
-
     /**
      * Array of packets we want to query.
      *
@@ -164,9 +163,7 @@ class Bfbc2 extends Protocol
         return $results;
     }
 
-    /*
-     * Internal Methods
-     */
+    // Internal Methods
 
     /**
      * Decode the buffer into a usable format

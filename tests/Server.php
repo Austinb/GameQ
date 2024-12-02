@@ -87,7 +87,6 @@ class Server extends TestBase
      */
     public function testServerId()
     {
-
         $id = '127.0.0.1:27015';
 
         // Create a server with id

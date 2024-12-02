@@ -31,7 +31,6 @@ use GameQ\Result;
  */
 class Bf4 extends Bf3
 {
-
     /**
      * String name of this protocol class
      *
@@ -56,7 +55,6 @@ class Bf4 extends Bf3
      */
     protected function processDetails(Buffer $buffer)
     {
-
         // Decode into items
         $items = $this->decode($buffer);
 

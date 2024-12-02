@@ -18,10 +18,10 @@
 
 namespace GameQ\Protocols;
 
-use GameQ\Protocol;
-use GameQ\Result;
 use GameQ\Exception\Protocol as Exception;
 use GameQ\Helpers\Str;
+use GameQ\Protocol;
+use GameQ\Result;
 
 /**
  * Ventrilo Protocol Class
@@ -37,7 +37,6 @@ use GameQ\Helpers\Str;
  */
 class Ventrilo extends Protocol
 {
-
     /**
      * Array of packets we want to look up.
      * Each key should correspond to a defined method in this or a parent class
@@ -639,7 +638,6 @@ class Ventrilo extends Protocol
      */
     public function processResponse()
     {
-
         // We need to decrypt the packets
         $decrypted = $this->decryptPackets($this->packets_response);
 
@@ -647,7 +645,6 @@ class Ventrilo extends Protocol
         $decrypted = preg_replace_callback(
             '|%([0-9A-F]{2})|',
             function ($matches) {
-
                 // Pack this into ascii
                 return pack('H*', $matches[1]);
             },
@@ -712,17 +709,17 @@ class Ventrilo extends Protocol
                         $this->processChannel($value, $channelFields, $result);
                         break;
 
-                    // Find the number of fields for the channels
+                        // Find the number of fields for the channels
                     case 'channelfields':
                         $channelFields = count(explode(',', $value));
                         break;
 
-                    // Find the number of fields for the players
+                        // Find the number of fields for the players
                     case 'clientfields':
                         $playerFields = count(explode(',', $value));
                         break;
 
-                    // By default we just add they key as an item
+                        // By default we just add they key as an item
                     default:
                         $result->add($key, Str::isoToUtf8($value));
                         break;
@@ -735,9 +732,7 @@ class Ventrilo extends Protocol
         return $result->fetch();
     }
 
-    /*
-     * Internal methods
-     */
+    // Internal methods
 
     /**
      * Decrypt the incoming packets
@@ -750,12 +745,11 @@ class Ventrilo extends Protocol
      */
     protected function decryptPackets(array $packets = [])
     {
-
         // This will be returned
         $decrypted = [];
 
         foreach ($packets as $packet) {
-            # Header :
+            // Header :
             $header = substr($packet, 0, 20);
 
             $header_items = [];
@@ -805,7 +799,7 @@ class Ventrilo extends Protocol
                 throw new Exception(__METHOD__ . ": Too few packets received");
             }
 
-            # Data :
+            // Data :
             $table = $this->data_encrypt_table;
             $a1 = $header_items['datakey'] & 0xFF;
             $a2 = $header_items['datakey'] >> 8;
@@ -841,7 +835,6 @@ class Ventrilo extends Protocol
      */
     protected function processChannel($data, $fieldCount, Result &$result)
     {
-
         // Split the items on the comma
         $items = explode(",", $data, $fieldCount);
 
@@ -864,7 +857,6 @@ class Ventrilo extends Protocol
      */
     protected function processPlayer($data, $fieldCount, Result &$result)
     {
-
         // Split the items on the comma
         $items = explode(",", $data, $fieldCount);
 

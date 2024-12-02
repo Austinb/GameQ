@@ -18,11 +18,11 @@
 
 namespace GameQ\Protocols;
 
-use GameQ\Protocol;
 use GameQ\Buffer;
-use GameQ\Result;
 use GameQ\Exception\Protocol as Exception;
 use GameQ\Helpers\Str;
+use GameQ\Protocol;
+use GameQ\Result;
 
 /**
  * Unreal 2 Protocol class
@@ -31,7 +31,6 @@ use GameQ\Helpers\Str;
  */
 class Unreal2 extends Protocol
 {
-
     /**
      * Array of packets we want to look up.
      * Each key should correspond to a defined method in this or a parent class
@@ -108,7 +107,6 @@ class Unreal2 extends Protocol
      */
     public function processResponse()
     {
-
         // Will hold the packets after sorting
         $packets = [];
 
@@ -146,9 +144,7 @@ class Unreal2 extends Protocol
         return $results;
     }
 
-    /*
-     * Internal methods
-     */
+    // Internal methods
 
     /**
      * Handles processing the details data into a usable format
@@ -160,7 +156,6 @@ class Unreal2 extends Protocol
      */
     protected function processDetails(Buffer $buffer)
     {
-
         // Set the result to a new result instance
         $result = new Result();
 
@@ -189,7 +184,6 @@ class Unreal2 extends Protocol
      */
     protected function processPlayers(Buffer $buffer)
     {
-
         // Set the result to a new result instance
         $result = new Result();
 
@@ -222,7 +216,6 @@ class Unreal2 extends Protocol
      */
     protected function processRules(Buffer $buffer)
     {
-
         // Set the result to a new result instance
         $result = new Result();
 

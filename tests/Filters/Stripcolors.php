@@ -25,7 +25,6 @@ namespace GameQ\Tests\Filters;
  */
 class Stripcolors extends Base
 {
-
     /**
      * Test the filter for Stripcolors
      *
@@ -37,7 +36,6 @@ class Stripcolors extends Base
      */
     public function testFiltered($protocol, $raw, $filtered)
     {
-
         // Pop the key from the raw response
         $host = key($raw);
 

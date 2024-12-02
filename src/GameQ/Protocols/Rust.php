@@ -28,7 +28,6 @@ use GameQ\Buffer;
  */
 class Rust extends Source
 {
-
     /**
      * String name of this protocol class
      *

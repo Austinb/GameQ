@@ -29,7 +29,6 @@ namespace GameQ\Protocols;
  */
 class Ut3 extends Gamespy3
 {
-
     /**
      * String name of this protocol class
      *
@@ -109,7 +108,6 @@ class Ut3 extends Gamespy3
      */
     protected function renameResult(array &$result, $old, $new)
     {
-
         // Check to see if the old item is there
         if (isset($result[$old])) {
             $result[$new] = $result[$old];
@@ -125,7 +123,6 @@ class Ut3 extends Gamespy3
      */
     protected function deleteResult(array &$result, array $array)
     {
-
         foreach ($array as $key) {
             unset($result[$key]);
         }

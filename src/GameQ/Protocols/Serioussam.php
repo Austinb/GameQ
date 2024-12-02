@@ -25,7 +25,6 @@ namespace GameQ\Protocols;
  */
 class Serioussam extends Gamespy
 {
-
     /**
      * String name of this protocol class
      *

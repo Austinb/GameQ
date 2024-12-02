@@ -43,34 +43,34 @@ class Arr
      */
     public static function recursively(array $data, Closure $callback)
     {
-        /* Initialize the RecursiveArrayIterator for the provided data */
+        // Initialize the RecursiveArrayIterator for the provided data
         $arrayIterator = new RecursiveArrayIterator($data);
 
-        /* Configure the Iterator for the RecursiveIterator */
+        // Configure the Iterator for the RecursiveIterator
         $recursiveIterator = new RecursiveIteratorIterator($arrayIterator);
 
-        /* Traverse the provided data */
+        // Traverse the provided data
         foreach ($recursiveIterator as $key => $value) {
-            /* Get the current sub iterator with Type hinting */
+            // Get the current sub iterator with Type hinting
             /** @var RecursiveArrayIterator */
             $subIterator = $recursiveIterator->getSubIterator();
 
-            /* Wrap the implementation to handle PHP < 8.1 behaviour */
+            // Wrap the implementation to handle PHP < 8.1 behaviour
             static::handleArrayIteratorCopyOrReference(
                 $data,
                 $recursiveIterator,
                 $subIterator,
                 function () use ($callback, &$value, $key, $subIterator) {
-                    /* Execute the callback */
+                    // Execute the callback
                     $callback($value, $key, $subIterator);
 
-                    /* Update the modified value */
+                    // Update the modified value
                     $subIterator->offsetSet($key, $value);
                 }
             );
         }
 
-        /* Return the processed data */
+        // Return the processed data
         return static::getArrayIteratorCopyOrReference($data, $arrayIterator);
     }
 
@@ -85,13 +85,13 @@ class Arr
     {
         $hashes = [];
 
-        /* Process the provided array */
+        // Process the provided array
         foreach ($array as $key => $value) {
-            /* Serialze and hash each value individually */
+            // Serialze and hash each value individually
             $hashes[$key] = md5(serialize($value));
         }
 
-        /* Return array containing the hashes */
+        // Return array containing the hashes
         return $hashes;
     }
 
@@ -107,24 +107,24 @@ class Arr
     {
         $current = &$array;
 
-        /* Process the path until the last element */
+        // Process the path until the last element
         foreach ($path as $i => $element) {
-            /* Remove the element from the path */
+            // Remove the element from the path
             unset($path[$i]);
 
-            /* Create missing key */
+            // Create missing key
             if (! isset($current[$element])) {
                 $current[$element] = [];
             }
 
-            /* Set current to a reference of next */
+            // Set current to a reference of next
             $current = &$current[$element];
         }
 
-        /* Finally set the value using the last key */
+        // Finally set the value using the last key
         $current = $value;
 
-        /* Return the current, modified array (level) */
+        // Return the current, modified array (level)
         return $array;
     }
 
@@ -138,14 +138,14 @@ class Arr
      */
     public static function shift(&...$args)
     {
-        /* Get the array keys to ensure numeric index */
+        // Get the array keys to ensure numeric index
         $keys = array_keys($args);
 
-        /* Iterate the provided arguments keys in order */
+        // Iterate the provided arguments keys in order
         foreach ($keys as $i => $key) {
-            /* Process until the last argument */
+            // Process until the last argument
             if ($i < count($keys) - 1) {
-                /* Shift next into current */
+                // Shift next into current
                 $args[$key] = $args[$keys[$i + 1]];
             }
         }

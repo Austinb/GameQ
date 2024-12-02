@@ -25,7 +25,6 @@ namespace GameQ\Query;
  */
 abstract class Core
 {
-
     /**
      * The socket used by this resource
      *
@@ -74,7 +73,6 @@ abstract class Core
      */
     public function __clone()
     {
-
         // Reset the properties for this class when cloned
         $this->reset();
     }
@@ -90,7 +88,6 @@ abstract class Core
      */
     public function set($transport, $ip, $port, $timeout = 3, $blocking = false)
     {
-
         $this->transport = $transport;
 
         $this->ip = $ip;
@@ -107,7 +104,6 @@ abstract class Core
      */
     public function reset()
     {
-
         $this->transport = null;
 
         $this->ip = null;

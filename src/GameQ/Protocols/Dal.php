@@ -26,7 +26,6 @@ namespace GameQ\Protocols;
  */
 class Dal extends Arkse
 {
-
     /**
      * String name of this protocol class
      *

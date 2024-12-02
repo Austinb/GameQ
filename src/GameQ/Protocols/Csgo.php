@@ -26,7 +26,6 @@ namespace GameQ\Protocols;
  */
 class Csgo extends Source
 {
-
     /**
      * String name of this protocol class
      *

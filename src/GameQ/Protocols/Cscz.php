@@ -28,7 +28,6 @@ namespace GameQ\Protocols;
  */
 class Cscz extends Cs16
 {
-
     /**
      * String name of this protocol class
      *

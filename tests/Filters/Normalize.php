@@ -25,7 +25,6 @@ namespace GameQ\Tests\Filters;
  */
 class Normalize extends Base
 {
-
     /**
      * Test the filter for Normalize
      *
@@ -37,7 +36,6 @@ class Normalize extends Base
      */
     public function testFiltered($protocol, $raw, $filtered)
     {
-
         // Pop the key from the raw response
         $host = key($raw);
 
@@ -65,7 +63,6 @@ class Normalize extends Base
      */
     public function testEmpty()
     {
-
         // Create a mock server
         $server = $this->getMockBuilder('\GameQ\Server')
             ->setConstructorArgs([

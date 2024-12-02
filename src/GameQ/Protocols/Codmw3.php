@@ -26,7 +26,6 @@ namespace GameQ\Protocols;
  */
 class Codmw3 extends Source
 {
-
     /**
      * String name of this protocol class
      *

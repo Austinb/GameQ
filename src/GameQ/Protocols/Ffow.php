@@ -3,10 +3,10 @@
 
 namespace GameQ\Protocols;
 
-use GameQ\Protocol;
 use GameQ\Buffer;
-use GameQ\Result;
 use GameQ\Exception\Protocol as Exception;
+use GameQ\Protocol;
+use GameQ\Result;
 
 /**
  * Frontlines Fuel of War Protocol Class
@@ -206,8 +206,7 @@ class Ffow extends Protocol
             // Check for map
             if (strstr($key, "Map:")) {
                 $result->addSub("maplist", "name", $buffer->readString());
-            } else // Regular rule
-            {
+            } else { // Regular rule
                 $result->add($key, $buffer->readString());
             }
         }

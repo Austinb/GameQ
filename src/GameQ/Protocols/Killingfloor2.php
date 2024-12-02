@@ -26,7 +26,6 @@ namespace GameQ\Protocols;
  */
 class Killingfloor2 extends Source
 {
-
     /**
      * String name of this protocol class
      *

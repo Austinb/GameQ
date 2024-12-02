@@ -35,7 +35,6 @@ use RecursiveArrayIterator;
  */
 class Secondstohuman extends Base
 {
-
     /**
      * The options key for setting the data key(s) to look for to convert
      */
@@ -85,21 +84,21 @@ class Secondstohuman extends Base
     {
         return Arr::recursively($result, function ($value, $key, RecursiveArrayIterator $iterator) {
             if (
-                /* Only process whitelisted keys */
+                // Only process whitelisted keys
                 (in_array($key, $this->options[self::OPTION_TIMEKEYS])) &&
-                /* Only process numeric values (float, integer, string) */
+                // Only process numeric values (float, integer, string)
                 (is_numeric($value))
             ) {
-                /* Ensure the value is float */
+                // Ensure the value is float
                 if (! is_float($value)) {
                     $value = floatval($value);
                 }
 
-                /* Add a new element to the result */
+                // Add a new element to the result
                 $iterator->offsetSet(
-                    /* Modify the current key */
+                    // Modify the current key
                     sprintf(self::RESULT_KEY, $key),
-                    /* Format the provided time */
+                    // Format the provided time
                     sprintf(
                         '%02d:%02d:%02d',
                         (int)floor($value / 3600),    // Hours

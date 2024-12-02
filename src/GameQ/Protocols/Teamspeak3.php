@@ -18,12 +18,12 @@
 
 namespace GameQ\Protocols;
 
-use GameQ\Protocol;
 use GameQ\Buffer;
-use GameQ\Result;
-use GameQ\Server;
 use GameQ\Exception\Protocol as Exception;
 use GameQ\Helpers\Str;
+use GameQ\Protocol;
+use GameQ\Result;
+use GameQ\Server;
 
 /**
  * Teamspeak 3 Protocol Class
@@ -37,7 +37,6 @@ use GameQ\Helpers\Str;
  */
 class Teamspeak3 extends Protocol
 {
-
     /**
      * Array of packets we want to look up.
      * Each key should correspond to a defined method in this or a parent class
@@ -121,7 +120,6 @@ class Teamspeak3 extends Protocol
      */
     public function beforeSend(Server $server)
     {
-
         // Check to make sure we have a query_port because it is required
         if (!isset($this->options[Server::SERVER_OPTIONS_QUERY_PORT])
             || empty($this->options[Server::SERVER_OPTIONS_QUERY_PORT])
@@ -144,7 +142,6 @@ class Teamspeak3 extends Protocol
      */
     public function processResponse()
     {
-
         // Make a new buffer out of all of the packets
         $buffer = new Buffer(implode('', $this->packets_response));
 
@@ -168,7 +165,6 @@ class Teamspeak3 extends Protocol
 
         // Explode the sections and filter to remove empty, junk ones
         $sections = array_filter(explode("\n", $raw), function ($value) {
-
             $value = trim($value);
 
             // Not empty string or a message response for "error id=\d"
@@ -204,9 +200,7 @@ class Teamspeak3 extends Protocol
         return $result->fetch();
     }
 
-    /*
-     * Internal methods
-     */
+    // Internal methods
 
     /**
      * Process the properties of the data.
@@ -218,7 +212,6 @@ class Teamspeak3 extends Protocol
      */
     protected function processProperties($data)
     {
-
         // Will hold the properties we are sending back
         $properties = [];
 
@@ -254,7 +247,6 @@ class Teamspeak3 extends Protocol
      */
     protected function processDetails($data, Result &$result)
     {
-
         // Offload the parsing for these values
         $properties = $this->processProperties($data);
 
@@ -284,7 +276,6 @@ class Teamspeak3 extends Protocol
      */
     protected function processChannels($data, Result &$result)
     {
-
         // We need to split the data at the pipe
         $channels = explode('|', $data);
 
@@ -311,7 +302,6 @@ class Teamspeak3 extends Protocol
      */
     protected function processPlayers($data, Result &$result)
     {
-
         // We need to split the data at the pipe
         $players = explode('|', $data);
 

@@ -20,7 +20,6 @@
 namespace GameQ\Protocols;
 
 use GameQ\Exception\Protocol as Exception;
-use GameQ\Protocols\Http;
 
 /**
  * GTA Five M Protocol Class

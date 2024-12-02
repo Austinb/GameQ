@@ -18,11 +18,11 @@
 
 namespace GameQ\Protocols;
 
-use GameQ\Protocol;
 use GameQ\Buffer;
-use GameQ\Result;
 use GameQ\Exception\Protocol as Exception;
 use GameQ\Helpers\Str;
+use GameQ\Protocol;
+use GameQ\Result;
 
 /**
  * Counter-Strike 2d Protocol Class
@@ -34,7 +34,6 @@ use GameQ\Helpers\Str;
  */
 class Cs2d extends Protocol
 {
-
     /**
      * Array of packets we want to query.
      *
@@ -225,7 +224,6 @@ class Cs2d extends Protocol
      */
     protected function processPlayers(Buffer $buffer)
     {
-
         // Set the result to a new result instance
         $result = new Result();
 

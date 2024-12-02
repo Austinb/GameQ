@@ -25,7 +25,6 @@ namespace GameQ\Protocols;
  */
 class Ut extends Gamespy
 {
-
     /**
      * String name of this protocol class
      *

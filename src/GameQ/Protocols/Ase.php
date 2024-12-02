@@ -18,8 +18,8 @@
 
 namespace GameQ\Protocols;
 
-use GameQ\Protocol;
 use GameQ\Buffer;
+use GameQ\Protocol;
 use GameQ\Result;
 
 /**
@@ -30,7 +30,6 @@ use GameQ\Result;
  */
 class Ase extends Protocol
 {
-
     /**
      * Array of packets we want to look up.
      * Each key should correspond to a defined method in this or a parent class
@@ -140,9 +139,7 @@ class Ase extends Protocol
         return $result->fetch();
     }
 
-    /*
-     * Internal methods
-     */
+    // Internal methods
 
     /**
      * Handles processing the extra key/value pairs for server settings
@@ -153,7 +150,6 @@ class Ase extends Protocol
      */
     protected function processKeyValuePairs(Buffer &$buffer, Result &$result)
     {
-
         // Key / value pairs
         while ($buffer->getLength()) {
             $key = $buffer->readPascalString(1, true);
@@ -182,7 +178,6 @@ class Ase extends Protocol
      */
     protected function processPlayersAndTeams(Buffer &$buffer, Result &$result)
     {
-
         // Players and team info
         while ($buffer->getLength()) {
             // Get the flags

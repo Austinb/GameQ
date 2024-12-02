@@ -18,9 +18,9 @@
 
 namespace GameQ\Protocols;
 
+use GameQ\Exception\Protocol as Exception;
 use GameQ\Protocol;
 use GameQ\Result;
-use GameQ\Exception\Protocol as Exception;
 
 /**
  * Mumble Protocol class
@@ -32,7 +32,6 @@ use GameQ\Exception\Protocol as Exception;
  */
 class Mumble extends Protocol
 {
-
     /**
      * Array of packets we want to look up.
      * Each key should correspond to a defined method in this or a parent class
@@ -120,7 +119,6 @@ class Mumble extends Protocol
      */
     public function processResponse()
     {
-
         // Try to json_decode, make it into an array
         if (($data = json_decode(implode('', $this->packets_response), true)) === null) {
             throw new Exception(__METHOD__ . " Unable to decode JSON data.");
@@ -154,9 +152,7 @@ class Mumble extends Protocol
         return $result->fetch();
     }
 
-    /*
-     * Internal methods
-     */
+    // Internal methods
 
     /**
      * Handles processing the the channels and user info
@@ -166,7 +162,6 @@ class Mumble extends Protocol
      */
     protected function processChannelsAndUsers(array $data, Result &$result)
     {
-
         // Let's add all of the channel information
         foreach ($data as $key => $value) {
             // We will handle these later

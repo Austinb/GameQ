@@ -118,11 +118,11 @@ class Stationeers extends Http
      */
     public function beforeSend(Server $server)
     {
-        /* Determine the connection information to be used for the "Metaserver" */
+        // Determine the connection information to be used for the "Metaserver"
         $metaServerHost = $server->getOption('meta_host') ? $server->getOption('meta_host') : self::SERVER_LIST_HOST;
         $metaServerPort = $server->getOption('meta_port') ? $server->getOption('meta_port') : self::SERVER_LIST_PORT;
 
-        /* Save the real connection information and overwrite the properties with the "Metaserver" connection information */
+        // Save the real connection information and overwrite the properties with the "Metaserver" connection information
         Arr::shift($this->realIp, $server->ip, $metaServerHost);
         Arr::shift($this->realPortQuery, $server->port_query, $metaServerPort);
     }
@@ -135,7 +135,7 @@ class Stationeers extends Http
      */
     public function processResponse()
     {
-        /* Ensure there is a reply from the "Metaserver" */
+        // Ensure there is a reply from the "Metaserver"
         if (empty($this->packets_response)) {
             return [];
         }
@@ -160,10 +160,10 @@ class Stationeers extends Http
             }
         }
 
-        /* Send to the garbage collector */
+        // Send to the garbage collector
         unset($matches, $serverEntry, $json);
 
-        /* Ensure the provided Server has been found in the list provided by the "Metaserver" */
+        // Ensure the provided Server has been found in the list provided by the "Metaserver"
         if (! $server) {
             throw new Exception(sprintf(
                 '%s Unable to find the server "%s:%d" in the Stationeer Metaservers server list',
@@ -173,7 +173,7 @@ class Stationeers extends Http
             ));
         }
 
-        /* Build the Result from the parsed JSON */
+        // Build the Result from the parsed JSON
         $result = new Result();
         $result->add('dedicated', 1); // Server is always dedicated
         $result->add('hostname', $server->Name);
@@ -187,7 +187,7 @@ class Stationeers extends Http
         $result->add('maxplayers', $server->MaxPlayers);
         $result->add('type', $server->Type);
 
-        /* Send to the garbage collector */
+        // Send to the garbage collector
         unset($server);
 
         return $result->fetch();

@@ -27,7 +27,6 @@ namespace GameQ\Protocols;
  */
 class Terraria extends Tshock
 {
-
     /**
      * String name of this protocol class
      *

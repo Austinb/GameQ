@@ -18,12 +18,12 @@
 
 namespace GameQ\Protocols;
 
-use GameQ\Protocol;
 use GameQ\Buffer;
-use GameQ\Result;
-use GameQ\Server;
 use GameQ\Exception\Protocol as Exception;
 use GameQ\Helpers\Str;
+use GameQ\Protocol;
+use GameQ\Result;
+use GameQ\Server;
 
 /**
  * Teamspeak 2 Protocol Class
@@ -37,7 +37,6 @@ use GameQ\Helpers\Str;
  */
 class Teamspeak2 extends Protocol
 {
-
     /**
      * Array of packets we want to look up.
      * Each key should correspond to a defined method in this or a parent class
@@ -121,7 +120,6 @@ class Teamspeak2 extends Protocol
      */
     public function beforeSend(Server $server)
     {
-
         // Check to make sure we have a query_port because it is required
         if (!isset($this->options[Server::SERVER_OPTIONS_QUERY_PORT])
             || empty($this->options[Server::SERVER_OPTIONS_QUERY_PORT])
@@ -144,7 +142,6 @@ class Teamspeak2 extends Protocol
      */
     public function processResponse()
     {
-
         // Make a new buffer out of all of the packets
         $buffer = new Buffer(implode('', $this->packets_response));
 
@@ -155,7 +152,6 @@ class Teamspeak2 extends Protocol
 
         // Split this buffer as the data blocks are bound by "OK" and drop any empty values
         $sections = array_filter(explode("OK", $buffer->getBuffer()), function ($value) {
-
             $value = trim($value);
 
             return !empty($value);
@@ -190,9 +186,7 @@ class Teamspeak2 extends Protocol
         return $result->fetch();
     }
 
-    /*
-     * Internal methods
-     */
+    // Internal methods
 
 
     /**
@@ -269,7 +263,6 @@ class Teamspeak2 extends Protocol
      */
     protected function processPlayers($data, Result &$result)
     {
-
         // Create a buffer
         $buffer = new Buffer($data);
 

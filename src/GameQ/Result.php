@@ -26,7 +26,6 @@ namespace GameQ;
  */
 class Result
 {
-
     /**
      * Formatted server response
      *
@@ -42,7 +41,6 @@ class Result
      */
     public function add($name, $value)
     {
-
         $this->result[$name] = $value;
     }
 
@@ -54,7 +52,6 @@ class Result
      */
     public function addPlayer($name, $value)
     {
-
         $this->addSub('players', $name, $value);
     }
 
@@ -66,7 +63,6 @@ class Result
      */
     public function addTeam($name, $value)
     {
-
         $this->addSub('teams', $name, $value);
     }
 
@@ -79,7 +75,6 @@ class Result
      */
     public function addSub($sub, $key, $value)
     {
-
         // Nothing of this type yet, set an empty array
         if (!isset($this->result[$sub]) or !is_array($this->result[$sub])) {
             $this->result[$sub] = [];
@@ -111,7 +106,6 @@ class Result
      */
     public function fetch()
     {
-
         return $this->result;
     }
 
@@ -124,7 +118,6 @@ class Result
      */
     public function get($var)
     {
-
         return isset($this->result[$var]) ? $this->result[$var] : null;
     }
 }

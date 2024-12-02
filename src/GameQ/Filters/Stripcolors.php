@@ -21,7 +21,6 @@ namespace GameQ\Filters;
 use Closure;
 use GameQ\Helpers\Arr;
 use GameQ\Server;
-use ReflectionMethod;
 
 /**
  * Class Strip Colors
@@ -52,24 +51,24 @@ class Stripcolors extends Base
      */
     public function apply(array $result, Server $server)
     {
-        /* Prevent working on empty results */
+        // Prevent working on empty results
         if (! empty($result)) {
-            /* Handle unit test data generation */
+            // Handle unit test data generation
             if ($this->writeTestData) {
-                /* Initialize potential data for unit testing **/
+                // Initialize potential data for unit testing
                 $unitTestData = [];
 
-                /* Add the initial result to the unit test data */
+                // Add the initial result to the unit test data
                 $unitTestData['raw'][$server->id()] = $result;
             }
 
-            /* Determine the executor defined for the current Protocol */
+            // Determine the executor defined for the current Protocol
             if ($executor = $this->getExecutor($server)) {
-                /* Apply the executor to the result recursively */
+                // Apply the executor to the result recursively
                 $result = Arr::recursively($result, function (&$value) use ($executor) {
-                    /* The executor may only be applied to strings */
+                    // The executor may only be applied to strings
                     if (is_string($value)) {
-                        /* Strip the colors and update the value by reference */
+                        // Strip the colors and update the value by reference
                         $value = $executor($value);
                     } elseif (! is_array($value)) {
                         $value = (string) $value; // TODO: Remove this in the next major version.
@@ -77,12 +76,12 @@ class Stripcolors extends Base
                 });
             }
 
-            /* Handle unit test data generation */
+            // Handle unit test data generation
             if ($this->writeTestData) {
-                /* Add the filtered result to the unit test data */
+                // Add the filtered result to the unit test data
                 $unitTestData['filtered'][$server->id()] = $result;
                 
-                /* Persist the collected data to the tests directory */
+                // Persist the collected data to the tests directory
                 file_put_contents(
                     sprintf(
                         '%s/../../../tests/Filters/Providers/Stripcolors\%s_1.json',
@@ -94,7 +93,7 @@ class Stripcolors extends Base
             }
         }
 
-        /* Return the filtered result */
+        // Return the filtered result
         return $result;
     }
 
@@ -138,23 +137,23 @@ class Stripcolors extends Base
      */
     protected function getExecutor(Server $server)
     {
-        /* Determine the correct executor for the current Protocol instance */
+        // Determine the correct executor for the current Protocol instance
         switch ($server->protocol()->getProtocol()) {
-            /* Strip Protocols using Quake color tags */
+            // Strip Protocols using Quake color tags
             case 'quake2':
             case 'quake3':
             case 'doom3':
             case 'gta5m':
                 return [$this, 'stripQuake'];
 
-            /* Strip Protocols using Unreal color tags */
+                // Strip Protocols using Unreal color tags
             case 'unreal2':
             case 'ut3':
             case 'gamespy3':  // not sure if gamespy3 supports ut colors but won't hurt
             case 'gamespy2':
                 return [$this, 'stripUnreal'];
 
-            /* Strip Protocols using Source color tags */
+                // Strip Protocols using Source color tags
             case 'source':
                 return [$this, 'stripSource'];
 

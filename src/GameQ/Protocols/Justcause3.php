@@ -26,7 +26,6 @@ namespace GameQ\Protocols;
  */
 class Justcause3 extends Source
 {
-
     /**
      * String name of this protocol class
      *

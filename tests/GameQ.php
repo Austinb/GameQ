@@ -25,7 +25,6 @@ namespace GameQ\Tests;
  */
 class GameQ extends TestBase
 {
-
     /**
      * Holds stub on setup
      *
@@ -47,7 +46,6 @@ class GameQ extends TestBase
      */
     public function testFactory()
     {
-
         $this->assertInstanceOf('\GameQ\GameQ', \GameQ\GameQ::factory());
     }
 
@@ -76,7 +74,6 @@ class GameQ extends TestBase
      */
     public function testAddServer()
     {
-
         // Define some servers
         $servers = [
             [
@@ -118,7 +115,6 @@ class GameQ extends TestBase
      */
     public function testAddServersFromFiles()
     {
-
         // Test single file
         $this->stub->addServersFromFiles(__DIR__ . '/Protocols/Providers/server_list1.json');
 
@@ -159,7 +155,6 @@ class GameQ extends TestBase
      */
     public function testFiltersAddRemove()
     {
-
         // Add filter
         $this->stub->addFilter('test_filter');
 
@@ -198,7 +193,6 @@ class GameQ extends TestBase
      */
     public function testFilterApply()
     {
-
         // Define some fake results
         $fakeResults = [
             'key1' => 'val1',
@@ -234,7 +228,6 @@ class GameQ extends TestBase
      */
     public function testBadFilterException()
     {
-
         // Define some fake results
         $fakeResults = [
             'key1' => 'val1',

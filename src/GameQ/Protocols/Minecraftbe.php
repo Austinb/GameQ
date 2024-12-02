@@ -27,7 +27,6 @@ namespace GameQ\Protocols;
  */
 class Minecraftbe extends Raknet
 {
-
     /**
      * String name of this protocol class
      *

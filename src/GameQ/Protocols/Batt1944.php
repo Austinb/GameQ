@@ -26,7 +26,6 @@ namespace GameQ\Protocols;
  */
 class Batt1944 extends Source
 {
-
     /**
      * String name of this protocol class
      *

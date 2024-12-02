@@ -214,7 +214,6 @@ abstract class Protocol
      */
     public function __construct(array $options = [])
     {
-
         // Set the options for this specific instance of the class
         $this->options = $options;
     }
@@ -226,7 +225,6 @@ abstract class Protocol
      */
     public function __toString()
     {
-
         return $this->name;
     }
 
@@ -237,7 +235,6 @@ abstract class Protocol
      */
     public function portDiff()
     {
-
         return $this->port_diff;
     }
 
@@ -252,7 +249,6 @@ abstract class Protocol
      */
     public function findQueryPort($clientPort)
     {
-
         return $clientPort + $this->port_diff;
     }
 
@@ -263,7 +259,6 @@ abstract class Protocol
      */
     public function joinLink()
     {
-
         return $this->join_link;
     }
 
@@ -274,7 +269,6 @@ abstract class Protocol
      */
     public function name()
     {
-
         return $this->name;
     }
 
@@ -285,7 +279,6 @@ abstract class Protocol
      */
     public function nameLong()
     {
-
         return $this->name_long;
     }
 
@@ -296,7 +289,6 @@ abstract class Protocol
      */
     public function state()
     {
-
         return $this->state;
     }
 
@@ -307,7 +299,6 @@ abstract class Protocol
      */
     public function getProtocol()
     {
-
         return $this->protocol;
     }
 
@@ -320,7 +311,6 @@ abstract class Protocol
      */
     public function transport($type = null)
     {
-
         // Act as setter
         if (!is_null($type)) {
             $this->transport = $type;
@@ -338,7 +328,6 @@ abstract class Protocol
      */
     public function options($options = [])
     {
-
         // Act as setter
         if (!empty($options)) {
             $this->options = $options;
@@ -348,9 +337,7 @@ abstract class Protocol
     }
 
 
-    /*
-     * Packet Section
-     */
+    // Packet Section
 
     /**
      * Return specific packet(s)
@@ -361,7 +348,6 @@ abstract class Protocol
      */
     public function getPacket($type = [])
     {
-
         $packets = [];
 
 
@@ -403,7 +389,6 @@ abstract class Protocol
      */
     public function packetResponse(array $response = [])
     {
-
         // Act as setter
         if (!empty($response)) {
             $this->packets_response = $response;
@@ -413,9 +398,7 @@ abstract class Protocol
     }
 
 
-    /*
-     * Challenge section
-     */
+    // Challenge section
 
     /**
      * Determine whether or not this protocol has a challenge needed before querying
@@ -452,7 +435,6 @@ abstract class Protocol
      */
     protected function challengeApply($challenge_string)
     {
-
         // Let's loop through all the packets and append the challenge where it is needed
         foreach ($this->packets as $packet_type => $packet) {
             $this->packets[$packet_type] = sprintf($packet, $challenge_string);
@@ -468,13 +450,10 @@ abstract class Protocol
      */
     public function getNormalize()
     {
-
         return $this->normalize;
     }
 
-    /*
-     * General
-     */
+    // General
 
     /**
      * Generic method to allow protocol classes to do work right before the query is sent

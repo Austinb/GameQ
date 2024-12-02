@@ -18,11 +18,11 @@
 
 namespace GameQ\Protocols;
 
-use GameQ\Protocol;
 use GameQ\Buffer;
-use GameQ\Result;
-use \GameQ\Exception\Protocol as Exception;
+use GameQ\Exception\Protocol as Exception;
 use GameQ\Helpers\Str;
+use GameQ\Protocol;
+use GameQ\Result;
 
 /**
  * GameSpy Protocol class
@@ -31,7 +31,6 @@ use GameQ\Helpers\Str;
  */
 class Gamespy extends Protocol
 {
-
     /**
      * Array of packets we want to look up.
      * Each key should correspond to a defined method in this or a parent class
@@ -97,9 +96,7 @@ class Gamespy extends Protocol
         return $this->processStatus(new Buffer(implode('', $processed)));
     }
 
-    /*
-     * Internal methods
-     */
+    // Internal methods
 
     /**
      * Handle processing the status buffer

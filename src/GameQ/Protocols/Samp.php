@@ -18,12 +18,12 @@
 
 namespace GameQ\Protocols;
 
-use GameQ\Protocol;
 use GameQ\Buffer;
-use GameQ\Result;
-use GameQ\Server;
 use GameQ\Exception\Protocol as Exception;
 use GameQ\Helpers\Str;
+use GameQ\Protocol;
+use GameQ\Result;
+use GameQ\Server;
 
 /**
  * San Andreas Multiplayer Protocol Class (samp)
@@ -143,7 +143,6 @@ class Samp extends Protocol
      */
     public function processResponse()
     {
-
         // Results that will be returned
         $results = [];
 
@@ -185,9 +184,7 @@ class Samp extends Protocol
         return $results;
     }
 
-    /*
-     * Internal methods
-     */
+    // Internal methods
 
     /**
      * Handles processing the server status data
@@ -198,7 +195,6 @@ class Samp extends Protocol
      */
     protected function processStatus(Buffer $buffer)
     {
-
         // Set the result to a new result instance
         $result = new Result();
 

@@ -26,7 +26,6 @@ namespace GameQ\Protocols;
  */
 class Pixark extends Arkse
 {
-
     /**
      * String name of this protocol class
      *

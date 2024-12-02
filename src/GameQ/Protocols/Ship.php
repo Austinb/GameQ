@@ -31,7 +31,6 @@ use GameQ\Result;
  */
 class Ship extends Source
 {
-
     /**
      * String name of this protocol class
      *

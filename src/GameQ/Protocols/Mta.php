@@ -28,7 +28,6 @@ namespace GameQ\Protocols;
  */
 class Mta extends Ase
 {
-
     /**
      * String name of this protocol class
      *

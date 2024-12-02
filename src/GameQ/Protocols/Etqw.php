@@ -30,7 +30,6 @@ use GameQ\Result;
  */
 class Etqw extends Protocol
 {
-
     /**
      * Array of packets we want to look up.
      * Each key should correspond to a defined method in this or a parent class
@@ -122,9 +121,7 @@ class Etqw extends Protocol
         return $results;
     }
 
-    /*
-     * Internal methods
-     */
+    // Internal methods
 
     /**
      * Handle processing the status response

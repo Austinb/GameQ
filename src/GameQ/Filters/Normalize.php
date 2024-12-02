@@ -56,24 +56,24 @@ class Normalize extends Base
      */
     public function apply(array $result, Server $server)
     {
-        /* Determine if there is data to be processed */
+        // Determine if there is data to be processed
         if (! empty($result)) {
-            /* Handle unit test data generation */
+            // Handle unit test data generation
             if ($this->writeTestData) {
-                /* Initialize potential data for unit testing **/
+                // Initialize potential data for unit testing
                 $unitTestData = [ ];
 
-                /* Add the initial result to the unit test data */
+                // Add the initial result to the unit test data
                 $unitTestData['raw'][$server->id()] = $result;
             }
 
-            /* Grab the normalize definition from the server's protocol */#
+            /* Grab the normalize definition from the server's protocol *///
             $this->normalize = $server->protocol()->getNormalize();
 
-            /* Normalize general information */
+            // Normalize general information
             $result = array_merge($result, $this->check('general', $result));
 
-            /* Normalize player information */
+            // Normalize player information
             if (isset($result['players']) && count($result['players']) > 0) {
                 foreach ($result['players'] as $key => $player) {
                     $result['players'][$key] = array_merge($player, $this->check('player', $player));
@@ -82,7 +82,7 @@ class Normalize extends Base
                 $result['players'] = [];
             }
 
-            /* Normalize team information */
+            // Normalize team information
             if (isset($result['teams']) && count($result['teams']) > 0) {
                 foreach ($result['teams'] as $key => $team) {
                     $result['teams'][$key] = array_merge($team, $this->check('team', $team));
@@ -91,12 +91,12 @@ class Normalize extends Base
                 $result['teams'] = [];
             }
 
-            /* Handle unit test data generation */
+            // Handle unit test data generation
             if ($this->writeTestData) {
-                /* Add the filtered result to the unit test data */
+                // Add the filtered result to the unit test data
                 $unitTestData['filtered'][$server->id()] = $result;
 
-                /* Persist the collected data to the tests directory */
+                // Persist the collected data to the tests directory
                 file_put_contents(
                     sprintf('%s/../../../tests/Filters/Providers/Normalize/%s_1.json', __DIR__, $server->protocol()->getProtocol()),
                     json_encode($unitTestData, JSON_UNESCAPED_UNICODE | JSON_PARTIAL_OUTPUT_ON_ERROR)
@@ -104,7 +104,7 @@ class Normalize extends Base
             }
         }
 
-        /* Return the filtered result */
+        // Return the filtered result
         return $result;
     }
 
@@ -118,35 +118,35 @@ class Normalize extends Base
      */
     protected function check($section, array $data)
     {
-        /* Initialize the normalized output */
+        // Initialize the normalized output
         $normalized = [];
 
-        /* Ensure the provided section is defined */
+        // Ensure the provided section is defined
         if (isset($this->normalize[$section])) {
-            /* Process each mapping individually */
+            // Process each mapping individually
             foreach ($this->normalize[$section] as $target => $source) {
-                /* Treat explicit source like implicit sources */
+                // Treat explicit source like implicit sources
                 if (! is_array($source)) {
                     $source = [$source];
                 }
 
-                /* Find the first possible source */
+                // Find the first possible source
                 foreach ($source as $s) {
-                    /* Determine if the current source does exist */
+                    // Determine if the current source does exist
                     if (array_key_exists($s, $data)) {
-                        /* Add the normalized mapping */
+                        // Add the normalized mapping
                         $normalized['gq_'.$target] = $data[$s];
                         break;
                     }
                 }
 
-                /* Write null in case no source was found */
+                // Write null in case no source was found
                 // TODO: Remove this in the next major version.
                 $normalized['gq_'.$target] = isset($normalized['gq_'.$target]) ? $normalized['gq_'.$target] : null;
             }
         }
 
-        /* Return the normalized data */
+        // Return the normalized data
         return $normalized;
     }
 }

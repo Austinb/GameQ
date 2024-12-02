@@ -20,7 +20,6 @@ namespace GameQ\Tests\Protocols;
 
 class Gta5m extends Base
 {
-
     /**
      * Holds stub on setup
      *

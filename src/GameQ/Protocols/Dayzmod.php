@@ -27,7 +27,6 @@ namespace GameQ\Protocols;
  */
 class Dayzmod extends Armedassault2oa
 {
-
     /**
      * String name of this protocol class
      *

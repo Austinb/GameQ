@@ -26,7 +26,6 @@ namespace GameQ\Protocols;
  */
 class Bf2 extends Gamespy3
 {
-
     /**
      * String name of this protocol class
      *
