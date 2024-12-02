@@ -57,7 +57,7 @@ jobs:
           vendor/bin/phpmd src,tests xml build/config/phpmd.xml
 
       - name: Run PHPUnit
-        run: vendor/bin/phpunit -c phpunit.xml --verbose
+        run: vendor/bin/phpunit --verbose
 
       - name: Upload Coveralls coverage
         if: env.ACT != 'true'
