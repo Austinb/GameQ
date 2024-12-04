@@ -28,7 +28,7 @@ require_once('/path/to/src/GameQ/Autoloader.php');
 ```
 The Autoloader.php file provides the same auto loading functionality as the Composer install.
 
-## Example
+## Useage
 ```php
 $GameQ = new \GameQ\GameQ();
 $GameQ->addServer([
@@ -37,7 +37,7 @@ $GameQ->addServer([
 ]);
 $results = $GameQ->process();
 ```
-Need more?  See [Examples](https://github.com/Austinb/GameQ/wiki/Examples-v3).
+Need more? See the [Examples](https://github.com/Austinb/GameQ/wiki/Examples-v3) as well as the [Documentation](https://austinb.github.io/GameQ/api/).
 
 ## Contributing 
  
