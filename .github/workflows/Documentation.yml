@@ -34,34 +34,34 @@ jobs:
     # Require non local GitHub Actions Runner & the projects default branch
     if: env.ACT != 'true' && ${{ format('refs/heads/{0}', github.event.repository.default_branch) == github.ref }}
     steps:
+      - name: Download current README
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 10
+          path: source
+
       - name: Checkout GitHub Pages
         uses: actions/checkout@v4
         with:
           fetch-depth: 10
           ref: gh-pages
+          path: gh-pages
 
       - name: Remove old ApiGen
-        run: rm -r api
+        run: rm -r gh-pages/api
 
       - name: Download current ApiGen
         uses: actions/download-artifact@v4
         with:
           name: apigen
-          path: api
-
-      - name: Download current README
-        uses: actions/checkout@v4
-        with:
-          sparse-checkout: |
-            README.md
-          sparse-checkout-cone-mode: false
+          path: gh-pages/api
 
       - name: Update GitHub Pages index from README
-        run: mv README.md index.md
+        run: cp source/README.md gh-pages/index.md
 
       - name: Commit & Push GitHub Pages
         uses: EndBug/add-and-commit@v9
         with:
           default_author: github_actor
-          message: 'Regenerated ApiGen documentation.'
+          message: 'Updated GitHub Pages.'
           cwd: gh-pages
