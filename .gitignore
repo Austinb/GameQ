@@ -14,6 +14,9 @@ vendor
 composer.lock
 composer.phar
 
+# ApiGen
+build/apigen
+
 # PHPUnit
 phpunit.xml
 .phpunit.result.cache

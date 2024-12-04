@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+###################################################################
+# This executable helper does act as a wrapper for the dockerized #
+# ApiGen tool. This allows to conveniently run ApiGen while not   #
+# relying on the CI.                                              #
+###################################################################
+
+# Set the directory to the project root directory
+PROJECT_DIR="$(dirname "$(realpath $0)")/.."
+
+# Define the internal working directory
+INTERNAL_DIR="/GameQ"
+
+# Ensure the ApiGen directory does exit
+mkdir -p $PROJECT_DIR/build/apigen
+
+# Start building the Docker run command
+CMD=( docker run )
+
+# Run Docker container as the current user / group to prevent permission issues
+CMD+=( --user $(id -u):$(id -g) )
+
+# Mount the project directory into the Docker Container
+CMD+=( --volume "$PROJECT_DIR":"$INTERNAL_DIR" )
+
+# Change Docker containers working directory
+CMD+=( --workdir $INTERNAL_DIR )
+
+# Define Docker image to be used for ApiGen
+CMD+=( apigen/apigen:edge )
+
+# Configure ApiGen working directory
+CMD+=( src )
+
+# Configure the ApiGen output directory
+CMD+=( --output build/apigen )
+
+# Concatenate and run the command
+"${CMD[@]}"
