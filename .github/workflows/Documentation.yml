@@ -52,12 +52,10 @@ jobs:
       - name: Download current README
         uses: actions/checkout@v4
         with:
-          sparse-checkout: |
-            README.md
-          sparse-checkout-cone-mode: false
+          path: ../source
 
       - name: Update GitHub Pages index from README
-        run: mv README.md index.md
+        run: cp ../source/README.md index.md
 
       - name: Commit & Push GitHub Pages
         uses: EndBug/add-and-commit@v9
