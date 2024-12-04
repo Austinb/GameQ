@@ -1,5 +1,6 @@
 {
     "recommendations": [
-        "junstyle.php-cs-fixer"
+        "junstyle.php-cs-fixer",
+        "github.vscode-github-actions"
     ]
 }

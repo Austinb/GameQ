@@ -11,7 +11,8 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"junstyle.php-cs-fixer"
+				"junstyle.php-cs-fixer",
+				"GitHub.vscode-github-actions"
 			],
 			"settings": {
 				"php-cs-fixer.onsave": true,

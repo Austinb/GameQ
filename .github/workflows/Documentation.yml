@@ -49,7 +49,7 @@ jobs:
         run: docker run --rm --interactive --user $(id -u):$(id -g) --volume "$PWD:$PWD" --workdir "$PWD/source" apigen/apigen:edge src --output ../gh-pages/api
         
       - name: Commit & Push updated file
-        if: always()
+        if: ${{ always() }} && env.ACT != 'true'
         uses: EndBug/add-and-commit@v9
         with:
           default_author: github_actor
