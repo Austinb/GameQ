@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Aapg extends Base
+class Aapg extends TestCase
 {
     /**
      * Test responses for Aapg

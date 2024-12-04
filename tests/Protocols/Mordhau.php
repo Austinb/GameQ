@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Mordhau extends Base
+class Mordhau extends TestCase
 {
     /**
      * Test responses for Mordhau

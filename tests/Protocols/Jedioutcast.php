@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Jedioutcast extends Base
+class Jedioutcast extends TestCase
 {
     /**
      * Test responses for Jedi Outcast

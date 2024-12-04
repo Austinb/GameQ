@@ -18,7 +18,7 @@
 
 namespace GameQ\Tests\Protocols;
 
-class Lhmp extends Base
+class Lhmp extends TestCase
 {
     /**
      * Holds stub on setup

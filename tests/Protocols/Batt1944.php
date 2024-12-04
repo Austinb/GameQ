@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Batt1944 extends Base
+class Batt1944 extends TestCase
 {
     /**
      * Test responses for Battalion 1944l

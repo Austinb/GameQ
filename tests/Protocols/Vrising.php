@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Vrising extends Base
+class Vrising extends TestCase
 {
     /**
      * Test responses for V Rising

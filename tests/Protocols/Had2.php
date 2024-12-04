@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Had2 extends Base
+class Had2 extends TestCase
 {
     /**
      * Test responses for Hidden & Dangerous 2

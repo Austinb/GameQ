@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Spaceengineers extends Base
+class Spaceengineers extends TestCase
 {
     /**
      * Test responses for Space engineers

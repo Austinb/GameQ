@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Mta extends Base
+class Mta extends TestCase
 {
     /**
      * Test responses for Mta

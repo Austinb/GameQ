@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Ns2 extends Base
+class Ns2 extends TestCase
 {
     /**
      * Test responses for Ns2

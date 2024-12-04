@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace GameQ\Tests;
+namespace GameQ\Tests\General;
 
 /**
  * Buffer test class
  *
  * @package GameQ\Tests
  */
-class Buffer extends TestBase
+class Buffer extends TestCase
 {
     /**
      * Build a mock Buffer

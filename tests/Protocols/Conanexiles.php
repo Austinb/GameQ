@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Conanexiles extends Base
+class Conanexiles extends TestCase
 {
     /**
      * Test responses for Dods

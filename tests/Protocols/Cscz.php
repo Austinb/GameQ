@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Cscz extends Base
+class Cscz extends TestCase
 {
     /**
      * Test responses for Cscz

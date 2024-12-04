@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Valheim extends Base
+class Valheim extends TestCase
 {
     /**
      * Test responses for Warsow

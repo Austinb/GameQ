@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Aa3 extends Base
+class Aa3 extends TestCase
 {
     /**
      * Test responses for Aa3

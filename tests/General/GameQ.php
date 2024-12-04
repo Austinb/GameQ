@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace GameQ\Tests;
+namespace GameQ\Tests\General;
 
 /**
  * GameQ tests class
  *
  * @package GameQ\Tests
  */
-class GameQ extends TestBase
+class GameQ extends TestCase
 {
     /**
      * Holds stub on setup
@@ -116,7 +116,7 @@ class GameQ extends TestBase
     public function testAddServersFromFiles()
     {
         // Test single file
-        $this->stub->addServersFromFiles(__DIR__ . '/Protocols/Providers/server_list1.json');
+        $this->stub->addServersFromFiles(__DIR__ . '/Providers/GameQ/server_list1.json');
 
         $this->assertCount(2, $this->stub->getServers());
 
@@ -124,7 +124,7 @@ class GameQ extends TestBase
 
         // Test adding from json array of files
         $this->stub->addServersFromFiles([
-            __DIR__ . '/Protocols/Providers/server_list1.json',
+            __DIR__ . '/Providers/GameQ/server_list1.json',
         ]);
 
         $this->assertCount(2, $this->stub->getServers());
@@ -133,7 +133,7 @@ class GameQ extends TestBase
 
         // Test adding bad file
         $this->stub->addServersFromFiles([
-            __DIR__ . '/Protocols/Providers/server_list_bad.json',
+            __DIR__ . '/Providers/GameQ/server_list_bad.json',
         ]);
 
         // No servers should exist
@@ -142,7 +142,7 @@ class GameQ extends TestBase
         $this->stub->clearServers();
 
         // Test inaccessible file
-        $this->stub->addServersFromFiles(__DIR__ . '/Protocols/Providers/server_listDoesnotexist.json');
+        $this->stub->addServersFromFiles(__DIR__ . '/Providers/GameQ/server_listDoesnotexist.json');
 
         // No servers should exist
         $this->assertCount(0, $this->stub->getServers());

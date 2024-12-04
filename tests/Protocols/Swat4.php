@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Swat4 extends Base
+class Swat4 extends TestCase
 {
     /**
      * Test responses for Swat 4

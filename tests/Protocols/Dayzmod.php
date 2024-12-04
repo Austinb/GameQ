@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Dayzmod extends Base
+class Dayzmod extends TestCase
 {
     /**
      * Test responses for Dayzmod

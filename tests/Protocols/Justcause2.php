@@ -18,7 +18,7 @@
 
 namespace GameQ\Tests\Protocols;
 
-class Justcause2 extends Base
+class Justcause2 extends TestCase
 {
     /**
      * Holds stub on setup

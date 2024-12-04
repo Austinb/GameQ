@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Ut2004 extends Base
+class Ut2004 extends TestCase
 {
     /**
      * Test responses for Unreal Tournament 2004

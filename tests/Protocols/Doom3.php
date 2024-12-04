@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Doom3 extends Base
+class Doom3 extends TestCase
 {
     /**
      * Test responses for DOOM 3

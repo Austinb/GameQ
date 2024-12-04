@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Ut3 extends Base
+class Ut3 extends TestCase
 {
     /**
      * Test responses for Unreal Tournament 3

@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Minecraft extends Base
+class Minecraft extends TestCase
 {
     /**
      * Test responses for Minecraft

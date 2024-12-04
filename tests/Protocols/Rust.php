@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Rust extends Base
+class Rust extends TestCase
 {
     /**
      * Test responses for Rust

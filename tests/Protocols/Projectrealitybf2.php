@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Projectrealitybf2 extends Base
+class Projectrealitybf2 extends TestCase
 {
     /**
      * Test responses for Projectrealitybf2

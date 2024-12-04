@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Risingstorm2 extends Base
+class Risingstorm2 extends TestCase
 {
     /**
      * Holds stub on setup

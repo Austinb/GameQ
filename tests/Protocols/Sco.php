@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Sco extends Base
+class Sco extends TestCase
 {
     /**
      * Test responses for Sven Co-op

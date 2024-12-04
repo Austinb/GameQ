@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Ship extends Base
+class Ship extends TestCase
 {
     /**
      * Test responses for Ship

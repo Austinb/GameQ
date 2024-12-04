@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Cs15 extends Base
+class Cs15 extends TestCase
 {
     /**
      * Test server responses for Cs 1.5

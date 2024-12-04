@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Wurm extends Base
+class Wurm extends TestCase
 {
     /**
      * Test responses for Wurm

@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Halo extends Base
+class Halo extends TestCase
 {
     /**
      * Test responses for Halo

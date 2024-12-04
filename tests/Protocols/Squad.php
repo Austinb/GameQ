@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Squad extends Base
+class Squad extends TestCase
 {
     /**
      * Test responses for Squad

@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Et extends Base
+class Et extends TestCase
 {
     /**
      * Test responses for Wolfenstein Enemy Territory

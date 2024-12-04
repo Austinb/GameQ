@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Justcause3 extends Base
+class Justcause3 extends TestCase
 {
     /**
      * Test responses for Justcause3

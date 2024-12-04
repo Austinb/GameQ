@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Dal extends Base
+class Dal extends TestCase
 {
     /**
      * Test responses for Dark and Light

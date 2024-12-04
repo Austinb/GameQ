@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Jediacademy extends Base
+class Jediacademy extends TestCase
 {
     /**
      * Test responses for Jedi Academy

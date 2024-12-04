@@ -18,7 +18,7 @@
 
 namespace GameQ\Tests\Protocols;
 
-class Unreal2 extends Base
+class Unreal2 extends TestCase
 {
     /**
      * Holds stub on setup

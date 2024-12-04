@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Armedassault2oa extends Base
+class Armedassault2oa extends TestCase
 {
     /**
      * Test responses for Armedassault2oa

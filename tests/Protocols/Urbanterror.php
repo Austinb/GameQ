@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Urbanterror extends Base
+class Urbanterror extends TestCase
 {
     /**
      * Test responses for Urban Terror

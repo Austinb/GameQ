@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Dods extends Base
+class Dods extends TestCase
 {
     /**
      * Test responses for Dods

@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Arma3 extends Base
+class Arma3 extends TestCase
 {
     /**
      * Test responses for Arma 3

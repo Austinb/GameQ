@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Arma extends Base
+class Arma extends TestCase
 {
     /**
      * Test responses for ArmA Armed Assault

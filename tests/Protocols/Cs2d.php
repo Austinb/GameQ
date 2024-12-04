@@ -18,7 +18,7 @@
 
 namespace GameQ\Tests\Protocols;
 
-class Cs2d extends Base
+class Cs2d extends TestCase
 {
     /**
      * Holds stub on setup

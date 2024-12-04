@@ -18,7 +18,7 @@
 
 namespace GameQ\Tests\Protocols;
 
-class Ase extends Base
+class Ase extends TestCase
 {
     /**
      * Holds stub on setup

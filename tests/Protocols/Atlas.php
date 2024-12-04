@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Atlas extends Base
+class Atlas extends TestCase
 {
     /**
      * Test responses for Atlas

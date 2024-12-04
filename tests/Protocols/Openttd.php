@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Openttd extends Base
+class Openttd extends TestCase
 {
     /**
      * Test responses for Open Transport Tycoon Deluxe

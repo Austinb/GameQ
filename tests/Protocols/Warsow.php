@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Warsow extends Base
+class Warsow extends TestCase
 {
     /**
      * Test responses for Warsow

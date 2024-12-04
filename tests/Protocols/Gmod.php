@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Gmod extends Base
+class Gmod extends TestCase
 {
     /**
      * Test responses for Gmod

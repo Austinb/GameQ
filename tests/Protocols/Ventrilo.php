@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Ventrilo extends Base
+class Ventrilo extends TestCase
 {
     /**
      * Holds stub on setup

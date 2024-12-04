@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class L4d2 extends Base
+class L4d2 extends TestCase
 {
     /**
      * Test responses for L4d2

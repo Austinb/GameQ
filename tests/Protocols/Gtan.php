@@ -18,7 +18,7 @@
 
 namespace GameQ\Tests\Protocols;
 
-class Gtan extends Base
+class Gtan extends TestCase
 {
     /**
      * Holds stub on setup

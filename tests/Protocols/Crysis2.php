@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Crysis2 extends Base
+class Crysis2 extends TestCase
 {
     /**
      * Test responses for Crysis 2

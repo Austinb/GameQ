@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Sevendaystodie extends Base
+class Sevendaystodie extends TestCase
 {
     /**
      * Test responses for 7 Days to die

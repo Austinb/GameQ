@@ -18,8 +18,6 @@
 
 namespace GameQ\Tests\Issues;
 
-use GameQ\Tests\TestBase;
-
 /**
  * Class Issue307
  *
@@ -28,7 +26,7 @@ use GameQ\Tests\TestBase;
  *
  * @package GameQ\Tests\Issues
  */
-class Issue307 extends TestBase
+class Issue307 extends TestCase
 {
     /**
      * Test for issue with colliding packet ids in Source Protocol

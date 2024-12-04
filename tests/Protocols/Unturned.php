@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Unturned extends Base
+class Unturned extends TestCase
 {
     /**
      * Test responses for Unturned

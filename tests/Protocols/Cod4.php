@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Cod4 extends Base
+class Cod4 extends TestCase
 {
     /**
      * Test responses for Call of Duty 4

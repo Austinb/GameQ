@@ -18,7 +18,7 @@
 
 namespace GameQ\Tests\Protocols;
 
-class Bf1942 extends Base
+class Bf1942 extends TestCase
 {
     /**
      * Test responses for Battlefield 1942

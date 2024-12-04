@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Redorchestra2 extends Base
+class Redorchestra2 extends TestCase
 {
     /**
      * Test responses for Redorchestra2

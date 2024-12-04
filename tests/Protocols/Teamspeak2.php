@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Teamspeak2 extends Base
+class Teamspeak2 extends TestCase
 {
     /**
      * Holds stub on setup

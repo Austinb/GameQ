@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Css extends Base
+class Css extends TestCase
 {
     /**
      * Test responses for Css
