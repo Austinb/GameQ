@@ -32,7 +32,7 @@ class Base extends TestBase
      *
      * @return array
      */
-    public function loadData()
+    public static function loadData()
     {
         // Explode the class that called to avoid strict error
         $class = explode('\\', get_called_class());

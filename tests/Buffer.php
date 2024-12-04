@@ -44,7 +44,7 @@ class Buffer extends TestBase
      *
      * @return array
      */
-    public function integerDataProvider()
+    public static function integerDataProvider()
     {
         // Make the base path for the data to test since it has to be in ascii form
         $basePath = sprintf('%s/Providers/Buffer', __DIR__);
