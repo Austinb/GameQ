@@ -138,7 +138,7 @@ class Eos extends Http
      *
      * @param Server $server
      */
-    public function beforeSend($server)
+    public function beforeSend(Server $server)
     {
         $this->serverIp = $server->ip();
         $this->serverPortQuery = $server->portQuery();
@@ -274,7 +274,7 @@ class Eos extends Http
      * @param mixed $default
      * @return mixed
      */
-    protected function getAttribute(array $attributes, string $key, $default = null)
+    protected function getAttribute($attributes, $key, $default = null)
     {
         return isset($attributes[$key]) ? $attributes[$key] : $default;
     }
