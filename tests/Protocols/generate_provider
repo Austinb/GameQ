@@ -72,7 +72,7 @@ try {
 
     // Make the directory if it does not already exist
     if (!is_dir($provider_dir)) {
-        mkdir($provider_dir, 0777, true);
+        mkdir($provider_dir, 0751, true);
     }
 
     // Figure out the number of files in the provider directory
@@ -102,11 +102,17 @@ try {
     // Process
     $results = $gq->process();
 
+    // Build the path where we want to store the result file
+    $result_file = sprintf('%s/%d_result.json', $provider_dir, $index);
+
     // Save the result into a file
-    $result = file_put_contents(sprintf('%s/%d_result.json', $provider_dir, $index), json_encode(
+    $result = file_put_contents($result_file, json_encode(
         $results,
         JSON_UNESCAPED_UNICODE | JSON_PARTIAL_OUTPUT_ON_ERROR
     ));
+
+    // Ensure the result file has proper permissions
+    chmod($result_file, 0640);
 
     exit(0);
 } catch (Exception $e) {
