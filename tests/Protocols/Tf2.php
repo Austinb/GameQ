@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Tf2 extends Base
+class Tf2 extends TestCase
 {
     /**
      * Test responses for Tf2

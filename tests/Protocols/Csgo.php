@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Csgo extends Base
+class Csgo extends TestCase
 {
     /**
      * Test responses for Csgo

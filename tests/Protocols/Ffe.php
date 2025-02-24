@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Ffe extends Base
+class Ffe extends TestCase
 {
     /**
      * Test responses for Ffe

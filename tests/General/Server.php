@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace GameQ\Tests;
+namespace GameQ\Tests\General;
 
 /**
  * Server testing class
  *
  * @package GameQ\Tests
  */
-class Server extends TestBase
+class Server extends TestCase
 {
     /**
      * Test for missing server type

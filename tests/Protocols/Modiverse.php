@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Modiverse extends Base
+class Modiverse extends TestCase
 {
     /**
      * Test responses for Modiverse

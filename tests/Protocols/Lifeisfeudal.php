@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Lifeisfeudal extends Base
+class Lifeisfeudal extends TestCase
 {
     /**
      * Test responses for Life is Feudal

@@ -18,7 +18,7 @@
 
 namespace GameQ\Tests\Protocols;
 
-class Bf4 extends Base
+class Bf4 extends TestCase
 {
     /**
      * Test responses for Battlefield 4

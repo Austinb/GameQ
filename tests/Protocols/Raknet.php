@@ -18,7 +18,7 @@
 
 namespace GameQ\Tests\Protocols;
 
-class Raknet extends Base
+class Raknet extends TestCase
 {
     /**
      * Holds stub on setup

@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Dow extends Base
+class Dow extends TestCase
 {
     /**
      * Test responses for Dow

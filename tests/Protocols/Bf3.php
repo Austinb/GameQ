@@ -18,7 +18,7 @@
 
 namespace GameQ\Tests\Protocols;
 
-class Bf3 extends Base
+class Bf3 extends TestCase
 {
     /**
      * Holds stub on setup

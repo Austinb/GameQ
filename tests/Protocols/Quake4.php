@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Quake4 extends Base
+class Quake4 extends TestCase
 {
     /**
      * Test responses for Quake4

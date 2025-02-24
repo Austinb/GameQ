@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Arkse extends Base
+class Arkse extends TestCase
 {
     /**
      * Test responses for ARK: Survival Evolved

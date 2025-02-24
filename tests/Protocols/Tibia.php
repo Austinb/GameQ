@@ -18,7 +18,7 @@
 
 namespace GameQ\Tests\Protocols;
 
-class Tibia extends Base
+class Tibia extends TestCase
 {
     /**
      * Holds stub on setup

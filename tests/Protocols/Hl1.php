@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Hl1 extends Base
+class Hl1 extends TestCase
 {
     /**
      * Test responses for Half Life

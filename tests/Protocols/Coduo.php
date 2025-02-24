@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Coduo extends Base
+class Coduo extends TestCase
 {
     /**
      * Test responses for Call of Duty: United Offensive

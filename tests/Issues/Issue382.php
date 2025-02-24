@@ -18,8 +18,6 @@
 
 namespace GameQ\Tests\Issues;
 
-use GameQ\Tests\TestBase;
-
 /**
  * Class Issue382
  *
@@ -28,7 +26,7 @@ use GameQ\Tests\TestBase;
  *
  * @package GameQ\Tests\Issues
  */
-class Issue382 extends TestBase
+class Issue382 extends TestCase
 {
     /**
      * Test for issue where if a server has the jets DLC, GameQ would throw exception:

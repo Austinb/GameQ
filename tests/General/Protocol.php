@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace GameQ\Tests;
+namespace GameQ\Tests\General;
 
 /**
  * Protocol test class
  *
  * @package GameQ\Tests
  */
-class Protocol extends TestBase
+class Protocol extends TestCase
 {
     /**
      * Holds stub on setup

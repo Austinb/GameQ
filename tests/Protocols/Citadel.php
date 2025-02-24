@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Citadel extends Base
+class Citadel extends TestCase
 {
     /**
      * Test responses for Citadel

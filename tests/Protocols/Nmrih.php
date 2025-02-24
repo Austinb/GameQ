@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Nmrih extends Base
+class Nmrih extends TestCase
 {
     /**
      * Test responses for No More Room in Hell

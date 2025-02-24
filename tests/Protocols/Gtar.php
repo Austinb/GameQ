@@ -18,7 +18,7 @@
 
 namespace GameQ\Tests\Protocols;
 
-class Gtar extends Base
+class Gtar extends TestCase
 {
     /**
      * Holds stub on setup

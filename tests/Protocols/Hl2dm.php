@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Hl2dm extends Base
+class Hl2dm extends TestCase
 {
     /**
      * Test responses for Hl2dm

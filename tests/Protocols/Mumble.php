@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Mumble extends Base
+class Mumble extends TestCase
 {
     /**
      * Holds stub on setup

@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Theforrest extends Base
+class Theforrest extends TestCase
 {
     /**
      * Test responses for The Forrest

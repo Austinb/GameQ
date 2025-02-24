@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Mohaa extends Base
+class Mohaa extends TestCase
 {
     /**
      * Holds stub on setup

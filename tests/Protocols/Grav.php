@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Grav extends Base
+class Grav extends TestCase
 {
     /**
      * Test responses for Grav

@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Cs16 extends Base
+class Cs16 extends TestCase
 {
     /**
      * Test responses for Cs 1.6

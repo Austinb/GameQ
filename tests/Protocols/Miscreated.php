@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Miscreated extends Base
+class Miscreated extends TestCase
 {
     /**
      * Test responses for Miscreated

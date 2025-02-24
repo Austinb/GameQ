@@ -18,23 +18,21 @@
 
 namespace GameQ\Tests\Protocols;
 
-use GameQ\Tests\TestBase;
-
 /**
- * Class Base for protocol tests
+ * Class for testing Protocols
  *
  * @SuppressWarnings(PHPMD.NumberOfChildren)
  *
  * @package GameQ\Tests\Protocols
  */
-abstract class Base extends TestBase
+abstract class TestCase extends \GameQ\Tests\TestCase
 {
     /**
      * Shared provider to give protocols the data to test with
      *
      * @return array
      */
-    public function loadData()
+    public static function loadData()
     {
         // Explode the class that called to avoid strict error
         $class = explode('\\', get_called_class());

@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class M2mp extends Base
+class M2mp extends TestCase
 {
     /**
      * Test responses for M2mp

@@ -16,34 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace GameQ\Tests\Protocols;
+namespace GameQ\Tests\General;
 
 /**
- * Test Class for Hll
+ * Class for testing the general structure of GameQ
  *
- * @package GameQ\Tests\Protocols
+ * @package GameQ\Tests\Issues
  */
-class Hll extends TestCase
+abstract class TestCase extends \GameQ\Tests\TestCase
 {
-    /**
-     * Test responses for Hell Let Loose
-     *
-     * @dataProvider loadData
-     *
-     * @param $responses
-     * @param $result
-     */
-    public function testResponses($responses, $result)
-    {
-        // Pull the first key off the array this is the server ip:port
-        $server = key($result);
-
-        $testResult = $this->queryTest(
-            $server,
-            'hll',
-            $responses
-        );
-
-        $this->assertEquals($result[$server], $testResult);
-    }
+    //
 }

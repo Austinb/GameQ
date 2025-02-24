@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Insurgencysand extends Base
+class Insurgencysand extends TestCase
 {
     /**
      * Test responses for Insurgency Sandstorm

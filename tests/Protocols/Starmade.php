@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Starmade extends Base
+class Starmade extends TestCase
 {
     /**
      * Holds stub on setup

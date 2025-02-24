@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Stationeers extends Base
+class Stationeers extends TestCase
 {
     /**
      * Test responses for Stationeers

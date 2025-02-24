@@ -18,7 +18,7 @@
 
 namespace GameQ\Tests\Protocols;
 
-class Quake2 extends Base
+class Quake2 extends TestCase
 {
     /**
      * Holds stub on setup

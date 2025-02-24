@@ -18,7 +18,7 @@
 
 namespace GameQ\Tests\Protocols;
 
-class Bfh extends Base
+class Bfh extends TestCase
 {
     /**
      * Test responses for Battlefield Hardline

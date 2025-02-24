@@ -18,7 +18,7 @@
 
 namespace GameQ\Tests\Protocols;
 
-class Gamespy extends Base
+class Gamespy extends TestCase
 {
     /**
      * Holds stub on setup

@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Cod extends Base
+class Cod extends TestCase
 {
     /**
      * Test responses for Call of Duty

@@ -18,7 +18,7 @@
 
 namespace GameQ\Tests\Protocols;
 
-class Eco extends Base
+class Eco extends TestCase
 {
     /**
      * Holds stub on setup

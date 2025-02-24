@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Barotrauma extends Base
+class Barotrauma extends TestCase
 {
     /**
      * Test responses for Barotrauma

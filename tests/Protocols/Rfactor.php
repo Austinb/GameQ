@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Rfactor extends Base
+class Rfactor extends TestCase
 {
     /**
      * Test responses for rFactor

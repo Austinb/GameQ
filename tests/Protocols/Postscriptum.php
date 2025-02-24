@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Postscriptum extends Base
+class Postscriptum extends TestCase
 {
     /**
      * Test responses for Postscriptum

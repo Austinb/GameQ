@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Avorion extends Base
+class Avorion extends TestCase
 {
     /**
      * Test responses for Avorion

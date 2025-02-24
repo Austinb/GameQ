@@ -18,8 +18,6 @@
 
 namespace GameQ\Tests\Issues;
 
-use GameQ\Tests\TestBase;
-
 /**
  * Class Issue588
  *
@@ -27,7 +25,7 @@ use GameQ\Tests\TestBase;
  *
  * @package GameQ\Tests\Issues
  */
-class Issue588 extends TestBase
+class Issue588 extends TestCase
 {
     /**
      * @var \GameQ\GameQ

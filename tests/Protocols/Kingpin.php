@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Kingpin extends Base
+class Kingpin extends TestCase
 {
     /**
      * Test responses for Kingpin

@@ -15,10 +15,39 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [5.6, 7.0, 7.1, 7.2, 7.3, 7.4, 8.0, 8.1, 8.2, 8.3]
+        php: [8.1, 8.2, 8.3]
         experimental: [false]
         composer-extra: ['']
+        phpunit-extra: ['']
         include:
+          - php: 5.6
+            experimental: false
+            composer-extra: ''
+            phpunit-extra: '--verbose'
+          - php: 7.0
+            experimental: false
+            composer-extra: ''
+            phpunit-extra: '--verbose'
+          - php: 7.1
+            experimental: false
+            composer-extra: ''
+            phpunit-extra: '--verbose'
+          - php: 7.2
+            experimental: false
+            composer-extra: ''
+            phpunit-extra: '--verbose'
+          - php: 7.3
+            experimental: false
+            composer-extra: ''
+            phpunit-extra: '--verbose'
+          - php: 7.4
+            experimental: false
+            composer-extra: ''
+            phpunit-extra: '--verbose'
+          - php: 8.0
+            experimental: false
+            composer-extra: ''
+            phpunit-extra: '--verbose'
           - php: 8.4
             experimental: true
             composer-extra: '--ignore-platform-req=php+'
@@ -57,7 +86,7 @@ jobs:
           vendor/bin/phpmd src,tests xml build/config/phpmd.xml
 
       - name: Run PHPUnit
-        run: vendor/bin/phpunit --verbose
+        run: vendor/bin/phpunit ${{ matrix.phpunit-extra }}
 
       - name: Upload Coveralls coverage
         if: env.ACT != 'true'

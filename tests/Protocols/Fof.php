@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Fof extends Base
+class Fof extends TestCase
 {
     /**
      * Test responses for Fistful of Frags

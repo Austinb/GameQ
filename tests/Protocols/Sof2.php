@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Sof2 extends Base
+class Sof2 extends TestCase
 {
     /**
      * Test responses for Soldier of Fortune 2

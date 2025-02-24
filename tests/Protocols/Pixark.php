@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Pixark extends Base
+class Pixark extends TestCase
 {
     /**
      * Test responses for PixARK

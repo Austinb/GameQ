@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Codmw2 extends Base
+class Codmw2 extends TestCase
 {
     /**
      * Test responses for Codmw2

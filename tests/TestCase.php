@@ -18,7 +18,7 @@
 
 namespace GameQ\Tests;
 
-class TestBase extends \PHPUnit\Framework\TestCase
+class TestCase extends \PHPUnit\Framework\TestCase
 {
     /**
      * TestBase constructor overload.
@@ -93,13 +93,5 @@ class TestBase extends \PHPUnit\Framework\TestCase
         unset($server, $gq_mock, $gameq, $method);
 
         return $testResult;
-    }
-
-    /**
-     * Fake test so PHPUnit won't complain about no tests in class.
-     */
-    public function testWarning()
-    {
-        $this->assertTrue(true);
     }
 }

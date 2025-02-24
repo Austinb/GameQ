@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Egs extends Base
+class Egs extends TestCase
 {
     /**
      * Test responses for Empyrion - Galactic Survival

@@ -18,7 +18,7 @@
 
 namespace GameQ\Tests\Protocols;
 
-class Bf2 extends Base
+class Bf2 extends TestCase
 {
     /**
      * Test responses for Battlefield 2

@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace GameQ\Tests;
+namespace GameQ\Tests\General;
 
 /**
  * Buffer test class
  *
  * @package GameQ\Tests
  */
-class Buffer extends TestBase
+class Buffer extends TestCase
 {
     /**
      * Build a mock Buffer
@@ -44,7 +44,7 @@ class Buffer extends TestBase
      *
      * @return array
      */
-    public function integerDataProvider()
+    public static function integerDataProvider()
     {
         // Make the base path for the data to test since it has to be in ascii form
         $basePath = sprintf('%s/Providers/Buffer', __DIR__);

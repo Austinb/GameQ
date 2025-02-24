@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Brink extends Base
+class Brink extends TestCase
 {
     /**
      * Test responses for Brink

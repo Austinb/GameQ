@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Killingfloor extends Base
+class Killingfloor extends TestCase
 {
     /**
      * Test responses for Killingfloor

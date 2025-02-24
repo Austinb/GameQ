@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Teeworlds extends Base
+class Teeworlds extends TestCase
 {
     /**
      * Holds stub on setup

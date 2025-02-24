@@ -23,7 +23,7 @@ namespace GameQ\Tests\Protocols;
  *
  * @package GameQ\Tests\Protocols
  */
-class Stormworks extends Base
+class Stormworks extends TestCase
 {
     /**
      * Test responses for Stormworks
