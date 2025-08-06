@@ -164,7 +164,6 @@ class Eos extends Http
         $auth_url = "https://api.epicgames.dev/auth/v1/oauth/token";
         $auth_headers = [
             'Authorization: Basic ' . base64_encode("{$this->user_id}:{$this->user_secret}"),
-            'Accept-Encoding: deflate, gzip',
             'Content-Type: application/x-www-form-urlencoded',
         ];
 
@@ -228,7 +227,6 @@ class Eos extends Http
         $device_auth_url = "https://api.epicgames.dev/auth/v1/accounts/deviceid";
         $device_auth_headers = [
             'Authorization: Basic ' . base64_encode("{$this->user_id}:{$this->user_secret}"),
-            'Accept-Encoding: deflate, gzip',
             'Content-Type: application/x-www-form-urlencoded',
         ];
 
