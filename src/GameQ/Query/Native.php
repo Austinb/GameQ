@@ -59,8 +59,16 @@ class Native extends Core
                 $this->create();
             }
 
+            if (!is_resource($this->socket)) {
+                throw new Exception('Socket is not a valid resource');
+            }
+
             // Send the packet
-            return fwrite($this->socket, $data);
+            $bytes = @fwrite($this->socket, $data);
+            if ($bytes === false) {
+                throw new Exception('Failed to write to socket');
+            }
+            return $bytes;
         } catch (\Exception $e) {
             throw new Exception($e->getMessage(), $e->getCode(), $e);
         }

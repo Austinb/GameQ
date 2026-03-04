@@ -322,7 +322,7 @@ class Server
         }
         
         // Fill the template to build the final joinLink
-        return sprintf($joinLink, $this->ip, $this->portClient());
+        return !isset($this->join_link) ? '' : sprintf($joinLink, $this->ip, $this->portClient());
     }
 
     // Socket holding
