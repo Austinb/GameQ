@@ -60,7 +60,7 @@ jobs:
         run: cp source/README.md gh-pages/index.md
 
       - name: Commit & Push GitHub Pages
-        uses: EndBug/add-and-commit@v9
+        uses: EndBug/add-and-commit@v10
         with:
           default_author: github_actor
           message: 'Updated GitHub Pages.'
