@@ -12,7 +12,7 @@ jobs:
     name: ApiGen
     steps:
       - name: Checkout Project
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 10
 
@@ -35,13 +35,13 @@ jobs:
     if: env.ACT != 'true' && ${{ format('refs/heads/{0}', github.event.repository.default_branch) == github.ref }}
     steps:
       - name: Download current README
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 10
           path: source
 
       - name: Checkout GitHub Pages
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 10
           ref: gh-pages
