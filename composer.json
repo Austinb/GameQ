@@ -1,5 +1,6 @@
 {
   "name": "austinb/gameq",
+  "abandoned": "softcreatr/gameq",
   "description": "GameQ Gameserver Library",
   "keywords": [
     "gameq",

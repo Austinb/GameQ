@@ -1,55 +1,59 @@
-# GameQ Version 3
-[![CI](https://github.com/Austinb/GameQ/actions/workflows/Tests.yml/badge.svg)](https://github.com/Austinb/GameQ/actions/workflows/Tests.yml)
-[![Code Coverage](https://scrutinizer-ci.com/g/Austinb/GameQ/badges/coverage.png?b=v3)](https://scrutinizer-ci.com/g/Austinb/GameQ/?branch=v3)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Austinb/GameQ/badges/quality-score.png?b=v3&style=flat-square)](https://scrutinizer-ci.com/g/Austinb/GameQ/?branch=v3)
-[![License](https://img.shields.io/badge/license-LGPL-blue.svg?style=flat)](https://packagist.org/packages/austinb/gameq)
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VAU2KADATP5PU)
+# GameQ
 
-GameQ is a PHP library that allows you to query multiple types of multiplayer game & voice servers at the same time.
+> **This version of GameQ is no longer actively maintained.**  
+> For ongoing development, current PHP support, protocol updates, fixes, and releases, please use the maintained successor: [**SoftCreatRMedia/GameQ**](https://github.com/SoftCreatRMedia/GameQ).
 
-## Requirements
-* PHP 5.6.40+ - [Tested](https://github.com/Austinb/GameQ/actions/workflows/Tests.yml) in PHP 5.6, 7.0, 7.1, 7.2, 7.3, 7.4, 8.0, 8.1, 8.2, 8.3 & 8.4
-* [Bzip2](http://www.php.net/manual/en/book.bzip2.php) - Used for A2S Compressed responses
+GameQ is a PHP library for querying multiple types of multiplayer game and voice servers.
 
-## Installation
-#### [Composer](https://getcomposer.org/)
-This method assumes you already have composer [installed](https://getcomposer.org/doc/00-intro.md) and working properly. Add `austinb/gameq` as a requirement to composer.json by using `composer require austinb/gameq:~3.1` or by manually adding the following to the *composer.json* file in the **require** section:
+The project originated on SourceForge and was later continued in this repository as GameQ Version 3. The latest stable release of this package is `v3.1.0`, and no further stable releases are currently being published from this repository.
 
-```javascript
-"austinb/gameq": "~3.1"
+## Maintained successor
+
+[SoftCreatRMedia/GameQ](https://github.com/SoftCreatRMedia/GameQ) is the actively maintained continuation of the GameQ codebase.
+
+It preserves the `GameQ\` namespace and the overall purpose and architecture of the original library while providing:
+
+- support for PHP 8.1 and newer;
+- ongoing game and server-query protocol development;
+- fixes for current games and server implementations;
+- security and protocol-hardening improvements;
+- modern PHPUnit, PHPStan, PHP_CodeSniffer, and compatibility checks;
+- maintained releases and documentation.
+
+Resources:
+
+- Repository: [https://github.com/SoftCreatRMedia/GameQ](https://github.com/SoftCreatRMedia/GameQ)
+- Packagist: [https://packagist.org/packages/softcreatr/gameq](https://packagist.org/packages/softcreatr/gameq)
+- Documentation: [https://github.com/SoftCreatRMedia/GameQ/wiki](https://github.com/SoftCreatRMedia/GameQ/wiki)
+- Supported servers and protocols: [https://github.com/SoftCreatRMedia/GameQ/wiki/Supported-Servers](https://github.com/SoftCreatRMedia/GameQ/wiki/Supported-Servers)
+- Migration from 4.x to 5.x: [https://github.com/SoftCreatRMedia/GameQ/wiki/Upgrading-from-4.x](https://github.com/SoftCreatRMedia/GameQ/wiki/Upgrading-from-4.x)
+
+Install the maintained version with Composer:
+
+```bash
+composer require softcreatr/gameq:^5.2
 ```
 
-Update your packages with `composer update` or install with `composer install`.
+### Migration note
 
-#### Standalone Library
-Download the [latest version](https://github.com/Austinb/GameQ/releases) of the library and unpack it into your project.  Add the following to your bootstrap file:
-```php
-require_once('/path/to/src/GameQ/Autoloader.php');
-```
-The Autoloader.php file provides the same auto loading functionality as the Composer install.
+`softcreatr/gameq` continues the original GameQ codebase, but current 5.x releases include deliberate API modernization and require PHP 8.1 or newer.
 
-## Useage
-```php
-$GameQ = new \GameQ\GameQ();
-$GameQ->addServer([
-    'type' => 'css',
-    'host' => '127.0.0.1:27015',
-]);
-$results = $GameQ->process();
-```
-Need more? See the [Examples](https://github.com/Austinb/GameQ/wiki/Examples-v3) as well as the [Documentation](https://austinb.github.io/GameQ/api/).
+Projects currently using `austinb/gameq` should therefore explicitly replace their Composer dependency and review the maintained project's documentation when migrating rather than assuming that every 3.x integration is automatically interchangeable with 5.x.
 
-## Contributing 
- 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+## Historical documentation
 
-## License
-See [LICENSE](LICENSE.lgpl) for more information
+Documentation for this original 3.x version remains available for existing installations:
 
-## Third Party Provider
+- [Examples](https://github.com/Austinb/GameQ/wiki/Examples-v3)
+- [API documentation](https://austinb.github.io/GameQ/api/)
 
-* [dev.tkirch.wsc.gameq](https://github.com/tkirchDev/dev.tkirch.wsc.gameq) - Provides the "Austinb GameQ" library at the WSC.
+Existing applications that must remain on GameQ 3.x can continue using the existing release, but new development and future maintenance should target the maintained successor.
 
-Donations
-=========
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=VAU2KADATP5PU)
+## Attribution and license
+
+The maintained successor preserves attribution to the original GameQ authors and continues to use the GNU Lesser General Public License, version 3 or later.
+
+- Original project: [https://github.com/Austinb/GameQ](https://github.com/Austinb/GameQ)
+- Maintained successor: [https://github.com/SoftCreatRMedia/GameQ](https://github.com/SoftCreatRMedia/GameQ)
+- License in this repository: [LICENSE.lgpl](LICENSE.lgpl)
+- License in the maintained successor: [LICENSE.lgpl](https://github.com/SoftCreatRMedia/GameQ/blob/main/LICENSE.lgpl)
